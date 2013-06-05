@@ -142,7 +142,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="opis">
      <attribute name="title">
@@ -210,7 +210,7 @@
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="pushButton_9">
+     <widget class="QPushButton" name="pushButton_OBSave">
       <property name="geometry">
        <rect>
         <x>339</x>
@@ -223,7 +223,7 @@
        <string>Zapisz</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_10">
+     <widget class="QPushButton" name="pushButton_OBDel">
       <property name="geometry">
        <rect>
         <x>507</x>
@@ -309,7 +309,7 @@
        </property>
       </column>
      </widget>
-     <widget class="QPushButton" name="pushButton_11">
+     <widget class="QPushButton" name="pushButton_PRODSave">
       <property name="geometry">
        <rect>
         <x>306</x>
@@ -322,7 +322,7 @@
        <string>Zapisz</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_12">
+     <widget class="QPushButton" name="pushButton_PRODDel">
       <property name="geometry">
        <rect>
         <x>504</x>
@@ -403,7 +403,7 @@
        <string>Dystrybucja</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_13">
+     <widget class="QPushButton" name="pushButton_DYSTSave">
       <property name="geometry">
        <rect>
         <x>306</x>
@@ -416,7 +416,7 @@
        <string>Zapisz</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_14">
+     <widget class="QPushButton" name="pushButton_DYSTDel">
       <property name="geometry">
        <rect>
         <x>504</x>
@@ -1334,7 +1334,7 @@
        <string>Lokalizacje zdjęciowe</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_15">
+     <widget class="QPushButton" name="pushButton_LZSave">
       <property name="geometry">
        <rect>
         <x>288</x>
@@ -1347,7 +1347,7 @@
        <string>Zapisz</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_16">
+     <widget class="QPushButton" name="pushButton_LZDel">
       <property name="geometry">
        <rect>
         <x>498</x>
@@ -1367,7 +1367,7 @@
      </attribute>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pushButton_First">
     <property name="geometry">
      <rect>
       <x>15</x>
@@ -1380,7 +1380,7 @@
      <string>|&lt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="pushButton_Prev">
     <property name="geometry">
      <rect>
       <x>63</x>
@@ -1393,7 +1393,7 @@
      <string>&lt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="pushButton_Next">
     <property name="geometry">
      <rect>
       <x>108</x>
@@ -1406,7 +1406,7 @@
      <string>&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="pushButton_Last">
     <property name="geometry">
      <rect>
       <x>156</x>
@@ -1419,7 +1419,7 @@
      <string>&gt;|</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="pushButton_New">
     <property name="geometry">
      <rect>
       <x>285</x>
@@ -1432,7 +1432,7 @@
      <string>Nowy</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="pushButton_Save">
     <property name="geometry">
      <rect>
       <x>369</x>
@@ -1445,7 +1445,7 @@
      <string>Zapisz</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_7">
+   <widget class="QPushButton" name="pushButton_Del">
     <property name="geometry">
      <rect>
       <x>477</x>
@@ -1458,7 +1458,7 @@
      <string>Usuń</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_8">
+   <widget class="QPushButton" name="pushButton_IntWiz">
     <property name="geometry">
      <rect>
       <x>585</x>

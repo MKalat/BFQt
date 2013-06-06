@@ -1001,9 +1001,9 @@ bool MainWindow::Del_Film_Rec(void)
                 plik.open(QFile::WriteOnly);
                 plik.seek(zadana_pozycja_pliku);
                 plik.write(static_cast<char *>(&flm.film_tbl),sizeof(struct Film));
-                plik.close();
 
                 plik.rename(L"BF_PDB.bf0");
+                plik.close();
 
                 QFile plik(flm.pths.BF_PDB);
                 plik.open(QFile::WriteOnly);
@@ -1053,53 +1053,42 @@ bool MainWindow::Licz_Rec(void)
     QFile fi(flm.pths.BF_PDB);
     if (fi.exists())
         {
-            if (status.m_size == 0)
+            if (fi.size() == 0)
                 {
 
-                    this->F_EDIT_RecCount.SetWindowTextW(_TEXT("0"));
-                    this->F_EDIT_RecPos.SetWindowTextW(_TEXT("0"));
+                    ui->lineEdit_RecNo->setText(_TEXT("0"));
+                    ui->lineEdit_RecCount->setText(_TEXT("0"));
                     return true;
                 }
             else
                 {
-                    if (flm.sort)
+                    // policz rekordy w trybie niesortowanym i wypełnij Film_tab_wsk
+                    QFile plik(flm.pths.BF_PDB);
+                    struct Film film_test;
+                    plik.open(QFile::ReadOnly);
+                    LONGLONG stop = 0;
+                    stop = plik.size();
+                    LONGLONG i = 0;
+                    int cur_rec = 0;
+                    int rec_count = 0;
+                    wchar_t crec_txt[34];
+                    wchar_t recc_txt[34];
+                    for (i = 0; i < stop; )
                     {
-                            wchar_t crec_txt[34];
-                            wchar_t recc_txt[34];
-                            _itow((sort_idx + 1),crec_txt,10);
-                            _itow(flm.film_tbl_wsk.GetCount(),recc_txt,10);
-                            F_EDIT_RecPos.SetWindowTextW(crec_txt);
-                            F_EDIT_RecCount.SetWindowTextW(recc_txt);
-                    }
-                    else
-                    {
-                            // policz rekordy w trybie niesortowanym i wypełnij Film_tab_wsk
-                        CFile plik;
-                        struct Film film_test;
-                        plik.Open(flm.pths.BF_PDB,CFile::modeRead);
-                        LONGLONG stop = 0;
-                        stop = plik.SeekToEnd();
-                        LONGLONG i = 0;
-                        int cur_rec = 0;
-                        int rec_count = 0;
-                        wchar_t crec_txt[34];
-                        wchar_t recc_txt[34];
-                        for (i = 0; i < stop; )
+                        plik.seek(i);
+                        plik.read(static_cast<char *>(&film_test),sizeof(film_test));
+                        rec_count = rec_count + 1;
+                        if (flm.film_tbl.ID == film_test.ID)
                         {
-                            plik.Seek(i,CFile::begin);
-                            plik.Read(&film_test,sizeof(film_test));
-                            rec_count = rec_count + 1;
-                            if (flm.film_tbl.ID == film_test.ID)
-                            {
-                                cur_rec = rec_count;
-                            }
+                            cur_rec = rec_count;
+                        }
 
                             i = i + sizeof(film_test);
                         }
                             _itow(cur_rec,crec_txt,10);
                             _itow(rec_count,recc_txt,10);
-                            F_EDIT_RecPos.SetWindowTextW(crec_txt);
-                            F_EDIT_RecCount.SetWindowTextW(recc_txt);
+                            ui->lineEdit_RecNo->setText(crec_txt);
+                            ui->lineEdit_RecCount->setText(recc_txt);
 
                     }
 
@@ -1109,13 +1098,13 @@ bool MainWindow::Licz_Rec(void)
                 }
         }
 }
-void CBibliotekaFilmówDlg::Read_Settings()
+void MainWindow::Read_Settings()
 {
 //TODO : Napisać odczytywanie ustawień, jak nie ma utworzyc plik z domyślnymi
 
 }
 
-void CBibliotekaFilmówDlg::SetDBFNPaths(bool cust, wchar_t* cust_path)
+void MainWindow::SetDBFNPaths(bool cust, wchar_t* cust_path)
 {
     _tcscpy(flm.pths.BF_PDB,L"BF_PDB.bf");
     _tcscpy(flm.pths.BF_OC,L"BF_OC.bf");
@@ -1253,99 +1242,70 @@ void CBibliotekaFilmówDlg::SetDBFNPaths(bool cust, wchar_t* cust_path)
 
 }
 
-void CBibliotekaFilmówDlg::Disable_BTNS_NOREC()
+void MainWindow::Disable_BTNS_NOREC()
 {
-    this->TAB_DOE_BUTTON_OklP_Otw.EnableWindow(FALSE);
-    this->TAB_DOE_BUTTON_OklP_Usun.EnableWindow(FALSE);
-    this->TAB_DOE_BUTTON_OklT_Otw.EnableWindow(FALSE);
-    this->TAB_DOE_BUTTON_OklT_Usun.EnableWindow(FALSE);
-    tab_oc->FRM_F_Oc_BUTTON_Nowy.EnableWindow(FALSE);
-    tab_oc->FRM_F_Oc_BUTTON_Usun.EnableWindow(FALSE);
-    tab_oc->FRM_F_Oc_BUTTON_Zapisz.EnableWindow(FALSE);
-    tab_oc->FRM_F_Oc_BUTTON_Zatwierdz.EnableWindow(FALSE);
-    tab_oc->FRM_F_OC_EDYTUJ.EnableWindow(FALSE);
-    tab_ob->FRM_F_BUTTON_OB_EDYTUJ.EnableWindow(FALSE);
-    tab_ob->FRM_F_BUTTON_OB_NOWY.EnableWindow(FALSE);
-    tab_ob->FRM_F_BUTTON_OB_USUN.EnableWindow(FALSE);
-    tab_ob->FRM_F_BUTTON_OB_ZAPISZ.EnableWindow(FALSE);
-    tab_ob->FRM_F_BUTTON_OB_ZATWIERDZ.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WI_BTN_EDYTUJ.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WI_BTN_NOWY.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WI_BTN_USUN.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WI_BTN_ZAPISZ.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WI_BTN_ZATWIERDZ.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WO_BTN_EDYTUJ.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WO_BTN_NOWY.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WO_BTN_USUN.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WO_BTN_ZAPISZ.EnableWindow(FALSE);
-    tab_b->FRM_F_B_WO_BTN_ZATWIERDZ.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_PD_EDYTUJ.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_PD_NOWY.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_PD_USUN.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_PD_ZAPISZ.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_pd_ZATWIERDZ.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_Pp_Edytuj.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_Pp_Nowy.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_Pp_Usun.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_Pp_Zapisz.EnableWindow(FALSE);
-    tab_p->FRM_F_BUTTON_pp_ZATWIERDZ.EnableWindow(FALSE);
-    tab_iof->FRM_F_BUTTON_IOF_Edytuj.EnableWindow(FALSE);
-    tab_iof->FRM_F_BUTTON_IOF_Nowy.EnableWindow(FALSE);
-    tab_iof->FRM_F_BUTTON_IOF_Usun.EnableWindow(FALSE);
-    tab_iof->FRM_F_BUTTON_IOF_Zapisz.EnableWindow(FALSE);
-    tab_iof->FRM_F_BUTTON_IOF_Zatwierdz.EnableWindow(FALSE);
-
+    ui->pushButton_LoadPic->setEnabled(FALSE);
+    ui->pushButton_DelPic->setEnabled(FALSE);
+    //ui->pushthis->TAB_DOE_BUTTON_OklT_Otw.EnableWindow(FALSE);
+    //this->TAB_DOE_BUTTON_OklT_Usun.EnableWindow(FALSE);
+    ui->pushButton_OC_New->setEnabled(FALSE);
+    ui->pushButton_OC_Del->setEnabled(FALSE);
+    ui->pushButton_OC_Save->setEnabled(FALSE);
+    ui->pushButton_OB_new->setEnabled(FALSE);
+    ui->pushButton_OBDel->setEnabled(FALSE);
+    ui->pushButton_OBSave->setEnabled(FALSE);
+    ui->pushButton_B_WYPIN_New->setEnabled(FALSE);
+    ui->pushButton_BIBLIOWYPINDel->setEnabled(FALSE);
+    ui->pushButton_BIBLIOWYPISave->setEnabled(FALSE);
+    ui->pushButton_B_WYPODIN_New->setEnabled(FALSE);
+    ui->pushButton_BIBLIOWYPODINDel->setEnabled(FALSE);
+    ui->pushButton_BIBLIOWYPODINSave->setEnabled(FALSE);
+    ui->pushButton_D_New->setEnabled(FALSE);
+    ui->pushButton_DYSTDel->setEnabled(FALSE);
+    ui->pushButton_DYSTSave->setEnabled(FALSE);
+    ui->pushButto_P_New->setEnabled(FALSE);
+    ui->pushButton_PRODDel->setEnabled(FALSE);
+    ui->pushButton_PRODSave->setEnabled(FALSE);
+    ui->pushButton_LZ_New->setEnabled(FALSE);
+    ui->pushButton_LZDel->setEnabled(FALSE);
+    ui->pushButton_LZSave->setEnabled(FALSE);
 
 }
 
-void CBibliotekaFilmówDlg::Enable_BTNS_NOREC()
+void MainWindow::Enable_BTNS_NOREC()
 {
-    this->TAB_DOE_BUTTON_OklP_Otw.EnableWindow(TRUE);
-    this->TAB_DOE_BUTTON_OklP_Usun.EnableWindow(TRUE);
-    this->TAB_DOE_BUTTON_OklT_Otw.EnableWindow(TRUE);
-    this->TAB_DOE_BUTTON_OklT_Usun.EnableWindow(TRUE);
-    tab_oc->FRM_F_Oc_BUTTON_Nowy.EnableWindow(TRUE);
-    tab_oc->FRM_F_Oc_BUTTON_Usun.EnableWindow(TRUE);
-    tab_oc->FRM_F_Oc_BUTTON_Zapisz.EnableWindow(TRUE);
-    tab_oc->FRM_F_Oc_BUTTON_Zatwierdz.EnableWindow(TRUE);
-    tab_oc->FRM_F_OC_EDYTUJ.EnableWindow(TRUE);
-    tab_ob->FRM_F_BUTTON_OB_EDYTUJ.EnableWindow(TRUE);
-    tab_ob->FRM_F_BUTTON_OB_NOWY.EnableWindow(TRUE);
-    tab_ob->FRM_F_BUTTON_OB_USUN.EnableWindow(TRUE);
-    tab_ob->FRM_F_BUTTON_OB_ZAPISZ.EnableWindow(TRUE);
-    tab_ob->FRM_F_BUTTON_OB_ZATWIERDZ.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WI_BTN_EDYTUJ.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WI_BTN_NOWY.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WI_BTN_USUN.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WI_BTN_ZAPISZ.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WI_BTN_ZATWIERDZ.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WO_BTN_EDYTUJ.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WO_BTN_NOWY.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WO_BTN_USUN.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WO_BTN_ZAPISZ.EnableWindow(TRUE);
-    tab_b->FRM_F_B_WO_BTN_ZATWIERDZ.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_PD_EDYTUJ.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_PD_NOWY.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_PD_USUN.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_PD_ZAPISZ.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_pd_ZATWIERDZ.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_Pp_Edytuj.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_Pp_Nowy.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_Pp_Usun.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_Pp_Zapisz.EnableWindow(TRUE);
-    tab_p->FRM_F_BUTTON_pp_ZATWIERDZ.EnableWindow(TRUE);
-    tab_iof->FRM_F_BUTTON_IOF_Edytuj.EnableWindow(TRUE);
-    tab_iof->FRM_F_BUTTON_IOF_Nowy.EnableWindow(TRUE);
-    tab_iof->FRM_F_BUTTON_IOF_Usun.EnableWindow(TRUE);
-    tab_iof->FRM_F_BUTTON_IOF_Zapisz.EnableWindow(TRUE);
-    tab_iof->FRM_F_BUTTON_IOF_Zatwierdz.EnableWindow(TRUE);
+    ui->pushButton_LoadPic->setEnabled(TRUE);
+    ui->pushButton_DelPic->setEnabled(TRUE);
+    //ui->pushthis->TAB_DOE_BUTTON_OklT_Otw.EnableWindow(FALSE);
+    //this->TAB_DOE_BUTTON_OklT_Usun.EnableWindow(FALSE);
+    ui->pushButton_OC_New->setEnabled(TRUE);
+    ui->pushButton_OC_Del->setEnabled(TRUE);
+    ui->pushButton_OC_Save->setEnabled(TRUE);
+    ui->pushButton_OB_new->setEnabled(TRUE);
+    ui->pushButton_OBDel->setEnabled(TRUE);
+    ui->pushButton_OBSave->setEnabled(TRUE);
+    ui->pushButton_B_WYPIN_New->setEnabled(TRUE);
+    ui->pushButton_BIBLIOWYPINDel->setEnabled(TRUE);
+    ui->pushButton_BIBLIOWYPISave->setEnabled(TRUE);
+    ui->pushButton_B_WYPODIN_New->setEnabled(TRUE);
+    ui->pushButton_BIBLIOWYPODINDel->setEnabled(TRUE);
+    ui->pushButton_BIBLIOWYPODINSave->setEnabled(TRUE);
+    ui->pushButton_D_New->setEnabled(TRUE);
+    ui->pushButton_DYSTDel->setEnabled(TRUE);
+    ui->pushButton_DYSTSave->setEnabled(TRUE);
+    ui->pushButto_P_New->setEnabled(TRUE);
+    ui->pushButton_PRODDel->setEnabled(TRUE);
+    ui->pushButton_PRODSave->setEnabled(TRUE);
+    ui->pushButton_LZ_New->setEnabled(TRUE);
+    ui->pushButton_LZDel->setEnabled(TRUE);
+    ui->pushButton_LZSave->setEnabled(TRUE);
 
 }
-bool CBibliotekaFilmówDlg::CheckOLDDB()
+bool MainWindow::CheckOLDDB()
 {
     bool test[9];
-    CFileStatus status;
-    if (CFile::GetStatus(_TEXT("BF.bf"),status))
+    QFile fi(_TEXT("BF.bf"));
+    if (fi.exists())
     {
         test[0] = true;
     }
@@ -1353,8 +1313,8 @@ bool CBibliotekaFilmówDlg::CheckOLDDB()
     {
         test[0] = false;
     }
-
-    if (CFile::GetStatus(_TEXT("BF_PDB.bf"),status))
+    QFile fi(_TEXT("BF_PDB.bf"));
+    if (fi.exists())
     {
         test[1] = true;
     }
@@ -1362,8 +1322,8 @@ bool CBibliotekaFilmówDlg::CheckOLDDB()
     {
         test[1] = false;
     }
-
-    if (CFile::GetStatus(_TEXT("BF_OC.bf"),status))
+    QFile fi(_TEXT("BF_OC.bf"));
+    if (fi.exists())
     {
         test[2] = true;
     }
@@ -1371,8 +1331,8 @@ bool CBibliotekaFilmówDlg::CheckOLDDB()
     {
         test[2] = false;
     }
-
-    if (CFile::GetStatus(_TEXT("BF_OB.bf"),status))
+    QFile fi(_TEXT("BF_OB.bf");
+    if (fi.exists())
     {
         test[3] = true;
     }
@@ -1380,8 +1340,8 @@ bool CBibliotekaFilmówDlg::CheckOLDDB()
     {
         test[3] = false;
     }
-
-    if (CFile::GetStatus(_TEXT("BF_PRB.bf"),status))
+    QFile fi(_TEXT("BF_PRB.bf"));
+    if (fi.exists())
     {
         test[4] = true;
     }
@@ -1389,8 +1349,8 @@ bool CBibliotekaFilmówDlg::CheckOLDDB()
     {
         test[4] = false;
     }
-
-    if (CFile::GetStatus(_TEXT("BF_PRD.bf"),status))
+    QFile fi(_TEXT("BF_PRD.bf"));
+    if (fi.exists())
     {
         test[5] = true;
     }
@@ -1398,8 +1358,8 @@ bool CBibliotekaFilmówDlg::CheckOLDDB()
     {
         test[5] = false;
     }
-
-    if (CFile::GetStatus(_TEXT("BF_LZ.bf"),status))
+    QFile fi(_TEXT("BF_LZ.bf"));
+    if (fi.exists())
     {
         test[6] = true;
     }
@@ -1407,8 +1367,8 @@ bool CBibliotekaFilmówDlg::CheckOLDDB()
     {
         test[6] = false;
     }
-
-    if (CFile::GetStatus(_TEXT("BF_WI.bf"),status))
+    QFile fi(_TEXT("BF_WI.bf"));
+    if (fi.exists())
     {
         test[7] = true;
     }
@@ -1416,8 +1376,8 @@ bool CBibliotekaFilmówDlg::CheckOLDDB()
     {
         test[7] = false;
     }
-
-    if (CFile::GetStatus(_TEXT("BF_WO.bf"),status))
+    QFile fi(_TEXT("BF_WO.bf"));
+    if (fi.exists())
     {
         test[8] = true;
     }
@@ -1437,9 +1397,9 @@ bool CBibliotekaFilmówDlg::CheckOLDDB()
 
 }
 
-void CBibliotekaFilmówDlg::KopiujOLDDB()
+void MainWindow::KopiujOLDDB()
 {
-    CString buff_path;
+    QString buff_path;
     buff_path = flm.pths.cur_db_path;
     CopyFile(_TEXT("BF.bf"),buff_path + _TEXT("BF.bf"),FALSE);
     CopyFile(_TEXT("BF_PDB.bf"),buff_path + _TEXT("BF_PDB.bf"),FALSE);
@@ -1461,7 +1421,7 @@ void CBibliotekaFilmówDlg::KopiujOLDDB()
     DeleteFile(_TEXT("BF_LZ.bf"));
 }
 
-void CBibliotekaFilmówDlg::SetBTNIcons()
+/*void MainWindow::SetBTNIcons()
 {
     HANDLE bt_new, bt_del, bt_save;
     bt_new = LoadImage(theApp.m_hInstance,MAKEINTRESOURCE(IDI_ICON2),IMAGE_ICON,NULL,NULL,NULL);
@@ -1472,7 +1432,7 @@ void CBibliotekaFilmówDlg::SetBTNIcons()
     this->FRM_F_Save_BUTTON.SendMessageW(BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)bt_save);
     this->FRM_F_Del_BUTTON.SendMessageW(BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)bt_del);
 
-}
+}*/
 
 void CBibliotekaFilmówDlg::OnOperacjeOtw32776()
 {

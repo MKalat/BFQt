@@ -142,7 +142,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="opis">
      <attribute name="title">
@@ -163,6 +163,244 @@
       <property name="horizontalScrollBarPolicy">
        <enum>Qt::ScrollBarAsNeeded</enum>
       </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Ocena</string>
+     </attribute>
+     <widget class="QLabel" name="label_45">
+      <property name="geometry">
+       <rect>
+        <x>3</x>
+        <y>3</y>
+        <width>142</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Zasoby poświęcone tytułowi</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>3</x>
+        <y>18</y>
+        <width>577</width>
+        <height>181</height>
+       </rect>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::DoubleClicked</set>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="dragDropOverwriteMode">
+       <bool>false</bool>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>150</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Nazwa</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Tytuł tekstu</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Autor tekstu</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Strona WWW</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Ocena krytyka</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QPushButton" name="pushButton_OC_New">
+      <property name="geometry">
+       <rect>
+        <x>237</x>
+        <y>201</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nowy</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_OC_Save">
+      <property name="geometry">
+       <rect>
+        <x>318</x>
+        <y>201</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Zapisz</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_OC_Del">
+      <property name="geometry">
+       <rect>
+        <x>504</x>
+        <y>201</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Usuń</string>
+      </property>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_6">
+      <property name="geometry">
+       <rect>
+        <x>6</x>
+        <y>234</y>
+        <width>574</width>
+        <height>85</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Ocena własna</string>
+      </property>
+      <widget class="QLabel" name="label_46">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>15</y>
+         <width>100</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Ściezka dźwiękowa</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_47">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>36</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Obsada</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_48">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>57</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Całość</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit_OC_OW_SD">
+       <property name="geometry">
+        <rect>
+         <x>108</x>
+         <y>12</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit_OC_OW_Obs">
+       <property name="geometry">
+        <rect>
+         <x>108</x>
+         <y>33</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit__OC_OW_All">
+       <property name="geometry">
+        <rect>
+         <x>108</x>
+         <y>54</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_49">
+       <property name="geometry">
+        <rect>
+         <x>231</x>
+         <y>15</y>
+         <width>46</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Zdjęcia</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_50">
+       <property name="geometry">
+        <rect>
+         <x>231</x>
+         <y>33</y>
+         <width>106</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Wartość artystyczna</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit__OC_OW_Zdj">
+       <property name="geometry">
+        <rect>
+         <x>339</x>
+         <y>12</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit__OC_OW_WA">
+       <property name="geometry">
+        <rect>
+         <x>339</x>
+         <y>33</y>
+         <width>113</width>
+         <height>20</height>
+        </rect>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="obsada">

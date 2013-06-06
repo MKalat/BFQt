@@ -1,5 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QFileInfo>
+#include <QMessageBox>
+#include <QFile>
+#include <QDir>
 
 struct Film Ftbl::film_tbl;    // struktura mieszczaca jeden rekord form film
 bool Ftbl::sort = false;
@@ -11,7 +15,7 @@ unsigned int sort_idx = 0; // zmienna pomocnicza slużaca do poruszania sie po i
 LONGLONG zadana_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
 ULONGLONG akt_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
 
-wchar_t akt_BF_VER[16] = L"1.0.2.0";
+wchar_t akt_BF_VER[16] = L"1.0.6.0";
 bool first_act = true;
 bool start = true; // oznacza czy aplikacja startuje;
 bool open_folder = false;
@@ -65,147 +69,92 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_First_clicked()
 {
-    if (flm.sort == true)
-        {
-            zadana_pozycja_pliku = flm.film_tbl_wsk.GetAt(0);
-            sort_idx = 0;
-            Licz_Rec();
-            ClearCtrls(false);
-            UpdateCtrls(false,false);
-        }
-        else
-        {
-            if (!(Licz_Rec()))
-            {
-                //OnBnClickedButtonFrmFSave();
-                zadana_pozycja_pliku = 0;
-                ClearCtrls(false);
-                UpdateCtrls(false,false);
-                Licz_Rec();
-            }
-        }
+    if (!(Licz_Rec()))
+    {
+        //OnBnClickedButtonFrmFSave();
+        zadana_pozycja_pliku = 0;
+        ClearCtrls(false);
+        UpdateCtrls(false,false);
+        Licz_Rec();
+    }
+
 }
 
 void MainWindow::on_pushButton_Prev_clicked()
 {
-    if (flm.sort == true)
+    if (!(Licz_Rec()))
+    {
+        //OnBnClickedButtonFrmFSave();
+        if (zadana_pozycja_pliku > 0)
         {
-            if (!(sort_idx == 0))
-            {
-                sort_idx = sort_idx - 1;
-                zadana_pozycja_pliku = flm.film_tbl_wsk.GetAt(sort_idx);
-                Licz_Rec();
-                ClearCtrls(false);
-                UpdateCtrls(false,false);
-            }
+            zadana_pozycja_pliku = zadana_pozycja_pliku - (sizeof(struct Film));
         }
-        else
+        else if (zadana_pozycja_pliku < 0)
         {
-            if (!(Licz_Rec()))
-            {
-                //OnBnClickedButtonFrmFSave();
-                if (zadana_pozycja_pliku > 0)
-                {
-                        zadana_pozycja_pliku = zadana_pozycja_pliku - (sizeof(struct Film));
-                }
-                else if (zadana_pozycja_pliku < 0)
-                {
-                    zadana_pozycja_pliku = 0;
-                }
-                ClearCtrls(false);
-                UpdateCtrls(false,false);
-                Licz_Rec();
-            }
+            zadana_pozycja_pliku = 0;
         }
+        ClearCtrls(false);
+        UpdateCtrls(false,false);
+        Licz_Rec();
+
+    }
 }
 
 void MainWindow::on_pushButton_Next_clicked()
 {
-    if (flm.sort == true)
+    if (!(Licz_Rec()))
+    {
+        //OnBnClickedButtonFrmFSave();
+        zadana_pozycja_pliku = zadana_pozycja_pliku + (sizeof(struct Film));
+        if (zadana_pozycja_pliku >= Search_Last_Pos())
         {
-            if (sort_idx < (flm.film_tbl_wsk.GetCount() - 1))
-            {
-                sort_idx = sort_idx + 1;
-                zadana_pozycja_pliku = flm.film_tbl_wsk.GetAt(sort_idx);
-                Licz_Rec();
-                ClearCtrls(false);
-                UpdateCtrls(false,false);
+            zadana_pozycja_pliku = 0;
+        }
+        ClearCtrls(false);
+        UpdateCtrls(false,false);
+        Licz_Rec();
+    }
 
-            }
-        }
-        else
-        {
-            if (!(Licz_Rec()))
-            {
-                //OnBnClickedButtonFrmFSave();
-                zadana_pozycja_pliku = zadana_pozycja_pliku + (sizeof(struct Film));
-                if (zadana_pozycja_pliku >= Search_Last_Pos())
-                {
-                    zadana_pozycja_pliku = 0;
-                }
-                ClearCtrls(false);
-                UpdateCtrls(false,false);
-                Licz_Rec();
-            }
-        }
 }
 
 void MainWindow::on_pushButton_Last_clicked()
 {
-    if (flm.sort == true)
-        {
-            sort_idx = flm.film_tbl_wsk.GetCount() - 1;
-            zadana_pozycja_pliku = flm.film_tbl_wsk.GetAt(sort_idx);
-            Licz_Rec();
-            ClearCtrls(false);
-            UpdateCtrls(false,false);
+    if (!(Licz_Rec()))
+    {
+        //OnBnClickedButtonFrmFSave();
+        zadana_pozycja_pliku = MainWindow::Search_Last_Pos() - (sizeof(flm.film_tbl));
+        ClearCtrls(true);
+        UpdateCtrls(false,false);
+        Licz_Rec();
 
-        }
-        else
-        {
-            if (!(Licz_Rec()))
-            {
-                //OnBnClickedButtonFrmFSave();
-                zadana_pozycja_pliku = MainWindow::Search_Last_Pos() - (sizeof(flm.film_tbl));
-                ClearCtrls(true);
-                UpdateCtrls(false,false);
-                Licz_Rec();
-            }
-        }
+    }
 }
 
 void MainWindow::on_pushButton_New_clicked()
 {
-    if (flm.sort == true)
-        {
-            MessageBoxW(L"W trybie sortowanym nie można dodawać nowych rekordów",L"Biblioteka Filmów",MB_OK);
-        }
-        else
-        {
+    ClearCtrls(true); // wyczyść kontrolki
 
-            ClearCtrls(true); // wyczyść kontrolki
-
-            bool test;
-            if (Licz_Rec() == true)
-            {
-                test = MainWindow::Film_DodajRec(true);                   // wywołaj procedure dodania nowego rekordu włącznie z zapisem
-            }
-            else
-            {
-                test = MainWindow::Film_DodajRec(false);
-            }
-            if (test)
-            {
-                ClearCtrls(false);
-                UpdateCtrls(false,false); // odswież kontrolki
-                Licz_Rec();
-                MainWindow::Enable_BTNS_NOREC();
-            }
-            else
-            {
+    bool test;
+    if (Licz_Rec() == true)
+    {
+        test = MainWindow::Film_DodajRec(true);                   // wywołaj procedure dodania nowego rekordu włącznie z zapisem
+    }
+    else
+    {
+        test = MainWindow::Film_DodajRec(false);
+    }
+    if (test)
+    {
+        ClearCtrls(false);
+        UpdateCtrls(false,false); // odswież kontrolki
+        Licz_Rec();
+        MainWindow::Enable_BTNS_NOREC();
+    }
+    else
+    {
                 // wyświetl komunikat o błędzie
-            }
-        }
+    }
+
 }
 
 void MainWindow::on_pushButton_Save_clicked()
@@ -595,11 +544,11 @@ if (all)
     wcscpy(flm.film_tbl.skan_tyl_path,L"");
 }
 }
-int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
+int MainWindow::CheckbOpenDB(void) {
 // Sprawdza czy istnieją pliki bazy danych i, jesli tak,  zwraca true.
-    CFileStatus status;
     bool test[9];
-    if (CFile::GetStatus(flm.pths.BF_PDB,status))
+    QFileInfo fi(flm.pths.BF_PDB);
+    if (fi.exists())
     {
         test[0] = true;
     }
@@ -607,7 +556,8 @@ int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
     {
         test[0] = false;
     }
-    if (CFile::GetStatus(flm.pths.BF_OC,status))
+    QFileInfo fi(flm.pths.BF_OC);
+    if (fi.exists())
     {
         test[1] = true;
     }
@@ -615,8 +565,8 @@ int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
     {
         test[1] = false;
     }
-
-    if (CFile::GetStatus(flm.pths.BF_OB,status))
+    QFileInfo fi(flm.pths.BF_OB);
+    if (fi.exists())
     {
         test[2] = true;
     }
@@ -624,7 +574,8 @@ int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
     {
         test[2] = false;
     }
-    if (CFile::GetStatus(flm.pths.BF_PRP,status))
+    QFileInfo fi(flm.pths.BF_PRP);
+    if (fi.exists())
     {
         test[3] = true;
     }
@@ -632,8 +583,8 @@ int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
     {
         test[3] = false;
     }
-
-    if (CFile::GetStatus(flm.pths.BF_PRD,status))
+    QFileInfo fi(flm.pths.BF_PRD);
+    if (fi.exists())
     {
         test[4] = true;
     }
@@ -641,8 +592,8 @@ int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
     {
         test[4] = false;
     }
-
-    if (CFile::GetStatus(flm.pths.BF_LZ,status))
+    QFileInfo fi(flm.pths.BF_LZ);
+    if (fi.exists())
     {
         test[5] = true;
     }
@@ -650,8 +601,8 @@ int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
     {
         test[5] = false;
     }
-
-    if (CFile::GetStatus(flm.pths.BF_WI,status))
+    QFileInfo fi(flm.pths.BF_WI);
+    if (fi.exists())
     {
         test[6] = true;
     }
@@ -659,8 +610,8 @@ int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
     {
         test[6] = false;
     }
-
-    if (CFile::GetStatus(flm.pths.BF_WO,status))
+    QFileInfo fi(flm.pths.BF_WO);
+    if (fi.exists())
     {
         test[7] = true;
     }
@@ -668,7 +619,8 @@ int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
     {
         test[7] = false;
     }
-    if (CFile::GetStatus((flm.pths.BF_MCF), status))
+    QFileInfo fi(flm.pths.BF_MCF);
+    if (fi.exists())
     {
         test[8] = true;
     }
@@ -688,58 +640,66 @@ int CBibliotekaFilmówDlg::CheckbOpenDB(void) {
     }
     else if ((test[0] == false || test[8] == false) && (test[1] == true || test[2] == true || test[3] == true || test[4] == true || test[5] == true || test[6] == true || test[7]== true))
     {
-        MessageBoxW(L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",L"Biblioteka Filmów",MB_OK);
+        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.", QMessageBox::Ok, this);
+        msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[1] == false))
     {
-        MessageBoxW(L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",L"Biblioteka Filmów",MB_OK);
+        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[2] == false))
     {
-        MessageBoxW(L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",L"Biblioteka Filmów",MB_OK);
+        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[3] == false))
     {
-        MessageBoxW(L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",L"Biblioteka Filmów",MB_OK);
+        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[4] == false))
     {
-        MessageBoxW(L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",L"Biblioteka Filmów",MB_OK);
+        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[5] == false))
     {
-        MessageBoxW(L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",L"Biblioteka Filmów",MB_OK);
+        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[6] == false))
     {
-        MessageBoxW(L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",L"Biblioteka Filmów",MB_OK);
+        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[7]== false))
     {
-        MessageBoxW(L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",L"Biblioteka Filmów",MB_OK);
+        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        msgbox.show();
         return 2;
     }
 
 }
 
-bool CBibliotekaFilmówDlg::CheckBFVER(void)
+bool MainWindow::CheckBFVER(void)
 {
 // pobiera strukturę "POMIDOR" z poczatku pliku BF.dat celem sprawdzenia wersji bazy danych i co z tym idzie zgodności z
 // ta wersją BF
 
     struct POMIDOR pom;
-    CFile plik;
-    plik.Open((flm.pths.BF_MCF),CFile::modeRead);
-    plik.Seek(0,CFile::begin);
-    plik.Read(&pom,sizeof(struct POMIDOR));
-    plik.Close();
+    QFile plik(flm.pths.BF_MCF);
+    plik.open(QFile::ReadOnly);
+    plik.seek(0);
+    plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+    plik.close();
     if ((wcscmp(pom.BF_VER,akt_BF_VER)) == 0) {
         return true;
     }
@@ -748,7 +708,7 @@ bool CBibliotekaFilmówDlg::CheckBFVER(void)
     }
 }
 
-bool CBibliotekaFilmówDlg::Fill_Full_Film(bool start)
+bool MainWindow::Fill_Full_Film(bool start)
 {
     if (CheckbOpenDB() == 0) // CheckbOpenDB()
     {
@@ -760,28 +720,28 @@ bool CBibliotekaFilmówDlg::Fill_Full_Film(bool start)
 
             // pobierz pierwsza strukture z pliku "BF_PDB.dat" i przepisz ja do zmiennej struktury Film,
                 // celem wyswietlenia
-                CFile plik;
-                plik.Open(flm.pths.BF_PDB,CFile::modeRead);
+            QFile plik(flm.pths.BF_PDB);
+                plik.open(QFile::ReadOnly);
                 if (start)
                 {
-                    plik.Seek(0,CFile::begin);
+                    plik.seek(0);
                 }
                 else if (start == false)
                 {
-                    plik.Seek(zadana_pozycja_pliku,CFile::begin);
+                    plik.seek(zadana_pozycja_pliku);
                 }
-                plik.Read(&flm.film_tbl,sizeof(struct Film));
-                plik.Close();
+                plik.read(static_cast<char *>(&flm.film_tbl),sizeof(struct Film));
+                plik.close();
 
                 Clear_TABS(); // czyszczenie kontrolek pól list
 
-                tab_oc->Fill_Oc(false); // wypełnianie kontrolek pól list
-                tab_ob->Fill_Ob();
-                tab_p->Fill_PD();
-                tab_p->Fill_PP();
-                tab_iof->Fill_Lz();
-                tab_b->Fill_Wi();
-                tab_b->Fill_Wo();
+                Fill_Oc(false); // wypełnianie kontrolek pól list
+                Fill_Ob();
+                Fill_PD();
+                Fill_PP();
+                Fill_Lz();
+                Fill_Wi();
+                Fill_Wo();
                 return true;
 
         }
@@ -798,25 +758,26 @@ bool CBibliotekaFilmówDlg::Fill_Full_Film(bool start)
 }
 
 
-bool CBibliotekaFilmówDlg::Save_Full_Film(void) {
+bool MainWindow::Save_Full_Film(void) {
     if (CheckbOpenDB() == 0)
     {
         if (CheckBFVER())
         {
                 //  odszukaj zadana strukture z pliku "BF_PDB.dat" i zapisz do pliku zawartosc zmiennej struktury Film,
                 // , a potem odczytaj z pliku,celem wyswietlenia
-                CFile plik;
-                plik.Open((flm.pths.BF_PDB),CFile::modeWrite);
-                akt_pozycja_pliku = plik.Seek(zadana_pozycja_pliku,CFile::begin);
-                plik.Write(&flm.film_tbl,sizeof(flm.film_tbl));
-                plik.Close();
-                tab_oc->Save_Oc();
-                tab_ob->Save_Ob();
-                tab_p->Save_PP();
-                tab_p->Save_PD();
-                tab_iof->Save_Lz();
-                tab_b->Save_Wi();
-                tab_b->Save_Wo();
+            QFile plik(flm.pths.BF_PDB);
+                plik.open(QFile::WriteOnly);
+                akt_pozycja_pliku = zadana_pozycja_pliku;
+                plik.seek(zadana_pozycja_pliku);
+                plik.write(static_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
+                plik.close();
+                Save_Oc();
+                Save_Ob();
+                Save_PP();
+                Save_PD();
+                Save_Lz();
+                Save_Wi();
+                Save_Wo();
                 return true;
 
         }
@@ -831,33 +792,33 @@ bool CBibliotekaFilmówDlg::Save_Full_Film(void) {
 
 }
 
-bool CBibliotekaFilmówDlg::Film_DodajRec(bool first) {
+bool MainWindow::Film_DodajRec(bool first) {
     if (CheckbOpenDB()== 0)
     {
         if (CheckBFVER())
         {
             Oblicz_NewID();
-            CFile plik;
-            plik.Open(flm.pths.BF_PDB,CFile::modeWrite);
+            QFile plik(flm.pths.BF_PDB);
+            plik.open(QFile::WriteOnly);
             //akt_pozycja_pliku = plik.Seek(Search_Last_Pos(),CFile::begin);
             if (first)
             {
-                plik.Seek(0,CFile::begin);
+                plik.seek(0);
             }
             else
             {
-                plik.Seek((plik.SeekToEnd()),CFile::begin);
+                plik.seek(plik.size());
             }
 
-            plik.Write(&flm.film_tbl,sizeof(flm.film_tbl));
-            plik.Close();
+            plik.write(static_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
+            plik.close();
             if (first)
             {
                 zadana_pozycja_pliku = 0;
             }
             else
             {
-                zadana_pozycja_pliku = CBibliotekaFilmówDlg::Search_Last_Pos() - (sizeof(flm.film_tbl));
+                zadana_pozycja_pliku = MainWindow::Search_Last_Pos() - (sizeof(flm.film_tbl));
             }
             return true;
         }
@@ -873,22 +834,22 @@ bool CBibliotekaFilmówDlg::Film_DodajRec(bool first) {
 
 }
 
-void CBibliotekaFilmówDlg::Oblicz_NewID(void) {
+void MainWindow::Oblicz_NewID(void) {
     struct POMIDOR pom;
-    CFile plik;
-    plik.Open((flm.pths.BF_MCF),CFile::modeRead);
-    plik.Seek(0,CFile::begin);
-    plik.Read(&pom,sizeof(struct POMIDOR));
-    plik.Close();
+    QFile plik(flm.pths.BF_MCF);
+    plik.open(QFile::ReadOnly);
+    plik.seek(0);
+    plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+    plik.close();
     flm.film_tbl.ID = pom.najw_ID + 1;
     pom.najw_ID = flm.film_tbl.ID;
-    plik.Open((flm.pths.BF_MCF),CFile::modeWrite);
-    plik.Seek(0,CFile::begin);
-    plik.Write(&pom,sizeof(struct POMIDOR));
-    plik.Close();
+    plik.open(QFile::WriteOnly);
+    plik.seek(0);
+    plik.write(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+    plik.close();
 
 }
-LONGLONG CBibliotekaFilmówDlg::Search_Last_Pos(void) {
+LONGLONG MainWindow::Search_Last_Pos(void) {
     if (!(Licz_Rec()))
     {
 /*
@@ -901,8 +862,8 @@ LONGLONG CBibliotekaFilmówDlg::Search_Last_Pos(void) {
 
 */
         struct Film film_test;
-        CFile plik;
-        plik.Open(flm.pths.BF_PDB,CFile::modeRead);
+        QFile plik(flm.pths.BF_PDB);
+        plik.open(QFile::ReadOnly);
 /*
         LONGLONG i;
         LONGLONG y;
@@ -925,9 +886,9 @@ LONGLONG CBibliotekaFilmówDlg::Search_Last_Pos(void) {
         */
 
         LONGLONG off;
-        off = plik.SeekToEnd();
+        off = plik.size();
 
-        plik.Close();
+        plik.close();
 
         return off;
 
@@ -939,137 +900,138 @@ LONGLONG CBibliotekaFilmówDlg::Search_Last_Pos(void) {
     }
 
 }
-void CBibliotekaFilmówDlg::UtworzDB(bool cust)
+void MainWindow::UtworzDB(bool cust)
 {
-    CFileStatus status;
+
 
     if (cust == false)
     {
-        if (!(CFile::GetStatus(flm.pths.cur_db_path,status) == TRUE))
+        QDir di(flm.pths.cur_db_path);
+        if (!(di.exists() == TRUE))
         {
-            _tmkdir(flm.pths.cur_db_path);
+            QDir::mkpath(flm.pths.cur_db_path);
         }
     }
-    if (!(CFile::GetStatus(flm.pths.BF_COVERS,status) == TRUE))
+    QDir di(flm.pths.BF_COVERS);
+    if (!(di.exists() == TRUE))
     {
-        _tmkdir(flm.pths.BF_COVERS);
+        QDir::mkpath(flm.pths.BF_COVERS);
     }
-
-    if (!(CFile::GetStatus((LPCTSTR)flm.pths.BF_MCF,status) == TRUE))
+    QFile fi(flm.pths.BF_MCF);
+    if (!(fi.exists() == TRUE))
     {
-        CFile bf;
+        QFile bf(flm.pths.BF_MCF);
         struct POMIDOR pom;
         wcscpy(pom.BF_VER,akt_BF_VER);
         pom.najw_ID = 1;
-        bf.Open((LPCTSTR)flm.pths.BF_MCF,CFile::modeCreate);
-        bf.Close();
-        bf.Open((LPCTSTR)flm.pths.BF_MCF,CFile::modeWrite);
-        bf.Write(&pom,sizeof(pom));
-        bf.Close();
+        bf.open(QFile::WriteOnly);
+        bf.close();
+        bf.open(QFile::WriteOnly);
+        bf.write(static_cast<char *>(&pom),sizeof(pom));
+        bf.close();
     }
-
-    if (!(CFile::GetStatus((LPCTSTR)flm.pths.BF_PDB,status) ==  TRUE))
+    QFile fi(flm.pths.BF_PDB);
+    if (!(fi.exists() ==  TRUE))
     {
-        CFile bf_pdb;
-        bf_pdb.Open((LPCTSTR)flm.pths.BF_PDB,CFile::modeCreate);
-        bf_pdb.Close();
+        QFile bf_pdb(flm.pths.BF_PDB);
+        bf_pdb.open(QFile::WriteOnly);
+        bf_pdb.close();
     }
-    if (!(CFile::GetStatus(flm.pths.BF_OC,status) == TRUE))
+    QFile fi(flm.pths.BF_OC);
+    if (!(fi.exists() == TRUE))
     {
-        CFile bf_oc;
-        bf_oc.Open(flm.pths.BF_OC,CFile::modeCreate);
-        bf_oc.Close();
+        QFile bf_oc(flm.pths.BF_OC);
+        bf_oc.open(QFile::WriteOnly);
+        bf_oc.close();
     }
-    if (!(CFile::GetStatus(flm.pths.BF_OB,status) == TRUE))
+    QFile fi(flm.pths.BF_OB);
+    if (!(fi.exists() == TRUE))
     {
-        CFile bf_ob;
-        bf_ob.Open(flm.pths.BF_OB,CFile::modeCreate);
-        bf_ob.Close();
+        QFile bf_ob(flm.pths.BF_OB);
+        bf_ob.open(QFile::WriteOnly);
+        bf_ob.close();
     }
-    if (!(CFile::GetStatus(flm.pths.BF_PRP,status) == TRUE))
+    QFile fi(flm.pths.BF_PRP);
+    if (!(fi.exists() == TRUE))
     {
-        CFile bf_pr;
-        bf_pr.Open(flm.pths.BF_PRP,CFile::modeCreate);
-        bf_pr.Close();
+        QFile bf_pr(flm.pths.BF_PRP);
+        bf_pr.open(QFile::WriteOnly);
+        bf_pr.close();
     }
-    if (!(CFile::GetStatus(flm.pths.BF_PRD,status) == TRUE))
+    QFile fi(flm.pths.BF_PRD);
+    if (!(fi.exists() == TRUE))
     {
-        CFile bf_dr;
-        bf_dr.Open(flm.pths.BF_PRD,CFile::modeCreate);
-        bf_dr.Close();
+        QFile bf_dr(flm.pths.BF_PRD);
+        bf_dr.open(QFile::WriteOnly);
+        bf_dr.close();
     }
-    if (!(CFile::GetStatus(flm.pths.BF_LZ,status) == TRUE))
+    QFile fi(flm.pths.BF_LZ);
+    if (!(fi.exists() == TRUE))
     {
-        CFile bf_lz;
-        bf_lz.Open(flm.pths.BF_LZ,CFile::modeCreate);
-        bf_lz.Close();
+        QFile bf_lz(flm.pths.BF_LZ);
+        bf_lz.open(QFile::WriteOnly);
+        bf_lz.close();
     }
-    if (!(CFile::GetStatus(flm.pths.BF_WI,status) == TRUE))
+    QFile fi(flm.pths.BF_WI);
+    if (!(fi.exists() == TRUE))
     {
-        CFile bf_wi;
-        bf_wi.Open(flm.pths.BF_WI,CFile::modeCreate);
-        bf_wi.Close();
+        QFile bf_wi(flm.pths.BF_WI);
+        bf_wi.open(QFile::WriteOnly);
+        bf_wi.close();
     }
-    if (!(CFile::GetStatus(flm.pths.BF_WO,status) == TRUE))
+    QFile fi(flm.pths.BF_WO);
+    if (!(fi.exists() == TRUE))
     {
-        CFile bf_wo;
-        bf_wo.Open(flm.pths.BF_WO,CFile::modeCreate);
-        bf_wo.Close();
+        QFile bf_wo(flm.pths.BF_WO);
+        bf_wo.open(QFile::WriteOnly);
+        bf_wo.close();
     }
 
 }
 
-bool CBibliotekaFilmówDlg::Del_Film_Rec(void)
+bool MainWindow::Del_Film_Rec(void)
 {
     if (CheckbOpenDB()== 0)
     {
         if (CheckBFVER())
         {
-            if (flm.sort == true)
-            {
-                MessageBoxW(L"W trybie sortowanym nie można usuwać rekordów.",L"Biblioteka Filmów",MB_OK);
-            }
-            else
-            {
-
                 // kasuj rekord i kompaktuj baze danych
                 flm.film_tbl.ID = 0;
-                CFile plik;
-                plik.Open((LPCTSTR)flm.pths.BF_PDB,CFile::modeWrite);
-                plik.Seek(zadana_pozycja_pliku,CFile::begin);
-                plik.Write(&flm.film_tbl,sizeof(struct Film));
-                plik.Close();
+                QFile plik(flm.pths.BF_PDB);
+                plik.open(QFile::WriteOnly);
+                plik.seek(zadana_pozycja_pliku);
+                plik.write(static_cast<char *>(&flm.film_tbl),sizeof(struct Film));
+                plik.close();
 
-                CFile::Rename((LPCTSTR)flm.pths.BF_PDB,(LPCTSTR)"BF_PDB.bf0");
+                plik.rename(L"BF_PDB.bf0");
 
-                plik.Open((LPCTSTR)flm.pths.BF_PDB,CFile::modeCreate);
-                plik.Close();
-                CFile src_file;
-                src_file.Open((LPCTSTR)"BF_PDB.bf0",CFile::modeRead);
-                plik.Open((LPCTSTR)flm.pths.BF_PDB,CFile::modeWrite);
+                QFile plik(flm.pths.BF_PDB);
+                plik.open(QFile::WriteOnly);
+                QFile src_file(L"BF_PDB.bf0");
+                src_file.open(QFile::ReadOnly);
                 struct Film flm_src;
                 LONGLONG i;
-                for (i = 0; i <(src_file.SeekToEnd()) ; )
+                for (i = 0; i <(src_file.size()) ; )
                 {
-                    src_file.Seek(i,CFile::begin);
-                    src_file.Read(&flm_src,sizeof(struct Film));
+                    src_file.seek(i);
+                    src_file.read(static_cast<char *>(&flm_src),sizeof(struct Film));
                     if (flm_src.ID == 0)
                     {
                         i = i + sizeof(struct Film);
                     }
                     else
                     {
-                        plik.Write(&flm_src,sizeof(struct Film));
+                        plik.write(static_cast<char *>(&flm_src),sizeof(struct Film));
                         i = i + sizeof(struct Film);
                     }
                 }
-                plik.Close();
-                src_file.Close();
-                CFile::Remove((LPCTSTR)"BF_PDB.bf0");
+                plik.close();
+                src_file.close();
+                src_file.remove();
 
 
                 return true;
-            }
+
         }
         else
         {
@@ -1083,13 +1045,13 @@ bool CBibliotekaFilmówDlg::Del_Film_Rec(void)
     }
 }
 
-bool CBibliotekaFilmówDlg::Licz_Rec(void)
+bool MainWindow::Licz_Rec(void)
 {
     //funkcja zwraca true jesli plik jest pusty co oznacza ze nie ma w nim zadnych danych = 0 rekordow.
     // ta funkcja liczy ile jest rekordow w bazie danych, wypelnia stosowne pola formularza Film oraz wypelnia
     // tablice flm.film_tbl_wsk
-    CFileStatus status;
-    if (CFile::GetStatus(flm.pths.BF_PDB,status))
+    QFile fi(flm.pths.BF_PDB);
+    if (fi.exists())
         {
             if (status.m_size == 0)
                 {
@@ -4707,3 +4669,43 @@ void TAB_Produkcja::OnNMDblclkListFrmFPDystr(NMHDR *pNMHDR, LRESULT *pResult)
     *pResult = 0;
 }
 
+
+void MainWindow::on_actionOtw_rz_Utw_rz_baze_danych_triggered()
+{
+
+}
+
+void MainWindow::on_actionEksportuj_triggered()
+{
+
+}
+
+void MainWindow::on_actionWyszukaj_triggered()
+{
+
+}
+
+void MainWindow::on_actionKoniec_triggered()
+{
+
+}
+
+void MainWindow::on_actionDrukuj_triggered()
+{
+
+}
+
+void MainWindow::on_actionSprawd_aktualizacje_triggered()
+{
+
+}
+
+void MainWindow::on_actionO_programie_triggered()
+{
+
+}
+
+void MainWindow::on_actionPomoc_triggered()
+{
+
+}

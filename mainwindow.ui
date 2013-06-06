@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Biblioteka Filmów</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QGraphicsView" name="graphicsView_PicFront">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -89,7 +89,7 @@
      <string>Gatunek</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="lineEdit_Tytul">
     <property name="geometry">
      <rect>
       <x>243</x>
@@ -99,7 +99,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QLineEdit" name="lineEdit_TytulOrig">
     <property name="geometry">
      <rect>
       <x>243</x>
@@ -109,7 +109,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
+   <widget class="QLineEdit" name="lineEdit_Gatunek">
     <property name="geometry">
      <rect>
       <x>243</x>
@@ -119,7 +119,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QFontComboBox" name="fontComboBox">
+   <widget class="QFontComboBox" name="fontComboBox_GatSel">
     <property name="geometry">
      <rect>
       <x>543</x>
@@ -135,7 +135,7 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>165</x>
+      <x>168</x>
       <y>75</y>
       <width>589</width>
       <height>355</height>
@@ -148,7 +148,7 @@
      <attribute name="title">
       <string>Opis</string>
      </attribute>
-     <widget class="QPlainTextEdit" name="plainTextEdit">
+     <widget class="QPlainTextEdit" name="plainTextEdit_Opis">
       <property name="geometry">
        <rect>
         <x>3</x>
@@ -169,7 +169,7 @@
      <attribute name="title">
       <string>Obsada</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="tableWidget_Obsada">
       <property name="geometry">
        <rect>
         <x>6</x>
@@ -236,6 +236,19 @@
        <string>Usuń</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_OB_new">
+      <property name="geometry">
+       <rect>
+        <x>261</x>
+        <y>267</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nowy</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="Produkcja">
      <attribute name="title">
@@ -254,7 +267,7 @@
        <string>Produkcja</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget_2">
+     <widget class="QTableWidget" name="tableWidget__Prod">
       <property name="geometry">
        <rect>
         <x>3</x>
@@ -335,7 +348,7 @@
        <string>Usuń</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget_3">
+     <widget class="QTableWidget" name="tableWidget_Dystr">
       <property name="geometry">
        <rect>
         <x>3</x>
@@ -429,6 +442,32 @@
        <string>Usuń</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButto_P_New">
+      <property name="geometry">
+       <rect>
+        <x>231</x>
+        <y>138</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nowy</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_D_New">
+      <property name="geometry">
+       <rect>
+        <x>231</x>
+        <y>273</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nowy</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="DOE">
      <attribute name="title">
@@ -459,7 +498,7 @@
         <string>Imię</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_6">
+      <widget class="QLineEdit" name="lineEdit_DOE_W_Imie">
        <property name="geometry">
         <rect>
          <x>60</x>
@@ -482,7 +521,7 @@
         <string>Nazwisko</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_7">
+      <widget class="QLineEdit" name="lineEdit_DOE_W_Nazw">
        <property name="geometry">
         <rect>
          <x>336</x>
@@ -505,7 +544,7 @@
         <string>Adres</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_8">
+      <widget class="QLineEdit" name="lineEdit_DOE_W_Adres">
        <property name="geometry">
         <rect>
          <x>60</x>
@@ -541,7 +580,7 @@
         <string>Nazwa</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_9">
+      <widget class="QLineEdit" name="lineEdit_DOE_S_Nazwa">
        <property name="geometry">
         <rect>
          <x>60</x>
@@ -564,7 +603,7 @@
         <string>Telefon</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_10">
+      <widget class="QLineEdit" name="lineEdit_DOE_S_Tel">
        <property name="geometry">
         <rect>
          <x>435</x>
@@ -587,7 +626,7 @@
         <string>Adres</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_11">
+      <widget class="QLineEdit" name="lineEdit_DOE_S_Adres">
        <property name="geometry">
         <rect>
          <x>60</x>
@@ -610,7 +649,7 @@
         <string>Strona WWW</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_12">
+      <widget class="QLineEdit" name="lineEdit_DOE_S_WWW">
        <property name="geometry">
         <rect>
          <x>81</x>
@@ -633,7 +672,7 @@
         <string>Fax</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_13">
+      <widget class="QLineEdit" name="lineEdit_DOE_S_Fax">
        <property name="geometry">
         <rect>
          <x>435</x>
@@ -656,7 +695,7 @@
         <string>E - mail</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_14">
+      <widget class="QLineEdit" name="lineEdit_DOE_S_Email">
        <property name="geometry">
         <rect>
          <x>435</x>
@@ -680,7 +719,7 @@
        <string>Cena</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_15">
+     <widget class="QLineEdit" name="lineEdit_DOE_Cena">
       <property name="geometry">
        <rect>
         <x>105</x>
@@ -703,7 +742,7 @@
        <string>Wartośc aktualna</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_16">
+     <widget class="QLineEdit" name="lineEdit_DOE_Wakt">
       <property name="geometry">
        <rect>
         <x>105</x>
@@ -726,7 +765,7 @@
        <string>Data zakupu</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_17">
+     <widget class="QLineEdit" name="lineEdit_DOE_DataZak">
       <property name="geometry">
        <rect>
         <x>105</x>
@@ -749,7 +788,7 @@
        <string>Data utraty</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_18">
+     <widget class="QLineEdit" name="lineEdit_DOE_DataUtr">
       <property name="geometry">
        <rect>
         <x>324</x>
@@ -772,7 +811,7 @@
        <string>Data skatalogowania</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_19">
+     <widget class="QLineEdit" name="lineEdit_DOE_DataSkat">
       <property name="geometry">
        <rect>
         <x>324</x>
@@ -786,7 +825,7 @@
       <property name="geometry">
        <rect>
         <x>219</x>
-        <y>234</y>
+        <y>237</y>
         <width>79</width>
         <height>16</height>
        </rect>
@@ -795,12 +834,12 @@
        <string>Nr katalogowy</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_20">
+     <widget class="QLineEdit" name="lineEdit_DOE_NrKat">
       <property name="geometry">
        <rect>
         <x>324</x>
         <y>234</y>
-        <width>113</width>
+        <width>205</width>
         <height>20</height>
        </rect>
       </property>
@@ -818,7 +857,7 @@
        <string>Rodzaj nośnika</string>
       </property>
      </widget>
-     <widget class="QFontComboBox" name="fontComboBox_2">
+     <widget class="QFontComboBox" name="fontComboBox_DOE_Nosnik">
       <property name="geometry">
        <rect>
         <x>324</x>
@@ -849,7 +888,7 @@
        <string>Rok produkcji</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_21">
+     <widget class="QLineEdit" name="lineEdit_RokProd">
       <property name="geometry">
        <rect>
         <x>72</x>
@@ -872,7 +911,7 @@
        <string>Czas projekcji</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_22">
+     <widget class="QLineEdit" name="lineEdit_CzasProj">
       <property name="geometry">
        <rect>
         <x>216</x>
@@ -895,7 +934,7 @@
        <string>System kodowania obrazu</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_23">
+     <widget class="QLineEdit" name="lineEdit_SysKodObr">
       <property name="geometry">
        <rect>
         <x>459</x>
@@ -918,7 +957,7 @@
        <string>Data premiery</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_24">
+     <widget class="QLineEdit" name="lineEdit_DataPrem">
       <property name="geometry">
        <rect>
         <x>72</x>
@@ -941,7 +980,7 @@
        <string>Format wyświetlania</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_25">
+     <widget class="QLineEdit" name="lineEdit_FormWysw">
       <property name="geometry">
        <rect>
         <x>252</x>
@@ -964,7 +1003,7 @@
        <string>Język lektora</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_26">
+     <widget class="QLineEdit" name="lineEdit_JezLekt">
       <property name="geometry">
        <rect>
         <x>72</x>
@@ -987,7 +1026,7 @@
        <string>Język napisów</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_27">
+     <widget class="QLineEdit" name="lineEdit_JezNap">
       <property name="geometry">
        <rect>
         <x>372</x>
@@ -1022,7 +1061,7 @@
         <string>Nazwa</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_28">
+      <widget class="QLineEdit" name="lineEdit_KodVidNazwa">
        <property name="geometry">
         <rect>
          <x>45</x>
@@ -1045,7 +1084,7 @@
         <string>Typ</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_29">
+      <widget class="QLineEdit" name="lineEdit_KodVidTyp">
        <property name="geometry">
         <rect>
          <x>45</x>
@@ -1068,7 +1107,7 @@
         <string>Wersja</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_30">
+      <widget class="QLineEdit" name="lineEdit_KodVidWersja">
        <property name="geometry">
         <rect>
          <x>45</x>
@@ -1130,7 +1169,7 @@
         <string>Wersja</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_31">
+      <widget class="QLineEdit" name="lineEdit_KodAudNazwa">
        <property name="geometry">
         <rect>
          <x>51</x>
@@ -1140,7 +1179,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_32">
+      <widget class="QLineEdit" name="lineEdit_KodAudTyp">
        <property name="geometry">
         <rect>
          <x>51</x>
@@ -1150,7 +1189,7 @@
         </rect>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_33">
+      <widget class="QLineEdit" name="lineEdit_KodAudWersja">
        <property name="geometry">
         <rect>
          <x>51</x>
@@ -1171,7 +1210,7 @@
        </rect>
       </property>
       <property name="title">
-       <string>GroupBox</string>
+       <string>Zabezpieczenia</string>
       </property>
       <widget class="QLabel" name="label_37">
        <property name="geometry">
@@ -1186,7 +1225,7 @@
         <string>Nazwa</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_34">
+      <widget class="QLineEdit" name="lineEdit_ZabNazwa">
        <property name="geometry">
         <rect>
          <x>48</x>
@@ -1209,7 +1248,7 @@
         <string>Typ</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_35">
+      <widget class="QLineEdit" name="lineEdit_ZabTyp">
        <property name="geometry">
         <rect>
          <x>48</x>
@@ -1232,7 +1271,7 @@
         <string>Wersja</string>
        </property>
       </widget>
-      <widget class="QLineEdit" name="lineEdit_36">
+      <widget class="QLineEdit" name="lineEdit_ZabWersja">
        <property name="geometry">
         <rect>
          <x>48</x>
@@ -1256,7 +1295,7 @@
        <string>Kraj produkcji filmu</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_37">
+     <widget class="QLineEdit" name="lineEdit_KrajProd">
       <property name="geometry">
        <rect>
         <x>108</x>
@@ -1266,7 +1305,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget_4">
+     <widget class="QTableWidget" name="tableWidget_IOF_LZ">
       <property name="geometry">
        <rect>
         <x>3</x>
@@ -1360,11 +1399,204 @@
        <string>Usuń</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_LZ_New">
+      <property name="geometry">
+       <rect>
+        <x>213</x>
+        <y>303</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nowy</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="BIBLIO">
      <attribute name="title">
       <string>Bibliotekarz</string>
      </attribute>
+     <widget class="QTableWidget" name="tableWidget_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>15</y>
+        <width>580</width>
+        <height>133</height>
+       </rect>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>150</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Osoba</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Data wypożyczenia</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Data oddania</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Stan przed wypożyczeniem</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Stan po oddaniu</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QLabel" name="label_42">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>151</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Wypożyczenia innym osobom</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_BIBLIOWYPISave">
+      <property name="geometry">
+       <rect>
+        <x>351</x>
+        <y>150</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Zapisz</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_BIBLIOWYPINDel">
+      <property name="geometry">
+       <rect>
+        <x>504</x>
+        <y>150</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Usuń</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget_6">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>174</y>
+        <width>580</width>
+        <height>118</height>
+       </rect>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>150</number>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Osoba</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Data wypożyczenia</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Data oddania</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Stan przed wypożyczeniem</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Stan po oddaniu</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QPushButton" name="pushButton_BIBLIOWYPODINSave">
+      <property name="geometry">
+       <rect>
+        <x>354</x>
+        <y>294</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Zapisz</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_BIBLIOWYPODINDel">
+      <property name="geometry">
+       <rect>
+        <x>504</x>
+        <y>294</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Usuń</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_43">
+      <property name="geometry">
+       <rect>
+        <x>3</x>
+        <y>159</y>
+        <width>151</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Wypożyczenia od innych osób</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_B_WYPIN_New">
+      <property name="geometry">
+       <rect>
+        <x>276</x>
+        <y>150</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nowy</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_B_WYPODIN_New">
+      <property name="geometry">
+       <rect>
+        <x>279</x>
+        <y>294</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Nowy</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_First">
@@ -1484,7 +1716,7 @@
      <string>Rekord</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
+   <widget class="QLineEdit" name="lineEdit_RecNo">
     <property name="geometry">
      <rect>
       <x>51</x>
@@ -1492,6 +1724,9 @@
       <width>37</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
@@ -1507,7 +1742,7 @@
      <string>z</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_5">
+   <widget class="QLineEdit" name="lineEdit_RecCount">
     <property name="geometry">
      <rect>
       <x>102</x>
@@ -1515,6 +1750,35 @@
       <width>37</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_44">
+    <property name="geometry">
+     <rect>
+      <x>585</x>
+      <y>9</y>
+      <width>19</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ID</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_ID">
+    <property name="geometry">
+     <rect>
+      <x>645</x>
+      <y>9</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

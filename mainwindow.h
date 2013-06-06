@@ -32,6 +32,22 @@ private slots:
 
     void on_pushButton_IntWiz_clicked();
 
+    void on_actionOtw_rz_Utw_rz_baze_danych_triggered();
+
+    void on_actionEksportuj_triggered();
+
+    void on_actionWyszukaj_triggered();
+
+    void on_actionKoniec_triggered();
+
+    void on_actionDrukuj_triggered();
+
+    void on_actionSprawd_aktualizacje_triggered();
+
+    void on_actionO_programie_triggered();
+
+    void on_actionPomoc_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

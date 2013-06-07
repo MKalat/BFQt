@@ -5,50 +5,6 @@
 #include <QFile>
 #include <QDir>
 #include <QList>
-#include "film_ftbl_class.h"
-#include "Unmngd.h"
-
-struct Film Ftbl::film_tbl;    // struktura mieszczaca jeden rekord form film
-bool Ftbl::sort = false;
-struct DB_paths Ftbl::pths;
-
-Ftbl flm;
-
-unsigned int sort_idx = 0; // zmienna pomocnicza slużaca do poruszania sie po indeksie film_tbl_wsk
-LONGLONG zadana_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
-ULONGLONG akt_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
-
-wchar_t akt_BF_VER[16] = L"1.0.6.0";
-bool first_act = true;
-bool start = true; // oznacza czy aplikacja startuje;
-bool open_folder = false;
-
-bool add_new_wi = false;
-bool add_new_wo = false;
-struct Wypozycz_Innym wi;
-struct Wypozycz_Od_Innych wo;
-QList <Wypozycz_Innym> wi_arr;
-QList <Wypozycz_Od_Innych> wo_arr;
-
-struct Lok_zdjeciowe lz;
-bool add_new_lz = false;
-QList <Lok_zdjeciowe> lz_arr;
-
-struct Obsada ob;
-bool add_new_ob = false;
-QList <Obsada> ob_arr;
-
-struct Ocena oc;
-bool add_new = false;
-QList <Ocena> oc_arr;
-
-struct Producent pp;
-struct Dystrybutor pd;
-bool add_new_pp = false;
-bool add_new_pd = false;
-QList <Producent> pp_arr;
-QList <Dystrybutor> pd_arr;
-
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -85,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
         flm.sort = false;
-        _spawnl(_P_NOWAIT,"MK_AUTOUPDATE.exe","MK_AUTOUPDATE.exe",NULL);
+        //_spawnl(_P_NOWAIT,"MK_AUTOUPDATE.exe","MK_AUTOUPDATE.exe",NULL);
 
         UpdateCtrls(false,true);
         Licz_Rec();
@@ -239,136 +195,83 @@ void MainWindow::Bind_IN_Controls(void)
 {
     // ta funkcja pobiera dane ze struktury flm.film_tbl i zapisuje w kontrolkach
         wchar_t dest[34];
-        F_EDIT_ID.SetReadOnly(FALSE);
+        //F_EDIT_ID.SetReadOnly(FALSE);
         _itow(flm.film_tbl.ID,dest,10); // tu jest problem - access violation
-        F_EDIT_ID.SetWindowTextW(dest); // tu jest problem BEX
-        F_EDIT_ID.SetReadOnly(TRUE);
-        F_EDIT_Tytul.SetWindowTextW((LPCTSTR)flm.film_tbl.tytul);
-        F_EDIT_TytulOryg.SetWindowTextW((LPCTSTR)flm.film_tbl.oryginalny_tytul);
-        Frm_F_ComboBox_Gatunek.SetWindowTextW((LPCTSTR)flm.film_tbl.gatunek_filmu);
+        ui->lineEdit_ID->setText(dest); // tu jest problem BEX
+        //F_EDIT_ID.SetReadOnly(TRUE);
+        ui->lineEdit_Tytul->setText(flm.film_tbl.tytul);
+        ui->lineEdit_TytulOrig->setText(flm.film_tbl.oryginalny_tytul);
+        ui->lineEdit_Gatunek->setText(flm.film_tbl.gatunek_filmu);
 
-        CFileStatus status;
-        //CImage pic_buff;
-        RECT okl_rect;
-        CString no_img;
-        no_img = flm.pths.BF_COVERS;
-        no_img = no_img + _TEXT("no_img.bmp");
 
-        /*this->FRM_F_DOE_OKL_PRZOD.GetDC()->Detach();
-        this->FRM_F_DOE_STATIC_OKL_TYL.GetDC()->Detach();*/
         if (_tcscmp(flm.film_tbl.skan_przod_path,_TEXT("")) != 0)
         {
-            if (CFile::GetStatus(flm.film_tbl.skan_przod_path,status))
+            QFile pic_front(flm.film_tbl.skan_przod_path);
+            if (pic_front.exist())
             {
-                CImage pic_buff;
-                pic_buff.Load(flm.film_tbl.skan_przod_path);
-                this->FRM_F_DOE_OKL_PRZOD.GetClientRect(&okl_rect);
-                SetStretchBltMode(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,HALFTONE);
-                SetBrushOrgEx(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,0,0,NULL);
-                pic_buff.StretchBlt(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,okl_rect,SRCCOPY);
-                //pic_buff.ReleaseDC();
+                QImage img_front(flm.film_tbl.skan_przod_path,NULL);
+                img_front.scaled(139,172,Qt::IgnoreAspectRatio,Qt::);
+                ui->label_PicFront->setPixmap(QPixmap::fromImage(img_front));
 
             }
         }
         else
         {
-            CImage pic_buff;
-            pic_buff.LoadFromResource(theApp.m_hInstance,MAKEINTRESOURCE(IDB_BITMAP2));
-            this->FRM_F_DOE_OKL_PRZOD.GetClientRect(&okl_rect);
-            SetStretchBltMode(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,HALFTONE);
-            SetBrushOrgEx(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,0,0,NULL);
-            pic_buff.StretchBlt(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,okl_rect,SRCCOPY);
-            //pic_buff.ReleaseDC();
-
-
-        }
-        if (_tcscmp(flm.film_tbl.skan_tyl_path,_TEXT("")) != 0)
-        {
-            if (CFile::GetStatus(flm.film_tbl.skan_tyl_path,status))
-            {
-                CImage pic_buff;
-                pic_buff.Load(flm.film_tbl.skan_tyl_path);
-                this->FRM_F_DOE_STATIC_OKL_TYL.GetClientRect(&okl_rect);
-                SetStretchBltMode(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,HALFTONE);
-                SetBrushOrgEx(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,0,0,NULL);
-                pic_buff.StretchBlt(this->FRM_F_DOE_STATIC_OKL_TYL.GetDC()->m_hDC,okl_rect,SRCCOPY);
-
-
-
-            }
-        }
-        else
-        {
-            CImage pic_buff;
-            pic_buff.LoadFromResource(theApp.m_hInstance,MAKEINTRESOURCE(IDB_BITMAP2));
-            this->FRM_F_DOE_STATIC_OKL_TYL.GetClientRect(&okl_rect);
-            SetStretchBltMode(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,HALFTONE);
-            SetBrushOrgEx(this->FRM_F_DOE_OKL_PRZOD.GetDC()->m_hDC,0,0,NULL);
-            pic_buff.StretchBlt(this->FRM_F_DOE_STATIC_OKL_TYL.GetDC()->m_hDC,okl_rect,SRCCOPY);
+            QImage img_front("/covers/no_img.bmp",NULL);
+            img_front.scaled(139,172,Qt::IgnoreAspectRatio,Qt::);
+            ui->label_PicFront->setPixmap(QPixmap::fromImage(img_front));
 
 
 
         }
 
-        /*this->FRM_F_DOE_OKL_PRZOD.ReleaseDC(this->FRM_F_DOE_OKL_PRZOD.GetDC());
-        this->FRM_F_DOE_STATIC_OKL_TYL.ReleaseDC(this->FRM_F_DOE_STATIC_OKL_TYL.GetDC());*/
 
         //TAB OCENA
 
-        tab_oc->TAB_O_Edit_SD.SetWindowTextW((LPCTSTR)flm.film_tbl.WOF_sciezka_dz);
-        tab_oc->TAB_O_Edit_Obsada.SetWindowTextW((LPCTSTR)flm.film_tbl.WOF_obsada);
-        tab_oc->TAB_O_Edit_Zdjecia.SetWindowTextW((LPCTSTR)flm.film_tbl.WOF_zdjecia);
-        tab_oc->TAB_O_Edit_WArt.SetWindowTextW((LPCTSTR)flm.film_tbl.WOF_w_art);
-        tab_oc->TAB_O_Edit_Calosc.SetWindowTextW((LPCTSTR)flm.film_tbl.WOF_calosc);
-
-        // TAB OBSADA
-        tab_ob->TAB_OB_Edit_Rez_ImieNazw.SetWindowTextW((LPCTSTR)flm.film_tbl.O_rezyser_imie_nazw);
-        tab_ob->TAB_OB_Edit_Rez_Narod.SetWindowTextW((LPCTSTR)flm.film_tbl.O_rezyser_narod);
-        tab_ob->TAB_OB_Edit_Scen_ImieNazw.SetWindowTextW((LPCTSTR)flm.film_tbl.O_scenariusz_imie_nazw);
-        tab_ob->TAB_OB_Edit_Scen_Narod.SetWindowTextW((LPCTSTR)flm.film_tbl.O_scenariusz_narod);
-        tab_ob->TAB_OB_Edit_Zdj_ImieNazw.SetWindowTextW((LPCTSTR)flm.film_tbl.O_operator_imie_nazw);
-        tab_ob->TAB_OB_Edit_Zdj_Narod.SetWindowTextW((LPCTSTR)flm.film_tbl.O_operator_narod);
-        tab_ob->TAB_OB_Edit_Muz_ImieNazw.SetWindowTextW((LPCTSTR)flm.film_tbl.O_muzyka_imie_nazw);
-        tab_ob->TAB_OB_Edit_Muz_Narod.SetWindowTextW((LPCTSTR)flm.film_tbl.O_muzyka_narod);
+        ui->lineEdit_OC_OW_SD->setText(flm.film_tbl.WOF_sciezka_dz);
+        ui->lineEdit_OC_OW_Obs->setText(flm.film_tbl.WOF_obsada);
+        ui->lineEdit__OC_OW_Zdj->setText(flm.film_tbl.WOF_zdjecia);
+        ui->lineEdit__OC_OW_WA->setText(flm.film_tbl.WOF_w_art);
+        ui->lineEdit__OC_OW_All->setText(flm.film_tbl.WOF_calosc);
 
         // TAB PRODUKCJA
 
 
         // TAB DOE
-        tab_doe->TAB_DOE_EDIT_W_Imie.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_WKF_imie);
-        tab_doe->TAB_DOE_EDIT_W_Nazw.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_WKF_nazwisko);
-        tab_doe->TAB_DOE_EDIT_W_Adres.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_WKF_adres);
-        tab_doe->TAB_DOE_EDIT_MN_Nazwa.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_MN_nazwa);
-        tab_doe->TAB_DOE_EDIT_MN_Adres.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_MN_adres);
-        tab_doe->TAB_DOE_EDIT_MN_WWW.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_MN_www);
-        tab_doe->TAB_DOE_EDIT_MN_Tel.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_MN_telefon);
-        tab_doe->TAB_DOE_EDIT_MN_Fax.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_MN_fax);
-        tab_doe->TAB_DOE_EDIT_MN_Email.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_MN_email);
-        tab_doe->TAB_DOE_EDIT_Cena.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_cena);
-        tab_doe->TAB_DOE_EDIT_WAkt.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_wartosc_akt);
-        tab_doe->TAB_DOE_EDIT_DataZak.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_data_zakupu);
-        tab_doe->TAB_DOE_EDIT_DataUtr.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_data_utraty);
-        tab_doe->TAB_DOE_EDIT_DataSkat.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_data_skatalogowania);
-        tab_doe->TAB_DOE_EDIT_NrKat.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_Nr_kat);
-        tab_doe->Frm_F_DOE_ComboBox_RodzNosn.SetWindowTextW((LPCTSTR)flm.film_tbl.DOE_rodzaj_nosnika);
+        ui->lineEdit_DOE_W_Imie->setText(flm.film_tbl.DOE_WKF_imie);
+        ui->lineEdit_DOE_W_Nazw->setText(flm.film_tbl.DOE_WKF_nazwisko);
+        ui->lineEdit_DOE_W_Adres->setText(flm.film_tbl.DOE_WKF_adres);
+        ui->lineEdit_DOE_S_Nazwa->setText(flm.film_tbl.DOE_MN_nazwa);
+        ui->lineEdit_DOE_S_Adres->setText(flm.film_tbl.DOE_MN_adres);
+        ui->lineEdit_DOE_S_WWW->setText(flm.film_tbl.DOE_MN_www);
+        ui->lineEdit_DOE_S_Tel->setText(flm.film_tbl.DOE_MN_telefon);
+        ui->lineEdit_DOE_S_Fax->setText(flm.film_tbl.DOE_MN_fax);
+        ui->lineEdit_DOE_S_Email->setText(flm.film_tbl.DOE_MN_email);
+        ui->lineEdit_DOE_Cena->setText(flm.film_tbl.DOE_cena);
+        ui->lineEdit_DOE_Wakt->setText(flm.film_tbl.DOE_wartosc_akt);
+        ui->lineEdit_DOE_DataZak->setText(flm.film_tbl.DOE_data_zakupu);
+        ui->lineEdit_DOE_DataUtr->setText(flm.film_tbl.DOE_data_utraty);
+        ui->lineEdit_DOE_DataSkat->setText(flm.film_tbl.DOE_data_skatalogowania);
+        ui->lineEdit_DOE_NrKat->setText(flm.film_tbl.DOE_Nr_kat);
+        ui->fontComboBox_DOE_Nosnik->lineEdit()->setText(flm.film_tbl.DOE_rodzaj_nosnika);
         // TAB IOF
-        tab_iof->TAB_IOF_EDIT_RokProd.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_rok_produkcji);
-        tab_iof->TAB_IOF_EDIT_DataPrem.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_data_premiery);
-        tab_iof->TAB_IOF_EDIT_CzasTrw.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_czas_trwania);
-        tab_iof->TAB_IOF_EDIT_FormWysw.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_format_wysw);
-        tab_iof->TAB_IOF_EDIT_SysKodObr.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_system_kodowania_obrazu);
-        tab_iof->TAB_IOF_EDIT_JezLekt.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_jezyk_lektora);
-        tab_iof->TAB_IOF_EDIT_JezNap.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_jezyk_napisow);
-        tab_iof->TAB_IOF_EDIT_KrajProd.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_kraj_produkcji_filmu);
-        tab_iof->TAB_IOF_EDIT_KW_Nazwa.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_KODEK_nazwa);
-        tab_iof->TAB_IOF_EDIT_KW_Typ.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_KODEK_typ);
-        tab_iof->TAB_IOF_EDIT_KW_Wersja.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_KODEK_wersja);
-        tab_iof->TAB_IOF_EDIT_SD_Nazwa.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_DZWIEK_nazwa);
-        tab_iof->TAB_IOF_EDIT_SD_Typ.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_DZWIEK_typ);
-        tab_iof->TAB_IOF_EDIT_SD_Wersja.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_DZWIEK_wersja);
-        tab_iof->TAB_IOF_EDIT_Z_Nazwa.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_ZABEZP_nazwa);
-        tab_iof->TAB_IOF_EDIT_Z_Typ.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_ZABEZP_typ);
-        tab_iof->TAB_IOF_EDIT_Z_Wersja.SetWindowTextW((LPCTSTR)flm.film_tbl.IOF_ZABEZP_wersja);
+        ui->lineEdit_RokProd->setText(flm.film_tbl.IOF_rok_produkcji);
+        ui->lineEdit_DataPrem->setText(flm.film_tbl.IOF_data_premiery);
+        ui->lineEdit_CzasProj->setText(flm.film_tbl.IOF_czas_trwania);
+        ui->lineEdit_FormWysw->setText(flm.film_tbl.IOF_format_wysw);
+        ui->lineEdit_SysKodObr->setText(flm.film_tbl.IOF_system_kodowania_obrazu);
+        ui->lineEdit_JezLekt->setText(flm.film_tbl.IOF_jezyk_lektora);
+        ui->lineEdit_JezNap->setText(flm.film_tbl.IOF_jezyk_napisow);
+        ui->lineEdit_KrajProd->setText(flm.film_tbl.IOF_kraj_produkcji_filmu);
+        ui->lineEdit_KodVidNazwa->setText(flm.film_tbl.IOF_KODEK_nazwa);
+        ui->lineEdit_KodVidTyp->setText(flm.film_tbl.IOF_KODEK_typ);
+        ui->lineEdit_KodVidWersja->setText(flm.film_tbl.IOF_KODEK_wersja);
+        ui->lineEdit_KodAudNazwa->setText(flm.film_tbl.IOF_DZWIEK_nazwa);
+        ui->lineEdit_KodAudTyp->setText(flm.film_tbl.IOF_DZWIEK_typ);
+        ui->lineEdit_KodAudWersja->setText(flm.film_tbl.IOF_DZWIEK_wersja);
+        ui->lineEdit_ZabNazwa->setText(flm.film_tbl.IOF_ZABEZP_nazwa);
+        ui->lineEdit_ZabTyp->setText(flm.film_tbl.IOF_ZABEZP_typ);
+        ui->lineEdit_ZabWersja->setText(flm.film_tbl.IOF_ZABEZP_wersja);
 
         //Invalidate();
         //UpdateWindow();
@@ -379,144 +282,123 @@ void MainWindow::Bind_OUT_Controls(void)
     // ta funkcja pobiera dane z formularza i zapisuje w strukturze flm.film_tbl
 
         // FORM FILM
-        F_EDIT_Tytul.GetWindowTextW((LPTSTR)flm.film_tbl.tytul, 501);
-        F_EDIT_TytulOryg.GetWindowTextW((LPTSTR)flm.film_tbl.oryginalny_tytul,501);
-        Frm_F_ComboBox_Gatunek.GetWindowTextW((LPTSTR)flm.film_tbl.gatunek_filmu,201);
+        ui->lineEdit_Tytul->text().toWCharArray(flm.film_tbl.tytul);
+        ui->lineEdit_TytulOrig->text().toWCharArray(flm.film_tbl.oryginalny_tytul);
+        ui->lineEdit_Gatunek->text().toWCharArray(flm.film_tbl.gatunek_filmu);
         //TAB OCENA
-        tab_oc->TAB_O_Edit_SD.GetWindowTextW((LPTSTR)flm.film_tbl.WOF_sciezka_dz,201);
-        tab_oc->TAB_O_Edit_Obsada.GetWindowTextW((LPTSTR)flm.film_tbl.WOF_obsada,201);
-        tab_oc->TAB_O_Edit_Zdjecia.GetWindowTextW((LPTSTR)flm.film_tbl.WOF_zdjecia,201);
-        tab_oc->TAB_O_Edit_WArt.GetWindowTextW((LPTSTR)flm.film_tbl.WOF_w_art,201);
-        tab_oc->TAB_O_Edit_Calosc.GetWindowTextW((LPTSTR)flm.film_tbl.WOF_calosc,201);
-
-        // TAB OBSADA
-        tab_ob->TAB_OB_Edit_Rez_ImieNazw.GetWindowTextW((LPTSTR)flm.film_tbl.O_rezyser_imie_nazw,501);
-        tab_ob->TAB_OB_Edit_Rez_Narod.GetWindowTextW((LPTSTR)flm.film_tbl.O_rezyser_narod,501);
-        tab_ob->TAB_OB_Edit_Scen_ImieNazw.GetWindowTextW((LPTSTR)flm.film_tbl.O_scenariusz_imie_nazw,501);
-        tab_ob->TAB_OB_Edit_Scen_Narod.GetWindowTextW((LPTSTR)flm.film_tbl.O_scenariusz_narod,501);
-        tab_ob->TAB_OB_Edit_Zdj_ImieNazw.GetWindowTextW((LPTSTR)flm.film_tbl.O_operator_imie_nazw,501);
-        tab_ob->TAB_OB_Edit_Zdj_Narod.GetWindowTextW((LPTSTR)flm.film_tbl.O_operator_narod,501);
-        tab_ob->TAB_OB_Edit_Muz_ImieNazw.GetWindowTextW((LPTSTR)flm.film_tbl.O_muzyka_imie_nazw,501);
-        tab_ob->TAB_OB_Edit_Muz_Narod.GetWindowTextW((LPTSTR)flm.film_tbl.O_muzyka_narod,501);
+        ui->lineEdit_OC_OW_SD->text().toWCharArray(flm.film_tbl.WOF_sciezka_dz);
+        ui->lineEdit_OC_OW_Obs->text().toWCharArray(flm.film_tbl.WOF_obsada);
+        ui->lineEdit__OC_OW_Zdj->text().toWCharArray(flm.film_tbl.WOF_zdjecia);
+        ui->lineEdit__OC_OW_WA->text().toWCharArray(flm.film_tbl.WOF_w_art);
+        ui->lineEdit__OC_OW_All->text().toWCharArray(flm.film_tbl.WOF_calosc);
 
         // TAB PRODUKCJA
 
         // TAB DOE
-        tab_doe->TAB_DOE_EDIT_W_Imie.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_WKF_imie,501);
-        tab_doe->TAB_DOE_EDIT_W_Nazw.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_WKF_nazwisko,501);
-        tab_doe->TAB_DOE_EDIT_W_Adres.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_WKF_adres,501);
-        tab_doe->TAB_DOE_EDIT_MN_Nazwa.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_MN_nazwa,501);
-        tab_doe->TAB_DOE_EDIT_MN_Adres.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_MN_adres,501);
-        tab_doe->TAB_DOE_EDIT_MN_WWW.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_MN_www,501);
-        tab_doe->TAB_DOE_EDIT_MN_Tel.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_MN_telefon,31);
-        tab_doe->TAB_DOE_EDIT_MN_Fax.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_MN_fax,31);
-        tab_doe->TAB_DOE_EDIT_MN_Email.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_MN_email,201);
-        tab_doe->TAB_DOE_EDIT_Cena.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_cena,101);
-        tab_doe->TAB_DOE_EDIT_WAkt.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_wartosc_akt,101);
-        tab_doe->TAB_DOE_EDIT_DataZak.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_data_zakupu,21);
-        tab_doe->TAB_DOE_EDIT_DataUtr.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_data_utraty,21);
-        tab_doe->TAB_DOE_EDIT_DataSkat.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_data_skatalogowania,21);
-        tab_doe->TAB_DOE_EDIT_NrKat.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_Nr_kat,501);
-        tab_doe->Frm_F_DOE_ComboBox_RodzNosn.GetWindowTextW((LPTSTR)flm.film_tbl.DOE_rodzaj_nosnika,201);
+        ui->lineEdit_DOE_W_Imie->text().toWCharArray(flm.film_tbl.DOE_WKF_imie);
+        ui->lineEdit_DOE_W_Nazw->text().toWCharArray(flm.film_tbl.DOE_WKF_nazwisko);
+        ui->lineEdit_DOE_W_Adres->text().toWCharArray(flm.film_tbl.DOE_WKF_adres);
+        ui->lineEdit_DOE_S_Nazwa->text().toWCharArray(flm.film_tbl.DOE_MN_nazwa);
+        ui->lineEdit_DOE_S_Adres->text().toWCharArray(flm.film_tbl.DOE_MN_adres);
+        ui->lineEdit_DOE_S_WWW->text().toWCharArray(flm.film_tbl.DOE_MN_www);
+        ui->lineEdit_DOE_S_Tel->text().toWCharArray(flm.film_tbl.DOE_MN_telefon);
+        ui->lineEdit_DOE_S_Fax->text().toWCharArray(flm.film_tbl.DOE_MN_fax);
+        ui->lineEdit_DOE_S_Email->text().toWCharArray(flm.film_tbl.DOE_MN_email);
+        ui->lineEdit_DOE_Cena->text().toWCharArray(flm.film_tbl.DOE_cena);
+        ui->lineEdit_DOE_Wakt->text().toWCharArray(flm.film_tbl.DOE_wartosc_akt);
+        ui->lineEdit_DOE_DataZak->text().toWCharArray(flm.film_tbl.DOE_data_zakupu);
+        ui->lineEdit_DOE_DataUtr->text().toWCharArray(flm.film_tbl.DOE_data_utraty);
+        ui->lineEdit_DOE_DataSkat->text().toWCharArray(flm.film_tbl.DOE_data_skatalogowania);
+        ui->lineEdit_DOE_NrKat->text().toWCharArray(flm.film_tbl.DOE_Nr_kat);
+        ui->fontComboBox_DOE_Nosnik->lineEdit()->text().toWCharArray(flm.film_tbl.DOE_rodzaj_nosnika);
         // TAB IOF
-        tab_iof->TAB_IOF_EDIT_RokProd.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_rok_produkcji,21);
-        tab_iof->TAB_IOF_EDIT_DataPrem.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_data_premiery,21);
-        tab_iof->TAB_IOF_EDIT_CzasTrw.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_czas_trwania,51);
-        tab_iof->TAB_IOF_EDIT_FormWysw.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_format_wysw,51);
-        tab_iof->TAB_IOF_EDIT_SysKodObr.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_system_kodowania_obrazu,51);
-        tab_iof->TAB_IOF_EDIT_JezLekt.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_jezyk_lektora,1001);
-        tab_iof->TAB_IOF_EDIT_JezNap.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_jezyk_napisow,1001);
-        tab_iof->TAB_IOF_EDIT_KrajProd.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_kraj_produkcji_filmu,1001);
-        tab_iof->TAB_IOF_EDIT_KW_Nazwa.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_KODEK_nazwa,201);
-        tab_iof->TAB_IOF_EDIT_KW_Typ.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_KODEK_typ,201);
-        tab_iof->TAB_IOF_EDIT_KW_Wersja.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_KODEK_wersja,201);
-        tab_iof->TAB_IOF_EDIT_SD_Nazwa.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_DZWIEK_nazwa,201);
-        tab_iof->TAB_IOF_EDIT_SD_Typ.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_DZWIEK_typ,201);
-        tab_iof->TAB_IOF_EDIT_SD_Wersja.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_DZWIEK_wersja,201);
-        tab_iof->TAB_IOF_EDIT_Z_Nazwa.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_ZABEZP_nazwa,201);
-        tab_iof->TAB_IOF_EDIT_Z_Typ.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_ZABEZP_typ,201);
-        tab_iof->TAB_IOF_EDIT_Z_Wersja.GetWindowTextW((LPTSTR)flm.film_tbl.IOF_ZABEZP_wersja,201);
+        ui->lineEdit_RokProd->text().toWCharArray(flm.film_tbl.IOF_rok_produkcji);
+        ui->lineEdit_DataPrem->text().toWCharArray(flm.film_tbl.IOF_data_premiery);
+        ui->lineEdit_CzasProj->text().toWCharArray(flm.film_tbl.IOF_czas_trwania);
+        ui->lineEdit_FormWysw->text().toWCharArray(flm.film_tbl.IOF_format_wysw);
+        ui->lineEdit_SysKodObr->text().toWCharArray(flm.film_tbl.IOF_system_kodowania_obrazu);
+        ui->lineEdit_JezLekt->text().toWCharArray(flm.film_tbl.IOF_jezyk_lektora);
+        ui->lineEdit_JezNap->text().toWCharArray(flm.film_tbl.IOF_jezyk_napisow);
+        ui->lineEdit_KrajProd->text().toWCharArray(flm.film_tbl.IOF_kraj_produkcji_filmu);
+        ui->lineEdit_KodVidNazwa->text().toWCharArray(flm.film_tbl.IOF_KODEK_nazwa);
+        ui->lineEdit_KodVidTyp->text().toWCharArray(flm.film_tbl.IOF_KODEK_typ);
+        ui->lineEdit_KodVidWersja->text().toWCharArray(flm.film_tbl.IOF_KODEK_wersja);
+        ui->lineEdit_KodAudNazwa->text().toWCharArray(flm.film_tbl.IOF_DZWIEK_nazwa);
+        ui->lineEdit_KodAudTyp->text().toWCharArray(flm.film_tbl.IOF_DZWIEK_typ);
+        ui->lineEdit_KodAudWersja->text().toWCharArray(flm.film_tbl.IOF_DZWIEK_wersja);
+        ui->lineEdit_ZabNazwa->text().toWCharArray(flm.film_tbl.IOF_ZABEZP_nazwa);
+        ui->lineEdit_ZabTyp->text().toWCharArray(flm.film_tbl.IOF_ZABEZP_typ);
+        ui->lineEdit_ZabWersja->text().toWCharArray(flm.film_tbl.IOF_ZABEZP_wersja);
 }
 void MainWindow::ClearCtrls(bool all)
 {
 // Clear Form
 
-    F_EDIT_ID.SetSel(0,-1);
-    F_EDIT_ID.Clear();
+    ui->lineEdit_ID->clear();
+    ui->lineEdit_Tytul->clear();
+    ui->lineEdit_TytulOrig->clear();
+    ui->lineEdit_Gatunek->clear();
 
-    F_EDIT_Tytul.SetSel(0,-1);
-    F_EDIT_Tytul.Clear();
-
-    F_EDIT_TytulOryg.SetSel(0,-1);
-    F_EDIT_TytulOryg.Clear();
-
-    Frm_F_ComboBox_Gatunek.SetCurSel(-1);
     //TAB OCENA
 
-    tab_oc->TAB_O_Edit_SD.Clear();
-    tab_oc->TAB_O_Edit_Obsada.Clear();
-    tab_oc->TAB_O_Edit_Zdjecia.Clear();
-    tab_oc->TAB_O_Edit_WArt.Clear();
-    tab_oc->TAB_O_Edit_Calosc.Clear();
+    ui->lineEdit_OC_OW_SD->clear();
+    ui->lineEdit_OC_OW_Obs->clear();
+    ui->lineEdit__OC_OW_Zdj->clear();
+    ui->lineEdit__OC_OW_WA->clear();
+    ui->lineEdit__OC_OW_All->clear();
 
-    tab_oc->ClearOcena(); // czyszczenie listctrl
+    ui->tableWidget_OC->clearContents(); // czyszczenie listctrl
 
     // TAB OBSADA
-    tab_ob->TAB_OB_Edit_Rez_ImieNazw.Clear();
-    tab_ob->TAB_OB_Edit_Rez_Narod.Clear();
-    tab_ob->TAB_OB_Edit_Scen_ImieNazw.Clear();
-    tab_ob->TAB_OB_Edit_Scen_Narod.Clear();
-    tab_ob->TAB_OB_Edit_Zdj_ImieNazw.Clear();
-    tab_ob->TAB_OB_Edit_Zdj_Narod.Clear();
-    tab_ob->TAB_OB_Edit_Muz_ImieNazw.Clear();
-    tab_ob->TAB_OB_Edit_Muz_Narod.Clear();
 
-    tab_ob->ClearObsada(); // czyszczenie listctrl;
+    ui->tableWidget_Obsada->clearContents(); // czyszczenie listctrl;
 
     // TAB PRODUKCJA
 
-    tab_p->ClearProd();  // czyszczenie listctrl
+    ui->tableWidget_Prod->clearContents();  // czyszczenie listctrl
+    ui->tableWidget_Dystr->clearContents();
 
     // TAB DOE
-    tab_doe->TAB_DOE_EDIT_W_Imie.Clear();
-    tab_doe->TAB_DOE_EDIT_W_Nazw.Clear();
-    tab_doe->TAB_DOE_EDIT_W_Adres.Clear();
-    tab_doe->TAB_DOE_EDIT_MN_Nazwa.Clear();
-    tab_doe->TAB_DOE_EDIT_MN_Adres.Clear();
-    tab_doe->TAB_DOE_EDIT_MN_WWW.Clear();
-    tab_doe->TAB_DOE_EDIT_MN_Tel.Clear();
-    tab_doe->TAB_DOE_EDIT_MN_Fax.Clear();
-    tab_doe->TAB_DOE_EDIT_MN_Email.Clear();
-    tab_doe->TAB_DOE_EDIT_Cena.Clear();
-    tab_doe->TAB_DOE_EDIT_WAkt.Clear();
-    tab_doe->TAB_DOE_EDIT_DataZak.Clear();
-    tab_doe->TAB_DOE_EDIT_DataUtr.Clear();
-    tab_doe->TAB_DOE_EDIT_DataSkat.Clear();
-    tab_doe->TAB_DOE_EDIT_NrKat.Clear();
-    tab_doe->Frm_F_DOE_ComboBox_RodzNosn.Clear();
+    ui->lineEdit_DOE_W_Imie->clear();
+    ui->lineEdit_DOE_W_Nazw->clear();
+    ui->lineEdit_DOE_W_Adres->clear();
+    ui->lineEdit_DOE_S_Nazwa->clear();
+    ui->lineEdit_DOE_S_Adres->clear();
+    ui->lineEdit_DOE_S_WWW->clear();
+    ui->lineEdit_DOE_S_Tel->clear();
+    ui->lineEdit_DOE_S_Fax->clear();
+    ui->lineEdit_DOE_S_Email->clear();
+    ui->lineEdit_DOE_Cena->clear();
+    ui->lineEdit_DOE_Wakt->clear();
+    ui->lineEdit_DOE_DataZak->clear();
+    ui->lineEdit_DOE_DataUtr->clear();
+    ui->lineEdit_DOE_DataSkat->clear();
+    ui->lineEdit_DOE_NrKat->clear();
+    ui->fontComboBox_DOE_Nosnik->lineEdit()->clear();
     // TAB IOF
-    tab_iof->TAB_IOF_EDIT_RokProd.Clear();
-    tab_iof->TAB_IOF_EDIT_DataPrem.Clear();
-    tab_iof->TAB_IOF_EDIT_CzasTrw.Clear();
-    tab_iof->TAB_IOF_EDIT_FormWysw.Clear();
-    tab_iof->TAB_IOF_EDIT_SysKodObr.Clear();
-    tab_iof->TAB_IOF_EDIT_JezLekt.Clear();
-    tab_iof->TAB_IOF_EDIT_JezNap.Clear();
-    tab_iof->TAB_IOF_EDIT_KrajProd.Clear();
-    tab_iof->TAB_IOF_EDIT_KW_Nazwa.Clear();
-    tab_iof->TAB_IOF_EDIT_KW_Typ.Clear();
-    tab_iof->TAB_IOF_EDIT_KW_Wersja.Clear();
-    tab_iof->TAB_IOF_EDIT_SD_Nazwa.Clear();
-    tab_iof->TAB_IOF_EDIT_SD_Typ.Clear();
-    tab_iof->TAB_IOF_EDIT_SD_Wersja.Clear();
-    tab_iof->TAB_IOF_EDIT_Z_Nazwa.Clear();
-    tab_iof->TAB_IOF_EDIT_Z_Typ.Clear();
-    tab_iof->TAB_IOF_EDIT_Z_Wersja.Clear();
+    ui->lineEdit_RokProd->clear();
+    ui->lineEdit_DataPrem->clear();
+    ui->lineEdit_CzasProj->clear();
+    ui->lineEdit_FormWysw->clear();
+    ui->lineEdit_SysKodObr->clear();
+    ui->lineEdit_JezLekt->clear();
+    ui->lineEdit_JezNap->clear();
+    ui->lineEdit_KrajProd->clear();
+    ui->lineEdit_KodVidNazwa->clear();
+    ui->lineEdit_KodVidTyp->clear();
+    ui->lineEdit_KodVidWersja->clear();
+    ui->lineEdit_KodAudNazwa->clear();
+    ui->lineEdit_KodAudTyp->clear();
+    ui->lineEdit_KodAudWersja->clear();
+    ui->lineEdit_ZabNazwa->clear();
+    ui->lineEdit_ZabTyp->clear();
+    ui->lineEdit_ZabWersja->clear();
 
-    tab_iof->ClearIOF(); // czyszczenie listctrl;
+    ui->tableWidget_IOF_LZ->clearContents(); // czyszczenie listctrl;
 
     // TAB Bibliotekarz
-    tab_b->ClearBIBLIO(); // czyszczenie listctrl
+    ui->tableWidget_BIBLIO_WYPIN->clearContents(); // czyszczenie listctrl
+    ui->tableWidget_BIBLIO_WYPODIN->clearContents();
 
 // STRUCT flm.film_tbl CLEAR
 if (all)

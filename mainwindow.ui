@@ -14,16 +14,6 @@
    <string>Biblioteka Filmów</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGraphicsView" name="graphicsView_PicFront">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>142</width>
-      <height>166</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_LoadPic">
     <property name="geometry">
      <rect>
@@ -142,7 +132,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="opis">
      <attribute name="title">
@@ -2098,6 +2088,25 @@
      </rect>
     </property>
     <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_PicFront">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>6</y>
+      <width>139</width>
+      <height>172</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
      <bool>true</bool>
     </property>
    </widget>

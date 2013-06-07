@@ -29,7 +29,7 @@
      <rect>
       <x>9</x>
       <y>180</y>
-      <width>67</width>
+      <width>58</width>
       <height>23</height>
      </rect>
     </property>
@@ -142,7 +142,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="opis">
      <attribute name="title">
@@ -182,7 +182,7 @@
        <string>Zasoby poświęcone tytułowi</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="tableWidget_OC">
       <property name="geometry">
        <rect>
         <x>3</x>
@@ -232,6 +232,16 @@
       <column>
        <property name="text">
         <string>Ocena krytyka</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IDPDB</string>
        </property>
       </column>
      </widget>
@@ -447,6 +457,16 @@
         <string>Rola</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IDPDB</string>
+       </property>
+      </column>
      </widget>
      <widget class="QPushButton" name="pushButton_OBSave">
       <property name="geometry">
@@ -505,7 +525,7 @@
        <string>Produkcja</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget__Prod">
+     <widget class="QTableWidget" name="tableWidget_Prod">
       <property name="geometry">
        <rect>
         <x>3</x>
@@ -557,6 +577,16 @@
       <column>
        <property name="text">
         <string>Strona WWW</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IDPDB</string>
        </property>
       </column>
      </widget>
@@ -638,6 +668,16 @@
       <column>
        <property name="text">
         <string>Strona WWW</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IDPDB</string>
        </property>
       </column>
      </widget>
@@ -1597,6 +1637,16 @@
         <string>Data</string>
        </property>
       </column>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IDPDB</string>
+       </property>
+      </column>
      </widget>
      <widget class="QLabel" name="label_41">
       <property name="geometry">
@@ -1655,7 +1705,7 @@
      <attribute name="title">
       <string>Bibliotekarz</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidget_5">
+     <widget class="QTableWidget" name="tableWidget_BIBLIO_WYPIN">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1663,6 +1713,18 @@
         <width>580</width>
         <height>133</height>
        </rect>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>false</bool>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>false</bool>
+      </property>
+      <property name="dragDropOverwriteMode">
+       <bool>false</bool>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
       </property>
       <attribute name="horizontalHeaderDefaultSectionSize">
        <number>150</number>
@@ -1690,6 +1752,16 @@
       <column>
        <property name="text">
         <string>Stan po oddaniu</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IDPDB</string>
        </property>
       </column>
      </widget>
@@ -1732,7 +1804,7 @@
        <string>Usuń</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget_6">
+     <widget class="QTableWidget" name="tableWidget_BIBLIO_WYPODIN">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -1767,6 +1839,16 @@
       <column>
        <property name="text">
         <string>Stan po oddaniu</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IDPDB</string>
        </property>
       </column>
      </widget>

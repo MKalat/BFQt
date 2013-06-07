@@ -48,6 +48,34 @@ private slots:
 
     void on_actionPomoc_triggered();
 
+    void on_pushButton_LoadPic_clicked();
+
+    void on_pushButton_DelPic_clicked();
+
+    void on_pushButton_B_WYPIN_New_clicked();
+
+    void on_pushButton_BIBLIOWYPISave_clicked();
+
+    void on_pushButton_BIBLIOWYPINDel_clicked();
+
+    void on_pushButton_B_WYPODIN_New_clicked();
+
+    void on_pushButton_BIBLIOWYPODINSave_clicked();
+
+    void on_pushButton_BIBLIOWYPODINDel_clicked();
+
+    void on_pushButton_LZ_New_clicked();
+
+    void on_pushButton_LZSave_clicked();
+
+    void on_pushButton_LZDel_clicked();
+
+    void on_pushButton_OB_new_clicked();
+
+    void on_pushButton_OBSave_clicked();
+
+    void on_pushButton_OBDel_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -4,6 +4,9 @@
 #include <QMessageBox>
 #include <QFile>
 #include <QDir>
+#include <QList>
+#include "film_ftbl_class.h"
+#include "Unmngd.h"
 
 struct Film Ftbl::film_tbl;    // struktura mieszczaca jeden rekord form film
 bool Ftbl::sort = false;
@@ -19,6 +22,34 @@ wchar_t akt_BF_VER[16] = L"1.0.6.0";
 bool first_act = true;
 bool start = true; // oznacza czy aplikacja startuje;
 bool open_folder = false;
+
+bool add_new_wi = false;
+bool add_new_wo = false;
+struct Wypozycz_Innym wi;
+struct Wypozycz_Od_Innych wo;
+QList <Wypozycz_Innym> wi_arr;
+QList <Wypozycz_Od_Innych> wo_arr;
+
+struct Lok_zdjeciowe lz;
+bool add_new_lz = false;
+QList <Lok_zdjeciowe> lz_arr;
+
+struct Obsada ob;
+bool add_new_ob = false;
+QList <Obsada> ob_arr;
+
+struct Ocena oc;
+bool add_new = false;
+QList <Ocena> oc_arr;
+
+struct Producent pp;
+struct Dystrybutor pd;
+bool add_new_pp = false;
+bool add_new_pd = false;
+QList <Producent> pp_arr;
+QList <Dystrybutor> pd_arr;
+
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -1421,657 +1452,195 @@ void MainWindow::KopiujOLDDB()
     DeleteFile(_TEXT("BF_LZ.bf"));
 }
 
-/*void MainWindow::SetBTNIcons()
+void MainWindow::ClearBIBLIO(void)
 {
-    HANDLE bt_new, bt_del, bt_save;
-    bt_new = LoadImage(theApp.m_hInstance,MAKEINTRESOURCE(IDI_ICON2),IMAGE_ICON,NULL,NULL,NULL);
-    bt_save = LoadImage(theApp.m_hInstance,MAKEINTRESOURCE(IDI_ICON3),IMAGE_ICON,NULL,NULL,NULL);
-    bt_del = LoadImage(theApp.m_hInstance,MAKEINTRESOURCE(IDI_ICON4),IMAGE_ICON,NULL,NULL,NULL);
+    ui->tableWidget_BIBLIO_WYPIN->clearContents();
+    ui->tableWidget_BIBLIO_WYPODIN->clearContents();
+}
 
-    this->FRM_F_New_BUTTON.SendMessageW(BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)bt_new);
-    this->FRM_F_Save_BUTTON.SendMessageW(BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)bt_save);
-    this->FRM_F_Del_BUTTON.SendMessageW(BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)bt_del);
-
-}*/
-
-void CBibliotekaFilmówDlg::OnOperacjeOtw32776()
+void MainWindow::Fill_Wi(void)
 {
-    CString buffCSTR;
-    BROWSEINFO dir_info;
-    dir_info.hwndOwner = NULL;
-    dir_info.pidlRoot = NULL;
-    dir_info.lpszTitle = TEXT("Podaj katalog z bazą danych w formacie Biblioteka Filmów lub utwórz katalog na nową bazę danych i wskaż go");
-    dir_info.ulFlags = NULL;
-    open_folder = false;
-    if (theApp.GetShellManager()->BrowseForFolder(buffCSTR, this, NULL,TEXT("Podaj katalog z bazą danych w formacie Biblioteka Filmów lub utwórz katalog na nową bazę danych i wskaż go"),BIF_NEWDIALOGSTYLE))
+    QFile plik(flm.pths.BF_WI);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+
+
+    ui->tableWidget_BIBLIO_WYPIN->clearContents();
+    wi_arr.clear();
+
+    for (i = 0;i<stop ; )
     {
-        int cstr_size = buffCSTR.GetLength() + 1;
-        char *chr = new char[cstr_size];
-        wchar_t *buff = new wchar_t[cstr_size];
-        _tcscpy_s(buff,cstr_size,buffCSTR);
-        SetDBFNPaths(true,buff);
-        if (CheckbOpenDB() == 1)
+        plik.seek(i);
+        plik.read(static_cast<char *>(&wi),sizeof(wi));
+        if (wi.IDPDB == flm.film_tbl.ID)
         {
-            UtworzDB(true);
+            wi_arr.append(wi);
 
         }
-        Clear_TABS();
-        ClearCtrls(true);
-        UpdateCtrls(false,true);
-        Licz_Rec();
-        open_folder = false;
+        i = i + sizeof(wi);
     }
+    plik.close();
+
+    Refresh_Wi();
+
 
 }
 
-void CBibliotekaFilmówDlg::OnOperacjeEksportuj()
+void MainWindow::Fill_Wo(void)
 {
-    Eksport_Wizard *eks_wiz = new Eksport_Wizard(this);
-    eks_wiz->Create(Eksport_Wizard::IDD,this);
-    eks_wiz->ShowWindow(SW_SHOW);
-}
-void CBibliotekaFilmówDlg::OnBnClickedButtonFrmFDoeOklprzodOtworz()
-{
-    TCHAR szFiltr[] = _T("Pliki graficzne (*.bmp)|*.bmp| (*.jpg)|*.jpg| (*.jpeg)|*.jpeg| (*.png)|*.png||");
-    CFileDialog plik_dlg(TRUE,NULL,NULL,OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON,szFiltr);
-    if (plik_dlg.DoModal() == IDOK)
+    QFile plik(flm.pths.BF_WO);
+    plik.Open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+
+
+    ui->tableWidget_BIBLIO_WYPODIN->clearContents();
+    wo_arr.clear();
+
+
+
+    for (i = 0;i<stop ; )
     {
-        //plik_dlg.DoModal();
-        CString plk_path = plik_dlg.GetPathName();
-        CString buff;
+        plik.seek(i);
+        plik.read(static_cast<char *>(&wo),sizeof(wo));
+        if (wo.IDPDB == flm_b.film_tbl.ID)
+        {
+            wo_arr.append(wo);
 
-        buff = flm.pths.BF_COVERS;
-        buff = buff + plik_dlg.GetFileName();
-
-        CopyFile(plk_path,buff,FALSE);
-        _tcscpy(flm.film_tbl.skan_przod_path,buff);
-        CBibliotekaFilmówDlg::OnBnClickedButtonFrmFSave();
+        }
+        i = i + sizeof(wo);
     }
+    plik.close();
+
+    Refresh_Wo();
 
 
 }
 
-void CBibliotekaFilmówDlg::OnBnClickedButtonFrmFDoeOklprzodUsun()
-{
-    if (!(CBibliotekaFilmówDlg::Licz_Rec()))
-    {
-        _tcscpy(flm.film_tbl.skan_przod_path,_TEXT(""));
-        CBibliotekaFilmówDlg::OnBnClickedButtonFrmFSave();
-
-    }
-}
-
-void CBibliotekaFilmówDlg::OnBnClickedButtonFrmFDoeOkltylOtworz()
-{
-    TCHAR szFiltr[] = _T("Pliki graficzne (*.bmp)|*.bmp| (*.jpg)|*.jpg| (*.jpeg)|*.jpeg| (*.png)|*.png||");
-    CFileDialog plik_dlg(TRUE,NULL,NULL,OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON,szFiltr);
-    if (plik_dlg.DoModal() == IDOK)
-    {
-        //plik_dlg.DoModal();
-        CString plk_path = plik_dlg.GetPathName();
-        CString buff;
-
-        buff = flm.pths.BF_COVERS;
-        buff = buff + plik_dlg.GetFileName();
-
-        CopyFile(plk_path,buff,FALSE);
-        _tcscpy(flm.film_tbl.skan_tyl_path,buff);
-        CBibliotekaFilmówDlg::OnBnClickedButtonFrmFSave();
-    }
-
-}
-
-void CBibliotekaFilmówDlg::OnBnClickedButtonFrmFDoeOkltylUsun()
-{
-    if (!(CBibliotekaFilmówDlg::Licz_Rec()))
-    {
-        _tcscpy(flm.film_tbl.skan_tyl_path,_TEXT(""));
-        CBibliotekaFilmówDlg::OnBnClickedButtonFrmFSave();
-    }
-}
-void TAB_BIBLIO::ClearBIBLIO(void)
-{
-TAB_BIBLIO_LIST_WypIn.DeleteAllItems();
-TAB_BIBLIO_LIST_WypOdIn.DeleteAllItems();
-
-
-}
-
-void TAB_BIBLIO::Fill_Wi(void)
-{
-CFile plik;
-plik.Open(flm_b.pths.BF_WI,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-
-
-TAB_BIBLIO_LIST_WypIn.DeleteAllItems();
-wi_arr.RemoveAll();
-
-
-
-for (i = 0;i<stop ; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&wi,sizeof(wi));
-    if (wi.IDPDB == flm_b.film_tbl.ID)
-    {
-        wi_arr.Add(wi);
-
-    }
-    i = i + sizeof(wi);
-}
-plik.Close();
-
-Refresh_Wi();
-
-
-}
-
-void TAB_BIBLIO::Fill_Wo(void)
-{
-CFile plik;
-plik.Open(flm_b.pths.BF_WO,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-
-
-TAB_BIBLIO_LIST_WypOdIn.DeleteAllItems();
-wo_arr.RemoveAll();
-
-
-
-for (i = 0;i<stop ; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&wo,sizeof(wo));
-    if (wo.IDPDB == flm_b.film_tbl.ID)
-    {
-        wo_arr.Add(wo);
-
-    }
-    i = i + sizeof(wo);
-}
-plik.Close();
-
-Refresh_Wo();
-
-
-}
-void TAB_BIBLIO::OnBnClickedButtonFrmFBWiNowy()
-{
-    Save_Wi();
-    Add_New_WI(Get_Hi_ID_WI());
-    add_new_wi = true;
-}
-
-void TAB_BIBLIO::OnBnClickedButtonFrmFBWiEdytuj()
-{
-    TAB_BIBLIO::FRM_F_B_WI_BTN_NOWY.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_BTN_USUN.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_BTN_ZAPISZ.EnableWindow(FALSE);
-    TAB_BIBLIO::TAB_BIBLIO_LIST_WypIn.EnableWindow(FALSE);
-
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataWyp.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPWyp.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataOdd.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPOdd.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_Osoba.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_NrKat.EnableWindow(TRUE);
-
-    TAB_BIBLIO::FRM_F_B_WI_BTN_ZATWIERDZ.EnableWindow(TRUE);
-
-
-wchar_t buff[34];
-
-int item;
-item = TAB_BIBLIO_LIST_WypIn.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-    wchar_t buff201[201];
-    wchar_t buff501[501];
-    TAB_BIBLIO_LIST_WypIn.GetItemText(item,0,buff501,21);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataWyp.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypIn.GetItemText(item,1,buff501,21);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPWyp.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypIn.GetItemText(item,2,buff501,501);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataOdd.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypIn.GetItemText(item,3,buff501,501);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPOdd.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypIn.GetItemText(item,4,buff201,501);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_Osoba.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypIn.GetItemText(item,5,buff501,501);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_NrKat.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypIn.GetItemText(item,6,buff,34);
-    wi.ID = _wtoi(buff);
-    TAB_BIBLIO_LIST_WypIn.GetItemText(item,7,buff,34);
-    wi.IDPDB = _wtoi(buff);
-}
-}
-
-void TAB_BIBLIO::OnBnClickedButtonfrmFBWiZapisz()
-{
-    Save_Wi();
-}
-
-void TAB_BIBLIO::OnBnClickedButtonFrmFBWiUsun()
-{
-wchar_t buff[34];
-LVITEM lvitm;
-int delitem = 0;
-int delID = 0;
-delitem = TAB_BIBLIO_LIST_WypIn.GetNextItem(-1,LVNI_SELECTED);
-TAB_BIBLIO_LIST_WypIn.GetItemText(delitem,6,(LPTSTR)buff,34);
-delID = _wtoi(buff);
-
-CFile plik;
-plik.Open(flm_b.pths.BF_WI,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&wi,sizeof(wi));
-    if (delID == wi.ID)
-    {
-    plik.Close();
-    Usun_Rec_WI(i);
-    break;
-    }
-    i = i + sizeof(wi);
-}
-if (plik.m_hFile != CFile::hFileNull)
-{
-    plik.Close();
-}
-}
-
-void TAB_BIBLIO::OnBnClickedButtonFrmFBWiZatwierdz()
-{
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataWyp.GetWindowTextW(wi.data_wypozyczenia,21);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPWyp.GetWindowTextW(wi.stan_przed_wypozycz,21);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataOdd.GetWindowTextW(wi.data_oddania,501);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPOdd.GetWindowTextW(wi.stan_po_oddaniu,501);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_Osoba.GetWindowTextW(wi.osoba,501);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_NrKat.GetWindowTextW(wi.Nr_kat,501);
-
-
-
-int item;
-item = TAB_BIBLIO_LIST_WypIn.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-struct Wypozycz_Innym& wi_buff = wi_arr.ElementAt(item);
-
-wi_buff = wi;
-Refresh_Wi();
-}
-
-
-    TAB_BIBLIO::FRM_F_B_WI_BTN_NOWY.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WI_BTN_USUN.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WI_BTN_ZAPISZ.EnableWindow(TRUE);
-    TAB_BIBLIO::TAB_BIBLIO_LIST_WypIn.EnableWindow(TRUE);
-
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataWyp.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPWyp.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataOdd.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPOdd.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_Osoba.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_NrKat.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_BTN_ZATWIERDZ.EnableWindow(FALSE);
-}
-
-void TAB_BIBLIO::OnBnClickedButtonFrmFBWoiNowy()
+void MainWindow::OnBnClickedButtonFrmFBWoiNowy()
 {
     Save_Wo();
     Add_New_WO(Get_Hi_ID_WO());
     add_new_wo = true;
 }
 
-void TAB_BIBLIO::OnBnClickedButtonFrmFBWoiEdytuj()
-{
-    TAB_BIBLIO::FRM_F_B_WO_BTN_NOWY.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_BTN_USUN.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_BTN_ZAPISZ.EnableWindow(FALSE);
-    TAB_BIBLIO::TAB_BIBLIO_LIST_WypIn.EnableWindow(FALSE);
-
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataWyp.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPWyp.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataOdd.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPOdd.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_Osoba.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_NrKat.EnableWindow(TRUE);
-
-    TAB_BIBLIO::FRM_F_B_WO_BTN_ZATWIERDZ.EnableWindow(TRUE);
-
-
-wchar_t buff[34];
-
-int item;
-item = TAB_BIBLIO_LIST_WypOdIn.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-    wchar_t buff201[201];
-    wchar_t buff501[501];
-    TAB_BIBLIO_LIST_WypOdIn.GetItemText(item,0,buff501,21);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataWyp.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypOdIn.GetItemText(item,1,buff501,21);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPWyp.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypOdIn.GetItemText(item,2,buff501,501);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataOdd.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypOdIn.GetItemText(item,3,buff501,501);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPOdd.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypOdIn.GetItemText(item,4,buff201,501);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_Osoba.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypOdIn.GetItemText(item,5,buff501,501);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_NrKat.SetWindowTextW(buff501);
-
-    TAB_BIBLIO_LIST_WypOdIn.GetItemText(item,6,buff,34);
-    wo.ID = _wtoi(buff);
-    TAB_BIBLIO_LIST_WypOdIn.GetItemText(item,7,buff,34);
-    wo.IDPDB = _wtoi(buff);
-}
-}
-
-void TAB_BIBLIO::OnBnClickedButtonFrmFBWoiZapisz()
+void MainWindow::OnBnClickedButtonFrmFBWoiZapisz()
 {
     Save_Wo();
 }
 
-void TAB_BIBLIO::OnBnClickedButtonFrmFBWoiUsun()
+void MainWindow::Refresh_Wi(void)
 {
-wchar_t buff[34];
-LVITEM lvitm;
-int delitem = 0;
-int delID = 0;
-delitem = TAB_BIBLIO_LIST_WypOdIn.GetNextItem(-1,LVNI_SELECTED);
-TAB_BIBLIO_LIST_WypOdIn.GetItemText(delitem,6,(LPTSTR)buff,34);
-delID = _wtoi(buff);
-
-CFile plik;
-plik.Open(flm_b.pths.BF_WO,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&wo,sizeof(wo));
-    if (delID == wo.ID)
-    {
-    plik.Close();
-    Usun_Rec_WO(i);
-    break;
-    }
-    i = i + sizeof(wo);
-}
-if (plik.m_hFile != CFile::hFileNull)
-{
-    plik.Close();
-}
-}
-
-void TAB_BIBLIO::OnBnClickedButtonFrmFBWoiZatwierdz()
-{
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataWyp.GetWindowTextW(wo.data_wypozyczenia,21);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPWyp.GetWindowTextW(wo.stan_przed_wypozycz,21);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataOdd.GetWindowTextW(wo.data_oddania,501);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPOdd.GetWindowTextW(wo.stan_po_oddaniu,501);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_Osoba.GetWindowTextW(wo.osoba,501);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_NrKat.GetWindowTextW(wo.Nr_kat,501);
-
-
-
-int item;
-item = TAB_BIBLIO_LIST_WypOdIn.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-struct Wypozycz_Od_Innych& wo_buff = wo_arr.ElementAt(item);
-
-wo_buff = wo;
-Refresh_Wo();
-}
-
-
-    TAB_BIBLIO::FRM_F_B_WO_BTN_NOWY.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WO_BTN_USUN.EnableWindow(TRUE);
-    TAB_BIBLIO::FRM_F_B_WO_BTN_ZAPISZ.EnableWindow(TRUE);
-    TAB_BIBLIO::TAB_BIBLIO_LIST_WypIn.EnableWindow(TRUE);
-
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataWyp.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPWyp.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataOdd.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPOdd.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_Osoba.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_NrKat.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_BTN_ZATWIERDZ.EnableWindow(FALSE);
-}
-
-void TAB_BIBLIO::Refresh_Wi(void)
-{
-TAB_BIBLIO_LIST_WypIn.DeleteAllItems();
+    ui->tableWidget_BIBLIO_WYPIN->clearContents();
 
     int x;
-    for (x=0;x<wi_arr.GetCount(); x++)
+    QTableWidgetItem *item;
+    for (x=0;x<wi_arr.count(); x++)
     {
-        LVITEM lvitm;
-        lvitm.mask = LVIF_TEXT | LVIF_PARAM | LVIF_STATE;
-        lvitm.iItem = x;
-        lvitm.iSubItem = 0;
-        lvitm.state = 0;
-        lvitm.stateMask = 0;
-        lvitm.lParam = (LPARAM) &wi_arr.GetAt(x);
-        lvitm.pszText = LPSTR_TEXTCALLBACK;
-        TAB_BIBLIO_LIST_WypIn.InsertItem(&lvitm);
+        ui->tableWidget_BIBLIO_WYPIN->insertRow(x);
+
+        item->setText(wi_arr[x].osoba);
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,0,item);
+
+        item->setText(wi_arr[x].data_wypozyczenia);
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,1,item);
+
+        item->setText(wi_arr[x].data_oddania);
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,2,item);
+
+        item->setText(wi_arr[x].stan_przed_wypozycz);
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,3,item);
+
+        item->setText(wi_arr[x].stan_po_oddaniu);
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,4,item);
+
+        item->setText(wi_arr[x].ID);
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,5,item);
+
+        item->setText(wi_arr[x].IDPDB);
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,6,item);
+
     }
 
 
 }
 
-void TAB_BIBLIO::Refresh_Wo(void)
+void MainWindow::Refresh_Wo(void)
 {
-TAB_BIBLIO_LIST_WypOdIn.DeleteAllItems();
+    ui->tableWidget_BIBLIO_WYPODIN->clearContents();
 
     int x;
-    for (x=0;x<wo_arr.GetCount(); x++)
+    QTableWidgetItem *item;
+    for (x=0;x<wo_arr.count(); x++)
     {
-        LVITEM lvitm;
-        lvitm.mask = LVIF_TEXT | LVIF_PARAM | LVIF_STATE;
-        lvitm.iItem = x;
-        lvitm.iSubItem = 0;
-        lvitm.state = 0;
-        lvitm.stateMask = 0;
-        lvitm.lParam = (LPARAM) &wo_arr.GetAt(x);
-        lvitm.pszText = LPSTR_TEXTCALLBACK;
-        TAB_BIBLIO_LIST_WypOdIn.InsertItem(&lvitm);
+        ui->tableWidget_BIBLIO_WYPODIN->insertRow(x);
+
+        item->setText(wo_arr[x].osoba);
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,0,item);
+
+        item->setText(wo_arr[x].data_wypozyczenia);
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,1,item);
+
+        item->setText(wo_arr[x].data_oddania);
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,2,item);
+
+        item->setText(wo_arr[x].stan_przed_wypozycz);
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,3,item);
+
+        item->setText(wo_arr[x].stan_po_oddaniu);
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,4,item);
+
+        item->setText(wo_arr[x].ID);
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,5,item);
+
+        item->setText(wo_arr[x].IDPDB);
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,6,item);
+
     }
 
-
-
-}
-void TAB_BIBLIO::OnLvnGetdispinfoListFrmFBWypin(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    wchar_t buff[34];
-
-    NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-
-
-    int x;
-    x = pDispInfo->item.iItem;
-
-    switch (pDispInfo->item.iSubItem)
-    {
-    case 0:
-        wcscpy(pDispInfo->item.pszText,wi_arr.GetAt(x).data_wypozyczenia);
-        break;
-    case 1:
-        wcscpy(pDispInfo->item.pszText,wi_arr.GetAt(x).stan_przed_wypozycz);
-        break;
-    case 2:
-        wcscpy(pDispInfo->item.pszText,wi_arr.GetAt(x).data_oddania);
-        break;
-    case 3:
-        wcscpy(pDispInfo->item.pszText,wi_arr.GetAt(x).stan_po_oddaniu);
-        break;
-    case 4:
-        wcscpy(pDispInfo->item.pszText,wi_arr.GetAt(x).osoba);
-        break;
-    case 5:
-        wcscpy(pDispInfo->item.pszText,wi_arr.GetAt(x).Nr_kat);
-        break;
-    case 6:
-        _itow(wi_arr.GetAt(x).ID ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff); // ID
-        break;
-    case 7:
-        _itow(wi_arr.GetAt(x).IDPDB ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff);  //IDPDB
-        break;
-    }
-
-
-    *pResult = 0;
 }
 
-void TAB_BIBLIO::OnLvnGetdispinfoListFrmFBWypodin(NMHDR *pNMHDR, LRESULT *pResult)
+void MainWindow::Save_Wi(void)
 {
-    wchar_t buff[34];
-
-    NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-
-
-    int x;
-    x = pDispInfo->item.iItem;
-
-    switch (pDispInfo->item.iSubItem)
-    {
-    case 0:
-        wcscpy(pDispInfo->item.pszText,wo_arr.GetAt(x).data_wypozyczenia);
-        break;
-    case 1:
-        wcscpy(pDispInfo->item.pszText,wo_arr.GetAt(x).stan_przed_wypozycz);
-        break;
-    case 2:
-        wcscpy(pDispInfo->item.pszText,wo_arr.GetAt(x).data_oddania);
-        break;
-    case 3:
-        wcscpy(pDispInfo->item.pszText,wo_arr.GetAt(x).stan_po_oddaniu);
-        break;
-    case 4:
-        wcscpy(pDispInfo->item.pszText,wo_arr.GetAt(x).osoba);
-        break;
-    case 5:
-        wcscpy(pDispInfo->item.pszText,wo_arr.GetAt(x).Nr_kat);
-        break;
-    case 6:
-        _itow(wo_arr.GetAt(x).ID ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff); // ID
-        break;
-    case 7:
-        _itow(wo_arr.GetAt(x).IDPDB ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff);  //IDPDB
-        break;
-    }
-
-
-
-    *pResult = 0;
-}
-
-void TAB_BIBLIO::Set_BIBLIO(void)
-{
-
-    TAB_BIBLIO_LIST_WypIn.InsertColumn(0,L"Data wypożyczenia",LVCFMT_LEFT,100,1);
-    TAB_BIBLIO_LIST_WypIn.InsertColumn(1,L"Stan przed wypożyczeniem",LVCFMT_LEFT,150,2);
-    TAB_BIBLIO_LIST_WypIn.InsertColumn(2,L"Data oddania",LVCFMT_LEFT,100,3);
-    TAB_BIBLIO_LIST_WypIn.InsertColumn(3,L"Stan po oddaniu",LVCFMT_LEFT,150,4);
-    TAB_BIBLIO_LIST_WypIn.InsertColumn(4,L"Osoba",LVCFMT_LEFT,150,5);
-    TAB_BIBLIO_LIST_WypIn.InsertColumn(5,L"Nr katalogowy filmu",LVCFMT_LEFT,150,6);
-    TAB_BIBLIO_LIST_WypIn.InsertColumn(6,L"ID",LVCFMT_LEFT,150,7);
-    TAB_BIBLIO_LIST_WypIn.InsertColumn(7,L"IDPDB",LVCFMT_LEFT,150,8);
-    TAB_BIBLIO_LIST_WypIn.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataOdd.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_DataWyp.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_NrKat.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_Osoba.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPOdd.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_EDT_StanPWyp.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WI_BTN_ZATWIERDZ.EnableWindow(FALSE);
-
-    TAB_BIBLIO_LIST_WypOdIn.InsertColumn(0,L"Data wypożyczenia",LVCFMT_LEFT,100,1);
-    TAB_BIBLIO_LIST_WypOdIn.InsertColumn(1,L"Stan przed wypożyczeniem",LVCFMT_LEFT,150,2);
-    TAB_BIBLIO_LIST_WypOdIn.InsertColumn(2,L"Data oddania",LVCFMT_LEFT,100,3);
-    TAB_BIBLIO_LIST_WypOdIn.InsertColumn(3,L"Stan po oddaniu",LVCFMT_LEFT,150,4);
-    TAB_BIBLIO_LIST_WypOdIn.InsertColumn(4,L"Osoba",LVCFMT_LEFT,150,5);
-    TAB_BIBLIO_LIST_WypOdIn.InsertColumn(5,L"Nr katalogowy filmu",LVCFMT_LEFT,150,6);
-    TAB_BIBLIO_LIST_WypOdIn.InsertColumn(6,L"ID",LVCFMT_LEFT,150,7);
-    TAB_BIBLIO_LIST_WypOdIn.InsertColumn(7,L"IDPDB",LVCFMT_LEFT,150,8);
-    TAB_BIBLIO_LIST_WypOdIn.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataOdd.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_DataWyp.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_NrKat.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_Osoba.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPOdd.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_EDT_StanPWyp.EnableWindow(FALSE);
-    TAB_BIBLIO::FRM_F_B_WO_BTN_ZATWIERDZ.EnableWindow(FALSE);
-
-}
-
-void TAB_BIBLIO::Save_Wi(void)
-{
-    CFile plik;
+    QFile plik(flm.pths.BF_WI);
     struct Wypozycz_Innym wi_buf;
-    plik.Open(flm_b.pths.BF_WI,CFile::modeReadWrite | CFile::shareDenyNone);
+    plik.open(QFile::ReadWrite);
 
     LONGLONG stop;
     LONGLONG i;
     int y;
 
     wchar_t buff[34];
-    stop = plik.SeekToEnd();
+    stop = plik.size();
 
-    for (y=0;y<wi_arr.GetCount() ;y++ )
+    for (y=0;y<wi_arr.count() ;y++ )
     {
         if (GetRecC_WI() == 0)
             {
-                plik.Seek(0,CFile::begin);
-                plik.Write(&wi_arr.GetAt(y),sizeof(wi));
+                plik.seek(0);
+                plik.write(static_cast<char *> (&wi_arr[y]),sizeof(wi));
 
             }
         else if (GetRecC_WI() > 0)
             {
-                if ((plik.SeekToEnd()) > 2147483647)
+                if ((plik.size()) > 2147483647)
                 {
-                    MessageBoxW(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",L"Biblioteka Filmów - Błąd zapisu",MB_OK);
+                    QMessageBox(QMessageBox::Warning,L"Biblioteka Filmów",L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",QMessageBox::Ok);
                     break;
                 }
-                else if ((plik.SeekToEnd()) < 2147483647)
+                else if ((plik.size()) < 2147483647)
                 {
                     for (i=0; i<stop; )
                     {
-                        plik.Seek(i,CFile::begin);
-                        plik.Read(&wi_buf,sizeof(wi_buf));
-                            if (wi_arr.GetAt(y).ID == wi_buf.ID)
+                        plik.seek(i);
+                        plik.read(static_cast<char *>(&wi_buf),sizeof(wi_buf));
+                            if (wi_arr[y].ID == wi_buf.ID)
                             {
-                                plik.Seek(i,CFile::begin);
-                                plik.Write(&wi_arr.GetAt(y),sizeof(wi));
+                                plik.seek(i);
+                                plik.write(static_cast<char *>(&wi_arr[y]),sizeof(wi));
                             }
 
                         i = i + sizeof(wi);
@@ -2080,9 +1649,9 @@ void TAB_BIBLIO::Save_Wi(void)
                     {
 
                         int x;
-                        x = (wi_arr.GetCount()-1);
-                        plik.Seek((plik.SeekToEnd()),CFile::begin);
-                        plik.Write(&wi_arr.GetAt(x),sizeof(wi));
+                        x = (wi_arr.count()-1);
+                        plik.seek(plik.size());
+                        plik.write(static_cast<char *>(&wi_arr[x]),sizeof(wi));
                         add_new_wi = false;
                     }
                 }
@@ -2090,49 +1659,49 @@ void TAB_BIBLIO::Save_Wi(void)
 
     }
 
-    plik.Close();
+    plik.close();
 
 
 }
 
-void TAB_BIBLIO::Save_Wo(void)
+void MainWindow::Save_Wo(void)
 {
-    CFile plik;
+    QFile plik(flm.pths.BF_WO);
     struct Wypozycz_Od_Innych wo_buf;
-    plik.Open(flm_b.pths.BF_WO,CFile::modeReadWrite | CFile::shareDenyNone);
+    plik.open(QFile::ReadWrite);
 
     LONGLONG stop;
     LONGLONG i;
     int y;
 
     wchar_t buff[34];
-    stop = plik.SeekToEnd();
+    stop = plik.size();
 
-    for (y=0;y<wo_arr.GetCount() ;y++ )
+    for (y=0;y<wo_arr.count() ;y++ )
     {
         if (GetRecC_WO() == 0)
             {
-                plik.Seek(0,CFile::begin);
-                plik.Write(&wo_arr.GetAt(y),sizeof(wo));
+                plik.seek(0);
+                plik.write(static_cast<char *>(&wo_arr[y]),sizeof(wo));
 
             }
         else if (GetRecC_WO() > 0)
             {
-                if ((plik.SeekToEnd()) > 2147483647)
+                if ((plik.size()) > 2147483647)
                 {
-                    MessageBoxW(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",L"Biblioteka Filmów - Błąd zapisu",MB_OK);
+                    QMessageBox(QMessageBox::Warning,L"Biblioteka Filmów",L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",QMessageBox::Ok);
                     break;
                 }
-                else if ((plik.SeekToEnd()) < 2147483647)
+                else if ((plik.size()) < 2147483647)
                 {
                     for (i=0; i<stop; )
                     {
-                        plik.Seek(i,CFile::begin);
-                        plik.Read(&wo_buf,sizeof(wo_buf));
-                            if (wo_arr.GetAt(y).ID == wo_buf.ID)
+                        plik.seek(i);
+                        plik.read(static_cast<char *>(&wo_buf),sizeof(wo_buf));
+                            if (wo_arr[y].ID == wo_buf.ID)
                             {
-                                plik.Seek(i,CFile::begin);
-                                plik.Write(&wo_arr.GetAt(y),sizeof(wo));
+                                plik.seek(i);
+                                plik.write(static_cast<char *>(&wo_arr[y]),sizeof(wo));
                             }
 
                         i = i + sizeof(wo);
@@ -2141,9 +1710,9 @@ void TAB_BIBLIO::Save_Wo(void)
                     {
 
                         int x;
-                        x = (wo_arr.GetCount()-1);
-                        plik.Seek((plik.SeekToEnd()),CFile::begin);
-                        plik.Write(&wo_arr.GetAt(x),sizeof(wo));
+                        x = (wo_arr.count()-1);
+                        plik.seek(plik.size());
+                        plik.write(static_cast<char *>(&wo_arr.[x]),sizeof(wo));
                         add_new_wo = false;
                     }
                 }
@@ -2151,561 +1720,322 @@ void TAB_BIBLIO::Save_Wo(void)
 
     }
 
-    plik.Close();
+    plik.close();
 }
 
-int TAB_BIBLIO::GetRecC_WI(void)
+int MainWindow::GetRecC_WI(void)
 {
-CFile plik;
-plik.Open(flm_b.pths.BF_WI,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-int rec_count = 0;
-struct Wypozycz_Innym wi_t;
-if (stop == 0)
-{
-    plik.Close();
-    return 0;
-}
+    QFile plik(flm.pths.BF_WI);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    int rec_count = 0;
+    struct Wypozycz_Innym wi_t;
+    if (stop == 0)
+    {
+        plik.close();
+        return 0;
+    }
     for (i = 0; i <stop; )
     {
-        plik.Seek(i,CFile::begin);
-        plik.Read(&wi_t,sizeof(wi_t));
+        plik.seek(i);
+        plik.read(static_cast<char *>(&wi_t),sizeof(wi_t));
         rec_count = rec_count + 1;
         i = i + sizeof(wi_t);
     }
-    plik.Close();
-return rec_count;
+    plik.close();
+    return rec_count;
 
 }
 
-int TAB_BIBLIO::GetRecC_WO(void)
+int MainWindow::GetRecC_WO(void)
 {
-CFile plik;
-plik.Open(flm_b.pths.BF_WO,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-int rec_count = 0;
-struct Wypozycz_Od_Innych wo_t;
-if (stop == 0)
-{
-    plik.Close();
-    return 0;
-}
+    QFile plik(flm.pths.BF_WO);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    int rec_count = 0;
+    struct Wypozycz_Od_Innych wo_t;
+    if (stop == 0)
+    {
+        plik.close();
+        return 0;
+    }
     for (i = 0; i <stop; )
     {
-        plik.Seek(i,CFile::begin);
-        plik.Read(&wo_t,sizeof(wo_t));
+        plik.seek(i);
+        plik.read(static_cast<char *>(&wo_t),sizeof(wo_t));
         rec_count = rec_count + 1;
         i = i + sizeof(wo_t);
     }
-    plik.Close();
-return rec_count;
+    plik.close();
+    return rec_count;
 
 
 }
 
-int TAB_BIBLIO::Get_Hi_ID_WI(void)
+int MainWindow::Get_Hi_ID_WI(void)
 {
-if (GetRecC_WI() == 0)
-{
-    return 0;
-}
-
-
-CFile plik;
-plik.Open(flm_b.pths.BF_WI,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    if (i == (stop - sizeof(wi)))
+    if (GetRecC_WI() == 0)
     {
-        plik.Read(&wi,sizeof(wi));
-        plik.Close();
-        return wi.ID;
+        return 0;
     }
-    i = i + sizeof(wi);
-}
-
-}
-
-int TAB_BIBLIO::Get_Hi_ID_WO(void)
-{
-if (GetRecC_WO() == 0)
-{
-    return 0;
-}
 
 
-CFile plik;
-plik.Open(flm_b.pths.BF_WO,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    if (i == (stop - sizeof(wo)))
+    QFile plik(flm.pths.BF_WI);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
     {
-        plik.Read(&wo,sizeof(wo));
-        plik.Close();
-        return wo.ID;
+        plik.seek(i);
+        if (i == (stop - sizeof(wi)))
+        {
+            plik.read(static_cast<char *>(&wi),sizeof(wi));
+            plik.close();
+            return wi.ID;
+        }
+        i = i + sizeof(wi);
     }
-    i = i + sizeof(wo);
-}
 
 }
 
-void TAB_BIBLIO::Add_New_WI(int id)
+int MainWindow::Get_Hi_ID_WO(void)
 {
-int id_new;
-id_new = id + 1;
+    if (GetRecC_WO() == 0)
+    {
+        return 0;
+    }
 
-// Metoda callbacku
-wi.ID = id_new;
-wi.IDPDB = flm_b.film_tbl.ID;
-wcscpy(wi.data_wypozyczenia,L"Wpisz tutaj coś");
-wcscpy(wi.stan_przed_wypozycz,L"Wpisz tutaj coś");
-wcscpy(wi.data_oddania,L"Wpisz tutaj coś");
-wcscpy(wi.stan_po_oddaniu,L"Wpisz tutaj coś");
-wcscpy(wi.osoba,L"Wpisz tutaj coś");
-wcscpy(wi.Nr_kat,L"Wpisz tutaj coś");
 
-wi_arr.Add(wi);
-
-Refresh_Wi();
-
+    QFile plik(flm.pths.BF_WO);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        if (i == (stop - sizeof(wo)))
+        {
+            plik.read(static_cast<char *>(&wo),sizeof(wo));
+            plik.close();
+            return wo.ID;
+        }
+        i = i + sizeof(wo);
+    }
 
 }
 
-void TAB_BIBLIO::Add_New_WO(int id)
+void MainWindow::Add_New_WI(int id)
 {
-int id_new;
-id_new = id + 1;
+    int id_new;
+    id_new = id + 1;
 
-// Metoda callbacku
-wo.ID = id_new;
-wo.IDPDB = flm_b.film_tbl.ID;
-wcscpy(wo.data_wypozyczenia,L"Wpisz tutaj coś");
-wcscpy(wo.stan_przed_wypozycz,L"Wpisz tutaj coś");
-wcscpy(wo.data_oddania,L"Wpisz tutaj coś");
-wcscpy(wo.stan_po_oddaniu,L"Wpisz tutaj coś");
-wcscpy(wo.osoba,L"Wpisz tutaj coś");
-wcscpy(wo.Nr_kat,L"Wpisz tutaj coś");
+    // Metoda callbacku
+    wi.ID = id_new;
+    wi.IDPDB = flm.film_tbl.ID;
+    wcscpy(wi.data_wypozyczenia,L"Wpisz tutaj coś");
+    wcscpy(wi.stan_przed_wypozycz,L"Wpisz tutaj coś");
+    wcscpy(wi.data_oddania,L"Wpisz tutaj coś");
+    wcscpy(wi.stan_po_oddaniu,L"Wpisz tutaj coś");
+    wcscpy(wi.osoba,L"Wpisz tutaj coś");
+    wcscpy(wi.Nr_kat,L"Wpisz tutaj coś");
 
-wo_arr.Add(wo);
+    wi_arr.append(wi);
 
-Refresh_Wo();
+    Refresh_Wi();
 
 }
 
-void TAB_BIBLIO::Usun_Rec_WI(LONGLONG pos)
+void MainWindow::Add_New_WO(int id)
+{
+    int id_new;
+    id_new = id + 1;
+
+    // Metoda callbacku
+    wo.ID = id_new;
+    wo.IDPDB = flm.film_tbl.ID;
+    wcscpy(wo.data_wypozyczenia,L"Wpisz tutaj coś");
+    wcscpy(wo.stan_przed_wypozycz,L"Wpisz tutaj coś");
+    wcscpy(wo.data_oddania,L"Wpisz tutaj coś");
+    wcscpy(wo.stan_po_oddaniu,L"Wpisz tutaj coś");
+    wcscpy(wo.osoba,L"Wpisz tutaj coś");
+    wcscpy(wo.Nr_kat,L"Wpisz tutaj coś");
+
+    wo_arr.append(wo);
+
+    Refresh_Wo();
+
+}
+
+void MainWindow::Usun_Rec_WI(LONGLONG pos)
 {
         struct Wypozycz_Innym wi_src;
         wi.ID = 0;
-        CFile plik;
-        plik.Open(flm_b.pths.BF_WI,CFile::modeWrite | CFile::shareDenyNone);
-        plik.Seek(pos,CFile::begin);
-        plik.Write(&wi,sizeof(wi));
-        plik.Close();
+        QFile plik(flm.pths.BF_WI);
+        plik.open(QFile::ReadOnly);
+        plik.seek(pos);
+        plik.write(static_cast<char *>(&wi),sizeof(wi));
 
-        CFile::Rename(flm_b.pths.BF_WI,(LPCTSTR)"BF_WI.bf0");
+        plik.rename(flm.pths.BF_WI,(LPCTSTR)"BF_WI.bf0");
 
-        plik.Open(flm_b.pths.BF_WI,CFile::modeCreate);
-        plik.Close();
-        CFile src_file;
-        src_file.Open((LPCTSTR)"BF_WI.bf0",CFile::modeRead);
-        plik.Open(flm_b.pths.BF_WI,CFile::modeWrite);
+        plik.close();
+        QFile plik(flm.pths.BF_WI);
+        plik.Open(QFile::WriteOnly);
+        QFile src_file((LPCTSTR)"BF_WI.bf0");
+        src_file.open(QFile::ReadOnly);
         LONGLONG i;
-        for (i = 0; i <(src_file.SeekToEnd()) ; )
+        for (i = 0; i <(src_file.size()) ; )
         {
-            src_file.Seek(i,CFile::begin);
-            src_file.Read(&wi_src,sizeof(wi_src));
+            src_file.seek(i);
+            src_file.read(static_cast<char *>(&wi_src),sizeof(wi_src));
             if (wi_src.ID == 0)
             {
                 i = i + sizeof(wi_src);
             }
             else
             {
-                plik.Write(&wi_src,sizeof(wi_src));
+                plik.write(static_cast<char *>(&wi_src),sizeof(wi_src));
                 i = i + sizeof(wi_src);
             }
         }
-        plik.Close();
-        src_file.Close();
-        CFile::Remove((LPCTSTR)"BF_WI.bf0");
+        plik.close();
+        src_file.remove();
+        src_file.close();
         Fill_Wi();
 
 
 }
 
-void TAB_BIBLIO::Usun_Rec_WO(LONGLONG pos)
+void MainWindow::Usun_Rec_WO(LONGLONG pos)
 {
 
         struct Wypozycz_Od_Innych wo_src;
         wo.ID = 0;
-        CFile plik;
-        plik.Open(flm_b.pths.BF_WO,CFile::modeWrite | CFile::shareDenyNone);
-        plik.Seek(pos,CFile::begin);
-        plik.Write(&wo,sizeof(wo));
-        plik.Close();
+        QFile plik(flm.pths.BF_WO);
+        plik.open(QFile::WriteOnly);
+        plik.seek(pos);
+        plik.write(static_cast<char *>(&wo),sizeof(wo));
 
-        CFile::Rename(flm_b.pths.BF_WO,(LPCTSTR)"BF_WO.bf0");
+        plik.rename(flm.pths.BF_WO,(LPCTSTR)"BF_WO.bf0");
+        plik.close();
 
-        plik.Open(flm_b.pths.BF_WO,CFile::modeCreate);
-        plik.Close();
-        CFile src_file;
-        src_file.Open((LPCTSTR)"BF_WO.bf0",CFile::modeRead);
-        plik.Open(flm_b.pths.BF_WO,CFile::modeWrite);
+        QFile plik(flm.pths.BF_WO);
+        plik.open(QFile::WriteOnly);
+        QFile src_file((LPCTSTR)"BF_WO.bf0");
+        src_file.Open(QFile::ReadOnly);
         LONGLONG i;
-        for (i = 0; i <(src_file.SeekToEnd()) ; )
+        for (i = 0; i <(src_file.size()) ; )
         {
-            src_file.Seek(i,CFile::begin);
-            src_file.Read(&wo_src,sizeof(wo_src));
+            src_file.seek(i);
+            src_file.read(static_cast<char *>(&wo_src),sizeof(wo_src));
             if (wo_src.ID == 0)
             {
                 i = i + sizeof(wo_src);
             }
             else
             {
-                plik.Write(&wo_src,sizeof(wo_src));
+                plik.write(static_cast<char *>(&wo_src),sizeof(wo_src));
                 i = i + sizeof(wo_src);
             }
         }
-        plik.Close();
-        src_file.Close();
-        CFile::Remove((LPCTSTR)"BF_WO.bf0");
+        plik.close();
+        src_file.remove();
+        src_file.close();
         Fill_Wo();
 
 
 }
-void TAB_BIBLIO::OnNMDblclkListFrmFBWypin(NMHDR *pNMHDR, LRESULT *pResult)
+
+void MainWindow::ClearIOF(void)
 {
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    if (wi_arr.GetCount() > 0)
+    ui->tableWidget_IOF_LZ->clearContents();
+
+}
+
+void MainWindow::Fill_Lz(void)
+{
+
+    QFile plik(flm.pths.BF_LZ);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+
+
+    ui->tableWidget_IOF_LZ->clearContents();
+    lz_arr.clear();
+
+    for (i = 0;i<stop ; )
     {
-        OnBnClickedButtonFrmFBWiEdytuj();
+        plik.seek(i);
+        plik.read(static_cast<char *>(&lz),sizeof(lz));
+        if (lz.IDPDB == flm.film_tbl.ID)
+        {
+            lz_arr.append(lz);
+
+        }
+        i = i + sizeof(lz);
     }
-    *pResult = 0;
-}
+    plik.close();
 
-void TAB_BIBLIO::OnNMDblclkListFrmFBWypodin(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    if (wo_arr.GetCount() > 0)
-    {
-        OnBnClickedButtonFrmFBWoiEdytuj();
-    }
-    *pResult = 0;
-}
-void TAB_IOF::ClearIOF(void)
-{
-    TAB_IOF::TAB_IOF_Lokalizacje.DeleteAllItems();
-
+    Refresh_Lz();
 
 }
 
-void TAB_IOF::Fill_Lz(void)
+void MainWindow::Save_Lz(void)
 {
-
-CFile plik;
-plik.Open(flm_i.pths.BF_LZ,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-
-
-TAB_IOF_Lokalizacje.DeleteAllItems();
-lz_arr.RemoveAll();
-
-
-
-for (i = 0;i<stop ; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&lz,sizeof(lz));
-    if (lz.IDPDB == flm_i.film_tbl.ID)
-    {
-        lz_arr.Add(lz);
-
-    }
-    i = i + sizeof(lz);
-}
-plik.Close();
-
-Refresh_Lz();
-
-}
-void TAB_IOF::OnLvnGetdispinfoListFrmFIofLokzdj(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    wchar_t buff[34];
-
-    NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-
-
-    int x;
-    x = pDispInfo->item.iItem;
-
-    switch (pDispInfo->item.iSubItem)
-    {
-    case 0:
-        wcscpy(pDispInfo->item.pszText,lz_arr.GetAt(x).nazwa_obiektu);
-        break;
-    case 1:
-        wcscpy(pDispInfo->item.pszText,lz_arr.GetAt(x).kraj);
-        break;
-    case 2:
-        wcscpy(pDispInfo->item.pszText,lz_arr.GetAt(x).miejscowosc);
-        break;
-    case 3:
-        wcscpy(pDispInfo->item.pszText,lz_arr.GetAt(x).region);
-        break;
-    case 4:
-        wcscpy(pDispInfo->item.pszText,lz_arr.GetAt(x).pora_roku);
-        break;
-    case 5:
-        wcscpy(pDispInfo->item.pszText,lz_arr.GetAt(x).data);
-        break;
-    case 6:
-        _itow(lz_arr.GetAt(x).ID ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff); // ID
-        break;
-    case 7:
-        _itow(lz_arr.GetAt(x).IDPDB ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff);  //IDPDB
-        break;
-    }
-
-
-    *pResult = 0;
-}
-
-void TAB_IOF::OnBnClickedButtonFrmFIofLzNowy(void)
-{
-    Save_Lz();
-    Add_New_LZ(Get_Hi_ID_LZ());
-    add_new_lz = true;
-}
-
-void TAB_IOF::OnBnClickedButtonFrmFIofEdytuj(void)
-{
-    TAB_IOF::FRM_F_BUTTON_IOF_Nowy.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_BUTTON_IOF_Usun.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_BUTTON_IOF_Zapisz.EnableWindow(FALSE);
-    TAB_IOF::TAB_IOF_Lokalizacje.EnableWindow(FALSE);
-
-    TAB_IOF::FRM_F_EDIT_IOF_NazwaObiektu.EnableWindow(TRUE);
-    TAB_IOF::FRM_F_EDIT_IOF_Kraj.EnableWindow(TRUE);
-    TAB_IOF::FRM_F_EDIT_IOF_Miejscowosc.EnableWindow(TRUE);
-    TAB_IOF::FRM_F_EDIT_IOF_Region.EnableWindow(TRUE);
-    TAB_IOF::FRM_F_EDIT_IOF_PoraRoku.EnableWindow(TRUE);
-    TAB_IOF::FRM_F_EDIT_IOF_Data.EnableWindow(TRUE);
-    TAB_IOF::FRM_F_BUTTON_IOF_Zatwierdz.EnableWindow(TRUE);
-
-
-wchar_t buff[34];
-
-int item;
-item = TAB_IOF_Lokalizacje.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-    wchar_t buff201[201];
-    wchar_t buff501[501];
-    TAB_IOF_Lokalizacje.GetItemText(item,0,buff501,501);
-    TAB_IOF::FRM_F_EDIT_IOF_NazwaObiektu.SetWindowTextW(buff501);
-
-    TAB_IOF_Lokalizacje.GetItemText(item,1,buff501,501);
-    TAB_IOF::FRM_F_EDIT_IOF_Kraj.SetWindowTextW(buff501);
-
-    TAB_IOF_Lokalizacje.GetItemText(item,2,buff501,501);
-    TAB_IOF::FRM_F_EDIT_IOF_Miejscowosc.SetWindowTextW(buff501);
-
-    TAB_IOF_Lokalizacje.GetItemText(item,3,buff501,501);
-    TAB_IOF::FRM_F_EDIT_IOF_Region.SetWindowTextW(buff501);
-
-    TAB_IOF_Lokalizacje.GetItemText(item,4,buff201,501);
-    TAB_IOF::FRM_F_EDIT_IOF_PoraRoku.SetWindowTextW(buff501);
-
-    TAB_IOF_Lokalizacje.GetItemText(item,5,buff201,21);
-    TAB_IOF::FRM_F_EDIT_IOF_Data.SetWindowTextW(buff201);
-
-    TAB_IOF_Lokalizacje.GetItemText(item,6,buff,34);
-    lz.ID = _wtoi(buff);
-    TAB_IOF_Lokalizacje.GetItemText(item,7,buff,34);
-    lz.IDPDB = _wtoi(buff);
-}
-}
-
-void TAB_IOF::OnBnClickedButtonFrmFIofLzZapisz(void)
-{
-    Save_Lz();
-}
-
-void TAB_IOF::OnBnClickedButtonFrmFIofLzUsun(void)
-{
-wchar_t buff[34];
-LVITEM lvitm;
-int delitem = 0;
-int delID = 0;
-delitem = TAB_IOF_Lokalizacje.GetNextItem(-1,LVNI_SELECTED);
-TAB_IOF_Lokalizacje.GetItemText(delitem,6,(LPTSTR)buff,34);
-delID = _wtoi(buff);
-
-CFile plik;
-plik.Open(flm_i.pths.BF_LZ,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&lz,sizeof(lz));
-    if (delID == lz.ID)
-    {
-    plik.Close();
-    Usun_Rec_LZ(i);
-    break;
-    }
-    i = i + sizeof(lz);
-}
-if (plik.m_hFile != CFile::hFileNull)
-{
-    plik.Close();
-}
-}
-
-void TAB_IOF::OnBnClickedButtonFrmFIofLzZatwierdz(void)
-{
-    TAB_IOF::FRM_F_EDIT_IOF_NazwaObiektu.GetWindowTextW(lz.nazwa_obiektu,501);
-    TAB_IOF::FRM_F_EDIT_IOF_Kraj.GetWindowTextW(lz.kraj,501);
-    TAB_IOF::FRM_F_EDIT_IOF_Miejscowosc.GetWindowTextW(lz.miejscowosc,501);
-    TAB_IOF::FRM_F_EDIT_IOF_Region.GetWindowTextW(lz.region,501);
-    TAB_IOF::FRM_F_EDIT_IOF_PoraRoku.GetWindowTextW(lz.pora_roku,501);
-    TAB_IOF::FRM_F_EDIT_IOF_Data.GetWindowTextW(lz.data,21);
-
-
-
-int item;
-item = TAB_IOF_Lokalizacje.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-struct Lok_zdjeciowe& lz_buff = lz_arr.ElementAt(item);
-
-lz_buff = lz;
-Refresh_Lz();
-}
-
-
-    TAB_IOF::FRM_F_BUTTON_IOF_Nowy.EnableWindow(TRUE);
-    TAB_IOF::FRM_F_BUTTON_IOF_Usun.EnableWindow(TRUE);
-    TAB_IOF::FRM_F_BUTTON_IOF_Zapisz.EnableWindow(TRUE);
-    TAB_IOF::TAB_IOF_Lokalizacje.EnableWindow(TRUE);
-
-    TAB_IOF::FRM_F_EDIT_IOF_NazwaObiektu.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_Kraj.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_Miejscowosc.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_Region.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_PoraRoku.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_Data.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_BUTTON_IOF_Zatwierdz.EnableWindow(FALSE);
-}
-
-void TAB_IOF::Refresh_Lz(void)
-{
-    TAB_IOF_Lokalizacje.DeleteAllItems();
-
-    int x;
-    for (x=0;x<lz_arr.GetCount(); x++)
-    {
-        LVITEM lvitm;
-        lvitm.mask = LVIF_TEXT | LVIF_PARAM | LVIF_STATE;
-        lvitm.iItem = x;
-        lvitm.iSubItem = 0;
-        lvitm.state = 0;
-        lvitm.stateMask = 0;
-        lvitm.lParam = (LPARAM) &lz_arr.GetAt(x);
-        lvitm.pszText = LPSTR_TEXTCALLBACK;
-        TAB_IOF_Lokalizacje.InsertItem(&lvitm);
-    }
-
-}
-
-void TAB_IOF::Set_IOF(void)
-{
-    TAB_IOF_Lokalizacje.InsertColumn(0,L"Nazwa obiektu",LVCFMT_LEFT,150,1);
-    TAB_IOF_Lokalizacje.InsertColumn(1,L"Kraj",LVCFMT_LEFT,150,2);
-    TAB_IOF_Lokalizacje.InsertColumn(2,L"Miejscowość",LVCFMT_LEFT,150,3);
-    TAB_IOF_Lokalizacje.InsertColumn(3,L"Region",LVCFMT_LEFT,150,4);
-    TAB_IOF_Lokalizacje.InsertColumn(4,L"Pora roku",LVCFMT_LEFT,150,5);
-    TAB_IOF_Lokalizacje.InsertColumn(5,L"Data",LVCFMT_LEFT,100,6);
-    TAB_IOF_Lokalizacje.InsertColumn(6,L"ID",LVCFMT_LEFT,150,7);
-    TAB_IOF_Lokalizacje.InsertColumn(7,L"IDPDB",LVCFMT_LEFT,150,8);
-    TAB_IOF_Lokalizacje.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-
-    TAB_IOF::FRM_F_BUTTON_IOF_Zatwierdz.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_Data.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_Kraj.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_Miejscowosc.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_NazwaObiektu.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_PoraRoku.EnableWindow(FALSE);
-    TAB_IOF::FRM_F_EDIT_IOF_Region.EnableWindow(FALSE);
-
-}
-
-void TAB_IOF::Save_Lz(void)
-{
-    CFile plik;
+    QFile plik(flm.pths.BF_LZ);
     struct Lok_zdjeciowe lz_buf;
-    plik.Open(flm_i.pths.BF_LZ,CFile::modeReadWrite | CFile::shareDenyNone);
+    plik.open(QFile::ReadWrite);
 
     LONGLONG stop;
     LONGLONG i;
     int y;
 
     wchar_t buff[34];
-    stop = plik.SeekToEnd();
+    stop = plik.size();
 
-    for (y=0;y<lz_arr.GetCount() ;y++ )
+    for (y=0;y<lz_arr.count() ;y++ )
     {
-        if (GetRecC_LZ() == 0)
+        if (GetRecC_WI() == 0)
             {
-                plik.Seek(0,CFile::begin);
-                plik.Write(&lz_arr.GetAt(y),sizeof(lz));
+                plik.seek(0);
+                plik.write(static_cast<char *> (&lz_arr[y]),sizeof(lz));
 
             }
-        else if (GetRecC_LZ() > 0)
+        else if (GetRecC_WI() > 0)
             {
-                if ((plik.SeekToEnd()) > 2147483647)
+                if ((plik.size()) > 2147483647)
                 {
-                    MessageBoxW(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",L"Biblioteka Filmów - Błąd zapisu",MB_OK);
+                    QMessageBox(QMessageBox::Warning,L"Biblioteka Filmów",L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",QMessageBox::Ok);
                     break;
                 }
-                else if ((plik.SeekToEnd()) < 2147483647)
+                else if ((plik.size()) < 2147483647)
                 {
                     for (i=0; i<stop; )
                     {
-                        plik.Seek(i,CFile::begin);
-                        plik.Read(&lz_buf,sizeof(lz_buf));
-                            if (lz_arr.GetAt(y).ID == lz_buf.ID)
+                        plik.seek(i);
+                        plik.read(static_cast<char *>(&lz_buf),sizeof(lz_buf));
+                            if (lz_arr[y].ID == lz_buf.ID)
                             {
-                                plik.Seek(i,CFile::begin);
-                                plik.Write(&lz_arr.GetAt(y),sizeof(lz));
+                                plik.seek(i);
+                                plik.write(static_cast<char *>(&lz_arr[y]),sizeof(lz));
                             }
 
                         i = i + sizeof(lz);
                     }
-                    if (add_new_lz)
+                    if (add_new_wi)
                     {
 
                         int x;
-                        x = (lz_arr.GetCount()-1);
-                        plik.Seek((plik.SeekToEnd()),CFile::begin);
-                        plik.Write(&lz_arr.GetAt(x),sizeof(lz));
+                        x = (lz_arr.count()-1);
+                        plik.seek(plik.size());
+                        plik.write(static_cast<char *>(&lz_arr[x]),sizeof(lz));
                         add_new_lz = false;
                     }
                 }
@@ -2713,226 +2043,209 @@ void TAB_IOF::Save_Lz(void)
 
     }
 
-    plik.Close();
+    plik.close();
+
 
 }
 
-int TAB_IOF::GetRecC_LZ(void)
+int MainWindow::GetRecC_LZ(void)
 {
-CFile plik;
-plik.Open(flm_i.pths.BF_LZ,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-int rec_count = 0;
-struct Lok_zdjeciowe lz_t;
-if (stop == 0)
-{
-    plik.Close();
-    return 0;
-}
+    QFile plik(flm.pths.BF_LZ);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    int rec_count = 0;
+    struct Lok_zdjeciowe lz_t;
+    if (stop == 0)
+    {
+        plik.close();
+        return 0;
+    }
     for (i = 0; i <stop; )
     {
-        plik.Seek(i,CFile::begin);
-        plik.Read(&lz_t,sizeof(lz_t));
+        plik.seek(i);
+        plik.read(static_cast<char *>(&lz_t),sizeof(lz_t));
         rec_count = rec_count + 1;
         i = i + sizeof(lz_t);
     }
-    plik.Close();
-return rec_count;
-
-
+    plik.close();
+    return rec_count;
 
 }
 
-int TAB_IOF::Get_Hi_ID_LZ(void)
+int MainWindow::Get_Hi_ID_LZ(void)
 {
-if (GetRecC_LZ() == 0)
-{
-    return 0;
-}
-
-
-CFile plik;
-plik.Open(flm_i.pths.BF_LZ,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    if (i == (stop - sizeof(lz)))
+    if (GetRecC_LZ() == 0)
     {
-        plik.Read(&lz,sizeof(lz));
-        plik.Close();
-        return lz.ID;
+        return 0;
     }
-    i = i + sizeof(lz);
+
+
+    QFile plik(flm.pths.BF_LZ);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        if (i == (stop - sizeof(lz)))
+        {
+            plik.read(static_cast<char *>(&lz),sizeof(lz));
+            plik.close();
+            return lz.ID;
+        }
+        i = i + sizeof(lz);
+    }
+
 }
 
-
-}
-
-void TAB_IOF::Add_New_LZ(int id)
+void MainWindow::Add_New_LZ(int id)
 {
 
-int id_new;
-id_new = id + 1;
+    int id_new;
+    id_new = id + 1;
 
 // Metoda callbacku
-lz.ID = id_new;
-lz.IDPDB = flm_i.film_tbl.ID;
-wcscpy(lz.nazwa_obiektu,L"Wpisz tutaj coś");
-wcscpy(lz.kraj,L"Wpisz tutaj coś");
-wcscpy(lz.miejscowosc,L"Wpisz tutaj coś");
-wcscpy(lz.region,L"Wpisz tutaj coś");
-wcscpy(lz.pora_roku,L"Wpisz tutaj coś");
-wcscpy(lz.data,L"Wpisz tutaj coś");
+    lz.ID = id_new;
+    lz.IDPDB = flm_i.film_tbl.ID;
+    wcscpy(lz.nazwa_obiektu,L"Wpisz tutaj coś");
+    wcscpy(lz.kraj,L"Wpisz tutaj coś");
+    wcscpy(lz.miejscowosc,L"Wpisz tutaj coś");
+    wcscpy(lz.region,L"Wpisz tutaj coś");
+    wcscpy(lz.pora_roku,L"Wpisz tutaj coś");
+    wcscpy(lz.data,L"Wpisz tutaj coś");
 
-lz_arr.Add(lz);
+    lz_arr.append(lz);
 
-Refresh_Lz();
+    Refresh_Lz();
 
 }
 
-void TAB_IOF::Usun_Rec_LZ(LONGLONG pos)
+void MainWindow::Usun_Rec_LZ(LONGLONG pos)
 {
-        struct Lok_zdjeciowe lz_src;
-        lz.ID = 0;
-        CFile plik;
-        plik.Open(flm_i.pths.BF_LZ,CFile::modeWrite | CFile::shareDenyNone);
-        plik.Seek(pos,CFile::begin);
-        plik.Write(&lz,sizeof(lz));
-        plik.Close();
+    struct Lok_zdjeciowe lz_src;
+    lz.ID = 0;
+    QFile plik(flm.pths.BF_LZ);
+    plik.open(QFile::ReadOnly);
+    plik.seek(pos);
+    plik.write(static_cast<char *>(&lz),sizeof(lz));
 
-        CFile::Rename(flm_i.pths.BF_LZ,(LPCTSTR)"BF_LZ.bf0");
+    plik.rename(flm.pths.BF_LZ,(LPCTSTR)"BF_LZ.bf0");
 
-        plik.Open(flm_i.pths.BF_LZ,CFile::modeCreate);
-        plik.Close();
-        CFile src_file;
-        src_file.Open((LPCTSTR)"BF_LZ.bf0",CFile::modeRead);
-        plik.Open(flm_i.pths.BF_LZ,CFile::modeWrite);
-        LONGLONG i;
-        for (i = 0; i <(src_file.SeekToEnd()) ; )
+    plik.close();
+    QFile plik(flm.pths.BF_LZ);
+    plik.Open(QFile::WriteOnly);
+    QFile src_file((LPCTSTR)"BF_LZ.bf0");
+    src_file.open(QFile::ReadOnly);
+    LONGLONG i;
+    for (i = 0; i <(src_file.size()) ; )
+    {
+        src_file.seek(i);
+        src_file.read(static_cast<char *>(&lz_src),sizeof(lz_src));
+        if (lz_src.ID == 0)
         {
-            src_file.Seek(i,CFile::begin);
-            src_file.Read(&lz_src,sizeof(lz_src));
-            if (lz_src.ID == 0)
-            {
-                i = i + sizeof(lz_src);
-            }
-            else
-            {
-                plik.Write(&lz_src,sizeof(lz_src));
-                i = i + sizeof(lz_src);
-            }
+            i = i + sizeof(lz_src);
         }
-        plik.Close();
-        src_file.Close();
-        CFile::Remove((LPCTSTR)"BF_LZ.bf0");
-        Fill_Lz();
-
-
-}
-
-void TAB_IOF::OnNMDblclkListFrmFIofLokzdj(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    if (lz_arr.GetCount() > 0)
-    {
-        OnBnClickedButtonFrmFIofEdytuj();
+        else
+        {
+            plik.write(static_cast<char *>(&lz_src),sizeof(lz_src));
+            i = i + sizeof(lz_src);
+        }
     }
-    *pResult = 0;
-}
-void TAB_Obsada::ClearObsada(void)
-{
-
-    TAB_OB_LIST_Obsada.DeleteAllItems();
+    plik.close();
+    src_file.remove();
+    src_file.close();
+    Fill_Lz();
 
 }
 
-void TAB_Obsada::Fill_Ob(void)
+void MainWindow::ClearObsada(void)
 {
-CFile plik;
-plik.Open(flm_ob.pths.BF_OB,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
 
+    ui->tableWidget_Obsada->clearContents();
 
-TAB_OB_LIST_Obsada.DeleteAllItems();
-ob_arr.RemoveAll();
+}
 
-
-
-for (i = 0;i<stop ; )
+void MainWindow::Fill_Ob(void)
 {
-    plik.Seek(i,CFile::begin);
-    plik.Read(&ob,sizeof(ob));
-    if (ob.IDPDB == flm_ob.film_tbl.ID)
+    QFile plik(flm.pths.BF_OB);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+
+
+    ui->tableWidget_Obsada->clearContents();
+    ob_arr.clear();
+
+    for (i = 0;i<stop ; )
     {
-        ob_arr.Add(ob);
+        plik.seek(i);
+        plik.read(static_cast<char *>(&ob),sizeof(ob));
+        if (ob.IDPDB == flm.film_tbl.ID)
+        {
+            ob_arr.append(ob);
 
+        }
+        i = i + sizeof(ob);
     }
-    i = i + sizeof(ob);
-}
-plik.Close();
+    plik.close();
 
-Refresh_Ob();
-
-
+    Refresh_Ob();
 
 }
 
-void TAB_Obsada::Save_Ob(void)
+void MainWindow::Save_Ob(void)
 {
-    CFile plik;
+    QFile plik(flm.pths.BF_OB);
     struct Obsada ob_buf;
-    plik.Open(flm_ob.pths.BF_OB,CFile::modeReadWrite | CFile::shareDenyNone);
-    int rec_count = 0;
+    plik.open(QFile::ReadWrite);
+
     LONGLONG stop;
     LONGLONG i;
     int y;
-    int stop_item = TAB_OB_LIST_Obsada.GetItemCount();
-    wchar_t buff[34];
-    stop = plik.SeekToEnd();
 
-    for (y=0;y<ob_arr.GetCount() ;y++ )
+    wchar_t buff[34];
+    stop = plik.size();
+
+    for (y=0;y<ob_arr.count() ;y++ )
     {
-        if (GetRecC() == 0)
+        if (GetRecC_OB() == 0)
             {
-                plik.Seek(0,CFile::begin);
-                plik.Write(&ob_arr.GetAt(y),sizeof(ob));
+                plik.seek(0);
+                plik.write(static_cast<char *> (&ob_arr[y]),sizeof(ob));
 
             }
-        else if (GetRecC() > 0)
+        else if (GetRecC_OB() > 0)
             {
-                if ((plik.SeekToEnd()) > 2147483647)
+                if ((plik.size()) > 2147483647)
                 {
-                    MessageBoxW(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",L"Biblioteka Filmów - Błąd zapisu",MB_OK);
+                    QMessageBox(QMessageBox::Warning,L"Biblioteka Filmów",L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",QMessageBox::Ok);
                     break;
                 }
-                else if ((plik.SeekToEnd()) < 2147483647)
+                else if ((plik.size()) < 2147483647)
                 {
                     for (i=0; i<stop; )
                     {
-                        plik.Seek(i,CFile::begin);
-                        plik.Read(&ob_buf,sizeof(ob_buf));
-                            if (ob_arr.GetAt(y).ID == ob_buf.ID)
+                        plik.seek(i);
+                        plik.read(static_cast<char *>(&ob_buf),sizeof(ob_buf));
+                            if (ob_arr[y].ID == ob_buf.ID)
                             {
-                                plik.Seek(i,CFile::begin);
-                                plik.Write(&ob_arr.GetAt(y),sizeof(ob));
+                                plik.seek(i);
+                                plik.write(static_cast<char *>(&ob_arr[y]),sizeof(ob));
                             }
 
                         i = i + sizeof(ob);
                     }
-                    if (add_new_ob)
+                    if (add_new_wi)
                     {
 
                         int x;
-                        x = (ob_arr.GetCount()-1);
-                        plik.Seek((plik.SeekToEnd()),CFile::begin);
-                        plik.Write(&ob_arr.GetAt(x),sizeof(ob));
+                        x = (ob_arr.count()-1);
+                        plik.seek(plik.size());
+                        plik.write(static_cast<char *>(&ob_arr[x]),sizeof(ob));
                         add_new_ob = false;
                     }
                 }
@@ -2940,312 +2253,152 @@ void TAB_Obsada::Save_Ob(void)
 
     }
 
-    plik.Close();
+    plik.close();
 
 
 
 }
 
-void TAB_Obsada::Set_Obsada(void)
+void MainWindow::Add_New_Ob(int id)
 {
-TAB_OB_LIST_Obsada.InsertColumn(0,L"Imię i Nazwisko",LVCFMT_LEFT,150,1);
-TAB_OB_LIST_Obsada.InsertColumn(1,L"Rola",LVCFMT_LEFT,150,2);
-TAB_OB_LIST_Obsada.InsertColumn(2,L"ID",LVCFMT_LEFT,150,3);
-TAB_OB_LIST_Obsada.InsertColumn(3,L"IDPDB",LVCFMT_LEFT,150,4);
-TAB_OB_LIST_Obsada.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
 
-TAB_Obsada::FRM_F_EDIT_ImieNazw.EnableWindow(FALSE);
-TAB_Obsada::FRM_F_EDIT_Rola.EnableWindow(FALSE);
-TAB_Obsada::FRM_F_BUTTON_OB_ZATWIERDZ.EnableWindow(FALSE);
+    int id_new;
+    id_new = id + 1;
+    int itemcount = 0;
+    wchar_t buff[34];
 
 
+    // Metoda callbacku
+    ob.ID = id_new;
+    ob.IDPDB = flm.film_tbl.ID;
+    wcscpy(ob.imie_nazw,L"Wpisz tutaj coś");
+    wcscpy(ob.rola,L"Wpisz tutaj coś");
 
-}
-void TAB_Obsada::OnBnClickedFButtonObEdytuj()
-{
-    TAB_Obsada::FRM_F_BUTTON_OB_NOWY.EnableWindow(FALSE);
-    TAB_Obsada::FRM_F_BUTTON_OB_USUN.EnableWindow(FALSE);
-    TAB_Obsada::FRM_F_BUTTON_OB_ZAPISZ.EnableWindow(FALSE);
-    TAB_Obsada::TAB_OB_LIST_Obsada.EnableWindow(FALSE);
+    ob_arr.append(ob);
 
-    TAB_Obsada::FRM_F_EDIT_ImieNazw.EnableWindow(TRUE);
-    TAB_Obsada::FRM_F_EDIT_Rola.EnableWindow(TRUE);
-    TAB_Obsada::FRM_F_BUTTON_OB_ZATWIERDZ.EnableWindow(TRUE);
-
-wchar_t buff[34];
-
-int item;
-item = TAB_OB_LIST_Obsada.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-    wchar_t buff201[201];
-    wchar_t buff501[501];
-    TAB_OB_LIST_Obsada.GetItemText(item,0,buff501,501);
-    TAB_Obsada::FRM_F_EDIT_ImieNazw.SetWindowTextW(buff501);
-
-    TAB_OB_LIST_Obsada.GetItemText(item,1,buff201,201);
-    TAB_Obsada::FRM_F_EDIT_Rola.SetWindowTextW(buff201);
-
-    TAB_OB_LIST_Obsada.GetItemText(item,2,buff,34);
-    ob.ID = _wtoi(buff);
-
-    TAB_OB_LIST_Obsada.GetItemText(item,3,buff,34);
-    ob.IDPDB = _wtoi(buff);
-}
+    Refresh_Ob();
 
 
 }
 
-void TAB_Obsada::OnBnClickedFButtonObZatwierdz()
+int MainWindow::Get_Hi_ID_OB(void)
 {
-    TAB_Obsada::FRM_F_EDIT_ImieNazw.GetWindowTextW(ob.imie_nazw,501);
-    TAB_Obsada::FRM_F_EDIT_Rola.GetWindowTextW(ob.rola,201);
-
-
-int item;
-item = TAB_OB_LIST_Obsada.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-struct Obsada& ob_buff = ob_arr.ElementAt(item);
-
-ob_buff = ob;
-Refresh_Ob();
-}
-
-
-TAB_Obsada::FRM_F_BUTTON_OB_NOWY.EnableWindow(TRUE);
-TAB_Obsada::FRM_F_BUTTON_OB_USUN.EnableWindow(TRUE);
-TAB_Obsada::FRM_F_BUTTON_OB_ZAPISZ.EnableWindow(TRUE);
-TAB_Obsada::TAB_OB_LIST_Obsada.EnableWindow(TRUE);
-
-TAB_Obsada::FRM_F_EDIT_ImieNazw.EnableWindow(FALSE);
-TAB_Obsada::FRM_F_EDIT_Rola.EnableWindow(FALSE);
-
-TAB_Obsada::FRM_F_BUTTON_OB_ZATWIERDZ.EnableWindow(FALSE);
-
-
-}
-
-void TAB_Obsada::OnBnClickedButtonFrmFObNowy()
-{
-    Save_Ob();
-    Add_New_Ob(Get_Hi_ID());
-    add_new_ob = true;
-
-}
-
-void TAB_Obsada::OnBnClickedButtonFrmFObZapisz()
-{
-    Save_Ob();
-}
-
-void TAB_Obsada::OnBnClickedButtonFrmFObUsun()
-{
-wchar_t buff[34];
-LVITEM lvitm;
-int delitem = 0;
-int delID = 0;
-delitem = TAB_OB_LIST_Obsada.GetNextItem(-1,LVNI_SELECTED);
-TAB_OB_LIST_Obsada.GetItemText(delitem,2,(LPTSTR)buff,34);
-delID = _wtoi(buff);
-
-CFile plik;
-plik.Open(flm_ob.pths.BF_OB,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&ob,sizeof(ob));
-    if (delID == ob.ID)
+    if (GetRecC_OB() == 0)
     {
-    plik.Close();
-    Usun_Rec(i);
-    break;
+        return 0;
     }
-    i = i + sizeof(ob);
-}
-if (plik.m_hFile != CFile::hFileNull)
-{
-    plik.Close();
-}
-
-}
-
-void TAB_Obsada::Add_New_Ob(int id)
-{
-
-int id_new;
-id_new = id + 1;
-int itemcount = 0;
-wchar_t buff[34];
 
 
-// Metoda callbacku
-ob.ID = id_new;
-ob.IDPDB = flm_ob.film_tbl.ID;
-wcscpy(ob.imie_nazw,L"Wpisz tutaj coś");
-wcscpy(ob.rola,L"Wpisz tutaj coś");
-
-ob_arr.Add(ob);
-
-Refresh_Ob();
-
-
-}
-
-int TAB_Obsada::Get_Hi_ID(void)
-{
-
-if (GetRecC() == 0)
-{
-    return 0;
-}
-
-
-CFile plik;
-plik.Open(flm_ob.pths.BF_OB,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    if (i == (stop - sizeof(ob)))
+    QFile plik(flm.pths.BF_OB);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
     {
-        plik.Read(&ob,sizeof(ob));
-        plik.Close();
-        return ob.ID;
+        plik.seek(i);
+        if (i == (stop - sizeof(ob)))
+        {
+            plik.read(static_cast<char *>(&ob),sizeof(ob));
+            plik.close();
+            return ob.ID;
+        }
+        i = i + sizeof(ob);
     }
-    i = i + sizeof(ob);
-}
-plik.Close();
 
 }
 
-int TAB_Obsada::GetRecC(void)
+int MainWindow::GetRecC_OB(void)
 {
-CFile plik;
-plik.Open(flm_ob.pths.BF_OB,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-int rec_count = 0;
-struct Obsada ob_t;
-if (stop == 0)
-{
-    plik.Close();
-    return 0;
-}
+    QFile plik(flm.pths.BF_OB);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    int rec_count = 0;
+    struct Obsada ob_t;
+    if (stop == 0)
+    {
+        plik.close();
+        return 0;
+    }
     for (i = 0; i <stop; )
     {
-        plik.Seek(i,CFile::begin);
-        plik.Read(&ob_t,sizeof(ob_t));
+        plik.seek(i);
+        plik.read(static_cast<char *>(&ob_t),sizeof(ob_t));
         rec_count = rec_count + 1;
         i = i + sizeof(ob_t);
     }
-    plik.Close();
-return rec_count;
+    plik.close();
+    return rec_count;
+
 }
 
-void TAB_Obsada::Refresh_Ob(void)
+void MainWindow::Refresh_Ob(void)
 {
 
-    TAB_OB_LIST_Obsada.DeleteAllItems();
+    ui->tableWidget_Obsada->clearContents();
 
     int x;
-    for (x=0;x<ob_arr.GetCount(); x++)
+    QTableWidgetItem *item;
+    for (x=0;x<ob_arr.count(); x++)
     {
-        LVITEM lvitm;
-        lvitm.mask = LVIF_TEXT | LVIF_PARAM | LVIF_STATE;
-        lvitm.iItem = x;
-        lvitm.iSubItem = 0;
-        lvitm.state = 0;
-        lvitm.stateMask = 0;
-        lvitm.lParam = (LPARAM) &ob_arr.GetAt(x);
-        lvitm.pszText = LPSTR_TEXTCALLBACK;
-        TAB_OB_LIST_Obsada.InsertItem(&lvitm);
-    }
-}
-void TAB_Obsada::OnLvnGetdispinfoListFrmFObObsada(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    wchar_t buff[34];
+        ui->tableWidget_Obsada->insertRow(x);
 
-    NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-    int x;
-    x = pDispInfo->item.iItem;
+        item->setText(ob_arr[x].imie_nazw);
+        ui->tableWidget_Obsada->setItem(x,0,item);
 
-    switch (pDispInfo->item.iSubItem)
-    {
-    case 0:
-        wcscpy(pDispInfo->item.pszText,ob_arr.GetAt(x).imie_nazw);
-        break;
-    case 1:
-        wcscpy(pDispInfo->item.pszText,ob_arr.GetAt(x).rola);
-        break;
-    case 2:
-        _itow(ob_arr.GetAt(x).ID ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff); // ID
-        break;
-    case 3:
-        _itow(ob_arr.GetAt(x).IDPDB ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff);  //IDPDB
-        break;
+        item->setText(ob_arr[x].rola);
+        ui->tableWidget_Obsada->setItem(x,1,item);
+
+        item->setText(ob_arr[x].ID);
+        ui->tableWidget_Obsada->setItem(x,2,item);
+
+        item->setText(ob_arr[x].IDPDB);
+        ui->tableWidget_Obsada->setItem(x,2,item);
+
     }
 
-    *pResult = 0;
 }
 
-void TAB_Obsada::Usun_Rec(LONGLONG pos)
+void MainWindow::Usun_Rec_OB(LONGLONG pos)
 {
+    struct Obsada ob_src;
+    ob.ID = 0;
+    QFile plik(flm.pths.BF_OB);
+    plik.open(QFile::ReadOnly);
+    plik.seek(pos);
+    plik.write(static_cast<char *>(&ob),sizeof(ob));
 
-        struct Obsada ob_src;
-        ob.ID = 0;
-        CFile plik;
-        plik.Open(flm_ob.pths.BF_OB,CFile::modeWrite | CFile::shareDenyNone);
-        plik.Seek(pos,CFile::begin);
-        plik.Write(&ob,sizeof(ob));
-        plik.Close();
+    plik.rename(flm.pths.BF_OB,(LPCTSTR)"BF_OB.bf0");
 
-        CFile::Rename(flm_ob.pths.BF_OB,(LPCTSTR)"BF_OB.bf0");
-
-        plik.Open(flm_ob.pths.BF_OB,CFile::modeCreate);
-        plik.Close();
-        CFile src_file;
-        src_file.Open((LPCTSTR)"BF_OB.bf0",CFile::modeRead);
-        plik.Open(flm_ob.pths.BF_OB,CFile::modeWrite);
-        LONGLONG i;
-        for (i = 0; i <(src_file.SeekToEnd()) ; )
+    plik.close();
+    QFile plik(flm.pths.BF_OB);
+    plik.Open(QFile::WriteOnly);
+    QFile src_file((LPCTSTR)"BF_OB.bf0");
+    src_file.open(QFile::ReadOnly);
+    LONGLONG i;
+    for (i = 0; i <(src_file.size()) ; )
+    {
+        src_file.seek(i);
+        src_file.read(static_cast<char *>(&ob_src),sizeof(ob_src));
+        if (ob_src.ID == 0)
         {
-            src_file.Seek(i,CFile::begin);
-            src_file.Read(&ob_src,sizeof(ob_src));
-            if (ob_src.ID == 0)
-            {
-                i = i + sizeof(ob_src);
-            }
-            else
-            {
-                plik.Write(&ob_src,sizeof(ob_src));
-                i = i + sizeof(ob_src);
-            }
+            i = i + sizeof(ob_src);
         }
-        plik.Close();
-        src_file.Close();
-        CFile::Remove((LPCTSTR)"BF_OB.bf0");
-        Fill_Ob();
-
-}
-
-void TAB_Obsada::OnNMDblclkListFrmFObObsada(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    if (ob_arr.GetCount() > 0)
-    {
-        OnBnClickedFButtonObEdytuj();
+        else
+        {
+            plik.write(static_cast<char *>(&ob_src),sizeof(ob_src));
+            i = i + sizeof(ob_src);
+        }
     }
-    *pResult = 0;
+    plik.close();
+    src_file.remove();
+    src_file.close();
+    Fill_Ob();
+
 }
+
 void TAB_Oocena::OnBnClickedButtonFrmFONowy()
 {
 
@@ -3530,144 +2683,7 @@ void TAB_Oocena::Usun_Rec(LONGLONG pos)
 
 }
 
-void TAB_Oocena::SetZasoby(void)
-{
-    TAB_O_Zasoby.InsertColumn(0,L"Nazwa",LVCFMT_LEFT,150,1);
-    TAB_O_Zasoby.InsertColumn(1,L"Tytuł tekstu",LVCFMT_LEFT,150,2);
-    TAB_O_Zasoby.InsertColumn(2,L"Autor tekstu",LVCFMT_LEFT,150,3);
-    TAB_O_Zasoby.InsertColumn(3,L"Strona WWW",LVCFMT_LEFT,150,4);
-    TAB_O_Zasoby.InsertColumn(4,L"Ocena krytyka",LVCFMT_LEFT,150,5);
-    TAB_O_Zasoby.InsertColumn(5,L"ID",LVCFMT_LEFT,150,6);
-    TAB_O_Zasoby.InsertColumn(6,L"IDPDB",LVCFMT_LEFT,150,7);
-    TAB_O_Zasoby.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
 
-TAB_Oocena::FRM_F_Oc_EDIT_Autor.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_EDIT_Nazwa.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_EDIT_Ocena.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_EDIT_Tytul.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_EDIT_WWW.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_BUTTON_Zatwierdz.EnableWindow(FALSE);
-
-
-}
-void TAB_Oocena::OnLvnGetdispinfoListFrmFOOcena(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    wchar_t buff[34];
-
-    NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-
-    int x;
-    x = pDispInfo->item.iItem;
-
-    switch (pDispInfo->item.iSubItem)
-    {
-    case 0:
-        wcscpy(pDispInfo->item.pszText,oc_arr.GetAt(x).nazwa);
-        break;
-    case 1:
-        wcscpy(pDispInfo->item.pszText,oc_arr.GetAt(x).tytul_tekstu);
-        break;
-    case 2:
-        wcscpy(pDispInfo->item.pszText,oc_arr.GetAt(x).autor_tekstu);
-        break;
-    case 3:
-        wcscpy(pDispInfo->item.pszText,oc_arr.GetAt(x).strona_www);
-        break;
-    case 4:
-        wcscpy(pDispInfo->item.pszText,oc_arr.GetAt(x).ocena_krytyka);
-        break;
-    case 5:
-        _itow(oc_arr.GetAt(x).ID ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff); // ID
-        break;
-    case 6:
-        _itow(oc_arr.GetAt(x).IDPDB ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff);  //IDPDB
-        break;
-    }
-
-    *pResult = 0;
-
-}
-
-void TAB_Oocena::OnBnClickedButtonFrmFOcZatwierdz()
-{
-    TAB_Oocena::FRM_F_Oc_EDIT_Nazwa.GetWindowTextW(oc.nazwa,201);
-    TAB_Oocena::FRM_F_Oc_EDIT_Tytul.GetWindowTextW(oc.tytul_tekstu,201);
-    TAB_Oocena::FRM_F_Oc_EDIT_Autor.GetWindowTextW(oc.autor_tekstu,201);
-    TAB_Oocena::FRM_F_Oc_EDIT_WWW.GetWindowTextW(oc.strona_www,501);
-    TAB_Oocena::FRM_F_Oc_EDIT_Ocena.GetWindowTextW(oc.ocena_krytyka,501);
-
-
-
-
-int item;
-item = TAB_O_Zasoby.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-struct Ocena& oc_buff = oc_arr.ElementAt(item);
-
-oc_buff = oc;
-Refresh_Oc();
-}
-
-
-TAB_Oocena::FRM_F_Oc_BUTTON_Nowy.EnableWindow(TRUE);
-TAB_Oocena::FRM_F_Oc_BUTTON_Usun.EnableWindow(TRUE);
-TAB_Oocena::FRM_F_Oc_BUTTON_Zapisz.EnableWindow(TRUE);
-TAB_Oocena::TAB_O_Zasoby.EnableWindow(TRUE);
-
-TAB_Oocena::FRM_F_Oc_EDIT_Autor.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_EDIT_Nazwa.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_EDIT_Ocena.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_EDIT_Tytul.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_EDIT_WWW.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_BUTTON_Zatwierdz.EnableWindow(FALSE);
-
-
-}
-
-void TAB_Oocena::OnBnClickedButtonFrmFOcZEdytuj()
-{
-TAB_Oocena::FRM_F_Oc_BUTTON_Nowy.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_BUTTON_Usun.EnableWindow(FALSE);
-TAB_Oocena::FRM_F_Oc_BUTTON_Zapisz.EnableWindow(FALSE);
-TAB_Oocena::TAB_O_Zasoby.EnableWindow(FALSE);
-
-TAB_Oocena::FRM_F_Oc_EDIT_Autor.EnableWindow(TRUE);
-TAB_Oocena::FRM_F_Oc_EDIT_Nazwa.EnableWindow(TRUE);
-TAB_Oocena::FRM_F_Oc_EDIT_Ocena.EnableWindow(TRUE);
-TAB_Oocena::FRM_F_Oc_EDIT_Tytul.EnableWindow(TRUE);
-TAB_Oocena::FRM_F_Oc_EDIT_WWW.EnableWindow(TRUE);
-TAB_Oocena::FRM_F_Oc_BUTTON_Zatwierdz.EnableWindow(TRUE);
-
-
-
-wchar_t buff[34];
-
-int item;
-item = TAB_O_Zasoby.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-    wchar_t buff201[201];
-    wchar_t buff501[501];
-    TAB_O_Zasoby.GetItemText(item,0,buff201,201);
-    TAB_Oocena::FRM_F_Oc_EDIT_Nazwa.SetWindowTextW(buff201);
-    TAB_O_Zasoby.GetItemText(item,1,buff201,201);
-    TAB_Oocena::FRM_F_Oc_EDIT_Tytul.SetWindowTextW(buff201);
-    TAB_O_Zasoby.GetItemText(item,2,buff201,201);
-    TAB_Oocena::FRM_F_Oc_EDIT_Autor.SetWindowTextW(buff201);
-    TAB_O_Zasoby.GetItemText(item,3,buff501,501);
-    TAB_Oocena::FRM_F_Oc_EDIT_WWW.SetWindowTextW(buff501);
-    TAB_O_Zasoby.GetItemText(item,4,buff201,201);
-    TAB_Oocena::FRM_F_Oc_EDIT_Ocena.SetWindowTextW(buff201);
-    TAB_O_Zasoby.GetItemText(item,5,buff,34);
-    oc.ID = _wtoi(buff);
-    TAB_O_Zasoby.GetItemText(item,6,buff,34);
-    oc.IDPDB = _wtoi(buff);
-}
-
-}
 
 void TAB_Oocena::Refresh_Oc(void)
 {
@@ -3688,15 +2704,7 @@ void TAB_Oocena::Refresh_Oc(void)
         TAB_O_Zasoby.InsertItem(&lvitm);
     }
 }
-void TAB_Oocena::OnNMDblclkListFrmFOOcena(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    if (oc_arr.GetCount() > 0)
-    {
-        OnBnClickedButtonFrmFOcZEdytuj();
-    }
-    *pResult = 0;
-}
+
 void TAB_Produkcja::ClearProd(void)
 {
 TAB_Prod_LIST_Prod.DeleteAllItems();
@@ -3771,55 +2779,7 @@ Refresh_PD();
 
 }
 
-void TAB_Produkcja::Set_Prod(void)
-{
 
-
-    //ListCtrl Produkcja
-TAB_Prod_LIST_Prod.InsertColumn(0,L"Nazwa firmy",LVCFMT_LEFT,150,1);
-TAB_Prod_LIST_Prod.InsertColumn(1,L"Adres",LVCFMT_LEFT,150,2);
-TAB_Prod_LIST_Prod.InsertColumn(2,L"Telefon",LVCFMT_LEFT,100,3);
-TAB_Prod_LIST_Prod.InsertColumn(3,L"Fax",LVCFMT_LEFT,100,4);
-TAB_Prod_LIST_Prod.InsertColumn(4,L"E-Mail",LVCFMT_LEFT,150,5);
-TAB_Prod_LIST_Prod.InsertColumn(5,L"Strona WWW",LVCFMT_LEFT,150,6);
-TAB_Prod_LIST_Prod.InsertColumn(6,L"Narodowość",LVCFMT_LEFT,150,7);
-TAB_Prod_LIST_Prod.InsertColumn(7,L"ID",LVCFMT_LEFT,150,8);
-TAB_Prod_LIST_Prod.InsertColumn(8,L"IDPDB",LVCFMT_LEFT,150,9);
-TAB_Prod_LIST_Prod.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-
-TAB_Produkcja::FRM_F_EDIT_PP_NAZWAF.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_PP_ADRES.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_PP_TEL.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_PP_FAX.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_PP_EMAIL.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pp_WWW.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pp_NAROD.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_BUTTON_pp_ZATWIERDZ.EnableWindow(FALSE);
-
-
-// ListCtrl Dystrybucja
-
-TAB_Prod_LIST_Dystr.InsertColumn(0,L"Nazwa firmy",LVCFMT_LEFT,150,1);
-TAB_Prod_LIST_Dystr.InsertColumn(1,L"Adres",LVCFMT_LEFT,150,2);
-TAB_Prod_LIST_Dystr.InsertColumn(2,L"Telefon",LVCFMT_LEFT,150,3);
-TAB_Prod_LIST_Dystr.InsertColumn(3,L"Fax",LVCFMT_LEFT,150,4);
-TAB_Prod_LIST_Dystr.InsertColumn(4,L"E-mail",LVCFMT_LEFT,150,5);
-TAB_Prod_LIST_Dystr.InsertColumn(5,L"Strona WWW",LVCFMT_LEFT,150,6);
-TAB_Prod_LIST_Dystr.InsertColumn(6,L"Narodowość",LVCFMT_LEFT,150,7);
-TAB_Prod_LIST_Dystr.InsertColumn(7,L"ID",LVCFMT_LEFT,150,8);
-TAB_Prod_LIST_Dystr.InsertColumn(8,L"IDPDB",LVCFMT_LEFT,150,9);
-TAB_Prod_LIST_Dystr.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-
-TAB_Produkcja::FRM_F_EDIT_pd_NAZWAF.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_ADRES.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_TEL.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_FAX.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_EMAIL.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_WWW.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_NAROD.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_BUTTON_pd_ZATWIERDZ.EnableWindow(FALSE);
-
-}
 
 void TAB_Produkcja::Refresh_PP(void)
 {
@@ -3877,65 +2837,7 @@ void TAB_Produkcja::OnBnClickedButtonFrmFPProdNowy()
 
 }
 
-void TAB_Produkcja::OnBnClickedFButtonPpEdytuj()
-{
-    TAB_Produkcja::FRM_F_BUTTON_Pp_Nowy.EnableWindow(FALSE);
-    TAB_Produkcja::FRM_F_BUTTON_Pp_Usun.EnableWindow(FALSE);
-    TAB_Produkcja::FRM_F_BUTTON_Pp_Zapisz.EnableWindow(FALSE);
-    TAB_Produkcja::TAB_Prod_LIST_Prod.EnableWindow(FALSE);
 
-    TAB_Produkcja::FRM_F_EDIT_PP_NAZWAF.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_PP_ADRES.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_PP_TEL.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_PP_FAX.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_PP_EMAIL.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_pp_WWW.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_pp_NAROD.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_BUTTON_pp_ZATWIERDZ.EnableWindow(TRUE);
-
-
-wchar_t buff[34];
-
-int item;
-item = TAB_Prod_LIST_Prod.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-    wchar_t buff201[201];
-    wchar_t buff501[501];
-    TAB_Prod_LIST_Prod.GetItemText(item,0,buff501,501);
-    TAB_Produkcja::FRM_F_EDIT_PP_NAZWAF.SetWindowTextW(buff501);
-
-    TAB_Prod_LIST_Prod.GetItemText(item,1,buff501,501);
-    TAB_Produkcja::FRM_F_EDIT_PP_ADRES.SetWindowTextW(buff501);
-
-    TAB_Prod_LIST_Prod.GetItemText(item,2,buff201,31);
-    TAB_Produkcja::FRM_F_EDIT_PP_TEL.SetWindowTextW(buff201);
-
-    TAB_Prod_LIST_Prod.GetItemText(item,3,buff201,31);
-    TAB_Produkcja::FRM_F_EDIT_PP_FAX.SetWindowTextW(buff201);
-
-    TAB_Prod_LIST_Prod.GetItemText(item,4,buff201,201);
-    TAB_Produkcja::FRM_F_EDIT_PP_EMAIL.SetWindowTextW(buff201);
-
-    TAB_Prod_LIST_Prod.GetItemText(item,5,buff501,501);
-    TAB_Produkcja::FRM_F_EDIT_pp_WWW.SetWindowTextW(buff501);
-
-    TAB_Prod_LIST_Prod.GetItemText(item,6,buff201,201);
-    TAB_Produkcja::FRM_F_EDIT_pp_NAROD.SetWindowTextW(buff201);
-
-
-    TAB_Prod_LIST_Prod.GetItemText(item,7,buff,34);
-    pp.ID = _wtoi(buff);
-    TAB_Prod_LIST_Prod.GetItemText(item,8,buff,34);
-    pp.IDPDB = _wtoi(buff);
-}
-
-
-
-
-
-
-}
 
 void TAB_Produkcja::OnBnClickedButtonFrmFPProdZapisz()
 {
@@ -3975,44 +2877,7 @@ if (plik.m_hFile != CFile::hFileNull)
 }
 }
 
-void TAB_Produkcja::OnBnClickedFButtonPpZatwierdz()
-{
-    TAB_Produkcja::FRM_F_EDIT_PP_NAZWAF.GetWindowTextW(pp.nazwa_firmy,501);
-    TAB_Produkcja::FRM_F_EDIT_PP_ADRES.GetWindowTextW(pp.adres,501);
-    TAB_Produkcja::FRM_F_EDIT_PP_TEL.GetWindowTextW(pp.telefon,31);
-    TAB_Produkcja::FRM_F_EDIT_PP_FAX.GetWindowTextW(pp.fax,31);
-    TAB_Produkcja::FRM_F_EDIT_PP_EMAIL.GetWindowTextW(pp.email,201);
-    TAB_Produkcja::FRM_F_EDIT_pp_WWW.GetWindowTextW(pp.strona_www,501);
-    TAB_Produkcja::FRM_F_EDIT_pp_NAROD.GetWindowTextW(pp.narodowosc,201);
 
-
-int item;
-item = TAB_Prod_LIST_Prod.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-struct Producent& pp_buff = pp_arr.ElementAt(item);
-
-pp_buff = pp;
-Refresh_PP();
-}
-
-
-TAB_Produkcja::FRM_F_BUTTON_Pp_Nowy.EnableWindow(TRUE);
-TAB_Produkcja::FRM_F_BUTTON_Pp_Usun.EnableWindow(TRUE);
-TAB_Produkcja::FRM_F_BUTTON_Pp_Zapisz.EnableWindow(TRUE);
-TAB_Produkcja::TAB_Prod_LIST_Prod.EnableWindow(TRUE);
-
-TAB_Produkcja::FRM_F_EDIT_PP_NAZWAF.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_PP_ADRES.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_PP_TEL.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_PP_FAX.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_PP_EMAIL.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pp_WWW.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pp_NAROD.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_BUTTON_pp_ZATWIERDZ.EnableWindow(FALSE);
-
-
-}
 
 void TAB_Produkcja::OnBnClickedButtonFrmFPDystrNowy()
 {
@@ -4022,59 +2887,7 @@ void TAB_Produkcja::OnBnClickedButtonFrmFPDystrNowy()
     add_new_pd = true;
 }
 
-void TAB_Produkcja::OnBnClickedFButtonPdEdytuj()
-{
-    TAB_Produkcja::FRM_F_BUTTON_PD_NOWY.EnableWindow(FALSE);
-    TAB_Produkcja::FRM_F_BUTTON_PD_USUN.EnableWindow(FALSE);
-    TAB_Produkcja::FRM_F_BUTTON_PD_ZAPISZ.EnableWindow(FALSE);
-    TAB_Produkcja::TAB_Prod_LIST_Dystr.EnableWindow(FALSE);
 
-    TAB_Produkcja::FRM_F_EDIT_pd_NAZWAF.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_pd_ADRES.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_pd_TEL.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_pd_FAX.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_pd_EMAIL.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_pd_WWW.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_EDIT_pd_NAROD.EnableWindow(TRUE);
-    TAB_Produkcja::FRM_F_BUTTON_pd_ZATWIERDZ.EnableWindow(TRUE);
-
-
-wchar_t buff[34];
-
-int item;
-item = TAB_Prod_LIST_Dystr.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-    wchar_t buff201[201];
-    wchar_t buff501[501];
-    TAB_Prod_LIST_Dystr.GetItemText(item,0,buff501,501);
-    TAB_Produkcja::FRM_F_EDIT_pd_NAZWAF.SetWindowTextW(buff501);
-
-    TAB_Prod_LIST_Dystr.GetItemText(item,1,buff501,501);
-    TAB_Produkcja::FRM_F_EDIT_pd_ADRES.SetWindowTextW(buff501);
-
-    TAB_Prod_LIST_Dystr.GetItemText(item,2,buff201,31);
-    TAB_Produkcja::FRM_F_EDIT_pd_TEL.SetWindowTextW(buff201);
-
-    TAB_Prod_LIST_Dystr.GetItemText(item,3,buff201,31);
-    TAB_Produkcja::FRM_F_EDIT_pd_FAX.SetWindowTextW(buff201);
-
-    TAB_Prod_LIST_Dystr.GetItemText(item,4,buff201,201);
-    TAB_Produkcja::FRM_F_EDIT_pd_EMAIL.SetWindowTextW(buff201);
-
-    TAB_Prod_LIST_Dystr.GetItemText(item,5,buff501,501);
-    TAB_Produkcja::FRM_F_EDIT_pd_WWW.SetWindowTextW(buff501);
-
-    TAB_Prod_LIST_Dystr.GetItemText(item,6,buff201,201);
-    TAB_Produkcja::FRM_F_EDIT_pd_NAROD.SetWindowTextW(buff201);
-
-
-    TAB_Prod_LIST_Dystr.GetItemText(item,7,buff,34);
-    pd.ID = _wtoi(buff);
-    TAB_Prod_LIST_Dystr.GetItemText(item,8,buff,34);
-    pd.IDPDB = _wtoi(buff);
-}
-}
 
 void TAB_Produkcja::OnBnClickedButtonFrmFPDystrZapisz()
 {
@@ -4115,135 +2928,7 @@ if (plik.m_hFile != CFile::hFileNull)
 
 }
 
-void TAB_Produkcja::OnBnClickedFButtonPdZatwierdz()
-{
-    TAB_Produkcja::FRM_F_EDIT_pd_NAZWAF.GetWindowTextW(pd.nazwa_firmy,501);
-    TAB_Produkcja::FRM_F_EDIT_pd_ADRES.GetWindowTextW(pd.adres,501);
-    TAB_Produkcja::FRM_F_EDIT_pd_TEL.GetWindowTextW(pd.telefon,31);
-    TAB_Produkcja::FRM_F_EDIT_pd_FAX.GetWindowTextW(pd.fax,31);
-    TAB_Produkcja::FRM_F_EDIT_pd_EMAIL.GetWindowTextW(pd.email,201);
-    TAB_Produkcja::FRM_F_EDIT_pd_WWW.GetWindowTextW(pd.strona_www,501);
-    TAB_Produkcja::FRM_F_EDIT_pd_NAROD.GetWindowTextW(pd.narodowosc,201);
 
-
-int item;
-item = TAB_Prod_LIST_Dystr.GetNextItem(-1,LVIS_SELECTED);
-if (item != -1)
-{
-struct Dystrybutor& pd_buff = pd_arr.ElementAt(item);
-
-pd_buff = pd;
-Refresh_PD();
-}
-
-
-TAB_Produkcja::FRM_F_BUTTON_PD_NOWY.EnableWindow(TRUE);
-TAB_Produkcja::FRM_F_BUTTON_PD_USUN.EnableWindow(TRUE);
-TAB_Produkcja::FRM_F_BUTTON_PD_ZAPISZ.EnableWindow(TRUE);
-TAB_Produkcja::TAB_Prod_LIST_Dystr.EnableWindow(TRUE);
-
-TAB_Produkcja::FRM_F_EDIT_pd_NAZWAF.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_ADRES.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_TEL.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_FAX.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_EMAIL.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_WWW.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_EDIT_pd_NAROD.EnableWindow(FALSE);
-TAB_Produkcja::FRM_F_BUTTON_pd_ZATWIERDZ.EnableWindow(FALSE);
-
-}
-
-void TAB_Produkcja::OnLvnGetdispinfoListFrmFPProd(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    wchar_t buff[34];
-
-    NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-
-
-    int x;
-    x = pDispInfo->item.iItem;
-
-    switch (pDispInfo->item.iSubItem)
-    {
-    case 0:
-        wcscpy(pDispInfo->item.pszText,pp_arr.GetAt(x).nazwa_firmy);
-        break;
-    case 1:
-        wcscpy(pDispInfo->item.pszText,pp_arr.GetAt(x).adres);
-        break;
-    case 2:
-        wcscpy(pDispInfo->item.pszText,pp_arr.GetAt(x).telefon);
-        break;
-    case 3:
-        wcscpy(pDispInfo->item.pszText,pp_arr.GetAt(x).fax);
-        break;
-    case 4:
-        wcscpy(pDispInfo->item.pszText,pp_arr.GetAt(x).email);
-        break;
-    case 5:
-        wcscpy(pDispInfo->item.pszText,pp_arr.GetAt(x).strona_www);
-        break;
-    case 6:
-        wcscpy(pDispInfo->item.pszText,pp_arr.GetAt(x).narodowosc);
-        break;
-    case 7:
-        _itow(pp_arr.GetAt(x).ID ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff); // ID
-        break;
-    case 8:
-        _itow(pp_arr.GetAt(x).IDPDB ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff);  //IDPDB
-        break;
-    }
-
-
-
-    *pResult = 0;
-}
-
-void TAB_Produkcja::OnLvnGetdispinfoListFrmFPDystr(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    wchar_t buff[34];
-
-    NMLVDISPINFO *pDispInfo = reinterpret_cast<NMLVDISPINFO*>(pNMHDR);
-
-    int x;
-    x = pDispInfo->item.iItem;
-
-    switch (pDispInfo->item.iSubItem)
-    {
-    case 0:
-        wcscpy(pDispInfo->item.pszText,pd_arr.GetAt(x).nazwa_firmy);
-        break;
-    case 1:
-        wcscpy(pDispInfo->item.pszText,pd_arr.GetAt(x).adres);
-        break;
-    case 2:
-        wcscpy(pDispInfo->item.pszText,pd_arr.GetAt(x).telefon);
-        break;
-    case 3:
-        wcscpy(pDispInfo->item.pszText,pd_arr.GetAt(x).fax);
-        break;
-    case 4:
-        wcscpy(pDispInfo->item.pszText,pd_arr.GetAt(x).email);
-        break;
-    case 5:
-        wcscpy(pDispInfo->item.pszText,pd_arr.GetAt(x).strona_www);
-        break;
-    case 6:
-        wcscpy(pDispInfo->item.pszText,pd_arr.GetAt(x).narodowosc);
-        break;
-    case 7:
-        _itow(pd_arr.GetAt(x).ID ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff); // ID
-        break;
-    case 8:
-        _itow(pd_arr.GetAt(x).IDPDB ,buff,10);
-        wcscpy(pDispInfo->item.pszText,buff);  //IDPDB
-        break;
-    }
-        *pResult = 0;
-}
 
 void TAB_Produkcja::Save_PP(void)
 {
@@ -4609,35 +3294,40 @@ void TAB_Produkcja::Usun_Rec_PD(LONGLONG pos)
 
 }
 
-void TAB_Produkcja::OnNMDblclkListFrmFPProd(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    if (pp_arr.GetCount() > 0)
-    {
-        OnBnClickedFButtonPpEdytuj();
-    }
-    *pResult = 0;
-}
-
-void TAB_Produkcja::OnNMDblclkListFrmFPDystr(NMHDR *pNMHDR, LRESULT *pResult)
-{
-    LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-    if (pd_arr.GetCount() > 0)
-    {
-        OnBnClickedFButtonPdEdytuj();
-    }
-    *pResult = 0;
-}
-
-
 void MainWindow::on_actionOtw_rz_Utw_rz_baze_danych_triggered()
 {
+    CString buffCSTR;
+    BROWSEINFO dir_info;
+    dir_info.hwndOwner = NULL;
+    dir_info.pidlRoot = NULL;
+    dir_info.lpszTitle = TEXT("Podaj katalog z bazą danych w formacie Biblioteka Filmów lub utwórz katalog na nową bazę danych i wskaż go");
+    dir_info.ulFlags = NULL;
+    open_folder = false;
+    if (theApp.GetShellManager()->BrowseForFolder(buffCSTR, this, NULL,TEXT("Podaj katalog z bazą danych w formacie Biblioteka Filmów lub utwórz katalog na nową bazę danych i wskaż go"),BIF_NEWDIALOGSTYLE))
+    {
+        int cstr_size = buffCSTR.GetLength() + 1;
+        char *chr = new char[cstr_size];
+        wchar_t *buff = new wchar_t[cstr_size];
+        _tcscpy_s(buff,cstr_size,buffCSTR);
+        SetDBFNPaths(true,buff);
+        if (CheckbOpenDB() == 1)
+        {
+            UtworzDB(true);
 
+        }
+        Clear_TABS();
+        ClearCtrls(true);
+        UpdateCtrls(false,true);
+        Licz_Rec();
+        open_folder = false;
+    }
 }
 
 void MainWindow::on_actionEksportuj_triggered()
 {
-
+    Eksport_Wizard *eks_wiz = new Eksport_Wizard(this);
+    eks_wiz->Create(Eksport_Wizard::IDD,this);
+    eks_wiz->ShowWindow(SW_SHOW);
 }
 
 void MainWindow::on_actionWyszukaj_triggered()
@@ -4667,5 +3357,250 @@ void MainWindow::on_actionO_programie_triggered()
 
 void MainWindow::on_actionPomoc_triggered()
 {
+
+}
+
+void MainWindow::on_pushButton_LoadPic_clicked()
+{
+    TCHAR szFiltr[] = _T("Pliki graficzne (*.bmp)|*.bmp| (*.jpg)|*.jpg| (*.jpeg)|*.jpeg| (*.png)|*.png||");
+    CFileDialog plik_dlg(TRUE,NULL,NULL,OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON,szFiltr);
+    if (plik_dlg.DoModal() == IDOK)
+    {
+        //plik_dlg.DoModal();
+        CString plk_path = plik_dlg.GetPathName();
+        CString buff;
+
+        buff = flm.pths.BF_COVERS;
+        buff = buff + plik_dlg.GetFileName();
+
+        CopyFile(plk_path,buff,FALSE);
+        _tcscpy(flm.film_tbl.skan_przod_path,buff);
+        CBibliotekaFilmówDlg::OnBnClickedButtonFrmFSave();
+    }
+}
+
+void MainWindow::on_pushButton_DelPic_clicked()
+{
+    if (!(CBibliotekaFilmówDlg::Licz_Rec()))
+    {
+        _tcscpy(flm.film_tbl.skan_przod_path,_TEXT(""));
+        CBibliotekaFilmówDlg::OnBnClickedButtonFrmFSave();
+
+    }
+}
+
+void MainWindow::on_pushButton_B_WYPIN_New_clicked()
+{
+    Save_Wi();
+    Add_New_WI(Get_Hi_ID_WI());
+    add_new_wi = true;
+}
+
+void MainWindow::on_pushButton_BIBLIOWYPISave_clicked()
+{
+    Save_Wi();
+}
+
+void MainWindow::on_pushButton_BIBLIOWYPINDel_clicked()
+{
+    QList <QTableWidgetItem *> delitems;
+    QTableWidgetItem *delitem;
+    int delID = 0;
+    delitems = ui->tableWidget_BIBLIO_WYPIN->selectedItems();
+    delitem = delitems.at(5);
+    delID = delitem->text().toInt();
+
+    QFile plik(flm.pths.BF_WI);
+    plik.Open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        plik.read(static_cast<char *>(&wi),sizeof(wi));
+        if (delID == wi.ID)
+        {
+            plik.close();
+            Usun_Rec_WI(i);
+            break;
+        }
+        i = i + sizeof(wi);
+    }
+    if (plik.isOpen() == true)
+    {
+        plik.close();
+    }
+}
+
+void MainWindow::on_pushButton_B_WYPODIN_New_clicked()
+{
+    Save_Wo();
+    Add_New_WO(Get_Hi_ID_WO());
+    add_new_wo = true;
+}
+
+void MainWindow::on_pushButton_BIBLIOWYPODINSave_clicked()
+{
+    Save_Wo();
+}
+
+void MainWindow::on_pushButton_BIBLIOWYPODINDel_clicked()
+{
+    QList <QTableWidgetItem *> delitems;
+    QTableWidgetItem *delitem;
+    int delID = 0;
+    delitems = ui->tableWidget_BIBLIO_WYPODIN->selectedItems();
+    delitem = delitems.at(5);
+    delID = delitem->text().toInt();
+
+    QFile plik(flm.pths.BF_WO);
+    plik.Open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        plik.read(static_cast<char *>(&wo),sizeof(wo));
+        if (delID == wi.ID)
+        {
+            plik.close();
+            Usun_Rec_WO(i);
+            break;
+        }
+        i = i + sizeof(wi);
+    }
+    if (plik.isOpen() == true)
+    {
+        plik.close();
+    }
+}
+
+void MainWindow::on_pushButton_LZ_New_clicked()
+{
+    Save_Lz();
+    Add_New_LZ(Get_Hi_ID_LZ());
+    add_new_lz = true;
+}
+
+void MainWindow::on_pushButton_LZSave_clicked()
+{
+    Save_Lz();
+}
+
+void MainWindow::on_pushButton_LZDel_clicked()
+{
+    QList <QTableWidgetItem *> delitems;
+    QTableWidgetItem *delitem;
+    int delID = 0;
+    delitems = ui->tableWidget_IOF_LZ->selectedItems();
+    delitem = delitems.at(6);
+    delID = delitem->text().toInt();
+
+    QFile plik(flm.pths.BF_LZ);
+    plik.Open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        plik.read(static_cast<char *>(&lz),sizeof(lz));
+        if (delID == lz.ID)
+        {
+            plik.close();
+            Usun_Rec_LZ(i);
+            break;
+        }
+        i = i + sizeof(lz);
+    }
+    if (plik.isOpen() == true)
+    {
+        plik.close();
+    }
+}
+
+void MainWindow::on_pushButton_OB_new_clicked()
+{
+    Save_Ob();
+    Add_New_Ob(Get_Hi_ID_OB());
+    add_new_ob = true;
+}
+
+void MainWindow::on_pushButton_OBSave_clicked()
+{
+    Save_Ob();
+}
+
+void MainWindow::on_pushButton_OBDel_clicked()
+{
+    QList <QTableWidgetItem *> delitems;
+    QTableWidgetItem *delitem;
+    int delID = 0;
+    delitems = ui->tableWidget_Obsada->selectedItems();
+    delitem = delitems.at(2);
+    delID = delitem->text().toInt();
+
+    QFile plik(flm.pths.BF_OB);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        plik.read(static_cast<char *>(&ob),sizeof(ob));
+        if (delID == ob.ID)
+        {
+            plik.close();
+            Usun_Rec_OB(i);
+            break;
+        }
+        i = i + sizeof(ob);
+    }
+    if (plik.isOpen() == true)
+    {
+        plik.close();
+    }
+
+}
+
+void MainWindow::Refresh_Lz(void)
+{
+    ui->tableWidget_IOF_LZ->clearContents();
+
+    int x;
+    QTableWidgetItem *item;
+    for (x=0;x<lz_arr.count(); x++)
+    {
+        ui->tableWidget_IOF_LZ->insertRow(x);
+
+        item->setText(lz_arr[x].nazwa_obiektu);
+        ui->tableWidget_IOF_LZ->setItem(x,0,item);
+
+        item->setText(lz_arr[x].kraj);
+        ui->tableWidget_IOF_LZ->setItem(x,1,item);
+
+        item->setText(lz_arr[x].miejscowosc);
+        ui->tableWidget_IOF_LZ->setItem(x,2,item);
+
+        item->setText(lz_arr[x].region);
+        ui->tableWidget_IOF_LZ->setItem(x,3,item);
+
+        item->setText(lz_arr[x].pora_roku);
+        ui->tableWidget_IOF_LZ->setItem(x,4,item);
+
+        item->setText(lz_arr[x].data);
+        ui->tableWidget_IOF_LZ->setItem(x,5,item);
+
+        item->setText(lz_arr[x].ID);
+        ui->tableWidget_IOF_LZ->setItem(x,6,item);
+
+        item->setText(lz_arr[x].IDPDB);
+        ui->tableWidget_IOF_LZ->setItem(x,7,item);
+
+    }
+
 
 }

@@ -2528,10 +2528,10 @@ void TAB_Oocena::ClearOcena(void)
 
 }
 
-int TAB_Oocena::Get_Hi_ID(void)
+int TAB_Oocena::Get_Hi_ID_OC(void)
 {
 
-if (GetRecC() == 0)
+if (GetRecC_OC() == 0)
 {
     return 0;
 }
@@ -2618,7 +2618,7 @@ if (plik.m_hFile != CFile::hFileNull)
 
 }
 
-int TAB_Oocena::GetRecC(void)
+int TAB_Oocena::GetRecC_OC(void)
 {
 CFile plik;
 plik.Open(flm_o.pths.BF_OC,CFile::modeRead | CFile::shareDenyNone);

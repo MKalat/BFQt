@@ -202,6 +202,7 @@ void MainWindow::Bind_IN_Controls(void)
         ui->lineEdit_Tytul->setText(flm.film_tbl.tytul);
         ui->lineEdit_TytulOrig->setText(flm.film_tbl.oryginalny_tytul);
         ui->lineEdit_Gatunek->setText(flm.film_tbl.gatunek_filmu);
+        //ui->textEdit_Opis->setText(flm.film2_ftbl.opis);
 
 
         if (_tcscmp(flm.film_tbl.skan_przod_path,_TEXT("")) != 0)
@@ -285,6 +286,7 @@ void MainWindow::Bind_OUT_Controls(void)
         ui->lineEdit_Tytul->text().toWCharArray(flm.film_tbl.tytul);
         ui->lineEdit_TytulOrig->text().toWCharArray(flm.film_tbl.oryginalny_tytul);
         ui->lineEdit_Gatunek->text().toWCharArray(flm.film_tbl.gatunek_filmu);
+        //ui->textEdit_Opis->toPlainText().toWCharArray((flm.film2_ftbl.opis));
         //TAB OCENA
         ui->lineEdit_OC_OW_SD->text().toWCharArray(flm.film_tbl.WOF_sciezka_dz);
         ui->lineEdit_OC_OW_Obs->text().toWCharArray(flm.film_tbl.WOF_obsada);
@@ -338,6 +340,7 @@ void MainWindow::ClearCtrls(bool all)
     ui->lineEdit_Tytul->clear();
     ui->lineEdit_TytulOrig->clear();
     ui->lineEdit_Gatunek->clear();
+    //ui->textEdit_Opis->clear();
 
     //TAB OCENA
 
@@ -648,6 +651,7 @@ bool MainWindow::Fill_Full_Film(bool start)
 
                 Clear_TABS(); // czyszczenie kontrolek pól list
 
+                Fill_Opis();
                 Fill_Oc(false); // wypełnianie kontrolek pól list
                 Fill_Ob();
                 Fill_PD();
@@ -1911,7 +1915,7 @@ void MainWindow::Save_Lz(void)
 
                         i = i + sizeof(lz);
                     }
-                    if (add_new_wi)
+                    if (add_new_lz)
                     {
 
                         int x;
@@ -2121,7 +2125,7 @@ void MainWindow::Save_Ob(void)
 
                         i = i + sizeof(ob);
                     }
-                    if (add_new_wi)
+                    if (add_new_ob)
                     {
 
                         int x;
@@ -2281,136 +2285,111 @@ void MainWindow::Usun_Rec_OB(LONGLONG pos)
 
 }
 
-void TAB_Oocena::OnBnClickedButtonFrmFONowy()
-{
-
-    // na podstawie statycznej skałdowej klasy Ftbl - bedacej struktura typu Film - film_tbl nalezy utworzyc nowy rekord w pliku "BF_OC.bf"
-
-    Save_Oc();
-    Add_New_Oc(Get_Hi_ID());
-    add_new = true;
-
-
-
-}
-
-void TAB_Oocena::Save_Oc(void)
+void MainWindow::Save_Oc(void)
 {
     // ta i podobne procedury zapisuja do danego pliku tabele struktur zawierajacych dane z pól list w form. film.
 // w przypadku nadpisywania danych wyszukuja najpierw czy rekord o danym id istnieje w pliku, potem jesli tak nad-
 // -pisuja go, a jesli nie dodaja na koncu, i tak dla kazdej komorki tabeli struktur.
 
-
-    CFile plik;
+    QFile plik(flm.pths.BF_OC);
     struct Ocena oc_buf;
-    plik.Open(flm_o.pths.BF_OC,CFile::modeReadWrite | CFile::shareDenyNone);
-    int rec_count = 0;
+    plik.open(QFile::ReadWrite);
+
     LONGLONG stop;
     LONGLONG i;
     int y;
-    int stop_item = TAB_O_Zasoby.GetItemCount();
-    wchar_t buff[34];
-    stop = plik.SeekToEnd();
 
-    for (y=0;y<oc_arr.GetCount() ;y++ )
+    wchar_t buff[34];
+    stop = plik.size();
+
+    for (y=0;y<oc_arr.count() ;y++ )
     {
-        if (GetRecC() == 0)
+        if (GetRecC_OC() == 0)
             {
-                plik.Seek(0,CFile::begin);
-                plik.Write(&oc_arr.GetAt(y),sizeof(oc));
+                plik.seek(0);
+                plik.write(static_cast<char *> (&oc_arr[y]),sizeof(oc));
 
             }
-        else if (GetRecC() > 0)
+        else if (GetRecC_OC() > 0)
             {
-                if ((plik.SeekToEnd()) > 2147483647)
+                if ((plik.size()) > 2147483647)
                 {
-                    MessageBoxW(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",L"Biblioteka Filmów - Błąd zapisu",MB_OK);
+                    QMessageBox(QMessageBox::Warning,L"Biblioteka Filmów",L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",QMessageBox::Ok);
                     break;
                 }
-                else if ((plik.SeekToEnd()) < 2147483647)
+                else if ((plik.size()) < 2147483647)
                 {
                     for (i=0; i<stop; )
                     {
-                        plik.Seek(i,CFile::begin);
-                        plik.Read(&oc_buf,sizeof(oc_buf));
-                            if (oc_arr.GetAt(y).ID == oc_buf.ID)
+                        plik.seek(i);
+                        plik.read(static_cast<char *>(&oc_buf),sizeof(oc_buf));
+                            if (oc_arr[y].ID == ob_buf.ID)
                             {
-                                plik.Seek(i,CFile::begin);
-                                plik.Write(&oc_arr.GetAt(y),sizeof(oc));
+                                plik.seek(i);
+                                plik.write(static_cast<char *>(&oc_arr[y]),sizeof(oc));
                             }
 
-                        i = i + sizeof(oc);
+                        i = i + sizeof(ob);
                     }
-                    if (add_new)
+                    if (add_new_oc)
                     {
 
                         int x;
-                        x = (oc_arr.GetCount()-1);
-                        plik.Seek((plik.SeekToEnd()),CFile::begin);
-                        plik.Write(&oc_arr.GetAt(x),sizeof(oc));
-                        add_new = false;
+                        x = (oc_arr.count()-1);
+                        plik.seek(plik.size());
+                        plik.write(static_cast<char *>(&oc_arr[x]),sizeof(oc));
+                        add_new_oc = false;
                     }
                 }
             }
 
     }
 
-    plik.Close();
+    plik.close();
 
-//Fill_Oc(false);
+
 
 }
 
-void TAB_Oocena::Fill_Oc(bool nie_kas)
+void MainWindow::Fill_Oc(bool nie_kas)
 {
 // ta i podobne procedury odczytuja plik bd danej tabeli i sprawdzaja czy idpdb sie zgadza z polem if flm_o.film_tbl
 // a jesli tak to pobieraja z pliku do tabeli struktur zawierajacej dane z jednego pola listy form. film dla jednego
 // rekordu, jesli nie ida dalej wzdluz pliku do jego konca..
 
-CFile plik;
-plik.Open(flm_o.pths.BF_OC,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
+    QFile plik(flm.pths.BF_OC);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
 
 
-TAB_O_Zasoby.DeleteAllItems();
-oc_arr.RemoveAll();
+    ui->tableWidget_OC->clearContents();
+    oc_arr.clear();
 
-
-
-for (i = 0;i<stop ; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&oc,sizeof(oc));
-    if (oc.IDPDB == flm_o.film_tbl.ID)
+    for (i = 0;i<stop ; )
     {
-        oc_arr.Add(oc);
+        plik.seek(i);
+        plik.read(static_cast<char *>(&oc),sizeof(oc));
+        if (oc.IDPDB == flm.film_tbl.ID)
+        {
+            oc_arr.append(oc);
 
+        }
+        i = i + sizeof(oc);
     }
-    i = i + sizeof(oc);
-}
-plik.Close();
+    plik.close();
 
-Refresh_Oc();
-
-
-
+    Refresh_Oc();
 }
 
-void TAB_Oocena::OnBnClickedButtonFrmFOZapisz()
+void MainWindow::ClearOcena(void)
 {
-Save_Oc();
+        ui->tableWidget_OC->clearContents();
 
 }
 
-void TAB_Oocena::ClearOcena(void)
-{
-        TAB_O_Zasoby.DeleteAllItems();
-
-}
-
-int TAB_Oocena::Get_Hi_ID_OC(void)
+int MainWindow::Get_Hi_ID_OC(void)
 {
 
 if (GetRecC_OC() == 0)
@@ -2418,172 +2397,154 @@ if (GetRecC_OC() == 0)
     return 0;
 }
 
-
-CFile plik;
-plik.Open(flm_o.pths.BF_OC,CFile::modeRead);
+QFile plik(flm.pths.BF_OC);
+plik.open(QFile::ReadOnly);
 LONGLONG i;
 LONGLONG stop;
-stop = plik.SeekToEnd();
+stop = plik.size();
 for (i=0;i<stop; )
 {
-    plik.Seek(i,CFile::begin);
+    plik.seek(i);
     if (i == (stop - sizeof(oc)))
     {
-        plik.Read(&oc,sizeof(oc));
-        plik.Close();
+        plik.read(static_cast<char *>(&oc),sizeof(oc));
+        plik.close();
         return oc.ID;
     }
     i = i + sizeof(oc);
 }
-plik.Close();
 
 }
 
-void TAB_Oocena::Add_New_Oc(int id)
+void MainWindow::Add_New_Oc(int id)
 {
 
-int id_new;
-id_new = id + 1;
-int itemcount = 0;
-wchar_t buff[34];
+    int id_new;
+    id_new = id + 1;
+    int itemcount = 0;
+    wchar_t buff[34];
 
 
 // Metoda callbacku
-oc.ID = id_new;
-oc.IDPDB = flm_o.film_tbl.ID;
-wcscpy(oc.nazwa,L"Wpisz tutaj coś");
-wcscpy(oc.tytul_tekstu,L"Wpisz tutaj coś");
-wcscpy(oc.autor_tekstu,L"Wpisz tutaj coś");
-wcscpy(oc.ocena_krytyka,L"Wpisz tutaj coś");
-wcscpy(oc.strona_www,L"Wpisz tutaj coś");
+    oc.ID = id_new;
+    oc.IDPDB = flm_o.film_tbl.ID;
+    wcscpy(oc.nazwa,L"Wpisz tutaj coś");
+    wcscpy(oc.tytul_tekstu,L"Wpisz tutaj coś");
+    wcscpy(oc.autor_tekstu,L"Wpisz tutaj coś");
+    wcscpy(oc.ocena_krytyka,L"Wpisz tutaj coś");
+    wcscpy(oc.strona_www,L"Wpisz tutaj coś");
 
 
-oc_arr.Add(oc);
+    oc_arr.append(oc);
 
-Refresh_Oc();
+    Refresh_Oc();
 
 
 }
 
-void TAB_Oocena::OnBnClickedButtonFrmFOUsun()
+int MainWindow::GetRecC_OC(void)
 {
-
-wchar_t buff[34];
-LVITEM lvitm;
-int delitem = 0;
-int delID = 0;
-delitem = TAB_O_Zasoby.GetNextItem(-1,LVNI_SELECTED);
-TAB_O_Zasoby.GetItemText(delitem,5,(LPTSTR)buff,34);
-delID = _wtoi(buff);
-
-CFile plik;
-plik.Open(flm_o.pths.BF_OC,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&oc,sizeof(oc));
-    if (delID == oc.ID)
+    QFile plik(flm.pths.BF_OC);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    int rec_count = 0;
+    struct Ocena oc_t;
+    if (stop == 0)
     {
-    plik.Close();
-    Usun_Rec(i);
-    break;
+        plik.close();
+        return 0;
     }
-    i = i + sizeof(oc);
-}
-if (plik.m_hFile != CFile::hFileNull)
-{
-    plik.Close();
-}
-
-}
-
-int TAB_Oocena::GetRecC_OC(void)
-{
-CFile plik;
-plik.Open(flm_o.pths.BF_OC,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-int rec_count = 0;
-struct Ocena oc_t;
-if (stop == 0)
-{
-    plik.Close();
-    return 0;
-}
     for (i = 0; i <stop; )
     {
-        plik.Seek(i,CFile::begin);
-        plik.Read(&oc_t,sizeof(oc_t));
+        plik.seek(i);
+        plik.read(static_cast<char *>(&oc_t),sizeof(oc_t));
         rec_count = rec_count + 1;
         i = i + sizeof(oc_t);
     }
-    plik.Close();
-return rec_count;
+    plik.close();
+    return rec_count;
+
+
+
 }
 
-void TAB_Oocena::Usun_Rec(LONGLONG pos)
+void MainWindow::Usun_Rec_OC(LONGLONG pos)
 {
 
-        struct Ocena oc_src;
-        oc.ID = 0;
-        CFile plik;
-        plik.Open(flm_o.pths.BF_OC,CFile::modeWrite | CFile::shareDenyNone);
-        plik.Seek(pos,CFile::begin);
-        plik.Write(&oc,sizeof(oc));
-        plik.Close();
 
-        CFile::Rename(flm_o.pths.BF_OC,(LPCTSTR)"BF_OC.bf0");
+    struct Ocena oc_src;
+    oc.ID = 0;
+    QFile plik(flm.pths.BF_OC);
+    plik.open(QFile::ReadOnly);
+    plik.seek(pos);
+    plik.write(static_cast<char *>(&oc),sizeof(oc));
 
-        plik.Open(flm_o.pths.BF_OC,CFile::modeCreate);
-        plik.Close();
-        CFile src_file;
-        src_file.Open((LPCTSTR)"BF_OC.bf0",CFile::modeRead);
-        plik.Open(flm_o.pths.BF_OC,CFile::modeWrite);
-        LONGLONG i;
-        for (i = 0; i <(src_file.SeekToEnd()) ; )
+    plik.rename(flm.pths.BF_OC,(LPCTSTR)"BF_OC.bf0");
+
+    plik.close();
+    QFile plik(flm.pths.BF_OC);
+    plik.Open(QFile::WriteOnly);
+    QFile src_file((LPCTSTR)"BF_OC.bf0");
+    src_file.open(QFile::ReadOnly);
+    LONGLONG i;
+    for (i = 0; i <(src_file.size()) ; )
+    {
+        src_file.seek(i);
+        src_file.read(static_cast<char *>(&oc_src),sizeof(oc_src));
+        if (oc_src.ID == 0)
         {
-            src_file.Seek(i,CFile::begin);
-            src_file.Read(&oc_src,sizeof(oc_src));
-            if (oc_src.ID == 0)
-            {
-                i = i + sizeof(oc_src);
-            }
-            else
-            {
-                plik.Write(&oc_src,sizeof(oc_src));
-                i = i + sizeof(oc_src);
-            }
+            i = i + sizeof(oc_src);
         }
-        plik.Close();
-        src_file.Close();
-        CFile::Remove((LPCTSTR)"BF_OC.bf0");
-        Fill_Oc(false);
+        else
+        {
+            plik.write(static_cast<char *>(&oc_src),sizeof(oc_src));
+            i = i + sizeof(oc_src);
+        }
+    }
+    plik.close();
+    src_file.remove();
+    src_file.close();
+    Fill_Oc();
+
 
 }
 
 
 
-void TAB_Oocena::Refresh_Oc(void)
+void MainWindow::Refresh_Oc(void)
 {
 
-    TAB_O_Zasoby.DeleteAllItems();
+    ui->tableWidget_OC->clearContents();
 
     int x;
-    for (x=0;x<oc_arr.GetCount(); x++)
+    QTableWidgetItem *item;
+    for (x=0;x<oc_arr.count(); x++)
     {
-        LVITEM lvitm;
-        lvitm.mask = LVIF_TEXT | LVIF_PARAM | LVIF_STATE;
-        lvitm.iItem = x;
-        lvitm.iSubItem = 0;
-        lvitm.state = 0;
-        lvitm.stateMask = 0;
-        lvitm.lParam = (LPARAM) &oc_arr.GetAt(x);
-        lvitm.pszText = LPSTR_TEXTCALLBACK;
-        TAB_O_Zasoby.InsertItem(&lvitm);
+        ui->tableWidget_IOF_LZ->insertRow(x);
+
+        item->setText(oc_arr[x].nazwa);
+        ui->tableWidget_OC->setItem(x,0,item);
+
+        item->setText(oc_arr[x].tytul_tekstu);
+        ui->tableWidget_OC->setItem(x,1,item);
+
+        item->setText(oc_arr[x].autor_tekstu);
+        ui->tableWidget_OC->setItem(x,2,item);
+
+        item->setText(oc_arr[x].strona_www);
+        ui->tableWidget_OC->setItem(x,3,item);
+
+        item->setText(oc_arr[x].ocena_krytyka);
+        ui->tableWidget_OC->setItem(x,4,item);
+
+        item->setText(oc_arr[x].ID);
+        ui->tableWidget_OC->setItem(x,5,item);
+
+        item->setText(oc_arr[x].IDPDB);
+        ui->tableWidget_OC->setItem(x,6,item);
+
     }
 }
 
@@ -3483,6 +3444,61 @@ void MainWindow::Refresh_Lz(void)
         ui->tableWidget_IOF_LZ->setItem(x,7,item);
 
     }
+
+
+}
+
+void MainWindow::on_pushButton_OC_New_clicked()
+{
+    Save_Oc();
+    Add_New_Oc(Get_Hi_ID_OC());
+    add_new = true;
+}
+
+void MainWindow::on_pushButton_OC_Save_clicked()
+{
+    Save_Oc();
+}
+
+void MainWindow::on_pushButton_OC_Del_clicked()
+{
+    QList <QTableWidgetItem *> delitems;
+    QTableWidgetItem *delitem;
+    int delID = 0;
+    delitems = ui->tableWidget_OC->selectedItems();
+    delitem = delitems.at(5);
+    delID = delitem->text().toInt();
+
+    QFile plik(flm.pths.BF_OC);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        plik.read(static_cast<char *>(&oc),sizeof(oc));
+        if (delID == oc.ID)
+        {
+            plik.close();
+            Usun_Rec_OC(i);
+            break;
+        }
+        i = i + sizeof(oc);
+    }
+    if (plik.isOpen() == true)
+    {
+        plik.close();
+    }
+
+
+
+}
+
+void MainWindow::Fill_Opis()
+{
+
+
 
 
 }

@@ -132,29 +132,8 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>5</number>
     </property>
-    <widget class="QWidget" name="opis">
-     <attribute name="title">
-      <string>Opis</string>
-     </attribute>
-     <widget class="QPlainTextEdit" name="plainTextEdit_Opis">
-      <property name="geometry">
-       <rect>
-        <x>3</x>
-        <y>9</y>
-        <width>574</width>
-        <height>286</height>
-       </rect>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOn</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
-      </property>
-     </widget>
-    </widget>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>Ocena</string>
@@ -1973,6 +1952,10 @@
     <property name="text">
      <string>Nowy</string>
     </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/new_ico24x24.ico</normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/new_ico24x24.ico</iconset>
+    </property>
    </widget>
    <widget class="QPushButton" name="pushButton_Save">
     <property name="geometry">
@@ -1985,6 +1968,10 @@
     </property>
     <property name="text">
      <string>Zapisz</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/save_ico24x24.ico</normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/save_ico24x24.ico</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_Del">
@@ -1999,6 +1986,10 @@
     <property name="text">
      <string>Usuń</string>
     </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/del_ico24x24-2.ico</normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/del_ico24x24-2.ico</iconset>
+    </property>
    </widget>
    <widget class="QPushButton" name="pushButton_IntWiz">
     <property name="geometry">
@@ -2011,6 +2002,10 @@
     </property>
     <property name="text">
      <string>Pobierz z Internetu</string>
+    </property>
+    <property name="icon">
+     <iconset>
+      <normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/upload_ico24x24.ico</normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/upload_ico24x24.ico</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">

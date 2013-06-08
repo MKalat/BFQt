@@ -6,6 +6,7 @@ class Ftbl
 {
 public:
     static struct Film film_tbl;
+    static struct Film2 film2_ftbl;
     static struct DB_paths pths;
     static bool sort; // oznacza czy form. Film jest sortowany.
 
@@ -16,6 +17,7 @@ struct DB_paths
 {
 
     wchar_t BF_PDB[550];
+    wchar_t BF_PDB2[550];
     wchar_t BF_OC[550];
     wchar_t BF_OB[550];
     wchar_t BF_PRP[550];

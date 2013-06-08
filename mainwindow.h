@@ -49,7 +49,7 @@ public:
     QList <Obsada> ob_arr;
 
     struct Ocena oc;
-    bool add_new = false;
+    bool add_new_oc = false;
     QList <Ocena> oc_arr;
 
     struct Producent pp;
@@ -119,6 +119,12 @@ private slots:
     void on_pushButton_OBSave_clicked();
 
     void on_pushButton_OBDel_clicked();
+
+    void on_pushButton_OC_New_clicked();
+
+    void on_pushButton_OC_Save_clicked();
+
+    void on_pushButton_OC_Del_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -91,7 +91,6 @@ struct Film
     wchar_t tytul[501];
     wchar_t oryginalny_tytul[501];
     wchar_t gatunek_filmu[201];
-    wchar_t opis[4096]; // zmiana wzgedem 1.0.2.0
     wchar_t skan_przod_path[241];
     wchar_t skan_tyl_path[241];
     wchar_t WOF_sciezka_dz[201];
@@ -140,5 +139,15 @@ struct Film
     wchar_t IOF_DZWIEK_nazwa[201];
     wchar_t IOF_DZWIEK_typ[201];
     wchar_t IOF_DZWIEK_wersja[201];
+
+};
+
+struct Film2
+{
+    int ID;
+    wchar_t opis[4096]; // zmiana wzgedem 1.0.2.0
+
+
+
 
 };

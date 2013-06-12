@@ -249,9 +249,11 @@ void MainWindow::Bind_IN_Controls(void)
 
         if ((QString::fromWCharArray(flm.film_tbl.skan_przod_path).compare("")) != 0)
         {
-            QFile pic_front(QString::fromWCharArray(flm.film_tbl.skan_przod_path));
-            if (pic_front.exist())
+            //QFile pic_front(QString::fromWCharArray(flm.film_tbl.skan_przod_path));
+            QFileInfo img_stat(QString::fromWCharArray(flm.film_tbl.skan_przod_path));
+            if (img_stat.exists())
             {
+
                 QImage img_front(QString::fromWCharArray(flm.film_tbl.skan_przod_path),NULL);
                 img_front.scaled(139,172,Qt::IgnoreAspectRatio);
                 ui->label_PicFront->setPixmap(QPixmap::fromImage(img_front));
@@ -514,8 +516,8 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[0] = false;
     }
-    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_OC));
-    if (fi.exists())
+    QFileInfo fi2(QString::fromWCharArray(flm.pths.BF_OC));
+    if (fi2.exists())
     {
         test[1] = true;
     }
@@ -523,8 +525,8 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[1] = false;
     }
-    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_OB));
-    if (fi.exists())
+    QFileInfo fi3(QString::fromWCharArray(flm.pths.BF_OB));
+    if (fi3.exists())
     {
         test[2] = true;
     }
@@ -532,8 +534,8 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[2] = false;
     }
-    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_PRP));
-    if (fi.exists())
+    QFileInfo fi4(QString::fromWCharArray(flm.pths.BF_PRP));
+    if (fi4.exists())
     {
         test[3] = true;
     }
@@ -541,8 +543,8 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[3] = false;
     }
-    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_PRD));
-    if (fi.exists())
+    QFileInfo fi5(QString::fromWCharArray(flm.pths.BF_PRD));
+    if (fi5.exists())
     {
         test[4] = true;
     }
@@ -550,8 +552,8 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[4] = false;
     }
-    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_LZ));
-    if (fi.exists())
+    QFileInfo fi6(QString::fromWCharArray(flm.pths.BF_LZ));
+    if (fi6.exists())
     {
         test[5] = true;
     }
@@ -559,8 +561,8 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[5] = false;
     }
-    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_WI));
-    if (fi.exists())
+    QFileInfo fi7(QString::fromWCharArray(flm.pths.BF_WI));
+    if (fi7.exists())
     {
         test[6] = true;
     }
@@ -568,8 +570,8 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[6] = false;
     }
-    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_WO));
-    if (fi.exists())
+    QFileInfo fi8(QString::fromWCharArray(flm.pths.BF_WO));
+    if (fi8.exists())
     {
         test[7] = true;
     }
@@ -577,8 +579,8 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[7] = false;
     }
-    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_MCF));
-    if (fi.exists())
+    QFileInfo fi9(QString::fromWCharArray(flm.pths.BF_MCF));
+    if (fi9.exists())
     {
         test[8] = true;
     }
@@ -598,49 +600,49 @@ int MainWindow::CheckbOpenDB(void) {
     }
     else if ((test[0] == false || test[8] == false) && (test[1] == true || test[2] == true || test[3] == true || test[4] == true || test[5] == true || test[6] == true || test[7]== true))
     {
-        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.", QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.", QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[1] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[2] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[3] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[4] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[5] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[6] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[7]== false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,L"Biblioteka Filmów",L"Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie może jej otworzyć. Spróbuj ozdyskać uszkodzone dane lub samodzielnie skasuj(na własne ryzyko !!!!) pliki bazy danych - program odtworzy pustą strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
@@ -656,7 +658,8 @@ bool MainWindow::CheckBFVER(void)
     QFile plik(QString::fromWCharArray(flm.pths.BF_MCF));
     plik.open(QFile::ReadOnly);
     plik.seek(0);
-    plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+
+    //plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
     plik.close();
     if ((wcscmp(pom.BF_VER,akt_BF_VER)) == 0) {
         return true;
@@ -688,12 +691,13 @@ bool MainWindow::Fill_Full_Film(bool start)
                 {
                     plik.seek(zadana_pozycja_pliku);
                 }
-                plik.read(static_cast<char *>(&flm.film_tbl),sizeof(struct Film));
+                //plik.read(static_cast<char *>(&flm.film_tbl),sizeof(struct Film));
+
                 plik.close();
 
-                Clear_TABS(); // czyszczenie kontrolek pól list
+                //Clear_TABS(); // czyszczenie kontrolek pól list
 
-                Fill_Opis();
+                //Fill_Opis();
                 Fill_Oc(false); // wypełnianie kontrolek pól list
                 Fill_Ob();
                 Fill_PD();
@@ -728,7 +732,8 @@ bool MainWindow::Save_Full_Film(void) {
                 plik.open(QFile::WriteOnly);
                 akt_pozycja_pliku = zadana_pozycja_pliku;
                 plik.seek(zadana_pozycja_pliku);
-                plik.write(static_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
+                //plik.write(static_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
+
                 plik.close();
                 Save_Oc();
                 Save_Ob();
@@ -769,7 +774,8 @@ bool MainWindow::Film_DodajRec(bool first) {
                 plik.seek(plik.size());
             }
 
-            plik.write(static_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
+            //plik.write(static_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
+
             plik.close();
             if (first)
             {
@@ -798,13 +804,15 @@ void MainWindow::Oblicz_NewID(void) {
     QFile plik(QString::fromWCharArray(flm.pths.BF_MCF));
     plik.open(QFile::ReadOnly);
     plik.seek(0);
-    plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+    //plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+
     plik.close();
     flm.film_tbl.ID = pom.najw_ID + 1;
     pom.najw_ID = flm.film_tbl.ID;
     plik.open(QFile::WriteOnly);
     plik.seek(0);
-    plik.write(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+    //plik.write(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+
     plik.close();
 
 }

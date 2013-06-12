@@ -5,6 +5,48 @@
 #include <QFile>
 #include <QDir>
 #include <QList>
+#include <QFileDialog>
+
+struct Film Ftbl::film_tbl;    // struktura mieszczaca jeden rekord form film
+bool Ftbl::sort = false;
+struct DB_paths Ftbl::pths;
+
+Ftbl flm;
+
+unsigned int sort_idx = 0; // zmienna pomocnicza slużaca do poruszania sie po indeksie film_tbl_wsk
+unsigned int zadana_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
+unsigned int akt_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
+
+wchar_t akt_BF_VER[16] = L"1.0.6.0";
+bool first_act = true;
+bool start = true; // oznacza czy aplikacja startuje;
+bool open_folder = false;
+
+bool add_new_wi = false;
+bool add_new_wo = false;
+struct Wypozycz_Innym wi;
+struct Wypozycz_Od_Innych wo;
+QList <Wypozycz_Innym> wi_arr;
+QList <Wypozycz_Od_Innych> wo_arr;
+
+struct Lok_zdjeciowe lz;
+bool add_new_lz = false;
+QList <Lok_zdjeciowe> lz_arr;
+
+struct Obsada ob;
+bool add_new_ob = false;
+QList <Obsada> ob_arr;
+
+struct Ocena oc;
+bool add_new_oc = false;
+QList <Ocena> oc_arr;
+
+struct Producent pp;
+struct Dystrybutor pd;
+bool add_new_pp = false;
+bool add_new_pd = false;
+QList <Producent> pp_arr;
+QList <Dystrybutor> pd_arr;
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -32,9 +74,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
         }
 
-        MainWindow::Insert_TAB_Item();
-        MainWindow::SetDlgBoxs(10);
-        MainWindow::SetListCtrls(5);
+        //MainWindow::Insert_TAB_Item();
+        //MainWindow::SetDlgBoxs(10);
+        //MainWindow::SetListCtrls(5);
         MainWindow::SetButtons();
         MainWindow::SetBTNIcons();
 
@@ -197,21 +239,21 @@ void MainWindow::Bind_IN_Controls(void)
         wchar_t dest[34];
         //F_EDIT_ID.SetReadOnly(FALSE);
         _itow(flm.film_tbl.ID,dest,10); // tu jest problem - access violation
-        ui->lineEdit_ID->setText(dest); // tu jest problem BEX
+        ui->lineEdit_ID->setText(QString::fromWCharArray(dest)); // tu jest problem BEX
         //F_EDIT_ID.SetReadOnly(TRUE);
-        ui->lineEdit_Tytul->setText(flm.film_tbl.tytul);
-        ui->lineEdit_TytulOrig->setText(flm.film_tbl.oryginalny_tytul);
-        ui->lineEdit_Gatunek->setText(flm.film_tbl.gatunek_filmu);
+        ui->lineEdit_Tytul->setText(QString::fromWCharArray(flm.film_tbl.tytul));
+        ui->lineEdit_TytulOrig->setText(QString::fromWCharArray(flm.film_tbl.oryginalny_tytul));
+        ui->lineEdit_Gatunek->setText(QString::fromWCharArray(flm.film_tbl.gatunek_filmu));
         //ui->textEdit_Opis->setText(flm.film2_ftbl.opis);
 
 
-        if (_tcscmp(flm.film_tbl.skan_przod_path,_TEXT("")) != 0)
+        if ((QString::fromWCharArray(flm.film_tbl.skan_przod_path).compare("")) != 0)
         {
-            QFile pic_front(flm.film_tbl.skan_przod_path);
+            QFile pic_front(QString::fromWCharArray(flm.film_tbl.skan_przod_path));
             if (pic_front.exist())
             {
-                QImage img_front(flm.film_tbl.skan_przod_path,NULL);
-                img_front.scaled(139,172,Qt::IgnoreAspectRatio,Qt::);
+                QImage img_front(QString::fromWCharArray(flm.film_tbl.skan_przod_path),NULL);
+                img_front.scaled(139,172,Qt::IgnoreAspectRatio);
                 ui->label_PicFront->setPixmap(QPixmap::fromImage(img_front));
 
             }
@@ -219,7 +261,7 @@ void MainWindow::Bind_IN_Controls(void)
         else
         {
             QImage img_front("/covers/no_img.bmp",NULL);
-            img_front.scaled(139,172,Qt::IgnoreAspectRatio,Qt::);
+            img_front.scaled(139,172,Qt::IgnoreAspectRatio);
             ui->label_PicFront->setPixmap(QPixmap::fromImage(img_front));
 
 
@@ -229,50 +271,50 @@ void MainWindow::Bind_IN_Controls(void)
 
         //TAB OCENA
 
-        ui->lineEdit_OC_OW_SD->setText(flm.film_tbl.WOF_sciezka_dz);
-        ui->lineEdit_OC_OW_Obs->setText(flm.film_tbl.WOF_obsada);
-        ui->lineEdit__OC_OW_Zdj->setText(flm.film_tbl.WOF_zdjecia);
-        ui->lineEdit__OC_OW_WA->setText(flm.film_tbl.WOF_w_art);
-        ui->lineEdit__OC_OW_All->setText(flm.film_tbl.WOF_calosc);
+        ui->lineEdit_OC_OW_SD->setText(QString::fromWCharArray(flm.film_tbl.WOF_sciezka_dz));
+        ui->lineEdit_OC_OW_Obs->setText(QString::fromWCharArray(flm.film_tbl.WOF_obsada));
+        ui->lineEdit__OC_OW_Zdj->setText(QString::fromWCharArray(flm.film_tbl.WOF_zdjecia));
+        ui->lineEdit__OC_OW_WA->setText(QString::fromWCharArray(flm.film_tbl.WOF_w_art));
+        ui->lineEdit__OC_OW_All->setText(QString::fromWCharArray(flm.film_tbl.WOF_calosc));
 
         // TAB PRODUKCJA
 
 
         // TAB DOE
-        ui->lineEdit_DOE_W_Imie->setText(flm.film_tbl.DOE_WKF_imie);
-        ui->lineEdit_DOE_W_Nazw->setText(flm.film_tbl.DOE_WKF_nazwisko);
-        ui->lineEdit_DOE_W_Adres->setText(flm.film_tbl.DOE_WKF_adres);
-        ui->lineEdit_DOE_S_Nazwa->setText(flm.film_tbl.DOE_MN_nazwa);
-        ui->lineEdit_DOE_S_Adres->setText(flm.film_tbl.DOE_MN_adres);
-        ui->lineEdit_DOE_S_WWW->setText(flm.film_tbl.DOE_MN_www);
-        ui->lineEdit_DOE_S_Tel->setText(flm.film_tbl.DOE_MN_telefon);
-        ui->lineEdit_DOE_S_Fax->setText(flm.film_tbl.DOE_MN_fax);
-        ui->lineEdit_DOE_S_Email->setText(flm.film_tbl.DOE_MN_email);
-        ui->lineEdit_DOE_Cena->setText(flm.film_tbl.DOE_cena);
-        ui->lineEdit_DOE_Wakt->setText(flm.film_tbl.DOE_wartosc_akt);
-        ui->lineEdit_DOE_DataZak->setText(flm.film_tbl.DOE_data_zakupu);
-        ui->lineEdit_DOE_DataUtr->setText(flm.film_tbl.DOE_data_utraty);
-        ui->lineEdit_DOE_DataSkat->setText(flm.film_tbl.DOE_data_skatalogowania);
-        ui->lineEdit_DOE_NrKat->setText(flm.film_tbl.DOE_Nr_kat);
-        ui->fontComboBox_DOE_Nosnik->lineEdit()->setText(flm.film_tbl.DOE_rodzaj_nosnika);
+        ui->lineEdit_DOE_W_Imie->setText(QString::fromWCharArray(flm.film_tbl.DOE_WKF_imie));
+        ui->lineEdit_DOE_W_Nazw->setText(QString::fromWCharArray(flm.film_tbl.DOE_WKF_nazwisko));
+        ui->lineEdit_DOE_W_Adres->setText(QString::fromWCharArray(flm.film_tbl.DOE_WKF_adres));
+        ui->lineEdit_DOE_S_Nazwa->setText(QString::fromWCharArray(flm.film_tbl.DOE_MN_nazwa));
+        ui->lineEdit_DOE_S_Adres->setText(QString::fromWCharArray(flm.film_tbl.DOE_MN_adres));
+        ui->lineEdit_DOE_S_WWW->setText(QString::fromWCharArray(flm.film_tbl.DOE_MN_www));
+        ui->lineEdit_DOE_S_Tel->setText(QString::fromWCharArray(flm.film_tbl.DOE_MN_telefon));
+        ui->lineEdit_DOE_S_Fax->setText(QString::fromWCharArray(flm.film_tbl.DOE_MN_fax));
+        ui->lineEdit_DOE_S_Email->setText(QString::fromWCharArray(flm.film_tbl.DOE_MN_email));
+        ui->lineEdit_DOE_Cena->setText(QString::fromWCharArray(flm.film_tbl.DOE_cena));
+        ui->lineEdit_DOE_Wakt->setText(QString::fromWCharArray(flm.film_tbl.DOE_wartosc_akt));
+        ui->lineEdit_DOE_DataZak->setText(QString::fromWCharArray(flm.film_tbl.DOE_data_zakupu));
+        ui->lineEdit_DOE_DataUtr->setText(QString::fromWCharArray(flm.film_tbl.DOE_data_utraty));
+        ui->lineEdit_DOE_DataSkat->setText(QString::fromWCharArray(flm.film_tbl.DOE_data_skatalogowania));
+        ui->lineEdit_DOE_NrKat->setText(QString::fromWCharArray(flm.film_tbl.DOE_Nr_kat));
+        ui->fontComboBox_DOE_Nosnik->lineEdit()->setText(QString::fromWCharArray(flm.film_tbl.DOE_rodzaj_nosnika));
         // TAB IOF
-        ui->lineEdit_RokProd->setText(flm.film_tbl.IOF_rok_produkcji);
-        ui->lineEdit_DataPrem->setText(flm.film_tbl.IOF_data_premiery);
-        ui->lineEdit_CzasProj->setText(flm.film_tbl.IOF_czas_trwania);
-        ui->lineEdit_FormWysw->setText(flm.film_tbl.IOF_format_wysw);
-        ui->lineEdit_SysKodObr->setText(flm.film_tbl.IOF_system_kodowania_obrazu);
-        ui->lineEdit_JezLekt->setText(flm.film_tbl.IOF_jezyk_lektora);
-        ui->lineEdit_JezNap->setText(flm.film_tbl.IOF_jezyk_napisow);
-        ui->lineEdit_KrajProd->setText(flm.film_tbl.IOF_kraj_produkcji_filmu);
-        ui->lineEdit_KodVidNazwa->setText(flm.film_tbl.IOF_KODEK_nazwa);
-        ui->lineEdit_KodVidTyp->setText(flm.film_tbl.IOF_KODEK_typ);
-        ui->lineEdit_KodVidWersja->setText(flm.film_tbl.IOF_KODEK_wersja);
-        ui->lineEdit_KodAudNazwa->setText(flm.film_tbl.IOF_DZWIEK_nazwa);
-        ui->lineEdit_KodAudTyp->setText(flm.film_tbl.IOF_DZWIEK_typ);
-        ui->lineEdit_KodAudWersja->setText(flm.film_tbl.IOF_DZWIEK_wersja);
-        ui->lineEdit_ZabNazwa->setText(flm.film_tbl.IOF_ZABEZP_nazwa);
-        ui->lineEdit_ZabTyp->setText(flm.film_tbl.IOF_ZABEZP_typ);
-        ui->lineEdit_ZabWersja->setText(flm.film_tbl.IOF_ZABEZP_wersja);
+        ui->lineEdit_RokProd->setText(QString::fromWCharArray(flm.film_tbl.IOF_rok_produkcji));
+        ui->lineEdit_DataPrem->setText(QString::fromWCharArray(flm.film_tbl.IOF_data_premiery));
+        ui->lineEdit_CzasProj->setText(QString::fromWCharArray(flm.film_tbl.IOF_czas_trwania));
+        ui->lineEdit_FormWysw->setText(QString::fromWCharArray(flm.film_tbl.IOF_format_wysw));
+        ui->lineEdit_SysKodObr->setText(QString::fromWCharArray(flm.film_tbl.IOF_system_kodowania_obrazu));
+        ui->lineEdit_JezLekt->setText(QString::fromWCharArray(flm.film_tbl.IOF_jezyk_lektora));
+        ui->lineEdit_JezNap->setText(QString::fromWCharArray(flm.film_tbl.IOF_jezyk_napisow));
+        ui->lineEdit_KrajProd->setText(QString::fromWCharArray(flm.film_tbl.IOF_kraj_produkcji_filmu));
+        ui->lineEdit_KodVidNazwa->setText(QString::fromWCharArray(flm.film_tbl.IOF_KODEK_nazwa));
+        ui->lineEdit_KodVidTyp->setText(QString::fromWCharArray(flm.film_tbl.IOF_KODEK_typ));
+        ui->lineEdit_KodVidWersja->setText(QString::fromWCharArray(flm.film_tbl.IOF_KODEK_wersja));
+        ui->lineEdit_KodAudNazwa->setText(QString::fromWCharArray(flm.film_tbl.IOF_DZWIEK_nazwa));
+        ui->lineEdit_KodAudTyp->setText(QString::fromWCharArray(flm.film_tbl.IOF_DZWIEK_typ));
+        ui->lineEdit_KodAudWersja->setText(QString::fromWCharArray(flm.film_tbl.IOF_DZWIEK_wersja));
+        ui->lineEdit_ZabNazwa->setText(QString::fromWCharArray(flm.film_tbl.IOF_ZABEZP_nazwa));
+        ui->lineEdit_ZabTyp->setText(QString::fromWCharArray(flm.film_tbl.IOF_ZABEZP_typ));
+        ui->lineEdit_ZabWersja->setText(QString::fromWCharArray(flm.film_tbl.IOF_ZABEZP_wersja));
 
         //Invalidate();
         //UpdateWindow();
@@ -463,7 +505,7 @@ if (all)
 int MainWindow::CheckbOpenDB(void) {
 // Sprawdza czy istnieją pliki bazy danych i, jesli tak,  zwraca true.
     bool test[9];
-    QFileInfo fi(flm.pths.BF_PDB);
+    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_PDB));
     if (fi.exists())
     {
         test[0] = true;
@@ -472,7 +514,7 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[0] = false;
     }
-    QFileInfo fi(flm.pths.BF_OC);
+    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_OC));
     if (fi.exists())
     {
         test[1] = true;
@@ -481,7 +523,7 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[1] = false;
     }
-    QFileInfo fi(flm.pths.BF_OB);
+    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_OB));
     if (fi.exists())
     {
         test[2] = true;
@@ -490,7 +532,7 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[2] = false;
     }
-    QFileInfo fi(flm.pths.BF_PRP);
+    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_PRP));
     if (fi.exists())
     {
         test[3] = true;
@@ -499,7 +541,7 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[3] = false;
     }
-    QFileInfo fi(flm.pths.BF_PRD);
+    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_PRD));
     if (fi.exists())
     {
         test[4] = true;
@@ -508,7 +550,7 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[4] = false;
     }
-    QFileInfo fi(flm.pths.BF_LZ);
+    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_LZ));
     if (fi.exists())
     {
         test[5] = true;
@@ -517,7 +559,7 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[5] = false;
     }
-    QFileInfo fi(flm.pths.BF_WI);
+    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_WI));
     if (fi.exists())
     {
         test[6] = true;
@@ -526,7 +568,7 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[6] = false;
     }
-    QFileInfo fi(flm.pths.BF_WO);
+    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_WO));
     if (fi.exists())
     {
         test[7] = true;
@@ -535,7 +577,7 @@ int MainWindow::CheckbOpenDB(void) {
     {
         test[7] = false;
     }
-    QFileInfo fi(flm.pths.BF_MCF);
+    QFileInfo fi(QString::fromWCharArray(flm.pths.BF_MCF));
     if (fi.exists())
     {
         test[8] = true;
@@ -611,7 +653,7 @@ bool MainWindow::CheckBFVER(void)
 // ta wersją BF
 
     struct POMIDOR pom;
-    QFile plik(flm.pths.BF_MCF);
+    QFile plik(QString::fromWCharArray(flm.pths.BF_MCF));
     plik.open(QFile::ReadOnly);
     plik.seek(0);
     plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
@@ -636,7 +678,7 @@ bool MainWindow::Fill_Full_Film(bool start)
 
             // pobierz pierwsza strukture z pliku "BF_PDB.dat" i przepisz ja do zmiennej struktury Film,
                 // celem wyswietlenia
-            QFile plik(flm.pths.BF_PDB);
+            QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                 plik.open(QFile::ReadOnly);
                 if (start)
                 {
@@ -682,7 +724,7 @@ bool MainWindow::Save_Full_Film(void) {
         {
                 //  odszukaj zadana strukture z pliku "BF_PDB.dat" i zapisz do pliku zawartosc zmiennej struktury Film,
                 // , a potem odczytaj z pliku,celem wyswietlenia
-            QFile plik(flm.pths.BF_PDB);
+            QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                 plik.open(QFile::WriteOnly);
                 akt_pozycja_pliku = zadana_pozycja_pliku;
                 plik.seek(zadana_pozycja_pliku);
@@ -715,7 +757,7 @@ bool MainWindow::Film_DodajRec(bool first) {
         if (CheckBFVER())
         {
             Oblicz_NewID();
-            QFile plik(flm.pths.BF_PDB);
+            QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
             plik.open(QFile::WriteOnly);
             //akt_pozycja_pliku = plik.Seek(Search_Last_Pos(),CFile::begin);
             if (first)
@@ -753,7 +795,7 @@ bool MainWindow::Film_DodajRec(bool first) {
 
 void MainWindow::Oblicz_NewID(void) {
     struct POMIDOR pom;
-    QFile plik(flm.pths.BF_MCF);
+    QFile plik(QString::fromWCharArray(flm.pths.BF_MCF));
     plik.open(QFile::ReadOnly);
     plik.seek(0);
     plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
@@ -779,7 +821,7 @@ LONGLONG MainWindow::Search_Last_Pos(void) {
 
 */
         struct Film film_test;
-        QFile plik(flm.pths.BF_PDB);
+        QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
         plik.open(QFile::ReadOnly);
 /*
         LONGLONG i;
@@ -823,21 +865,21 @@ void MainWindow::UtworzDB(bool cust)
 
     if (cust == false)
     {
-        QDir di(flm.pths.cur_db_path);
+        QDir di(QString::fromWCharArray(flm.pths.cur_db_path));
         if (!(di.exists() == TRUE))
         {
-            QDir::mkpath(flm.pths.cur_db_path);
+            QDir::mkpath(QString::fromWCharArray(flm.pths.cur_db_path));
         }
     }
-    QDir di(flm.pths.BF_COVERS);
+    QDir di(QString::fromWCharArray(flm.pths.BF_COVERS));
     if (!(di.exists() == TRUE))
     {
-        QDir::mkpath(flm.pths.BF_COVERS);
+        QDir::mkpath(QString::fromWCharArray(flm.pths.BF_COVERS));
     }
-    QFile fi(flm.pths.BF_MCF);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_MCF));
     if (!(fi.exists() == TRUE))
     {
-        QFile bf(flm.pths.BF_MCF);
+        QFile bf(QString::fromWCharArray(flm.pths.BF_MCF));
         struct POMIDOR pom;
         wcscpy(pom.BF_VER,akt_BF_VER);
         pom.najw_ID = 1;
@@ -847,59 +889,59 @@ void MainWindow::UtworzDB(bool cust)
         bf.write(static_cast<char *>(&pom),sizeof(pom));
         bf.close();
     }
-    QFile fi(flm.pths.BF_PDB);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_PDB));
     if (!(fi.exists() ==  TRUE))
     {
-        QFile bf_pdb(flm.pths.BF_PDB);
+        QFile bf_pdb(QString::fromWCharArray(flm.pths.BF_PDB));
         bf_pdb.open(QFile::WriteOnly);
         bf_pdb.close();
     }
-    QFile fi(flm.pths.BF_OC);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_OC));
     if (!(fi.exists() == TRUE))
     {
-        QFile bf_oc(flm.pths.BF_OC);
+        QFile bf_oc(QString::fromWCharArray(flm.pths.BF_OC));
         bf_oc.open(QFile::WriteOnly);
         bf_oc.close();
     }
-    QFile fi(flm.pths.BF_OB);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_OB));
     if (!(fi.exists() == TRUE))
     {
-        QFile bf_ob(flm.pths.BF_OB);
+        QFile bf_ob(QString::fromWCharArray(flm.pths.BF_OB));
         bf_ob.open(QFile::WriteOnly);
         bf_ob.close();
     }
-    QFile fi(flm.pths.BF_PRP);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_PRP));
     if (!(fi.exists() == TRUE))
     {
-        QFile bf_pr(flm.pths.BF_PRP);
+        QFile bf_pr(QString::fromWCharArray(flm.pths.BF_PRP));
         bf_pr.open(QFile::WriteOnly);
         bf_pr.close();
     }
-    QFile fi(flm.pths.BF_PRD);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_PRD));
     if (!(fi.exists() == TRUE))
     {
-        QFile bf_dr(flm.pths.BF_PRD);
+        QFile bf_dr(QString::fromWCharArray(flm.pths.BF_PRD));
         bf_dr.open(QFile::WriteOnly);
         bf_dr.close();
     }
-    QFile fi(flm.pths.BF_LZ);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_LZ));
     if (!(fi.exists() == TRUE))
     {
-        QFile bf_lz(flm.pths.BF_LZ);
+        QFile bf_lz(QString::fromWCharArray(flm.pths.BF_LZ));
         bf_lz.open(QFile::WriteOnly);
         bf_lz.close();
     }
-    QFile fi(flm.pths.BF_WI);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_WI));
     if (!(fi.exists() == TRUE))
     {
-        QFile bf_wi(flm.pths.BF_WI);
+        QFile bf_wi(QString::fromWCharArray(flm.pths.BF_WI));
         bf_wi.open(QFile::WriteOnly);
         bf_wi.close();
     }
-    QFile fi(flm.pths.BF_WO);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_WO));
     if (!(fi.exists() == TRUE))
     {
-        QFile bf_wo(flm.pths.BF_WO);
+        QFile bf_wo(QString::fromWCharArray(flm.pths.BF_WO));
         bf_wo.open(QFile::WriteOnly);
         bf_wo.close();
     }
@@ -914,7 +956,7 @@ bool MainWindow::Del_Film_Rec(void)
         {
                 // kasuj rekord i kompaktuj baze danych
                 flm.film_tbl.ID = 0;
-                QFile plik(flm.pths.BF_PDB);
+                QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                 plik.open(QFile::WriteOnly);
                 plik.seek(zadana_pozycja_pliku);
                 plik.write(static_cast<char *>(&flm.film_tbl),sizeof(struct Film));
@@ -922,7 +964,7 @@ bool MainWindow::Del_Film_Rec(void)
                 plik.rename(L"BF_PDB.bf0");
                 plik.close();
 
-                QFile plik(flm.pths.BF_PDB);
+                QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                 plik.open(QFile::WriteOnly);
                 QFile src_file(L"BF_PDB.bf0");
                 src_file.open(QFile::ReadOnly);
@@ -967,7 +1009,7 @@ bool MainWindow::Licz_Rec(void)
     //funkcja zwraca true jesli plik jest pusty co oznacza ze nie ma w nim zadnych danych = 0 rekordow.
     // ta funkcja liczy ile jest rekordow w bazie danych, wypelnia stosowne pola formularza Film oraz wypelnia
     // tablice flm.film_tbl_wsk
-    QFile fi(flm.pths.BF_PDB);
+    QFile fi(QString::fromWCharArray(flm.pths.BF_PDB));
     if (fi.exists())
         {
             if (fi.size() == 0)
@@ -980,7 +1022,7 @@ bool MainWindow::Licz_Rec(void)
             else
                 {
                     // policz rekordy w trybie niesortowanym i wypełnij Film_tab_wsk
-                    QFile plik(flm.pths.BF_PDB);
+                    QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                     struct Film film_test;
                     plik.open(QFile::ReadOnly);
                     LONGLONG stop = 0;
@@ -1221,7 +1263,7 @@ void MainWindow::Enable_BTNS_NOREC()
 bool MainWindow::CheckOLDDB()
 {
     bool test[9];
-    QFile fi(_TEXT("BF.bf"));
+    QFile fi(QString("BF.bf"));
     if (fi.exists())
     {
         test[0] = true;
@@ -1230,7 +1272,7 @@ bool MainWindow::CheckOLDDB()
     {
         test[0] = false;
     }
-    QFile fi(_TEXT("BF_PDB.bf"));
+    QFile fi(QString("BF_PDB.bf"));
     if (fi.exists())
     {
         test[1] = true;
@@ -1239,7 +1281,7 @@ bool MainWindow::CheckOLDDB()
     {
         test[1] = false;
     }
-    QFile fi(_TEXT("BF_OC.bf"));
+    QFile fi(QString("BF_OC.bf"));
     if (fi.exists())
     {
         test[2] = true;
@@ -1248,7 +1290,7 @@ bool MainWindow::CheckOLDDB()
     {
         test[2] = false;
     }
-    QFile fi(_TEXT("BF_OB.bf");
+    QFile fi(QString("BF_OB.bf");
     if (fi.exists())
     {
         test[3] = true;
@@ -1257,7 +1299,7 @@ bool MainWindow::CheckOLDDB()
     {
         test[3] = false;
     }
-    QFile fi(_TEXT("BF_PRB.bf"));
+    QFile fi(QString("BF_PRB.bf"));
     if (fi.exists())
     {
         test[4] = true;
@@ -1266,7 +1308,7 @@ bool MainWindow::CheckOLDDB()
     {
         test[4] = false;
     }
-    QFile fi(_TEXT("BF_PRD.bf"));
+    QFile fi(QString("BF_PRD.bf"));
     if (fi.exists())
     {
         test[5] = true;
@@ -1275,7 +1317,7 @@ bool MainWindow::CheckOLDDB()
     {
         test[5] = false;
     }
-    QFile fi(_TEXT("BF_LZ.bf"));
+    QFile fi(QString("BF_LZ.bf"));
     if (fi.exists())
     {
         test[6] = true;
@@ -1284,7 +1326,7 @@ bool MainWindow::CheckOLDDB()
     {
         test[6] = false;
     }
-    QFile fi(_TEXT("BF_WI.bf"));
+    QFile fi(QString("BF_WI.bf"));
     if (fi.exists())
     {
         test[7] = true;
@@ -1293,7 +1335,7 @@ bool MainWindow::CheckOLDDB()
     {
         test[7] = false;
     }
-    QFile fi(_TEXT("BF_WO.bf"));
+    QFile fi(QString("BF_WO.bf"));
     if (fi.exists())
     {
         test[8] = true;
@@ -1404,18 +1446,6 @@ void MainWindow::Fill_Wo(void)
     Refresh_Wo();
 
 
-}
-
-void MainWindow::OnBnClickedButtonFrmFBWoiNowy()
-{
-    Save_Wo();
-    Add_New_WO(Get_Hi_ID_WO());
-    add_new_wo = true;
-}
-
-void MainWindow::OnBnClickedButtonFrmFBWoiZapisz()
-{
-    Save_Wo();
 }
 
 void MainWindow::Refresh_Wi(void)
@@ -2548,269 +2578,155 @@ void MainWindow::Refresh_Oc(void)
     }
 }
 
-void TAB_Produkcja::ClearProd(void)
+void MainWindow::ClearProd(void)
 {
-TAB_Prod_LIST_Prod.DeleteAllItems();
+    ui->tableWidget_Prod->clearContents();
 
 }
 
-void TAB_Produkcja::ClearDystr(void)
+void MainWindow::ClearDystr(void)
 {
-TAB_Prod_LIST_Dystr.DeleteAllItems();
+    ui->tableWidget_Dystr->clearContents();
 
 }
 
-void TAB_Produkcja::Fill_PP(void)
+void MainWindow::Fill_PP(void)
 {
-CFile plik;
-plik.Open(flm_p.pths.BF_PRP,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
+    QFile plik(flm.pths.BF_PRP);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
 
 
-TAB_Prod_LIST_Prod.DeleteAllItems();
-pp_arr.RemoveAll();
+    ui->tableWidget_Prod->clearContents();
+    pp_arr.clear();
 
-
-
-for (i = 0;i<stop ; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&pp,sizeof(pp));
-    if (pp.IDPDB == flm_p.film_tbl.ID)
+    for (i = 0;i<stop ; )
     {
-        pp_arr.Add(pp);
+        plik.seek(i);
+        plik.read(static_cast<char *>(&pp),sizeof(pp));
+        if (pp.IDPDB == flm.film_tbl.ID)
+        {
+            pp_arr.append(pp);
 
+        }
+        i = i + sizeof(pp);
     }
-    i = i + sizeof(pp);
-}
-plik.Close();
+    plik.close();
 
-Refresh_PP();
+    Refresh_PP();
 
 }
 
-void TAB_Produkcja::Fill_PD(void)
+void MainWindow::Fill_PD(void)
 {
-CFile plik;
-plik.Open(flm_p.pths.BF_PRD,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
+    QFile plik(flm.pths.BF_PRD);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
 
 
-TAB_Prod_LIST_Dystr.DeleteAllItems();
-pd_arr.RemoveAll();
+    ui->tableWidget_Dystr->clearContents();
+    pd_arr.clear();
 
-
-
-for (i = 0;i<stop ; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&pd,sizeof(pd));
-    if (pd.IDPDB == flm_p.film_tbl.ID)
+    for (i = 0;i<stop ; )
     {
-        pd_arr.Add(pd);
+        plik.seek(i);
+        plik.read(static_cast<char *>(&pd),sizeof(pd));
+        if (pd.IDPDB == flm.film_tbl.ID)
+        {
+            pd_arr.append(pd);
 
+        }
+        i = i + sizeof(pd);
     }
-    i = i + sizeof(pd);
-}
-plik.Close();
+    plik.close();
 
-Refresh_PD();
+    Refresh_PD();
 
 }
 
 
 
-void TAB_Produkcja::Refresh_PP(void)
+void MainWindow::Refresh_PP(void)
 {
-
-TAB_Prod_LIST_Prod.DeleteAllItems();
+    ui->tableWidget_Prod->clearContents();
 
     int x;
-    for (x=0;x<pp_arr.GetCount(); x++)
+    QTableWidgetItem *item;
+    for (x=0;x<pp_arr.count(); x++)
     {
-        LVITEM lvitm;
-        lvitm.mask = LVIF_TEXT | LVIF_PARAM | LVIF_STATE;
-        lvitm.iItem = x;
-        lvitm.iSubItem = 0;
-        lvitm.state = 0;
-        lvitm.stateMask = 0;
-        lvitm.lParam = (LPARAM) &pp_arr.GetAt(x);
-        lvitm.pszText = LPSTR_TEXTCALLBACK;
-        TAB_Prod_LIST_Prod.InsertItem(&lvitm);
+        ui->tableWidget_Prod->insertRow(x);
+
+        item->setText(pp_arr[x].nazwa_firmy);
+        ui->tableWidget_Prod->setItem(x,0,item);
+
+        item->setText(pp_arr[x].adres);
+        ui->tableWidget_Prod->setItem(x,1,item);
+
+        item->setText(pp_arr[x].telefon);
+        ui->tableWidget_Prod->setItem(x,2,item);
+
+        item->setText(pp_arr[x].fax);
+        ui->tableWidget_Prod->setItem(x,3,item);
+
+        item->setText(pp_arr[x].email);
+        ui->tableWidget_Prod->setItem(x,4,item);
+
+        item->setText(pp_arr[x].strona_www);
+        ui->tableWidget_Prod->setItem(x,5,item);
+
+        item->setText(pp_arr[x].ID);
+        ui->tableWidget_Prod->setItem(x,6,item);
+
+        item->setText(pp_arr[x].IDPDB);
+        ui->tableWidget_Prod->setItem(x,7,item);
+
     }
 
 }
 
-void TAB_Produkcja::Refresh_PD(void)
+
+void MainWindow::Save_PP(void)
 {
-TAB_Prod_LIST_Dystr.DeleteAllItems();
-
-    int x;
-    for (x=0;x<pd_arr.GetCount(); x++)
-    {
-        LVITEM lvitm;
-        lvitm.mask = LVIF_TEXT | LVIF_PARAM | LVIF_STATE;
-        lvitm.iItem = x;
-        lvitm.iSubItem = 0;
-        lvitm.state = 0;
-        lvitm.stateMask = 0;
-        lvitm.lParam = (LPARAM) &pd_arr.GetAt(x);
-        lvitm.pszText = LPSTR_TEXTCALLBACK;
-        TAB_Prod_LIST_Dystr.InsertItem(&lvitm);
-    }
-
-
-
-}
-
-
-
-void TAB_Produkcja::OnBnClickedButtonFrmFPProdNowy()
-{
-
-    Save_PP();
-    Add_New_PP(Get_Hi_ID_PP());
-    add_new_pp = true;
-
-
-
-}
-
-
-
-void TAB_Produkcja::OnBnClickedButtonFrmFPProdZapisz()
-{
-    Save_PP();
-}
-
-void TAB_Produkcja::OnBnClickedButtonFrmFPProdUsun()
-{
-wchar_t buff[34];
-LVITEM lvitm;
-int delitem = 0;
-int delID = 0;
-delitem = TAB_Prod_LIST_Prod.GetNextItem(-1,LVNI_SELECTED);
-TAB_Prod_LIST_Prod.GetItemText(delitem,7,(LPTSTR)buff,34);
-delID = _wtoi(buff);
-
-CFile plik;
-plik.Open(flm_p.pths.BF_PRP,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&pp,sizeof(pp));
-    if (delID == pp.ID)
-    {
-    plik.Close();
-    Usun_Rec_PP(i);
-    break;
-    }
-    i = i + sizeof(pp);
-}
-if (plik.m_hFile != CFile::hFileNull)
-{
-    plik.Close();
-}
-}
-
-
-
-void TAB_Produkcja::OnBnClickedButtonFrmFPDystrNowy()
-{
-
-    Save_PD();
-    Add_New_PD(Get_Hi_ID_PD());
-    add_new_pd = true;
-}
-
-
-
-void TAB_Produkcja::OnBnClickedButtonFrmFPDystrZapisz()
-{
-    Save_PD();
-}
-
-void TAB_Produkcja::OnBnClickedButtonFrmFPDystrUsun()
-{
-wchar_t buff[34];
-LVITEM lvitm;
-int delitem = 0;
-int delID = 0;
-delitem = TAB_Prod_LIST_Dystr.GetNextItem(-1,LVNI_SELECTED);
-TAB_Prod_LIST_Dystr.GetItemText(delitem,7,(LPTSTR)buff,34);
-delID = _wtoi(buff);
-
-CFile plik;
-plik.Open(flm_p.pths.BF_PRD,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    plik.Read(&pd,sizeof(pd));
-    if (delID == pd.ID)
-    {
-    plik.Close();
-    Usun_Rec_PD(i);
-    break;
-    }
-    i = i + sizeof(pd);
-}
-if (plik.m_hFile != CFile::hFileNull)
-{
-    plik.Close();
-}
-
-}
-
-
-
-void TAB_Produkcja::Save_PP(void)
-{
-    CFile plik;
+    QFile plik(flm.pths.BF_PRP);
     struct Producent pp_buf;
-    plik.Open(flm_p.pths.BF_PRP,CFile::modeReadWrite | CFile::shareDenyNone);
+    plik.open(QFile::ReadWrite);
 
     LONGLONG stop;
     LONGLONG i;
     int y;
 
     wchar_t buff[34];
-    stop = plik.SeekToEnd();
+    stop = plik.size();
 
-    for (y=0;y<pp_arr.GetCount() ;y++ )
+    for (y=0;y<pp_arr.count() ;y++ )
     {
         if (GetRecC_PP() == 0)
             {
-                plik.Seek(0,CFile::begin);
-                plik.Write(&pp_arr.GetAt(y),sizeof(pp));
+                plik.seek(0);
+                plik.write(static_cast<char *> (&pp_arr[y]),sizeof(pp));
 
             }
         else if (GetRecC_PP() > 0)
             {
-                if ((plik.SeekToEnd()) > 2147483647)
+                if ((plik.size()) > 2147483647)
                 {
-                    MessageBoxW(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",L"Biblioteka Filmów - Błąd zapisu",MB_OK);
+                    QMessageBox(QMessageBox::Warning,L"Biblioteka Filmów",L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",QMessageBox::Ok);
                     break;
                 }
-                else if ((plik.SeekToEnd()) < 2147483647)
+                else if ((plik.size()) < 2147483647)
                 {
                     for (i=0; i<stop; )
                     {
-                        plik.Seek(i,CFile::begin);
-                        plik.Read(&pp_buf,sizeof(pp_buf));
-                            if (pp_arr.GetAt(y).ID == pp_buf.ID)
+                        plik.seek(i);
+                        plik.read(static_cast<char *>(&pp_buf),sizeof(pp_buf));
+                            if (pp_arr[y].ID == pp_buf.ID)
                             {
-                                plik.Seek(i,CFile::begin);
-                                plik.Write(&pp_arr.GetAt(y),sizeof(pp));
+                                plik.seek(i);
+                                plik.write(static_cast<char *>(&pp_arr[y]),sizeof(pp));
                             }
 
                         i = i + sizeof(pp);
@@ -2819,9 +2735,9 @@ void TAB_Produkcja::Save_PP(void)
                     {
 
                         int x;
-                        x = (pp_arr.GetCount()-1);
-                        plik.Seek((plik.SeekToEnd()),CFile::begin);
-                        plik.Write(&pp_arr.GetAt(x),sizeof(pp));
+                        x = (pp_arr.count()-1);
+                        plik.seek(plik.size());
+                        plik.write(static_cast<char *>(&pp_arr[x]),sizeof(pp));
                         add_new_pp = false;
                     }
                 }
@@ -2829,51 +2745,50 @@ void TAB_Produkcja::Save_PP(void)
 
     }
 
-    plik.Close();
+    plik.close();
 
 
 
 }
 
-void TAB_Produkcja::Save_PD(void)
+void MainWindow::Save_PD(void)
 {
-
-    CFile plik;
-    struct Dystrybutor pd_buf;
-    plik.Open(flm_p.pths.BF_PRD,CFile::modeReadWrite | CFile::shareDenyNone);
+    QFile plik(flm.pths.BF_PRD);
+    struct Producent pd_buf;
+    plik.open(QFile::ReadWrite);
 
     LONGLONG stop;
     LONGLONG i;
     int y;
 
     wchar_t buff[34];
-    stop = plik.SeekToEnd();
+    stop = plik.size();
 
-    for (y=0;y<pd_arr.GetCount() ;y++ )
+    for (y=0;y<pp_arr.count() ;y++ )
     {
         if (GetRecC_PD() == 0)
             {
-                plik.Seek(0,CFile::begin);
-                plik.Write(&pd_arr.GetAt(y),sizeof(pd));
+                plik.seek(0);
+                plik.write(static_cast<char *> (&pd_arr[y]),sizeof(pd));
 
             }
         else if (GetRecC_PD() > 0)
             {
-                if ((plik.SeekToEnd()) > 2147483647)
+                if ((plik.size()) > 2147483647)
                 {
-                    MessageBoxW(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",L"Biblioteka Filmów - Błąd zapisu",MB_OK);
+                    QMessageBox(QMessageBox::Warning,L"Biblioteka Filmów",L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! ",QMessageBox::Ok);
                     break;
                 }
-                else if ((plik.SeekToEnd()) < 2147483647)
+                else if ((plik.size()) < 2147483647)
                 {
                     for (i=0; i<stop; )
                     {
-                        plik.Seek(i,CFile::begin);
-                        plik.Read(&pd_buf,sizeof(pd_buf));
-                            if (pd_arr.GetAt(y).ID == pd_buf.ID)
+                        plik.seek(i);
+                        plik.read(static_cast<char *>(&pd_buf),sizeof(pd_buf));
+                            if (pd_arr[y].ID == pd_buf.ID)
                             {
-                                plik.Seek(i,CFile::begin);
-                                plik.Write(&pd_arr.GetAt(y),sizeof(pd));
+                                plik.seek(i);
+                                plik.write(static_cast<char *>(&pd_arr[y]),sizeof(pd));
                             }
 
                         i = i + sizeof(pd);
@@ -2882,9 +2797,9 @@ void TAB_Produkcja::Save_PD(void)
                     {
 
                         int x;
-                        x = (pd_arr.GetCount()-1);
-                        plik.Seek((plik.SeekToEnd()),CFile::begin);
-                        plik.Write(&pd_arr.GetAt(x),sizeof(pd));
+                        x = (pd_arr.count()-1);
+                        plik.seek(plik.size());
+                        plik.write(static_cast<char *>(&pd_arr[x]),sizeof(pd));
                         add_new_pd = false;
                     }
                 }
@@ -2892,248 +2807,242 @@ void TAB_Produkcja::Save_PD(void)
 
     }
 
-    plik.Close();
-
-}
-
-void TAB_Produkcja::Add_New_PP(int id)
-{
-int id_new;
-id_new = id + 1;
-wchar_t buff[34];
-
-
-// Metoda callbacku
-pp.ID = id_new;
-pp.IDPDB = flm_p.film_tbl.ID;
-wcscpy(pp.nazwa_firmy,L"Wpisz tutaj coś");
-wcscpy(pp.adres,L"Wpisz tutaj coś");
-wcscpy(pp.telefon,L"Wpisz tutaj coś");
-wcscpy(pp.fax,L"Wpisz tutaj coś");
-wcscpy(pp.email,L"Wpisz tutaj coś");
-wcscpy(pp.strona_www,L"Wpisz tutaj coś");
-wcscpy(pp.narodowosc,L"Wpisz tutaj coś");
-
-
-pp_arr.Add(pp);
-
-Refresh_PP();
-
-}
-
-void TAB_Produkcja::Add_New_PD(int id)
-{
-int id_new;
-id_new = id + 1;
-wchar_t buff[34];
-
-
-// Metoda callbacku
-pd.ID = id_new;
-pd.IDPDB = flm_p.film_tbl.ID;
-wcscpy(pd.nazwa_firmy,L"Wpisz tutaj coś");
-wcscpy(pd.adres,L"Wpisz tutaj coś");
-wcscpy(pd.telefon,L"Wpisz tutaj coś");
-wcscpy(pd.fax,L"Wpisz tutaj coś");
-wcscpy(pd.email,L"Wpisz tutaj coś");
-wcscpy(pd.strona_www,L"Wpisz tutaj coś");
-wcscpy(pd.narodowosc,L"Wpisz tutaj coś");
-
-
-pd_arr.Add(pd);
-
-Refresh_PD();
+    plik.close();
 
 
 }
 
-int TAB_Produkcja::Get_Hi_ID_PP(void)
+void MainWindow::Add_New_PP(int id)
 {
-if (GetRecC_PP() == 0)
-{
-    return 0;
+    int id_new;
+    id_new = id + 1;
+    wchar_t buff[34];
+
+
+    // Metoda callbacku
+    pp.ID = id_new;
+    pp.IDPDB = flm.film_tbl.ID;
+    wcscpy(pp.nazwa_firmy,L"Wpisz tutaj coś");
+    wcscpy(pp.adres,L"Wpisz tutaj coś");
+    wcscpy(pp.telefon,L"Wpisz tutaj coś");
+    wcscpy(pp.fax,L"Wpisz tutaj coś");
+    wcscpy(pp.email,L"Wpisz tutaj coś");
+    wcscpy(pp.strona_www,L"Wpisz tutaj coś");
+    wcscpy(pp.narodowosc,L"Wpisz tutaj coś");
+
+
+    pp_arr.append(pp);
+
+    Refresh_PP();
+
 }
 
-
-CFile plik;
-plik.Open(flm_p.pths.BF_PRP,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
+void MainWindow::Add_New_PD(int id)
 {
-    plik.Seek(i,CFile::begin);
-    if (i == (stop - sizeof(pp)))
+    int id_new;
+    id_new = id + 1;
+    wchar_t buff[34];
+
+
+    // Metoda callbacku
+    pd.ID = id_new;
+    pd.IDPDB = flm.film_tbl.ID;
+    wcscpy(pd.nazwa_firmy,L"Wpisz tutaj coś");
+    wcscpy(pd.adres,L"Wpisz tutaj coś");
+    wcscpy(pd.telefon,L"Wpisz tutaj coś");
+    wcscpy(pd.fax,L"Wpisz tutaj coś");
+    wcscpy(pd.email,L"Wpisz tutaj coś");
+    wcscpy(pd.strona_www,L"Wpisz tutaj coś");
+    wcscpy(pd.narodowosc,L"Wpisz tutaj coś");
+
+
+    pd_arr.append(pd);
+
+    Refresh_PD();
+
+
+}
+
+int MainWindow::Get_Hi_ID_PP(void)
+{
+    if (GetRecC_PP() == 0)
     {
-        plik.Read(&pp,sizeof(pp));
-        plik.Close();
-        return pp.ID;
+        return 0;
     }
-    i = i + sizeof(pp);
-}
 
-}
-
-int TAB_Produkcja::Get_Hi_ID_PD(void)
-{
-
-if (GetRecC_PD() == 0)
-{
-    return 0;
-}
-
-
-CFile plik;
-plik.Open(flm_p.pths.BF_PRD,CFile::modeRead);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-for (i=0;i<stop; )
-{
-    plik.Seek(i,CFile::begin);
-    if (i == (stop - sizeof(pd)))
+    QFile plik(flm.pths.BF_PRP);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
     {
-        plik.Read(&pd,sizeof(pd));
-        plik.Close();
-        return pd.ID;
+        plik.seek(i);
+        if (i == (stop - sizeof(oc)))
+        {
+            plik.read(static_cast<char *>(&pp),sizeof(pp));
+            plik.close();
+            return pp.ID;
+        }
+        i = i + sizeof(pp);
     }
-    i = i + sizeof(pd);
-}
 
 }
 
-int TAB_Produkcja::GetRecC_PP(void)
+int MainWindow::Get_Hi_ID_PD(void)
 {
-CFile plik;
-plik.Open(flm_p.pths.BF_PRP,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-int rec_count = 0;
-struct Producent pp_t;
-if (stop == 0)
-{
-    plik.Close();
-    return 0;
+    if (GetRecC_PD() == 0)
+    {
+        return 0;
+    }
+
+    QFile plik(flm.pths.BF_PRD);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        if (i == (stop - sizeof(oc)))
+        {
+            plik.read(static_cast<char *>(&pd),sizeof(pd));
+            plik.close();
+            return pd.ID;
+        }
+        i = i + sizeof(pd);
+    }
+
+
 }
+
+int MainWindow::GetRecC_PP(void)
+{
+    QFile plik(flm.pths.BF_PRP);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    int rec_count = 0;
+    struct Producent pp_t;
+    if (stop == 0)
+    {
+        plik.close();
+        return 0;
+    }
     for (i = 0; i <stop; )
     {
-        plik.Seek(i,CFile::begin);
-        plik.Read(&pp_t,sizeof(pp_t));
+        plik.seek(i);
+        plik.read(static_cast<char *>(&pp_t),sizeof(pp_t));
         rec_count = rec_count + 1;
         i = i + sizeof(pp_t);
     }
-    plik.Close();
-return rec_count;
+    plik.close();
+    return rec_count;
 
 
 }
 
-int TAB_Produkcja::GetRecC_PD(void)
+int MainWindow::GetRecC_PD(void)
 {
-CFile plik;
-plik.Open(flm_p.pths.BF_PRD,CFile::modeRead | CFile::shareDenyNone);
-LONGLONG i;
-LONGLONG stop;
-stop = plik.SeekToEnd();
-int rec_count = 0;
-struct Dystrybutor pd_t;
-if (stop == 0)
-{
-    plik.Close();
-    return 0;
-}
+    QFile plik(flm.pths.BF_PRD);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    int rec_count = 0;
+    struct Dystrybutor pd_t;
+    if (stop == 0)
+    {
+        plik.close();
+        return 0;
+    }
     for (i = 0; i <stop; )
     {
-        plik.Seek(i,CFile::begin);
-        plik.Read(&pd_t,sizeof(pd_t));
+        plik.seek(i);
+        plik.read(static_cast<char *>(&pd_t),sizeof(pd_t));
         rec_count = rec_count + 1;
         i = i + sizeof(pd_t);
     }
-    plik.Close();
-return rec_count;
+    plik.close();
+    return rec_count;
 
 
 }
 
-void TAB_Produkcja::Usun_Rec_PP(LONGLONG pos)
+void MainWindow::Usun_Rec_PP(LONGLONG pos)
 {
-        struct Producent pp_src;
-        pp.ID = 0;
-        CFile plik;
-        plik.Open(flm_p.pths.BF_PRP,CFile::modeWrite | CFile::shareDenyNone);
-        plik.Seek(pos,CFile::begin);
-        plik.Write(&pp,sizeof(pp));
-        plik.Close();
+    struct Producent pp_src;
+    pp.ID = 0;
+    QFile plik(flm.pths.BF_PRP);
+    plik.open(QFile::ReadOnly);
+    plik.seek(pos);
+    plik.write(static_cast<char *>(&pp),sizeof(pp));
 
-        CFile::Rename(flm_p.pths.BF_PRP,(LPCTSTR)"BF_PRB.bf0");
+    plik.rename(flm.pths.BF_PRP,(LPCTSTR)"BF_PRP.bf0");
 
-        plik.Open(flm_p.pths.BF_PRP,CFile::modeCreate);
-        plik.Close();
-        CFile src_file;
-        src_file.Open((LPCTSTR)"BF_PRB.bf0",CFile::modeRead);
-        plik.Open(flm_p.pths.BF_PRP,CFile::modeWrite);
-        LONGLONG i;
-        for (i = 0; i <(src_file.SeekToEnd()) ; )
+    plik.close();
+    QFile plik(flm.pths.BF_PRP);
+    plik.Open(QFile::WriteOnly);
+    QFile src_file((LPCTSTR)"BF_PRP.bf0");
+    src_file.open(QFile::ReadOnly);
+    LONGLONG i;
+    for (i = 0; i <(src_file.size()) ; )
+    {
+        src_file.seek(i);
+        src_file.read(static_cast<char *>(&pp_src),sizeof(pp_src));
+        if (pp_src.ID == 0)
         {
-            src_file.Seek(i,CFile::begin);
-            src_file.Read(&pp_src,sizeof(pp_src));
-            if (pp_src.ID == 0)
-            {
-                i = i + sizeof(pp_src);
-            }
-            else
-            {
-                plik.Write(&pp_src,sizeof(pp_src));
-                i = i + sizeof(pp_src);
-            }
+            i = i + sizeof(pp_src);
         }
-        plik.Close();
-        src_file.Close();
-        CFile::Remove((LPCTSTR)"BF_PRB.bf0");
-        Fill_PP();
-
+        else
+        {
+            plik.write(static_cast<char *>(&pp_src),sizeof(pp_src));
+            i = i + sizeof(pp_src);
+        }
+    }
+    plik.close();
+    src_file.remove();
+    src_file.close();
+    Fill_Oc();
 
 }
 
-void TAB_Produkcja::Usun_Rec_PD(LONGLONG pos)
+void MainWindow::Usun_Rec_PD(LONGLONG pos)
 {
-        struct Dystrybutor pd_src;
-        pd.ID = 0;
-        CFile plik;
-        plik.Open(flm_p.pths.BF_PRD,CFile::modeWrite | CFile::shareDenyNone);
-        plik.Seek(pos,CFile::begin);
-        plik.Write(&pd,sizeof(pd));
-        plik.Close();
+    struct Dystrybutor pd_src;
+    pd.ID = 0;
+    QFile plik(flm.pths.BF_PRD);
+    plik.open(QFile::ReadOnly);
+    plik.seek(pos);
+    plik.write(static_cast<char *>(&pd),sizeof(pd));
 
-        CFile::Rename(flm_p.pths.BF_PRD,(LPCTSTR)"BF_PRD.bf0");
+    plik.rename(flm.pths.BF_PRD,(LPCTSTR)"BF_PRD.bf0");
 
-        plik.Open(flm_p.pths.BF_PRD,CFile::modeCreate);
-        plik.Close();
-        CFile src_file;
-        src_file.Open((LPCTSTR)"BF_PRD.bf0",CFile::modeRead);
-        plik.Open(flm_p.pths.BF_PRD,CFile::modeWrite);
-        LONGLONG i;
-        for (i = 0; i <(src_file.SeekToEnd()) ; )
+    plik.close();
+    QFile plik(flm.pths.BF_PRD);
+    plik.Open(QFile::WriteOnly);
+    QFile src_file((LPCTSTR)"BF_PRD.bf0");
+    src_file.open(QFile::ReadOnly);
+    LONGLONG i;
+    for (i = 0; i <(src_file.size()) ; )
+    {
+        src_file.seek(i);
+        src_file.read(static_cast<char *>(&pd_src),sizeof(pd_src));
+        if (pd_src.ID == 0)
         {
-            src_file.Seek(i,CFile::begin);
-            src_file.Read(&pd_src,sizeof(pd_src));
-            if (pd_src.ID == 0)
-            {
-                i = i + sizeof(pd_src);
-            }
-            else
-            {
-                plik.Write(&pd_src,sizeof(pd_src));
-                i = i + sizeof(pd_src);
-            }
+            i = i + sizeof(pd_src);
         }
-        plik.Close();
-        src_file.Close();
-        CFile::Remove((LPCTSTR)"BF_PRD.bf0");
-        Fill_PD();
-
-
+        else
+        {
+            plik.write(static_cast<char *>(&pd_src),sizeof(pd_src));
+            i = i + sizeof(pd_src);
+        }
+    }
+    plik.close();
+    src_file.remove();
+    src_file.close();
+    Fill_Oc();
 
 }
 
@@ -3205,29 +3114,31 @@ void MainWindow::on_actionPomoc_triggered()
 
 void MainWindow::on_pushButton_LoadPic_clicked()
 {
-    TCHAR szFiltr[] = _T("Pliki graficzne (*.bmp)|*.bmp| (*.jpg)|*.jpg| (*.jpeg)|*.jpeg| (*.png)|*.png||");
-    CFileDialog plik_dlg(TRUE,NULL,NULL,OFN_FILEMUSTEXIST | OFN_NONETWORKBUTTON,szFiltr);
-    if (plik_dlg.DoModal() == IDOK)
+    QFileDialog fdlg(this);
+    fdlg.setFileMode(QFileDialog::ExistingFile);
+    fdlg.setViewMode(QFileDialog::Detail);
+    fdlg.setNameFilter("Pliki graficzne (*.bmp *.jpg *.jpeg *.png)");
+    if (fdlg.exec())
     {
         //plik_dlg.DoModal();
-        CString plk_path = plik_dlg.GetPathName();
-        CString buff;
+        QString plk_path = fdlg.selectedFiles().at(0);
+        QString buff;
 
         buff = flm.pths.BF_COVERS;
-        buff = buff + plik_dlg.GetFileName();
+        buff = buff + QString::setNum(flm.film_tbl.ID,10);
 
         CopyFile(plk_path,buff,FALSE);
-        _tcscpy(flm.film_tbl.skan_przod_path,buff);
-        CBibliotekaFilmówDlg::OnBnClickedButtonFrmFSave();
+        _tcscpy(flm.film_tbl.skan_przod_path,buff.toWCharArray());
+        on_pushButton_Save_clicked();
     }
 }
 
 void MainWindow::on_pushButton_DelPic_clicked()
 {
-    if (!(CBibliotekaFilmówDlg::Licz_Rec()))
+    if (!(Licz_Rec()))
     {
         _tcscpy(flm.film_tbl.skan_przod_path,_TEXT(""));
-        CBibliotekaFilmówDlg::OnBnClickedButtonFrmFSave();
+        on_pushButton_Save_clicked();
 
     }
 }
@@ -3500,5 +3411,95 @@ void MainWindow::Fill_Opis()
 
 
 
+
+}
+
+void MainWindow::on_pushButto_P_New_clicked()
+{
+    Save_PP();
+    Add_New_PP(Get_Hi_ID_PP());
+    add_new_pp = true;
+
+}
+
+void MainWindow::on_pushButton_PRODSave_clicked()
+{
+    Save_PP();
+}
+
+void MainWindow::on_pushButton_PRODDel_clicked()
+{
+    QList <QTableWidgetItem *> delitems;
+    QTableWidgetItem *delitem;
+    int delID = 0;
+    delitems = ui->tableWidget_Prod->selectedItems();
+    delitem = delitems.at(6);
+    delID = delitem->text().toInt();
+
+    QFile plik(flm.pths.BF_PRP);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        plik.read(static_cast<char *>(&pp),sizeof(pp));
+        if (delID == pp.ID)
+        {
+            plik.close();
+            Usun_Rec_OC(i);
+            break;
+        }
+        i = i + sizeof(pp);
+    }
+    if (plik.isOpen() == true)
+    {
+        plik.close();
+    }
+}
+
+void MainWindow::on_pushButton_D_New_clicked()
+{
+    Save_PD();
+    Add_New_PD(Get_Hi_ID_PD());
+    add_new_pd = true;
+}
+
+void MainWindow::on_pushButton_DYSTSave_clicked()
+{
+    Save_PD();
+}
+
+void MainWindow::on_pushButton_DYSTDel_clicked()
+{
+    QList <QTableWidgetItem *> delitems;
+    QTableWidgetItem *delitem;
+    int delID = 0;
+    delitems = ui->tableWidget_Dystr->selectedItems();
+    delitem = delitems.at(6);
+    delID = delitem->text().toInt();
+
+    QFile plik(flm.pths.BF_PRD);
+    plik.open(QFile::ReadOnly);
+    LONGLONG i;
+    LONGLONG stop;
+    stop = plik.size();
+    for (i=0;i<stop; )
+    {
+        plik.seek(i);
+        plik.read(static_cast<char *>(&pd),sizeof(pd));
+        if (delID == pd.ID)
+        {
+            plik.close();
+            Usun_Rec_OC(i);
+            break;
+        }
+        i = i + sizeof(pd);
+    }
+    if (plik.isOpen() == true)
+    {
+        plik.close();
+    }
 
 }

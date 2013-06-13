@@ -659,7 +659,7 @@ bool MainWindow::CheckBFVER(void)
     plik.open(QFile::ReadOnly);
     plik.seek(0);
 
-    //plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+    plik.read(reinterpret_cast<char *>(&pom),sizeof(struct POMIDOR));
     plik.close();
     if ((wcscmp(pom.BF_VER,akt_BF_VER)) == 0) {
         return true;
@@ -691,7 +691,7 @@ bool MainWindow::Fill_Full_Film(bool start)
                 {
                     plik.seek(zadana_pozycja_pliku);
                 }
-                //plik.read(static_cast<char *>(&flm.film_tbl),sizeof(struct Film));
+                plik.read(reinterpret_cast<char *>(&flm.film_tbl),sizeof(struct Film));
 
                 plik.close();
 
@@ -732,7 +732,7 @@ bool MainWindow::Save_Full_Film(void) {
                 plik.open(QFile::WriteOnly);
                 akt_pozycja_pliku = zadana_pozycja_pliku;
                 plik.seek(zadana_pozycja_pliku);
-                //plik.write(static_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
+                plik.write(reinterpret_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
 
                 plik.close();
                 Save_Oc();
@@ -774,7 +774,7 @@ bool MainWindow::Film_DodajRec(bool first) {
                 plik.seek(plik.size());
             }
 
-            //plik.write(static_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
+            //plik.write(reinterpret_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
 
             plik.close();
             if (first)
@@ -804,19 +804,19 @@ void MainWindow::Oblicz_NewID(void) {
     QFile plik(QString::fromWCharArray(flm.pths.BF_MCF));
     plik.open(QFile::ReadOnly);
     plik.seek(0);
-    //plik.read(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+    //plik.read(reinterpret_cast<char *>(&pom),sizeof(struct POMIDOR));
 
     plik.close();
     flm.film_tbl.ID = pom.najw_ID + 1;
     pom.najw_ID = flm.film_tbl.ID;
     plik.open(QFile::WriteOnly);
     plik.seek(0);
-    //plik.write(static_cast<char *>(&pom),sizeof(struct POMIDOR));
+    //plik.write(reinterpret_cast<char *>(&pom),sizeof(struct POMIDOR));
 
     plik.close();
 
 }
-LONGLONG MainWindow::Search_Last_Pos(void) {
+unsigned int MainWindow::Search_Last_Pos(void) {
     if (!(Licz_Rec()))
     {
 /*
@@ -832,8 +832,8 @@ LONGLONG MainWindow::Search_Last_Pos(void) {
         QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
         plik.open(QFile::ReadOnly);
 /*
-        LONGLONG i;
-        LONGLONG y;
+        unsigned int i;
+        unsigned int y;
         for (y = 0 ;(plik.GetLength()) ;  )
         {
             plik.Seek(y,CFile::begin);
@@ -852,7 +852,7 @@ LONGLONG MainWindow::Search_Last_Pos(void) {
         plik.Close();
         */
 
-        LONGLONG off;
+        unsigned int off;
         off = plik.size();
 
         plik.close();
@@ -876,13 +876,13 @@ void MainWindow::UtworzDB(bool cust)
         QDir di(QString::fromWCharArray(flm.pths.cur_db_path));
         if (!(di.exists() == TRUE))
         {
-            QDir::mkpath(QString::fromWCharArray(flm.pths.cur_db_path));
+            di.mkpath(QString::fromWCharArray(flm.pths.cur_db_path));
         }
     }
     QDir di(QString::fromWCharArray(flm.pths.BF_COVERS));
     if (!(di.exists() == TRUE))
     {
-        QDir::mkpath(QString::fromWCharArray(flm.pths.BF_COVERS));
+        di.mkpath(QString::fromWCharArray(flm.pths.BF_COVERS));
     }
     QFile fi(QString::fromWCharArray(flm.pths.BF_MCF));
     if (!(fi.exists() == TRUE))
@@ -894,60 +894,60 @@ void MainWindow::UtworzDB(bool cust)
         bf.open(QFile::WriteOnly);
         bf.close();
         bf.open(QFile::WriteOnly);
-        bf.write(static_cast<char *>(&pom),sizeof(pom));
+        bf.write(reinterpret_cast<char *>(&pom),sizeof(pom));
         bf.close();
     }
-    QFile fi(QString::fromWCharArray(flm.pths.BF_PDB));
-    if (!(fi.exists() ==  TRUE))
+    QFile fi2(QString::fromWCharArray(flm.pths.BF_PDB));
+    if (!(fi2.exists() ==  TRUE))
     {
         QFile bf_pdb(QString::fromWCharArray(flm.pths.BF_PDB));
         bf_pdb.open(QFile::WriteOnly);
         bf_pdb.close();
     }
-    QFile fi(QString::fromWCharArray(flm.pths.BF_OC));
-    if (!(fi.exists() == TRUE))
+    QFile fi3(QString::fromWCharArray(flm.pths.BF_OC));
+    if (!(fi3.exists() == TRUE))
     {
         QFile bf_oc(QString::fromWCharArray(flm.pths.BF_OC));
         bf_oc.open(QFile::WriteOnly);
         bf_oc.close();
     }
-    QFile fi(QString::fromWCharArray(flm.pths.BF_OB));
-    if (!(fi.exists() == TRUE))
+    QFile fi4(QString::fromWCharArray(flm.pths.BF_OB));
+    if (!(fi4.exists() == TRUE))
     {
         QFile bf_ob(QString::fromWCharArray(flm.pths.BF_OB));
         bf_ob.open(QFile::WriteOnly);
         bf_ob.close();
     }
-    QFile fi(QString::fromWCharArray(flm.pths.BF_PRP));
-    if (!(fi.exists() == TRUE))
+    QFile fi5(QString::fromWCharArray(flm.pths.BF_PRP));
+    if (!(fi5.exists() == TRUE))
     {
         QFile bf_pr(QString::fromWCharArray(flm.pths.BF_PRP));
         bf_pr.open(QFile::WriteOnly);
         bf_pr.close();
     }
-    QFile fi(QString::fromWCharArray(flm.pths.BF_PRD));
-    if (!(fi.exists() == TRUE))
+    QFile fi6(QString::fromWCharArray(flm.pths.BF_PRD));
+    if (!(fi6.exists() == TRUE))
     {
         QFile bf_dr(QString::fromWCharArray(flm.pths.BF_PRD));
         bf_dr.open(QFile::WriteOnly);
         bf_dr.close();
     }
-    QFile fi(QString::fromWCharArray(flm.pths.BF_LZ));
-    if (!(fi.exists() == TRUE))
+    QFile fi7(QString::fromWCharArray(flm.pths.BF_LZ));
+    if (!(fi7.exists() == TRUE))
     {
         QFile bf_lz(QString::fromWCharArray(flm.pths.BF_LZ));
         bf_lz.open(QFile::WriteOnly);
         bf_lz.close();
     }
-    QFile fi(QString::fromWCharArray(flm.pths.BF_WI));
-    if (!(fi.exists() == TRUE))
+    QFile fi8(QString::fromWCharArray(flm.pths.BF_WI));
+    if (!(fi8.exists() == TRUE))
     {
         QFile bf_wi(QString::fromWCharArray(flm.pths.BF_WI));
         bf_wi.open(QFile::WriteOnly);
         bf_wi.close();
     }
-    QFile fi(QString::fromWCharArray(flm.pths.BF_WO));
-    if (!(fi.exists() == TRUE))
+    QFile fi9(QString::fromWCharArray(flm.pths.BF_WO));
+    if (!(fi9.exists() == TRUE))
     {
         QFile bf_wo(QString::fromWCharArray(flm.pths.BF_WO));
         bf_wo.open(QFile::WriteOnly);
@@ -967,28 +967,28 @@ bool MainWindow::Del_Film_Rec(void)
                 QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                 plik.open(QFile::WriteOnly);
                 plik.seek(zadana_pozycja_pliku);
-                plik.write(static_cast<char *>(&flm.film_tbl),sizeof(struct Film));
+                plik.write(reinterpret_cast<char *>(&flm.film_tbl),sizeof(struct Film));
 
-                plik.rename(L"BF_PDB.bf0");
+                plik.rename("BF_PDB.bf0");
                 plik.close();
 
                 QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                 plik.open(QFile::WriteOnly);
-                QFile src_file(L"BF_PDB.bf0");
+                QFile src_file("BF_PDB.bf0");
                 src_file.open(QFile::ReadOnly);
                 struct Film flm_src;
-                LONGLONG i;
+                unsigned int i;
                 for (i = 0; i <(src_file.size()) ; )
                 {
                     src_file.seek(i);
-                    src_file.read(static_cast<char *>(&flm_src),sizeof(struct Film));
+                    src_file.read(reinterpret_cast<char *>(&flm_src),sizeof(struct Film));
                     if (flm_src.ID == 0)
                     {
                         i = i + sizeof(struct Film);
                     }
                     else
                     {
-                        plik.write(static_cast<char *>(&flm_src),sizeof(struct Film));
+                        plik.write(reinterpret_cast<char *>(&flm_src),sizeof(struct Film));
                         i = i + sizeof(struct Film);
                     }
                 }
@@ -1023,8 +1023,8 @@ bool MainWindow::Licz_Rec(void)
             if (fi.size() == 0)
                 {
 
-                    ui->lineEdit_RecNo->setText(_TEXT("0"));
-                    ui->lineEdit_RecCount->setText(_TEXT("0"));
+                    ui->lineEdit_RecNo->setText("0");
+                    ui->lineEdit_RecCount->setText("0");
                     return true;
                 }
             else
@@ -1033,9 +1033,9 @@ bool MainWindow::Licz_Rec(void)
                     QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                     struct Film film_test;
                     plik.open(QFile::ReadOnly);
-                    LONGLONG stop = 0;
+                    unsigned int stop = 0;
                     stop = plik.size();
-                    LONGLONG i = 0;
+                    unsigned int i = 0;
                     int cur_rec = 0;
                     int rec_count = 0;
                     wchar_t crec_txt[34];
@@ -1043,7 +1043,7 @@ bool MainWindow::Licz_Rec(void)
                     for (i = 0; i < stop; )
                     {
                         plik.seek(i);
-                        plik.read(static_cast<char *>(&film_test),sizeof(film_test));
+                        plik.read(reinterpret_cast<char *>(&film_test),sizeof(film_test));
                         rec_count = rec_count + 1;
                         if (flm.film_tbl.ID == film_test.ID)
                         {
@@ -1051,19 +1051,19 @@ bool MainWindow::Licz_Rec(void)
                         }
 
                             i = i + sizeof(film_test);
-                        }
+                    }
                             _itow(cur_rec,crec_txt,10);
                             _itow(rec_count,recc_txt,10);
-                            ui->lineEdit_RecNo->setText(crec_txt);
-                            ui->lineEdit_RecCount->setText(recc_txt);
+                            ui->lineEdit_RecNo->setText(QString::fromWCharArray(crec_txt));
+                            ui->lineEdit_RecCount->setText(QString::fromWCharArray(recc_txt));
 
-                    }
+               }
 
 
                     return false;
 
-                }
         }
+
 }
 void MainWindow::Read_Settings()
 {
@@ -1073,63 +1073,63 @@ void MainWindow::Read_Settings()
 
 void MainWindow::SetDBFNPaths(bool cust, wchar_t* cust_path)
 {
-    _tcscpy(flm.pths.BF_PDB,L"BF_PDB.bf");
-    _tcscpy(flm.pths.BF_OC,L"BF_OC.bf");
-    _tcscpy(flm.pths.BF_OB,L"BF_OB.bf");
-    _tcscpy(flm.pths.BF_PRP,L"BF_PRB.bf");
-    _tcscpy(flm.pths.BF_PRD,L"BF_PRD.bf");
-    _tcscpy(flm.pths.BF_LZ,L"BF_LZ.bf");
-    _tcscpy(flm.pths.BF_WI,L"BF_WI.bf");
-    _tcscpy(flm.pths.BF_WO,L"BF_WO.bf");
-    _tcscpy(flm.pths.BF_COVERS,_TEXT("covers\\"));
-    _tcscpy(flm.pths.BF_MCF,L"BF.bf");
-    _tcscpy(flm.pths.db_path,_TEXT("\\default_db\\"));
+    wcscpy(flm.pths.BF_PDB,QString::fromAscii("BF_PDB.bf").toWCharArray());
+    wcscpy(flm.pths.BF_OC,QString::fromAscii("BF_OC.bf").toWCharArray());
+    wcscpy(flm.pths.BF_OB,QString::fromAscii("BF_OB.bf").toWCharArray());
+    wcscpy(flm.pths.BF_PRP,QString::fromAscii("BF_PRB.bf").toWCharArray());
+    wcscpy(flm.pths.BF_PRD,QString::fromAscii("BF_PRD.bf").toWCharArray());
+    wcscpy(flm.pths.BF_LZ,QString::fromAscii("BF_LZ.bf").toWCharArray());
+    wcscpy(flm.pths.BF_WI,QString::fromAscii("BF_WI.bf").toWCharArray());
+    wcscpy(flm.pths.BF_WO,QString::fromAscii("BF_WO.bf").toWCharArray());
+    wcscpy(flm.pths.BF_COVERS,QString::fromAscii("covers/").toWCharArray());
+    wcscpy(flm.pths.BF_MCF,QString::fromAscii("BF.bf").toWCharArray());
+    wcscpy(flm.pths.db_path,QString::fromAscii("/default_db/").toWCharArray());
     if (cust)
     {
-        _tcscpy(flm.pths.cur_db_path,cust_path);
-        _tcscat(flm.pths.cur_db_path, TEXT("\\"));
+        wcscpy(flm.pths.cur_db_path,cust_path);
+        wcscat(flm.pths.cur_db_path, QString::fromAscii("/").toWCharArray());
 
-        wchar_t *buff = new wchar_t;
+        wchar_t *buff = new wchar_t[1024];
 
-        _tcscpy(buff,flm.pths.cur_db_path);
-        _tcscat(buff,flm.pths.BF_PDB);
-        _tcscpy(flm.pths.BF_PDB, buff);
+        wcscpy(buff,flm.pths.cur_db_path);
+        wcscat(buff,flm.pths.BF_PDB);
+        wcscpy(flm.pths.BF_PDB, buff);
 
-        _tcscpy(buff,flm.pths.cur_db_path);
-        _tcscat(buff,flm.pths.BF_OC);
-        _tcscpy(flm.pths.BF_OC, buff);
+        wcscpy(buff,flm.pths.cur_db_path);
+        wcscat(buff,flm.pths.BF_OC);
+        wcscpy(flm.pths.BF_OC, buff);
 
-        _tcscpy(buff,flm.pths.cur_db_path);
-        _tcscat(buff,flm.pths.BF_OB);
-        _tcscpy(flm.pths.BF_OB, buff);
+        wcscpy(buff,flm.pths.cur_db_path);
+        wcscat(buff,flm.pths.BF_OB);
+        wcscpy(flm.pths.BF_OB, buff);
 
-        _tcscpy(buff,flm.pths.cur_db_path);
-        _tcscat(buff,flm.pths.BF_LZ);
-        _tcscpy(flm.pths.BF_LZ,buff);
+        wcscpy(buff,flm.pths.cur_db_path);
+        wcscat(buff,flm.pths.BF_LZ);
+        wcscpy(flm.pths.BF_LZ,buff);
 
-        _tcscpy(buff,flm.pths.cur_db_path);
-        _tcscat(buff,flm.pths.BF_PRD);
-        _tcscpy(flm.pths.BF_PRD,buff);
+        wcscpy(buff,flm.pths.cur_db_path);
+        wcscat(buff,flm.pths.BF_PRD);
+        wcscpy(flm.pths.BF_PRD,buff);
 
-        _tcscpy(buff,flm.pths.cur_db_path);
-        _tcscat(buff,flm.pths.BF_PRP);
-        _tcscpy(flm.pths.BF_PRP, buff);
+        wcscpy(buff,flm.pths.cur_db_path);
+        wcscat(buff,flm.pths.BF_PRP);
+        wcscpy(flm.pths.BF_PRP, buff);
 
-        _tcscpy(buff,flm.pths.cur_db_path);
-        _tcscat(buff,flm.pths.BF_WI);
-        _tcscpy(flm.pths.BF_WI, buff);
+        wcscpy(buff,flm.pths.cur_db_path);
+        wcscat(buff,flm.pths.BF_WI);
+        wcscpy(flm.pths.BF_WI, buff);
 
-        _tcscpy(buff,flm.pths.cur_db_path);
-        _tcscat(buff,flm.pths.BF_WO);
-        _tcscpy(flm.pths.BF_WO,buff);
+        wcscpy(buff,flm.pths.cur_db_path);
+        wcscat(buff,flm.pths.BF_WO);
+        wcscpy(flm.pths.BF_WO,buff);
 
-        _tcscpy(buff,flm.pths.cur_db_path);
-        _tcscat(buff,flm.pths.BF_MCF);
-        _tcscpy(flm.pths.BF_MCF,buff);
+        wcscpy(buff,flm.pths.cur_db_path);
+        wcscat(buff,flm.pths.BF_MCF);
+        wcscpy(flm.pths.BF_MCF,buff);
 
-        _tcscpy(buff, flm.pths.cur_db_path);
-        _tcscat(buff, flm.pths.BF_COVERS);
-        _tcscpy(flm.pths.BF_COVERS, buff);
+        wcscpy(buff, flm.pths.cur_db_path);
+        wcscat(buff, flm.pths.BF_COVERS);
+        wcscpy(flm.pths.BF_COVERS, buff);
 
     }
     else
@@ -1143,68 +1143,68 @@ void MainWindow::SetDBFNPaths(bool cust, wchar_t* cust_path)
         {
             buff[_tcsclen(buff)] = '\0';
         }*/
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscpy(flm.pths.cur_db_path,buff);
-        _tcscat(flm.pths.cur_db_path,flm.pths.db_path); // ustawianie katalogu gł bazy danych
+        wcscpy(flm.pths.cur_db_path,buff);
+        wcscat(flm.pths.cur_db_path,flm.pths.db_path); // ustawianie katalogu gł bazy danych
 
-        _tcscat(buff,flm.pths.db_path); // BF_PDB
-        _tcscat(buff,flm.pths.BF_PDB);
-        _tcscpy(flm.pths.BF_PDB,buff);
+        wcscat(buff,flm.pths.db_path); // BF_PDB
+        wcscat(buff,flm.pths.BF_PDB);
+        wcscpy(flm.pths.BF_PDB,buff);
 
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscat(buff,flm.pths.db_path); //BF MCF
-        _tcscat(buff,flm.pths.BF_MCF);
-        _tcscpy(flm.pths.BF_MCF,buff);
+        wcscat(buff,flm.pths.db_path); //BF MCF
+        wcscat(buff,flm.pths.BF_MCF);
+        wcscpy(flm.pths.BF_MCF,buff);
 
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscat(buff,flm.pths.db_path); // BF_COVERS
-        _tcscat(buff,flm.pths.BF_COVERS);
-        _tcscpy(flm.pths.BF_COVERS,buff);
+        wcscat(buff,flm.pths.db_path); // BF_COVERS
+        wcscat(buff,flm.pths.BF_COVERS);
+        wcscpy(flm.pths.BF_COVERS,buff);
 
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscat(buff,flm.pths.db_path);
-        _tcscat(buff,flm.pths.BF_OC);
-        _tcscpy(flm.pths.BF_OC,buff);
+        wcscat(buff,flm.pths.db_path);
+        wcscat(buff,flm.pths.BF_OC);
+        wcscpy(flm.pths.BF_OC,buff);
 
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscat(buff,flm.pths.db_path);
-        _tcscat(buff,flm.pths.BF_OB);
-        _tcscpy(flm.pths.BF_OB,buff);
+        wcscat(buff,flm.pths.db_path);
+        wcscat(buff,flm.pths.BF_OB);
+        wcscpy(flm.pths.BF_OB,buff);
 
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscat(buff,flm.pths.db_path);
-        _tcscat(buff,flm.pths.BF_PRP);
-        _tcscpy(flm.pths.BF_PRP,buff);
+        wcscat(buff,flm.pths.db_path);
+        wcscat(buff,flm.pths.BF_PRP);
+        wcscpy(flm.pths.BF_PRP,buff);
 
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscat(buff,flm.pths.db_path);
-        _tcscat(buff,flm.pths.BF_PRD);
-        _tcscpy(flm.pths.BF_PRD,buff);
+        wcscat(buff,flm.pths.db_path);
+        wcscat(buff,flm.pths.BF_PRD);
+        wcscpy(flm.pths.BF_PRD,buff);
 
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscat(buff,flm.pths.db_path);
-        _tcscat(buff,flm.pths.BF_LZ);
-        _tcscpy(flm.pths.BF_LZ,buff);
+        wcscat(buff,flm.pths.db_path);
+        wcscat(buff,flm.pths.BF_LZ);
+        wcscpy(flm.pths.BF_LZ,buff);
 
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscat(buff,flm.pths.db_path);
-        _tcscat(buff,flm.pths.BF_WI);
-        _tcscpy(flm.pths.BF_WI,buff);
+        wcscat(buff,flm.pths.db_path);
+        wcscat(buff,flm.pths.BF_WI);
+        wcscpy(flm.pths.BF_WI,buff);
 
-        _tcscpy(buff,cur_dir);
+        wcscpy(buff,cur_dir);
 
-        _tcscat(buff,flm.pths.db_path);
-        _tcscat(buff,flm.pths.BF_WO);
-        _tcscpy(flm.pths.BF_WO,buff);
+        wcscat(buff,flm.pths.db_path);
+        wcscat(buff,flm.pths.BF_WO);
+        wcscpy(flm.pths.BF_WO,buff);
     }
 
 }
@@ -1398,8 +1398,8 @@ void MainWindow::Fill_Wi(void)
 {
     QFile plik(flm.pths.BF_WI);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
 
 
@@ -1409,7 +1409,7 @@ void MainWindow::Fill_Wi(void)
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&wi),sizeof(wi));
+        plik.read(reinterpret_cast<char *>(&wi),sizeof(wi));
         if (wi.IDPDB == flm.film_tbl.ID)
         {
             wi_arr.append(wi);
@@ -1428,8 +1428,8 @@ void MainWindow::Fill_Wo(void)
 {
     QFile plik(flm.pths.BF_WO);
     plik.Open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
 
 
@@ -1441,7 +1441,7 @@ void MainWindow::Fill_Wo(void)
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&wo),sizeof(wo));
+        plik.read(reinterpret_cast<char *>(&wo),sizeof(wo));
         if (wo.IDPDB == flm_b.film_tbl.ID)
         {
             wo_arr.append(wo);
@@ -1533,8 +1533,8 @@ void MainWindow::Save_Wi(void)
     struct Wypozycz_Innym wi_buf;
     plik.open(QFile::ReadWrite);
 
-    LONGLONG stop;
-    LONGLONG i;
+    unsigned int stop;
+    unsigned int i;
     int y;
 
     wchar_t buff[34];
@@ -1545,7 +1545,7 @@ void MainWindow::Save_Wi(void)
         if (GetRecC_WI() == 0)
             {
                 plik.seek(0);
-                plik.write(static_cast<char *> (&wi_arr[y]),sizeof(wi));
+                plik.write(reinterpret_cast<char *> (&wi_arr[y]),sizeof(wi));
 
             }
         else if (GetRecC_WI() > 0)
@@ -1560,11 +1560,11 @@ void MainWindow::Save_Wi(void)
                     for (i=0; i<stop; )
                     {
                         plik.seek(i);
-                        plik.read(static_cast<char *>(&wi_buf),sizeof(wi_buf));
+                        plik.read(reinterpret_cast<char *>(&wi_buf),sizeof(wi_buf));
                             if (wi_arr[y].ID == wi_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(static_cast<char *>(&wi_arr[y]),sizeof(wi));
+                                plik.write(reinterpret_cast<char *>(&wi_arr[y]),sizeof(wi));
                             }
 
                         i = i + sizeof(wi);
@@ -1575,7 +1575,7 @@ void MainWindow::Save_Wi(void)
                         int x;
                         x = (wi_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(static_cast<char *>(&wi_arr[x]),sizeof(wi));
+                        plik.write(reinterpret_cast<char *>(&wi_arr[x]),sizeof(wi));
                         add_new_wi = false;
                     }
                 }
@@ -1594,8 +1594,8 @@ void MainWindow::Save_Wo(void)
     struct Wypozycz_Od_Innych wo_buf;
     plik.open(QFile::ReadWrite);
 
-    LONGLONG stop;
-    LONGLONG i;
+    unsigned int stop;
+    unsigned int i;
     int y;
 
     wchar_t buff[34];
@@ -1606,7 +1606,7 @@ void MainWindow::Save_Wo(void)
         if (GetRecC_WO() == 0)
             {
                 plik.seek(0);
-                plik.write(static_cast<char *>(&wo_arr[y]),sizeof(wo));
+                plik.write(reinterpret_cast<char *>(&wo_arr[y]),sizeof(wo));
 
             }
         else if (GetRecC_WO() > 0)
@@ -1621,11 +1621,11 @@ void MainWindow::Save_Wo(void)
                     for (i=0; i<stop; )
                     {
                         plik.seek(i);
-                        plik.read(static_cast<char *>(&wo_buf),sizeof(wo_buf));
+                        plik.read(reinterpret_cast<char *>(&wo_buf),sizeof(wo_buf));
                             if (wo_arr[y].ID == wo_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(static_cast<char *>(&wo_arr[y]),sizeof(wo));
+                                plik.write(reinterpret_cast<char *>(&wo_arr[y]),sizeof(wo));
                             }
 
                         i = i + sizeof(wo);
@@ -1636,7 +1636,7 @@ void MainWindow::Save_Wo(void)
                         int x;
                         x = (wo_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(static_cast<char *>(&wo_arr.[x]),sizeof(wo));
+                        plik.write(reinterpret_cast<char *>(&wo_arr.[x]),sizeof(wo));
                         add_new_wo = false;
                     }
                 }
@@ -1651,8 +1651,8 @@ int MainWindow::GetRecC_WI(void)
 {
     QFile plik(flm.pths.BF_WI);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     int rec_count = 0;
     struct Wypozycz_Innym wi_t;
@@ -1664,7 +1664,7 @@ int MainWindow::GetRecC_WI(void)
     for (i = 0; i <stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&wi_t),sizeof(wi_t));
+        plik.read(reinterpret_cast<char *>(&wi_t),sizeof(wi_t));
         rec_count = rec_count + 1;
         i = i + sizeof(wi_t);
     }
@@ -1677,8 +1677,8 @@ int MainWindow::GetRecC_WO(void)
 {
     QFile plik(flm.pths.BF_WO);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     int rec_count = 0;
     struct Wypozycz_Od_Innych wo_t;
@@ -1690,7 +1690,7 @@ int MainWindow::GetRecC_WO(void)
     for (i = 0; i <stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&wo_t),sizeof(wo_t));
+        plik.read(reinterpret_cast<char *>(&wo_t),sizeof(wo_t));
         rec_count = rec_count + 1;
         i = i + sizeof(wo_t);
     }
@@ -1710,15 +1710,15 @@ int MainWindow::Get_Hi_ID_WI(void)
 
     QFile plik(flm.pths.BF_WI);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
         if (i == (stop - sizeof(wi)))
         {
-            plik.read(static_cast<char *>(&wi),sizeof(wi));
+            plik.read(reinterpret_cast<char *>(&wi),sizeof(wi));
             plik.close();
             return wi.ID;
         }
@@ -1737,15 +1737,15 @@ int MainWindow::Get_Hi_ID_WO(void)
 
     QFile plik(flm.pths.BF_WO);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
         if (i == (stop - sizeof(wo)))
         {
-            plik.read(static_cast<char *>(&wo),sizeof(wo));
+            plik.read(reinterpret_cast<char *>(&wo),sizeof(wo));
             plik.close();
             return wo.ID;
         }
@@ -1796,14 +1796,14 @@ void MainWindow::Add_New_WO(int id)
 
 }
 
-void MainWindow::Usun_Rec_WI(LONGLONG pos)
+void MainWindow::Usun_Rec_WI(unsigned int pos)
 {
         struct Wypozycz_Innym wi_src;
         wi.ID = 0;
         QFile plik(flm.pths.BF_WI);
         plik.open(QFile::ReadOnly);
         plik.seek(pos);
-        plik.write(static_cast<char *>(&wi),sizeof(wi));
+        plik.write(reinterpret_cast<char *>(&wi),sizeof(wi));
 
         plik.rename(flm.pths.BF_WI,(LPCTSTR)"BF_WI.bf0");
 
@@ -1812,18 +1812,18 @@ void MainWindow::Usun_Rec_WI(LONGLONG pos)
         plik.Open(QFile::WriteOnly);
         QFile src_file((LPCTSTR)"BF_WI.bf0");
         src_file.open(QFile::ReadOnly);
-        LONGLONG i;
+        unsigned int i;
         for (i = 0; i <(src_file.size()) ; )
         {
             src_file.seek(i);
-            src_file.read(static_cast<char *>(&wi_src),sizeof(wi_src));
+            src_file.read(reinterpret_cast<char *>(&wi_src),sizeof(wi_src));
             if (wi_src.ID == 0)
             {
                 i = i + sizeof(wi_src);
             }
             else
             {
-                plik.write(static_cast<char *>(&wi_src),sizeof(wi_src));
+                plik.write(reinterpret_cast<char *>(&wi_src),sizeof(wi_src));
                 i = i + sizeof(wi_src);
             }
         }
@@ -1835,7 +1835,7 @@ void MainWindow::Usun_Rec_WI(LONGLONG pos)
 
 }
 
-void MainWindow::Usun_Rec_WO(LONGLONG pos)
+void MainWindow::Usun_Rec_WO(unsigned int pos)
 {
 
         struct Wypozycz_Od_Innych wo_src;
@@ -1843,7 +1843,7 @@ void MainWindow::Usun_Rec_WO(LONGLONG pos)
         QFile plik(flm.pths.BF_WO);
         plik.open(QFile::WriteOnly);
         plik.seek(pos);
-        plik.write(static_cast<char *>(&wo),sizeof(wo));
+        plik.write(reinterpret_cast<char *>(&wo),sizeof(wo));
 
         plik.rename(flm.pths.BF_WO,(LPCTSTR)"BF_WO.bf0");
         plik.close();
@@ -1852,18 +1852,18 @@ void MainWindow::Usun_Rec_WO(LONGLONG pos)
         plik.open(QFile::WriteOnly);
         QFile src_file((LPCTSTR)"BF_WO.bf0");
         src_file.Open(QFile::ReadOnly);
-        LONGLONG i;
+        unsigned int i;
         for (i = 0; i <(src_file.size()) ; )
         {
             src_file.seek(i);
-            src_file.read(static_cast<char *>(&wo_src),sizeof(wo_src));
+            src_file.read(reinterpret_cast<char *>(&wo_src),sizeof(wo_src));
             if (wo_src.ID == 0)
             {
                 i = i + sizeof(wo_src);
             }
             else
             {
-                plik.write(static_cast<char *>(&wo_src),sizeof(wo_src));
+                plik.write(reinterpret_cast<char *>(&wo_src),sizeof(wo_src));
                 i = i + sizeof(wo_src);
             }
         }
@@ -1886,8 +1886,8 @@ void MainWindow::Fill_Lz(void)
 
     QFile plik(flm.pths.BF_LZ);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
 
 
@@ -1897,7 +1897,7 @@ void MainWindow::Fill_Lz(void)
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&lz),sizeof(lz));
+        plik.read(reinterpret_cast<char *>(&lz),sizeof(lz));
         if (lz.IDPDB == flm.film_tbl.ID)
         {
             lz_arr.append(lz);
@@ -1917,8 +1917,8 @@ void MainWindow::Save_Lz(void)
     struct Lok_zdjeciowe lz_buf;
     plik.open(QFile::ReadWrite);
 
-    LONGLONG stop;
-    LONGLONG i;
+    unsigned int stop;
+    unsigned int i;
     int y;
 
     wchar_t buff[34];
@@ -1929,7 +1929,7 @@ void MainWindow::Save_Lz(void)
         if (GetRecC_WI() == 0)
             {
                 plik.seek(0);
-                plik.write(static_cast<char *> (&lz_arr[y]),sizeof(lz));
+                plik.write(reinterpret_cast<char *> (&lz_arr[y]),sizeof(lz));
 
             }
         else if (GetRecC_WI() > 0)
@@ -1944,11 +1944,11 @@ void MainWindow::Save_Lz(void)
                     for (i=0; i<stop; )
                     {
                         plik.seek(i);
-                        plik.read(static_cast<char *>(&lz_buf),sizeof(lz_buf));
+                        plik.read(reinterpret_cast<char *>(&lz_buf),sizeof(lz_buf));
                             if (lz_arr[y].ID == lz_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(static_cast<char *>(&lz_arr[y]),sizeof(lz));
+                                plik.write(reinterpret_cast<char *>(&lz_arr[y]),sizeof(lz));
                             }
 
                         i = i + sizeof(lz);
@@ -1959,7 +1959,7 @@ void MainWindow::Save_Lz(void)
                         int x;
                         x = (lz_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(static_cast<char *>(&lz_arr[x]),sizeof(lz));
+                        plik.write(reinterpret_cast<char *>(&lz_arr[x]),sizeof(lz));
                         add_new_lz = false;
                     }
                 }
@@ -1976,8 +1976,8 @@ int MainWindow::GetRecC_LZ(void)
 {
     QFile plik(flm.pths.BF_LZ);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     int rec_count = 0;
     struct Lok_zdjeciowe lz_t;
@@ -1989,7 +1989,7 @@ int MainWindow::GetRecC_LZ(void)
     for (i = 0; i <stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&lz_t),sizeof(lz_t));
+        plik.read(reinterpret_cast<char *>(&lz_t),sizeof(lz_t));
         rec_count = rec_count + 1;
         i = i + sizeof(lz_t);
     }
@@ -2008,15 +2008,15 @@ int MainWindow::Get_Hi_ID_LZ(void)
 
     QFile plik(flm.pths.BF_LZ);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
         if (i == (stop - sizeof(lz)))
         {
-            plik.read(static_cast<char *>(&lz),sizeof(lz));
+            plik.read(reinterpret_cast<char *>(&lz),sizeof(lz));
             plik.close();
             return lz.ID;
         }
@@ -2047,14 +2047,14 @@ void MainWindow::Add_New_LZ(int id)
 
 }
 
-void MainWindow::Usun_Rec_LZ(LONGLONG pos)
+void MainWindow::Usun_Rec_LZ(unsigned int pos)
 {
     struct Lok_zdjeciowe lz_src;
     lz.ID = 0;
     QFile plik(flm.pths.BF_LZ);
     plik.open(QFile::ReadOnly);
     plik.seek(pos);
-    plik.write(static_cast<char *>(&lz),sizeof(lz));
+    plik.write(reinterpret_cast<char *>(&lz),sizeof(lz));
 
     plik.rename(flm.pths.BF_LZ,(LPCTSTR)"BF_LZ.bf0");
 
@@ -2063,18 +2063,18 @@ void MainWindow::Usun_Rec_LZ(LONGLONG pos)
     plik.Open(QFile::WriteOnly);
     QFile src_file((LPCTSTR)"BF_LZ.bf0");
     src_file.open(QFile::ReadOnly);
-    LONGLONG i;
+    unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
     {
         src_file.seek(i);
-        src_file.read(static_cast<char *>(&lz_src),sizeof(lz_src));
+        src_file.read(reinterpret_cast<char *>(&lz_src),sizeof(lz_src));
         if (lz_src.ID == 0)
         {
             i = i + sizeof(lz_src);
         }
         else
         {
-            plik.write(static_cast<char *>(&lz_src),sizeof(lz_src));
+            plik.write(reinterpret_cast<char *>(&lz_src),sizeof(lz_src));
             i = i + sizeof(lz_src);
         }
     }
@@ -2096,8 +2096,8 @@ void MainWindow::Fill_Ob(void)
 {
     QFile plik(flm.pths.BF_OB);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
 
 
@@ -2107,7 +2107,7 @@ void MainWindow::Fill_Ob(void)
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&ob),sizeof(ob));
+        plik.read(reinterpret_cast<char *>(&ob),sizeof(ob));
         if (ob.IDPDB == flm.film_tbl.ID)
         {
             ob_arr.append(ob);
@@ -2127,8 +2127,8 @@ void MainWindow::Save_Ob(void)
     struct Obsada ob_buf;
     plik.open(QFile::ReadWrite);
 
-    LONGLONG stop;
-    LONGLONG i;
+    unsigned int stop;
+    unsigned int i;
     int y;
 
     wchar_t buff[34];
@@ -2139,7 +2139,7 @@ void MainWindow::Save_Ob(void)
         if (GetRecC_OB() == 0)
             {
                 plik.seek(0);
-                plik.write(static_cast<char *> (&ob_arr[y]),sizeof(ob));
+                plik.write(reinterpret_cast<char *> (&ob_arr[y]),sizeof(ob));
 
             }
         else if (GetRecC_OB() > 0)
@@ -2154,11 +2154,11 @@ void MainWindow::Save_Ob(void)
                     for (i=0; i<stop; )
                     {
                         plik.seek(i);
-                        plik.read(static_cast<char *>(&ob_buf),sizeof(ob_buf));
+                        plik.read(reinterpret_cast<char *>(&ob_buf),sizeof(ob_buf));
                             if (ob_arr[y].ID == ob_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(static_cast<char *>(&ob_arr[y]),sizeof(ob));
+                                plik.write(reinterpret_cast<char *>(&ob_arr[y]),sizeof(ob));
                             }
 
                         i = i + sizeof(ob);
@@ -2169,7 +2169,7 @@ void MainWindow::Save_Ob(void)
                         int x;
                         x = (ob_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(static_cast<char *>(&ob_arr[x]),sizeof(ob));
+                        plik.write(reinterpret_cast<char *>(&ob_arr[x]),sizeof(ob));
                         add_new_ob = false;
                     }
                 }
@@ -2215,15 +2215,15 @@ int MainWindow::Get_Hi_ID_OB(void)
 
     QFile plik(flm.pths.BF_OB);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
         if (i == (stop - sizeof(ob)))
         {
-            plik.read(static_cast<char *>(&ob),sizeof(ob));
+            plik.read(reinterpret_cast<char *>(&ob),sizeof(ob));
             plik.close();
             return ob.ID;
         }
@@ -2236,8 +2236,8 @@ int MainWindow::GetRecC_OB(void)
 {
     QFile plik(flm.pths.BF_OB);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     int rec_count = 0;
     struct Obsada ob_t;
@@ -2249,7 +2249,7 @@ int MainWindow::GetRecC_OB(void)
     for (i = 0; i <stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&ob_t),sizeof(ob_t));
+        plik.read(reinterpret_cast<char *>(&ob_t),sizeof(ob_t));
         rec_count = rec_count + 1;
         i = i + sizeof(ob_t);
     }
@@ -2285,14 +2285,14 @@ void MainWindow::Refresh_Ob(void)
 
 }
 
-void MainWindow::Usun_Rec_OB(LONGLONG pos)
+void MainWindow::Usun_Rec_OB(unsigned int pos)
 {
     struct Obsada ob_src;
     ob.ID = 0;
     QFile plik(flm.pths.BF_OB);
     plik.open(QFile::ReadOnly);
     plik.seek(pos);
-    plik.write(static_cast<char *>(&ob),sizeof(ob));
+    plik.write(reinterpret_cast<char *>(&ob),sizeof(ob));
 
     plik.rename(flm.pths.BF_OB,(LPCTSTR)"BF_OB.bf0");
 
@@ -2301,18 +2301,18 @@ void MainWindow::Usun_Rec_OB(LONGLONG pos)
     plik.Open(QFile::WriteOnly);
     QFile src_file((LPCTSTR)"BF_OB.bf0");
     src_file.open(QFile::ReadOnly);
-    LONGLONG i;
+    unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
     {
         src_file.seek(i);
-        src_file.read(static_cast<char *>(&ob_src),sizeof(ob_src));
+        src_file.read(reinterpret_cast<char *>(&ob_src),sizeof(ob_src));
         if (ob_src.ID == 0)
         {
             i = i + sizeof(ob_src);
         }
         else
         {
-            plik.write(static_cast<char *>(&ob_src),sizeof(ob_src));
+            plik.write(reinterpret_cast<char *>(&ob_src),sizeof(ob_src));
             i = i + sizeof(ob_src);
         }
     }
@@ -2333,8 +2333,8 @@ void MainWindow::Save_Oc(void)
     struct Ocena oc_buf;
     plik.open(QFile::ReadWrite);
 
-    LONGLONG stop;
-    LONGLONG i;
+    unsigned int stop;
+    unsigned int i;
     int y;
 
     wchar_t buff[34];
@@ -2345,7 +2345,7 @@ void MainWindow::Save_Oc(void)
         if (GetRecC_OC() == 0)
             {
                 plik.seek(0);
-                plik.write(static_cast<char *> (&oc_arr[y]),sizeof(oc));
+                plik.write(reinterpret_cast<char *> (&oc_arr[y]),sizeof(oc));
 
             }
         else if (GetRecC_OC() > 0)
@@ -2360,11 +2360,11 @@ void MainWindow::Save_Oc(void)
                     for (i=0; i<stop; )
                     {
                         plik.seek(i);
-                        plik.read(static_cast<char *>(&oc_buf),sizeof(oc_buf));
+                        plik.read(reinterpret_cast<char *>(&oc_buf),sizeof(oc_buf));
                             if (oc_arr[y].ID == ob_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(static_cast<char *>(&oc_arr[y]),sizeof(oc));
+                                plik.write(reinterpret_cast<char *>(&oc_arr[y]),sizeof(oc));
                             }
 
                         i = i + sizeof(ob);
@@ -2375,7 +2375,7 @@ void MainWindow::Save_Oc(void)
                         int x;
                         x = (oc_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(static_cast<char *>(&oc_arr[x]),sizeof(oc));
+                        plik.write(reinterpret_cast<char *>(&oc_arr[x]),sizeof(oc));
                         add_new_oc = false;
                     }
                 }
@@ -2397,8 +2397,8 @@ void MainWindow::Fill_Oc(bool nie_kas)
 
     QFile plik(flm.pths.BF_OC);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
 
 
@@ -2408,7 +2408,7 @@ void MainWindow::Fill_Oc(bool nie_kas)
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&oc),sizeof(oc));
+        plik.read(reinterpret_cast<char *>(&oc),sizeof(oc));
         if (oc.IDPDB == flm.film_tbl.ID)
         {
             oc_arr.append(oc);
@@ -2437,15 +2437,15 @@ if (GetRecC_OC() == 0)
 
 QFile plik(flm.pths.BF_OC);
 plik.open(QFile::ReadOnly);
-LONGLONG i;
-LONGLONG stop;
+unsigned int i;
+unsigned int stop;
 stop = plik.size();
 for (i=0;i<stop; )
 {
     plik.seek(i);
     if (i == (stop - sizeof(oc)))
     {
-        plik.read(static_cast<char *>(&oc),sizeof(oc));
+        plik.read(reinterpret_cast<char *>(&oc),sizeof(oc));
         plik.close();
         return oc.ID;
     }
@@ -2484,8 +2484,8 @@ int MainWindow::GetRecC_OC(void)
 {
     QFile plik(flm.pths.BF_OC);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     int rec_count = 0;
     struct Ocena oc_t;
@@ -2497,7 +2497,7 @@ int MainWindow::GetRecC_OC(void)
     for (i = 0; i <stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&oc_t),sizeof(oc_t));
+        plik.read(reinterpret_cast<char *>(&oc_t),sizeof(oc_t));
         rec_count = rec_count + 1;
         i = i + sizeof(oc_t);
     }
@@ -2508,7 +2508,7 @@ int MainWindow::GetRecC_OC(void)
 
 }
 
-void MainWindow::Usun_Rec_OC(LONGLONG pos)
+void MainWindow::Usun_Rec_OC(unsigned int pos)
 {
 
 
@@ -2517,7 +2517,7 @@ void MainWindow::Usun_Rec_OC(LONGLONG pos)
     QFile plik(flm.pths.BF_OC);
     plik.open(QFile::ReadOnly);
     plik.seek(pos);
-    plik.write(static_cast<char *>(&oc),sizeof(oc));
+    plik.write(reinterpret_cast<char *>(&oc),sizeof(oc));
 
     plik.rename(flm.pths.BF_OC,(LPCTSTR)"BF_OC.bf0");
 
@@ -2526,18 +2526,18 @@ void MainWindow::Usun_Rec_OC(LONGLONG pos)
     plik.Open(QFile::WriteOnly);
     QFile src_file((LPCTSTR)"BF_OC.bf0");
     src_file.open(QFile::ReadOnly);
-    LONGLONG i;
+    unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
     {
         src_file.seek(i);
-        src_file.read(static_cast<char *>(&oc_src),sizeof(oc_src));
+        src_file.read(reinterpret_cast<char *>(&oc_src),sizeof(oc_src));
         if (oc_src.ID == 0)
         {
             i = i + sizeof(oc_src);
         }
         else
         {
-            plik.write(static_cast<char *>(&oc_src),sizeof(oc_src));
+            plik.write(reinterpret_cast<char *>(&oc_src),sizeof(oc_src));
             i = i + sizeof(oc_src);
         }
     }
@@ -2602,8 +2602,8 @@ void MainWindow::Fill_PP(void)
 {
     QFile plik(flm.pths.BF_PRP);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
 
 
@@ -2613,7 +2613,7 @@ void MainWindow::Fill_PP(void)
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&pp),sizeof(pp));
+        plik.read(reinterpret_cast<char *>(&pp),sizeof(pp));
         if (pp.IDPDB == flm.film_tbl.ID)
         {
             pp_arr.append(pp);
@@ -2631,8 +2631,8 @@ void MainWindow::Fill_PD(void)
 {
     QFile plik(flm.pths.BF_PRD);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
 
 
@@ -2642,7 +2642,7 @@ void MainWindow::Fill_PD(void)
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&pd),sizeof(pd));
+        plik.read(reinterpret_cast<char *>(&pd),sizeof(pd));
         if (pd.IDPDB == flm.film_tbl.ID)
         {
             pd_arr.append(pd);
@@ -2703,8 +2703,8 @@ void MainWindow::Save_PP(void)
     struct Producent pp_buf;
     plik.open(QFile::ReadWrite);
 
-    LONGLONG stop;
-    LONGLONG i;
+    unsigned int stop;
+    unsigned int i;
     int y;
 
     wchar_t buff[34];
@@ -2715,7 +2715,7 @@ void MainWindow::Save_PP(void)
         if (GetRecC_PP() == 0)
             {
                 plik.seek(0);
-                plik.write(static_cast<char *> (&pp_arr[y]),sizeof(pp));
+                plik.write(reinterpret_cast<char *> (&pp_arr[y]),sizeof(pp));
 
             }
         else if (GetRecC_PP() > 0)
@@ -2730,11 +2730,11 @@ void MainWindow::Save_PP(void)
                     for (i=0; i<stop; )
                     {
                         plik.seek(i);
-                        plik.read(static_cast<char *>(&pp_buf),sizeof(pp_buf));
+                        plik.read(reinterpret_cast<char *>(&pp_buf),sizeof(pp_buf));
                             if (pp_arr[y].ID == pp_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(static_cast<char *>(&pp_arr[y]),sizeof(pp));
+                                plik.write(reinterpret_cast<char *>(&pp_arr[y]),sizeof(pp));
                             }
 
                         i = i + sizeof(pp);
@@ -2745,7 +2745,7 @@ void MainWindow::Save_PP(void)
                         int x;
                         x = (pp_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(static_cast<char *>(&pp_arr[x]),sizeof(pp));
+                        plik.write(reinterpret_cast<char *>(&pp_arr[x]),sizeof(pp));
                         add_new_pp = false;
                     }
                 }
@@ -2765,8 +2765,8 @@ void MainWindow::Save_PD(void)
     struct Producent pd_buf;
     plik.open(QFile::ReadWrite);
 
-    LONGLONG stop;
-    LONGLONG i;
+    unsigned int stop;
+    unsigned int i;
     int y;
 
     wchar_t buff[34];
@@ -2777,7 +2777,7 @@ void MainWindow::Save_PD(void)
         if (GetRecC_PD() == 0)
             {
                 plik.seek(0);
-                plik.write(static_cast<char *> (&pd_arr[y]),sizeof(pd));
+                plik.write(reinterpret_cast<char *> (&pd_arr[y]),sizeof(pd));
 
             }
         else if (GetRecC_PD() > 0)
@@ -2792,11 +2792,11 @@ void MainWindow::Save_PD(void)
                     for (i=0; i<stop; )
                     {
                         plik.seek(i);
-                        plik.read(static_cast<char *>(&pd_buf),sizeof(pd_buf));
+                        plik.read(reinterpret_cast<char *>(&pd_buf),sizeof(pd_buf));
                             if (pd_arr[y].ID == pd_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(static_cast<char *>(&pd_arr[y]),sizeof(pd));
+                                plik.write(reinterpret_cast<char *>(&pd_arr[y]),sizeof(pd));
                             }
 
                         i = i + sizeof(pd);
@@ -2807,7 +2807,7 @@ void MainWindow::Save_PD(void)
                         int x;
                         x = (pd_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(static_cast<char *>(&pd_arr[x]),sizeof(pd));
+                        plik.write(reinterpret_cast<char *>(&pd_arr[x]),sizeof(pd));
                         add_new_pd = false;
                     }
                 }
@@ -2880,15 +2880,15 @@ int MainWindow::Get_Hi_ID_PP(void)
 
     QFile plik(flm.pths.BF_PRP);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
         if (i == (stop - sizeof(oc)))
         {
-            plik.read(static_cast<char *>(&pp),sizeof(pp));
+            plik.read(reinterpret_cast<char *>(&pp),sizeof(pp));
             plik.close();
             return pp.ID;
         }
@@ -2906,15 +2906,15 @@ int MainWindow::Get_Hi_ID_PD(void)
 
     QFile plik(flm.pths.BF_PRD);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
         if (i == (stop - sizeof(oc)))
         {
-            plik.read(static_cast<char *>(&pd),sizeof(pd));
+            plik.read(reinterpret_cast<char *>(&pd),sizeof(pd));
             plik.close();
             return pd.ID;
         }
@@ -2928,8 +2928,8 @@ int MainWindow::GetRecC_PP(void)
 {
     QFile plik(flm.pths.BF_PRP);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     int rec_count = 0;
     struct Producent pp_t;
@@ -2941,7 +2941,7 @@ int MainWindow::GetRecC_PP(void)
     for (i = 0; i <stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&pp_t),sizeof(pp_t));
+        plik.read(reinterpret_cast<char *>(&pp_t),sizeof(pp_t));
         rec_count = rec_count + 1;
         i = i + sizeof(pp_t);
     }
@@ -2955,8 +2955,8 @@ int MainWindow::GetRecC_PD(void)
 {
     QFile plik(flm.pths.BF_PRD);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     int rec_count = 0;
     struct Dystrybutor pd_t;
@@ -2968,7 +2968,7 @@ int MainWindow::GetRecC_PD(void)
     for (i = 0; i <stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&pd_t),sizeof(pd_t));
+        plik.read(reinterpret_cast<char *>(&pd_t),sizeof(pd_t));
         rec_count = rec_count + 1;
         i = i + sizeof(pd_t);
     }
@@ -2978,14 +2978,14 @@ int MainWindow::GetRecC_PD(void)
 
 }
 
-void MainWindow::Usun_Rec_PP(LONGLONG pos)
+void MainWindow::Usun_Rec_PP(unsigned int pos)
 {
     struct Producent pp_src;
     pp.ID = 0;
     QFile plik(flm.pths.BF_PRP);
     plik.open(QFile::ReadOnly);
     plik.seek(pos);
-    plik.write(static_cast<char *>(&pp),sizeof(pp));
+    plik.write(reinterpret_cast<char *>(&pp),sizeof(pp));
 
     plik.rename(flm.pths.BF_PRP,(LPCTSTR)"BF_PRP.bf0");
 
@@ -2994,18 +2994,18 @@ void MainWindow::Usun_Rec_PP(LONGLONG pos)
     plik.Open(QFile::WriteOnly);
     QFile src_file((LPCTSTR)"BF_PRP.bf0");
     src_file.open(QFile::ReadOnly);
-    LONGLONG i;
+    unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
     {
         src_file.seek(i);
-        src_file.read(static_cast<char *>(&pp_src),sizeof(pp_src));
+        src_file.read(reinterpret_cast<char *>(&pp_src),sizeof(pp_src));
         if (pp_src.ID == 0)
         {
             i = i + sizeof(pp_src);
         }
         else
         {
-            plik.write(static_cast<char *>(&pp_src),sizeof(pp_src));
+            plik.write(reinterpret_cast<char *>(&pp_src),sizeof(pp_src));
             i = i + sizeof(pp_src);
         }
     }
@@ -3016,14 +3016,14 @@ void MainWindow::Usun_Rec_PP(LONGLONG pos)
 
 }
 
-void MainWindow::Usun_Rec_PD(LONGLONG pos)
+void MainWindow::Usun_Rec_PD(unsigned int pos)
 {
     struct Dystrybutor pd_src;
     pd.ID = 0;
     QFile plik(flm.pths.BF_PRD);
     plik.open(QFile::ReadOnly);
     plik.seek(pos);
-    plik.write(static_cast<char *>(&pd),sizeof(pd));
+    plik.write(reinterpret_cast<char *>(&pd),sizeof(pd));
 
     plik.rename(flm.pths.BF_PRD,(LPCTSTR)"BF_PRD.bf0");
 
@@ -3032,18 +3032,18 @@ void MainWindow::Usun_Rec_PD(LONGLONG pos)
     plik.Open(QFile::WriteOnly);
     QFile src_file((LPCTSTR)"BF_PRD.bf0");
     src_file.open(QFile::ReadOnly);
-    LONGLONG i;
+    unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
     {
         src_file.seek(i);
-        src_file.read(static_cast<char *>(&pd_src),sizeof(pd_src));
+        src_file.read(reinterpret_cast<char *>(&pd_src),sizeof(pd_src));
         if (pd_src.ID == 0)
         {
             i = i + sizeof(pd_src);
         }
         else
         {
-            plik.write(static_cast<char *>(&pd_src),sizeof(pd_src));
+            plik.write(reinterpret_cast<char *>(&pd_src),sizeof(pd_src));
             i = i + sizeof(pd_src);
         }
     }
@@ -3174,13 +3174,13 @@ void MainWindow::on_pushButton_BIBLIOWYPINDel_clicked()
 
     QFile plik(flm.pths.BF_WI);
     plik.Open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&wi),sizeof(wi));
+        plik.read(reinterpret_cast<char *>(&wi),sizeof(wi));
         if (delID == wi.ID)
         {
             plik.close();
@@ -3218,13 +3218,13 @@ void MainWindow::on_pushButton_BIBLIOWYPODINDel_clicked()
 
     QFile plik(flm.pths.BF_WO);
     plik.Open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&wo),sizeof(wo));
+        plik.read(reinterpret_cast<char *>(&wo),sizeof(wo));
         if (delID == wi.ID)
         {
             plik.close();
@@ -3262,13 +3262,13 @@ void MainWindow::on_pushButton_LZDel_clicked()
 
     QFile plik(flm.pths.BF_LZ);
     plik.Open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&lz),sizeof(lz));
+        plik.read(reinterpret_cast<char *>(&lz),sizeof(lz));
         if (delID == lz.ID)
         {
             plik.close();
@@ -3306,13 +3306,13 @@ void MainWindow::on_pushButton_OBDel_clicked()
 
     QFile plik(flm.pths.BF_OB);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&ob),sizeof(ob));
+        plik.read(reinterpret_cast<char *>(&ob),sizeof(ob));
         if (delID == ob.ID)
         {
             plik.close();
@@ -3390,13 +3390,13 @@ void MainWindow::on_pushButton_OC_Del_clicked()
 
     QFile plik(flm.pths.BF_OC);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&oc),sizeof(oc));
+        plik.read(reinterpret_cast<char *>(&oc),sizeof(oc));
         if (delID == oc.ID)
         {
             plik.close();
@@ -3446,13 +3446,13 @@ void MainWindow::on_pushButton_PRODDel_clicked()
 
     QFile plik(flm.pths.BF_PRP);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&pp),sizeof(pp));
+        plik.read(reinterpret_cast<char *>(&pp),sizeof(pp));
         if (delID == pp.ID)
         {
             plik.close();
@@ -3490,13 +3490,13 @@ void MainWindow::on_pushButton_DYSTDel_clicked()
 
     QFile plik(flm.pths.BF_PRD);
     plik.open(QFile::ReadOnly);
-    LONGLONG i;
-    LONGLONG stop;
+    unsigned int i;
+    unsigned int stop;
     stop = plik.size();
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(static_cast<char *>(&pd),sizeof(pd));
+        plik.read(reinterpret_cast<char *>(&pd),sizeof(pd));
         if (delID == pd.ID)
         {
             plik.close();

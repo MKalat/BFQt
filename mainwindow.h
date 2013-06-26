@@ -73,11 +73,11 @@ public:
     void Save_Ob(void);
     void Set_Obsada(void);
     void Add_New_Ob(int id);
-    int Get_Hi_ID(void);
-    int GetRecC(void);
+    int Get_Hi_ID_OB(void);
+    int GetRecC_OB(void);
     void Refresh_Ob(void);
     void Usun_Rec_OB(unsigned int pos);
-    void Fill_Oc(bool nie_kas);
+    void Fill_Oc();
     void Save_Oc(void);
     void ClearOcena(void);
     int Get_Hi_ID_OC(void);
@@ -93,6 +93,16 @@ public:
     void Save_PD(void);
     void Refresh_PP(void);
     void Refresh_PD(void);
+    int GetRecC_PP(void);
+    int GetRecC_PD(void);
+    void Add_New_PP(int id);
+    void Add_New_PD(int id);
+    void Usun_Rec_PP(unsigned int);
+    void Usun_Rec_PD(unsigned int);
+    int Get_Hi_ID_PP(void);
+    int Get_Hi_ID_PD(void);
+    void Fill_Opis(void);
+    void Clear_TABS(void);
 
 
     

@@ -13,10 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    eksportuj.cpp
 
 HEADERS  += mainwindow.h \
     film_ftbl_class.h \
-    Unmngd.h
+    Unmngd.h \
+    eksportuj.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    eksportuj.ui

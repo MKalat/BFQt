@@ -109,19 +109,6 @@
      </rect>
     </property>
    </widget>
-   <widget class="QFontComboBox" name="fontComboBox_GatSel">
-    <property name="geometry">
-     <rect>
-      <x>543</x>
-      <y>51</y>
-      <width>214</width>
-      <height>19</height>
-     </rect>
-    </property>
-    <property name="currentText">
-     <string/>
-    </property>
-   </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
@@ -132,7 +119,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -1104,17 +1091,14 @@
        <string>Rodzaj nośnika</string>
       </property>
      </widget>
-     <widget class="QFontComboBox" name="fontComboBox_DOE_Nosnik">
+     <widget class="QLineEdit" name="lineEdit_DOE_Nosnik">
       <property name="geometry">
        <rect>
         <x>324</x>
         <y>258</y>
-        <width>112</width>
-        <height>22</height>
+        <width>113</width>
+        <height>20</height>
        </rect>
-      </property>
-      <property name="currentText">
-       <string/>
       </property>
      </widget>
     </widget>
@@ -2104,6 +2088,91 @@
     <property name="scaledContents">
      <bool>true</bool>
     </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox_GatSel">
+    <property name="geometry">
+     <rect>
+      <x>573</x>
+      <y>51</y>
+      <width>187</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Akcja</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Kryminał</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Sensacyjny</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Komedia</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Dramat</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Fabularny</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Dokumentalny</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Paradokument</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Reportaż</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Sci-Fi</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Fantastyka</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Bajka</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Kreskówka</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Erotyka</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Porno</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

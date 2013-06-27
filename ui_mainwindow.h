@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Thu 27. Jun 02:50:58 2013
+** Created: Thu 27. Jun 02:33:34 2013
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -11,23 +11,23 @@
 #define UI_MAINWINDOW_H
 
 #include <QtCore/QVariant>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
-#include <QtGui/QButtonGroup>
-#include <QtGui/QComboBox>
-#include <QtGui/QGroupBox>
-#include <QtGui/QHeaderView>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
-#include <QtGui/QMainWindow>
-#include <QtGui/QMenu>
-#include <QtGui/QMenuBar>
-#include <QtGui/QPushButton>
-#include <QtGui/QStatusBar>
-#include <QtGui/QTabWidget>
-#include <QtGui/QTableWidget>
-#include <QtGui/QToolBar>
-#include <QtGui/QWidget>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QToolBar>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -860,227 +860,227 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Biblioteka Film\303\263w", 0, QApplication::UnicodeUTF8));
-        actionOtw_rz_Utw_rz_baze_danych->setText(QApplication::translate("MainWindow", "Otw\303\263rz / Utw\303\263rz baze danych", 0, QApplication::UnicodeUTF8));
-        actionEksportuj->setText(QApplication::translate("MainWindow", "Eksportuj", 0, QApplication::UnicodeUTF8));
-        actionWyszukaj->setText(QApplication::translate("MainWindow", "Wyszukaj", 0, QApplication::UnicodeUTF8));
-        actionKoniec->setText(QApplication::translate("MainWindow", "Koniec", 0, QApplication::UnicodeUTF8));
-        actionDrukuj->setText(QApplication::translate("MainWindow", "Drukuj", 0, QApplication::UnicodeUTF8));
-        actionPomoc->setText(QApplication::translate("MainWindow", "Pomoc", 0, QApplication::UnicodeUTF8));
-        actionSprawd_aktualizacje->setText(QApplication::translate("MainWindow", "Sprawd\305\272 aktualizacje", 0, QApplication::UnicodeUTF8));
-        actionO_programie->setText(QApplication::translate("MainWindow", "O programie", 0, QApplication::UnicodeUTF8));
-        pushButton_LoadPic->setText(QApplication::translate("MainWindow", "Za\305\202aduj", 0, QApplication::UnicodeUTF8));
-        pushButton_DelPic->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("MainWindow", "Tytu\305\202", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("MainWindow", "Tytu\305\202 orygina\305\202u", 0, QApplication::UnicodeUTF8));
-        label_3->setText(QApplication::translate("MainWindow", "Gatunek", 0, QApplication::UnicodeUTF8));
-        label_45->setText(QApplication::translate("MainWindow", "Zasoby po\305\233wi\304\231cone tytu\305\202owi", 0, QApplication::UnicodeUTF8));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Biblioteka Film\303\263w", 0));
+        actionOtw_rz_Utw_rz_baze_danych->setText(QApplication::translate("MainWindow", "Otw\303\263rz / Utw\303\263rz baze danych", 0));
+        actionEksportuj->setText(QApplication::translate("MainWindow", "Eksportuj", 0));
+        actionWyszukaj->setText(QApplication::translate("MainWindow", "Wyszukaj", 0));
+        actionKoniec->setText(QApplication::translate("MainWindow", "Koniec", 0));
+        actionDrukuj->setText(QApplication::translate("MainWindow", "Drukuj", 0));
+        actionPomoc->setText(QApplication::translate("MainWindow", "Pomoc", 0));
+        actionSprawd_aktualizacje->setText(QApplication::translate("MainWindow", "Sprawd\305\272 aktualizacje", 0));
+        actionO_programie->setText(QApplication::translate("MainWindow", "O programie", 0));
+        pushButton_LoadPic->setText(QApplication::translate("MainWindow", "Za\305\202aduj", 0));
+        pushButton_DelPic->setText(QApplication::translate("MainWindow", "Usu\305\204", 0));
+        label->setText(QApplication::translate("MainWindow", "Tytu\305\202", 0));
+        label_2->setText(QApplication::translate("MainWindow", "Tytu\305\202 orygina\305\202u", 0));
+        label_3->setText(QApplication::translate("MainWindow", "Gatunek", 0));
+        label_45->setText(QApplication::translate("MainWindow", "Zasoby po\305\233wi\304\231cone tytu\305\202owi", 0));
         QTableWidgetItem *___qtablewidgetitem = tableWidget_OC->horizontalHeaderItem(0);
-        ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Nazwa", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem->setText(QApplication::translate("MainWindow", "Nazwa", 0));
         QTableWidgetItem *___qtablewidgetitem1 = tableWidget_OC->horizontalHeaderItem(1);
-        ___qtablewidgetitem1->setText(QApplication::translate("MainWindow", "Tytu\305\202 tekstu", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem1->setText(QApplication::translate("MainWindow", "Tytu\305\202 tekstu", 0));
         QTableWidgetItem *___qtablewidgetitem2 = tableWidget_OC->horizontalHeaderItem(2);
-        ___qtablewidgetitem2->setText(QApplication::translate("MainWindow", "Autor tekstu", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem2->setText(QApplication::translate("MainWindow", "Autor tekstu", 0));
         QTableWidgetItem *___qtablewidgetitem3 = tableWidget_OC->horizontalHeaderItem(3);
-        ___qtablewidgetitem3->setText(QApplication::translate("MainWindow", "Strona WWW", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem3->setText(QApplication::translate("MainWindow", "Strona WWW", 0));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget_OC->horizontalHeaderItem(4);
-        ___qtablewidgetitem4->setText(QApplication::translate("MainWindow", "Ocena krytyka", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem4->setText(QApplication::translate("MainWindow", "Ocena krytyka", 0));
         QTableWidgetItem *___qtablewidgetitem5 = tableWidget_OC->horizontalHeaderItem(5);
-        ___qtablewidgetitem5->setText(QApplication::translate("MainWindow", "ID", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem5->setText(QApplication::translate("MainWindow", "ID", 0));
         QTableWidgetItem *___qtablewidgetitem6 = tableWidget_OC->horizontalHeaderItem(6);
-        ___qtablewidgetitem6->setText(QApplication::translate("MainWindow", "IDPDB", 0, QApplication::UnicodeUTF8));
-        pushButton_OC_New->setText(QApplication::translate("MainWindow", "Nowy", 0, QApplication::UnicodeUTF8));
-        pushButton_OC_Save->setText(QApplication::translate("MainWindow", "Zapisz", 0, QApplication::UnicodeUTF8));
-        pushButton_OC_Del->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
-        groupBox_6->setTitle(QApplication::translate("MainWindow", "Ocena w\305\202asna", 0, QApplication::UnicodeUTF8));
-        label_46->setText(QApplication::translate("MainWindow", "\305\232ciezka d\305\272wi\304\231kowa", 0, QApplication::UnicodeUTF8));
-        label_47->setText(QApplication::translate("MainWindow", "Obsada", 0, QApplication::UnicodeUTF8));
-        label_48->setText(QApplication::translate("MainWindow", "Ca\305\202o\305\233\304\207", 0, QApplication::UnicodeUTF8));
-        label_49->setText(QApplication::translate("MainWindow", "Zdj\304\231cia", 0, QApplication::UnicodeUTF8));
-        label_50->setText(QApplication::translate("MainWindow", "Warto\305\233\304\207 artystyczna", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Ocena", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem6->setText(QApplication::translate("MainWindow", "IDPDB", 0));
+        pushButton_OC_New->setText(QApplication::translate("MainWindow", "Nowy", 0));
+        pushButton_OC_Save->setText(QApplication::translate("MainWindow", "Zapisz", 0));
+        pushButton_OC_Del->setText(QApplication::translate("MainWindow", "Usu\305\204", 0));
+        groupBox_6->setTitle(QApplication::translate("MainWindow", "Ocena w\305\202asna", 0));
+        label_46->setText(QApplication::translate("MainWindow", "\305\232ciezka d\305\272wi\304\231kowa", 0));
+        label_47->setText(QApplication::translate("MainWindow", "Obsada", 0));
+        label_48->setText(QApplication::translate("MainWindow", "Ca\305\202o\305\233\304\207", 0));
+        label_49->setText(QApplication::translate("MainWindow", "Zdj\304\231cia", 0));
+        label_50->setText(QApplication::translate("MainWindow", "Warto\305\233\304\207 artystyczna", 0));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Ocena", 0));
         QTableWidgetItem *___qtablewidgetitem7 = tableWidget_Obsada->horizontalHeaderItem(0);
-        ___qtablewidgetitem7->setText(QApplication::translate("MainWindow", "Imi\304\231 i Nazwisko", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem7->setText(QApplication::translate("MainWindow", "Imi\304\231 i Nazwisko", 0));
         QTableWidgetItem *___qtablewidgetitem8 = tableWidget_Obsada->horizontalHeaderItem(1);
-        ___qtablewidgetitem8->setText(QApplication::translate("MainWindow", "Rola", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem8->setText(QApplication::translate("MainWindow", "Rola", 0));
         QTableWidgetItem *___qtablewidgetitem9 = tableWidget_Obsada->horizontalHeaderItem(2);
-        ___qtablewidgetitem9->setText(QApplication::translate("MainWindow", "ID", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem9->setText(QApplication::translate("MainWindow", "ID", 0));
         QTableWidgetItem *___qtablewidgetitem10 = tableWidget_Obsada->horizontalHeaderItem(3);
-        ___qtablewidgetitem10->setText(QApplication::translate("MainWindow", "IDPDB", 0, QApplication::UnicodeUTF8));
-        pushButton_OBSave->setText(QApplication::translate("MainWindow", "Zapisz", 0, QApplication::UnicodeUTF8));
-        pushButton_OBDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
-        pushButton_OB_new->setText(QApplication::translate("MainWindow", "Nowy", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(obsada), QApplication::translate("MainWindow", "Obsada", 0, QApplication::UnicodeUTF8));
-        label_6->setText(QApplication::translate("MainWindow", "Produkcja", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem10->setText(QApplication::translate("MainWindow", "IDPDB", 0));
+        pushButton_OBSave->setText(QApplication::translate("MainWindow", "Zapisz", 0));
+        pushButton_OBDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0));
+        pushButton_OB_new->setText(QApplication::translate("MainWindow", "Nowy", 0));
+        tabWidget->setTabText(tabWidget->indexOf(obsada), QApplication::translate("MainWindow", "Obsada", 0));
+        label_6->setText(QApplication::translate("MainWindow", "Produkcja", 0));
         QTableWidgetItem *___qtablewidgetitem11 = tableWidget_Prod->horizontalHeaderItem(0);
-        ___qtablewidgetitem11->setText(QApplication::translate("MainWindow", "Nazwa firmy", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem11->setText(QApplication::translate("MainWindow", "Nazwa firmy", 0));
         QTableWidgetItem *___qtablewidgetitem12 = tableWidget_Prod->horizontalHeaderItem(1);
-        ___qtablewidgetitem12->setText(QApplication::translate("MainWindow", "Adres", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem12->setText(QApplication::translate("MainWindow", "Adres", 0));
         QTableWidgetItem *___qtablewidgetitem13 = tableWidget_Prod->horizontalHeaderItem(2);
-        ___qtablewidgetitem13->setText(QApplication::translate("MainWindow", "Telefon", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem13->setText(QApplication::translate("MainWindow", "Telefon", 0));
         QTableWidgetItem *___qtablewidgetitem14 = tableWidget_Prod->horizontalHeaderItem(3);
-        ___qtablewidgetitem14->setText(QApplication::translate("MainWindow", "Fax", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem14->setText(QApplication::translate("MainWindow", "Fax", 0));
         QTableWidgetItem *___qtablewidgetitem15 = tableWidget_Prod->horizontalHeaderItem(4);
-        ___qtablewidgetitem15->setText(QApplication::translate("MainWindow", "E-mail", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem15->setText(QApplication::translate("MainWindow", "E-mail", 0));
         QTableWidgetItem *___qtablewidgetitem16 = tableWidget_Prod->horizontalHeaderItem(5);
-        ___qtablewidgetitem16->setText(QApplication::translate("MainWindow", "Strona WWW", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem16->setText(QApplication::translate("MainWindow", "Strona WWW", 0));
         QTableWidgetItem *___qtablewidgetitem17 = tableWidget_Prod->horizontalHeaderItem(6);
-        ___qtablewidgetitem17->setText(QApplication::translate("MainWindow", "ID", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem17->setText(QApplication::translate("MainWindow", "ID", 0));
         QTableWidgetItem *___qtablewidgetitem18 = tableWidget_Prod->horizontalHeaderItem(7);
-        ___qtablewidgetitem18->setText(QApplication::translate("MainWindow", "IDPDB", 0, QApplication::UnicodeUTF8));
-        pushButton_PRODSave->setText(QApplication::translate("MainWindow", "Zapisz", 0, QApplication::UnicodeUTF8));
-        pushButton_PRODDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem18->setText(QApplication::translate("MainWindow", "IDPDB", 0));
+        pushButton_PRODSave->setText(QApplication::translate("MainWindow", "Zapisz", 0));
+        pushButton_PRODDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0));
         QTableWidgetItem *___qtablewidgetitem19 = tableWidget_Dystr->horizontalHeaderItem(0);
-        ___qtablewidgetitem19->setText(QApplication::translate("MainWindow", "Nazwa firmy", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem19->setText(QApplication::translate("MainWindow", "Nazwa firmy", 0));
         QTableWidgetItem *___qtablewidgetitem20 = tableWidget_Dystr->horizontalHeaderItem(1);
-        ___qtablewidgetitem20->setText(QApplication::translate("MainWindow", "Adres", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem20->setText(QApplication::translate("MainWindow", "Adres", 0));
         QTableWidgetItem *___qtablewidgetitem21 = tableWidget_Dystr->horizontalHeaderItem(2);
-        ___qtablewidgetitem21->setText(QApplication::translate("MainWindow", "Telefon", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem21->setText(QApplication::translate("MainWindow", "Telefon", 0));
         QTableWidgetItem *___qtablewidgetitem22 = tableWidget_Dystr->horizontalHeaderItem(3);
-        ___qtablewidgetitem22->setText(QApplication::translate("MainWindow", "Fax", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem22->setText(QApplication::translate("MainWindow", "Fax", 0));
         QTableWidgetItem *___qtablewidgetitem23 = tableWidget_Dystr->horizontalHeaderItem(4);
-        ___qtablewidgetitem23->setText(QApplication::translate("MainWindow", "E-mail", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem23->setText(QApplication::translate("MainWindow", "E-mail", 0));
         QTableWidgetItem *___qtablewidgetitem24 = tableWidget_Dystr->horizontalHeaderItem(5);
-        ___qtablewidgetitem24->setText(QApplication::translate("MainWindow", "Strona WWW", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem24->setText(QApplication::translate("MainWindow", "Strona WWW", 0));
         QTableWidgetItem *___qtablewidgetitem25 = tableWidget_Dystr->horizontalHeaderItem(6);
-        ___qtablewidgetitem25->setText(QApplication::translate("MainWindow", "ID", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem25->setText(QApplication::translate("MainWindow", "ID", 0));
         QTableWidgetItem *___qtablewidgetitem26 = tableWidget_Dystr->horizontalHeaderItem(7);
-        ___qtablewidgetitem26->setText(QApplication::translate("MainWindow", "IDPDB", 0, QApplication::UnicodeUTF8));
-        label_7->setText(QApplication::translate("MainWindow", "Dystrybucja", 0, QApplication::UnicodeUTF8));
-        pushButton_DYSTSave->setText(QApplication::translate("MainWindow", "Zapisz", 0, QApplication::UnicodeUTF8));
-        pushButton_DYSTDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
-        pushButto_P_New->setText(QApplication::translate("MainWindow", "Nowy", 0, QApplication::UnicodeUTF8));
-        pushButton_D_New->setText(QApplication::translate("MainWindow", "Nowy", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(Produkcja), QApplication::translate("MainWindow", "Produkcja", 0, QApplication::UnicodeUTF8));
-        groupBox->setTitle(QApplication::translate("MainWindow", "W\305\202a\305\233ciciel", 0, QApplication::UnicodeUTF8));
-        label_8->setText(QApplication::translate("MainWindow", "Imi\304\231", 0, QApplication::UnicodeUTF8));
-        label_9->setText(QApplication::translate("MainWindow", "Nazwisko", 0, QApplication::UnicodeUTF8));
-        label_10->setText(QApplication::translate("MainWindow", "Adres", 0, QApplication::UnicodeUTF8));
-        groupBox_2->setTitle(QApplication::translate("MainWindow", "Dane sklepu", 0, QApplication::UnicodeUTF8));
-        label_11->setText(QApplication::translate("MainWindow", "Nazwa", 0, QApplication::UnicodeUTF8));
-        label_12->setText(QApplication::translate("MainWindow", "Telefon", 0, QApplication::UnicodeUTF8));
-        label_13->setText(QApplication::translate("MainWindow", "Adres", 0, QApplication::UnicodeUTF8));
-        label_14->setText(QApplication::translate("MainWindow", "Strona WWW", 0, QApplication::UnicodeUTF8));
-        label_15->setText(QApplication::translate("MainWindow", "Fax", 0, QApplication::UnicodeUTF8));
-        label_16->setText(QApplication::translate("MainWindow", "E - mail", 0, QApplication::UnicodeUTF8));
-        label_17->setText(QApplication::translate("MainWindow", "Cena", 0, QApplication::UnicodeUTF8));
-        label_18->setText(QApplication::translate("MainWindow", "Warto\305\233c aktualna", 0, QApplication::UnicodeUTF8));
-        label_19->setText(QApplication::translate("MainWindow", "Data zakupu", 0, QApplication::UnicodeUTF8));
-        label_20->setText(QApplication::translate("MainWindow", "Data utraty", 0, QApplication::UnicodeUTF8));
-        label_21->setText(QApplication::translate("MainWindow", "Data skatalogowania", 0, QApplication::UnicodeUTF8));
-        label_22->setText(QApplication::translate("MainWindow", "Nr katalogowy", 0, QApplication::UnicodeUTF8));
-        label_23->setText(QApplication::translate("MainWindow", "Rodzaj no\305\233nika", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(DOE), QApplication::translate("MainWindow", "Dane o egzemplarzu", 0, QApplication::UnicodeUTF8));
-        label_24->setText(QApplication::translate("MainWindow", "Rok produkcji", 0, QApplication::UnicodeUTF8));
-        label_25->setText(QApplication::translate("MainWindow", "Czas projekcji", 0, QApplication::UnicodeUTF8));
-        label_26->setText(QApplication::translate("MainWindow", "System kodowania obrazu", 0, QApplication::UnicodeUTF8));
-        label_27->setText(QApplication::translate("MainWindow", "Data premiery", 0, QApplication::UnicodeUTF8));
-        label_28->setText(QApplication::translate("MainWindow", "Format wy\305\233wietlania", 0, QApplication::UnicodeUTF8));
-        label_29->setText(QApplication::translate("MainWindow", "J\304\231zyk lektora", 0, QApplication::UnicodeUTF8));
-        label_30->setText(QApplication::translate("MainWindow", "J\304\231zyk napis\303\263w", 0, QApplication::UnicodeUTF8));
-        groupBox_3->setTitle(QApplication::translate("MainWindow", "Kodek wideo", 0, QApplication::UnicodeUTF8));
-        label_31->setText(QApplication::translate("MainWindow", "Nazwa", 0, QApplication::UnicodeUTF8));
-        label_32->setText(QApplication::translate("MainWindow", "Typ", 0, QApplication::UnicodeUTF8));
-        label_33->setText(QApplication::translate("MainWindow", "Wersja", 0, QApplication::UnicodeUTF8));
-        groupBox_4->setTitle(QApplication::translate("MainWindow", "Kodek audio", 0, QApplication::UnicodeUTF8));
-        label_34->setText(QApplication::translate("MainWindow", "Nazwa", 0, QApplication::UnicodeUTF8));
-        label_35->setText(QApplication::translate("MainWindow", "Typ", 0, QApplication::UnicodeUTF8));
-        label_36->setText(QApplication::translate("MainWindow", "Wersja", 0, QApplication::UnicodeUTF8));
-        groupBox_5->setTitle(QApplication::translate("MainWindow", "Zabezpieczenia", 0, QApplication::UnicodeUTF8));
-        label_37->setText(QApplication::translate("MainWindow", "Nazwa", 0, QApplication::UnicodeUTF8));
-        label_38->setText(QApplication::translate("MainWindow", "Typ", 0, QApplication::UnicodeUTF8));
-        label_39->setText(QApplication::translate("MainWindow", "Wersja", 0, QApplication::UnicodeUTF8));
-        label_40->setText(QApplication::translate("MainWindow", "Kraj produkcji filmu", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem26->setText(QApplication::translate("MainWindow", "IDPDB", 0));
+        label_7->setText(QApplication::translate("MainWindow", "Dystrybucja", 0));
+        pushButton_DYSTSave->setText(QApplication::translate("MainWindow", "Zapisz", 0));
+        pushButton_DYSTDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0));
+        pushButto_P_New->setText(QApplication::translate("MainWindow", "Nowy", 0));
+        pushButton_D_New->setText(QApplication::translate("MainWindow", "Nowy", 0));
+        tabWidget->setTabText(tabWidget->indexOf(Produkcja), QApplication::translate("MainWindow", "Produkcja", 0));
+        groupBox->setTitle(QApplication::translate("MainWindow", "W\305\202a\305\233ciciel", 0));
+        label_8->setText(QApplication::translate("MainWindow", "Imi\304\231", 0));
+        label_9->setText(QApplication::translate("MainWindow", "Nazwisko", 0));
+        label_10->setText(QApplication::translate("MainWindow", "Adres", 0));
+        groupBox_2->setTitle(QApplication::translate("MainWindow", "Dane sklepu", 0));
+        label_11->setText(QApplication::translate("MainWindow", "Nazwa", 0));
+        label_12->setText(QApplication::translate("MainWindow", "Telefon", 0));
+        label_13->setText(QApplication::translate("MainWindow", "Adres", 0));
+        label_14->setText(QApplication::translate("MainWindow", "Strona WWW", 0));
+        label_15->setText(QApplication::translate("MainWindow", "Fax", 0));
+        label_16->setText(QApplication::translate("MainWindow", "E - mail", 0));
+        label_17->setText(QApplication::translate("MainWindow", "Cena", 0));
+        label_18->setText(QApplication::translate("MainWindow", "Warto\305\233c aktualna", 0));
+        label_19->setText(QApplication::translate("MainWindow", "Data zakupu", 0));
+        label_20->setText(QApplication::translate("MainWindow", "Data utraty", 0));
+        label_21->setText(QApplication::translate("MainWindow", "Data skatalogowania", 0));
+        label_22->setText(QApplication::translate("MainWindow", "Nr katalogowy", 0));
+        label_23->setText(QApplication::translate("MainWindow", "Rodzaj no\305\233nika", 0));
+        tabWidget->setTabText(tabWidget->indexOf(DOE), QApplication::translate("MainWindow", "Dane o egzemplarzu", 0));
+        label_24->setText(QApplication::translate("MainWindow", "Rok produkcji", 0));
+        label_25->setText(QApplication::translate("MainWindow", "Czas projekcji", 0));
+        label_26->setText(QApplication::translate("MainWindow", "System kodowania obrazu", 0));
+        label_27->setText(QApplication::translate("MainWindow", "Data premiery", 0));
+        label_28->setText(QApplication::translate("MainWindow", "Format wy\305\233wietlania", 0));
+        label_29->setText(QApplication::translate("MainWindow", "J\304\231zyk lektora", 0));
+        label_30->setText(QApplication::translate("MainWindow", "J\304\231zyk napis\303\263w", 0));
+        groupBox_3->setTitle(QApplication::translate("MainWindow", "Kodek wideo", 0));
+        label_31->setText(QApplication::translate("MainWindow", "Nazwa", 0));
+        label_32->setText(QApplication::translate("MainWindow", "Typ", 0));
+        label_33->setText(QApplication::translate("MainWindow", "Wersja", 0));
+        groupBox_4->setTitle(QApplication::translate("MainWindow", "Kodek audio", 0));
+        label_34->setText(QApplication::translate("MainWindow", "Nazwa", 0));
+        label_35->setText(QApplication::translate("MainWindow", "Typ", 0));
+        label_36->setText(QApplication::translate("MainWindow", "Wersja", 0));
+        groupBox_5->setTitle(QApplication::translate("MainWindow", "Zabezpieczenia", 0));
+        label_37->setText(QApplication::translate("MainWindow", "Nazwa", 0));
+        label_38->setText(QApplication::translate("MainWindow", "Typ", 0));
+        label_39->setText(QApplication::translate("MainWindow", "Wersja", 0));
+        label_40->setText(QApplication::translate("MainWindow", "Kraj produkcji filmu", 0));
         QTableWidgetItem *___qtablewidgetitem27 = tableWidget_IOF_LZ->horizontalHeaderItem(0);
-        ___qtablewidgetitem27->setText(QApplication::translate("MainWindow", "Nazwa obiektu", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem27->setText(QApplication::translate("MainWindow", "Nazwa obiektu", 0));
         QTableWidgetItem *___qtablewidgetitem28 = tableWidget_IOF_LZ->horizontalHeaderItem(1);
-        ___qtablewidgetitem28->setText(QApplication::translate("MainWindow", "Kraj", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem28->setText(QApplication::translate("MainWindow", "Kraj", 0));
         QTableWidgetItem *___qtablewidgetitem29 = tableWidget_IOF_LZ->horizontalHeaderItem(2);
-        ___qtablewidgetitem29->setText(QApplication::translate("MainWindow", "Miejscowo\305\233\304\207", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem29->setText(QApplication::translate("MainWindow", "Miejscowo\305\233\304\207", 0));
         QTableWidgetItem *___qtablewidgetitem30 = tableWidget_IOF_LZ->horizontalHeaderItem(3);
-        ___qtablewidgetitem30->setText(QApplication::translate("MainWindow", "Region", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem30->setText(QApplication::translate("MainWindow", "Region", 0));
         QTableWidgetItem *___qtablewidgetitem31 = tableWidget_IOF_LZ->horizontalHeaderItem(4);
-        ___qtablewidgetitem31->setText(QApplication::translate("MainWindow", "Pora roku", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem31->setText(QApplication::translate("MainWindow", "Pora roku", 0));
         QTableWidgetItem *___qtablewidgetitem32 = tableWidget_IOF_LZ->horizontalHeaderItem(5);
-        ___qtablewidgetitem32->setText(QApplication::translate("MainWindow", "Data", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem32->setText(QApplication::translate("MainWindow", "Data", 0));
         QTableWidgetItem *___qtablewidgetitem33 = tableWidget_IOF_LZ->horizontalHeaderItem(6);
-        ___qtablewidgetitem33->setText(QApplication::translate("MainWindow", "ID", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem33->setText(QApplication::translate("MainWindow", "ID", 0));
         QTableWidgetItem *___qtablewidgetitem34 = tableWidget_IOF_LZ->horizontalHeaderItem(7);
-        ___qtablewidgetitem34->setText(QApplication::translate("MainWindow", "IDPDB", 0, QApplication::UnicodeUTF8));
-        label_41->setText(QApplication::translate("MainWindow", "Lokalizacje zdj\304\231ciowe", 0, QApplication::UnicodeUTF8));
-        pushButton_LZSave->setText(QApplication::translate("MainWindow", "Zapisz", 0, QApplication::UnicodeUTF8));
-        pushButton_LZDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
-        pushButton_LZ_New->setText(QApplication::translate("MainWindow", "Nowy", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(IOF), QApplication::translate("MainWindow", "Info o filmie", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem34->setText(QApplication::translate("MainWindow", "IDPDB", 0));
+        label_41->setText(QApplication::translate("MainWindow", "Lokalizacje zdj\304\231ciowe", 0));
+        pushButton_LZSave->setText(QApplication::translate("MainWindow", "Zapisz", 0));
+        pushButton_LZDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0));
+        pushButton_LZ_New->setText(QApplication::translate("MainWindow", "Nowy", 0));
+        tabWidget->setTabText(tabWidget->indexOf(IOF), QApplication::translate("MainWindow", "Info o filmie", 0));
         QTableWidgetItem *___qtablewidgetitem35 = tableWidget_BIBLIO_WYPIN->horizontalHeaderItem(0);
-        ___qtablewidgetitem35->setText(QApplication::translate("MainWindow", "Osoba", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem35->setText(QApplication::translate("MainWindow", "Osoba", 0));
         QTableWidgetItem *___qtablewidgetitem36 = tableWidget_BIBLIO_WYPIN->horizontalHeaderItem(1);
-        ___qtablewidgetitem36->setText(QApplication::translate("MainWindow", "Data wypo\305\274yczenia", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem36->setText(QApplication::translate("MainWindow", "Data wypo\305\274yczenia", 0));
         QTableWidgetItem *___qtablewidgetitem37 = tableWidget_BIBLIO_WYPIN->horizontalHeaderItem(2);
-        ___qtablewidgetitem37->setText(QApplication::translate("MainWindow", "Data oddania", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem37->setText(QApplication::translate("MainWindow", "Data oddania", 0));
         QTableWidgetItem *___qtablewidgetitem38 = tableWidget_BIBLIO_WYPIN->horizontalHeaderItem(3);
-        ___qtablewidgetitem38->setText(QApplication::translate("MainWindow", "Stan przed wypo\305\274yczeniem", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem38->setText(QApplication::translate("MainWindow", "Stan przed wypo\305\274yczeniem", 0));
         QTableWidgetItem *___qtablewidgetitem39 = tableWidget_BIBLIO_WYPIN->horizontalHeaderItem(4);
-        ___qtablewidgetitem39->setText(QApplication::translate("MainWindow", "Stan po oddaniu", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem39->setText(QApplication::translate("MainWindow", "Stan po oddaniu", 0));
         QTableWidgetItem *___qtablewidgetitem40 = tableWidget_BIBLIO_WYPIN->horizontalHeaderItem(5);
-        ___qtablewidgetitem40->setText(QApplication::translate("MainWindow", "ID", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem40->setText(QApplication::translate("MainWindow", "ID", 0));
         QTableWidgetItem *___qtablewidgetitem41 = tableWidget_BIBLIO_WYPIN->horizontalHeaderItem(6);
-        ___qtablewidgetitem41->setText(QApplication::translate("MainWindow", "IDPDB", 0, QApplication::UnicodeUTF8));
-        label_42->setText(QApplication::translate("MainWindow", "Wypo\305\274yczenia innym osobom", 0, QApplication::UnicodeUTF8));
-        pushButton_BIBLIOWYPISave->setText(QApplication::translate("MainWindow", "Zapisz", 0, QApplication::UnicodeUTF8));
-        pushButton_BIBLIOWYPINDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem41->setText(QApplication::translate("MainWindow", "IDPDB", 0));
+        label_42->setText(QApplication::translate("MainWindow", "Wypo\305\274yczenia innym osobom", 0));
+        pushButton_BIBLIOWYPISave->setText(QApplication::translate("MainWindow", "Zapisz", 0));
+        pushButton_BIBLIOWYPINDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0));
         QTableWidgetItem *___qtablewidgetitem42 = tableWidget_BIBLIO_WYPODIN->horizontalHeaderItem(0);
-        ___qtablewidgetitem42->setText(QApplication::translate("MainWindow", "Osoba", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem42->setText(QApplication::translate("MainWindow", "Osoba", 0));
         QTableWidgetItem *___qtablewidgetitem43 = tableWidget_BIBLIO_WYPODIN->horizontalHeaderItem(1);
-        ___qtablewidgetitem43->setText(QApplication::translate("MainWindow", "Data wypo\305\274yczenia", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem43->setText(QApplication::translate("MainWindow", "Data wypo\305\274yczenia", 0));
         QTableWidgetItem *___qtablewidgetitem44 = tableWidget_BIBLIO_WYPODIN->horizontalHeaderItem(2);
-        ___qtablewidgetitem44->setText(QApplication::translate("MainWindow", "Data oddania", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem44->setText(QApplication::translate("MainWindow", "Data oddania", 0));
         QTableWidgetItem *___qtablewidgetitem45 = tableWidget_BIBLIO_WYPODIN->horizontalHeaderItem(3);
-        ___qtablewidgetitem45->setText(QApplication::translate("MainWindow", "Stan przed wypo\305\274yczeniem", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem45->setText(QApplication::translate("MainWindow", "Stan przed wypo\305\274yczeniem", 0));
         QTableWidgetItem *___qtablewidgetitem46 = tableWidget_BIBLIO_WYPODIN->horizontalHeaderItem(4);
-        ___qtablewidgetitem46->setText(QApplication::translate("MainWindow", "Stan po oddaniu", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem46->setText(QApplication::translate("MainWindow", "Stan po oddaniu", 0));
         QTableWidgetItem *___qtablewidgetitem47 = tableWidget_BIBLIO_WYPODIN->horizontalHeaderItem(5);
-        ___qtablewidgetitem47->setText(QApplication::translate("MainWindow", "ID", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem47->setText(QApplication::translate("MainWindow", "ID", 0));
         QTableWidgetItem *___qtablewidgetitem48 = tableWidget_BIBLIO_WYPODIN->horizontalHeaderItem(6);
-        ___qtablewidgetitem48->setText(QApplication::translate("MainWindow", "IDPDB", 0, QApplication::UnicodeUTF8));
-        pushButton_BIBLIOWYPODINSave->setText(QApplication::translate("MainWindow", "Zapisz", 0, QApplication::UnicodeUTF8));
-        pushButton_BIBLIOWYPODINDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
-        label_43->setText(QApplication::translate("MainWindow", "Wypo\305\274yczenia od innych os\303\263b", 0, QApplication::UnicodeUTF8));
-        pushButton_B_WYPIN_New->setText(QApplication::translate("MainWindow", "Nowy", 0, QApplication::UnicodeUTF8));
-        pushButton_B_WYPODIN_New->setText(QApplication::translate("MainWindow", "Nowy", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(BIBLIO), QApplication::translate("MainWindow", "Bibliotekarz", 0, QApplication::UnicodeUTF8));
-        pushButton_First->setText(QApplication::translate("MainWindow", "|<", 0, QApplication::UnicodeUTF8));
-        pushButton_Prev->setText(QApplication::translate("MainWindow", "<", 0, QApplication::UnicodeUTF8));
-        pushButton_Next->setText(QApplication::translate("MainWindow", ">", 0, QApplication::UnicodeUTF8));
-        pushButton_Last->setText(QApplication::translate("MainWindow", ">|", 0, QApplication::UnicodeUTF8));
-        pushButton_New->setText(QApplication::translate("MainWindow", "Nowy", 0, QApplication::UnicodeUTF8));
-        pushButton_Save->setText(QApplication::translate("MainWindow", "Zapisz", 0, QApplication::UnicodeUTF8));
-        pushButton_Del->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
-        pushButton_IntWiz->setText(QApplication::translate("MainWindow", "Pobierz z Internetu", 0, QApplication::UnicodeUTF8));
-        label_4->setText(QApplication::translate("MainWindow", "Rekord", 0, QApplication::UnicodeUTF8));
-        label_5->setText(QApplication::translate("MainWindow", "z", 0, QApplication::UnicodeUTF8));
-        label_44->setText(QApplication::translate("MainWindow", "ID", 0, QApplication::UnicodeUTF8));
+        ___qtablewidgetitem48->setText(QApplication::translate("MainWindow", "IDPDB", 0));
+        pushButton_BIBLIOWYPODINSave->setText(QApplication::translate("MainWindow", "Zapisz", 0));
+        pushButton_BIBLIOWYPODINDel->setText(QApplication::translate("MainWindow", "Usu\305\204", 0));
+        label_43->setText(QApplication::translate("MainWindow", "Wypo\305\274yczenia od innych os\303\263b", 0));
+        pushButton_B_WYPIN_New->setText(QApplication::translate("MainWindow", "Nowy", 0));
+        pushButton_B_WYPODIN_New->setText(QApplication::translate("MainWindow", "Nowy", 0));
+        tabWidget->setTabText(tabWidget->indexOf(BIBLIO), QApplication::translate("MainWindow", "Bibliotekarz", 0));
+        pushButton_First->setText(QApplication::translate("MainWindow", "|<", 0));
+        pushButton_Prev->setText(QApplication::translate("MainWindow", "<", 0));
+        pushButton_Next->setText(QApplication::translate("MainWindow", ">", 0));
+        pushButton_Last->setText(QApplication::translate("MainWindow", ">|", 0));
+        pushButton_New->setText(QApplication::translate("MainWindow", "Nowy", 0));
+        pushButton_Save->setText(QApplication::translate("MainWindow", "Zapisz", 0));
+        pushButton_Del->setText(QApplication::translate("MainWindow", "Usu\305\204", 0));
+        pushButton_IntWiz->setText(QApplication::translate("MainWindow", "Pobierz z Internetu", 0));
+        label_4->setText(QApplication::translate("MainWindow", "Rekord", 0));
+        label_5->setText(QApplication::translate("MainWindow", "z", 0));
+        label_44->setText(QApplication::translate("MainWindow", "ID", 0));
         label_PicFront->setText(QString());
         comboBox_GatSel->clear();
         comboBox_GatSel->insertItems(0, QStringList()
-         << QApplication::translate("MainWindow", "Akcja", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Krymina\305\202", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Sensacyjny", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Komedia", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Dramat", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Fabularny", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Dokumentalny", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Paradokument", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Reporta\305\274", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Sci-Fi", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Fantastyka", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Bajka", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Kresk\303\263wka", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Erotyka", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("MainWindow", "Porno", 0, QApplication::UnicodeUTF8)
+         << QApplication::translate("MainWindow", "Akcja", 0)
+         << QApplication::translate("MainWindow", "Krymina\305\202", 0)
+         << QApplication::translate("MainWindow", "Sensacyjny", 0)
+         << QApplication::translate("MainWindow", "Komedia", 0)
+         << QApplication::translate("MainWindow", "Dramat", 0)
+         << QApplication::translate("MainWindow", "Fabularny", 0)
+         << QApplication::translate("MainWindow", "Dokumentalny", 0)
+         << QApplication::translate("MainWindow", "Paradokument", 0)
+         << QApplication::translate("MainWindow", "Reporta\305\274", 0)
+         << QApplication::translate("MainWindow", "Sci-Fi", 0)
+         << QApplication::translate("MainWindow", "Fantastyka", 0)
+         << QApplication::translate("MainWindow", "Bajka", 0)
+         << QApplication::translate("MainWindow", "Kresk\303\263wka", 0)
+         << QApplication::translate("MainWindow", "Erotyka", 0)
+         << QApplication::translate("MainWindow", "Porno", 0)
         );
-        menuOperacje->setTitle(QApplication::translate("MainWindow", "Operacje", 0, QApplication::UnicodeUTF8));
-        menuPomoc->setTitle(QApplication::translate("MainWindow", "Pomoc", 0, QApplication::UnicodeUTF8));
+        menuOperacje->setTitle(QApplication::translate("MainWindow", "Operacje", 0));
+        menuPomoc->setTitle(QApplication::translate("MainWindow", "Pomoc", 0));
     } // retranslateUi
 
 };

@@ -4,9 +4,18 @@
 #include <QMainWindow>
 #include <QLocale>
 #include <QTranslator>
+#include <direct.h>
+#include <QFileInfo>
+#include <QMessageBox>
+#include <QFile>
+#include <QDir>
+#include <QList>
+#include <QFileDialog>
+#include <windows.h>
 
 #include "film_ftbl_class.h"
 #include "Unmngd.h"
+#include "Eksportuj.h"
 
 namespace Ui {
 class MainWindow;

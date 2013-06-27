@@ -1,12 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QFileInfo>
-#include <QMessageBox>
-#include <QFile>
-#include <QDir>
-#include <QList>
-#include <QFileDialog>
-#include <windows.h>
 
 struct Film Ftbl::film_tbl;    // struktura mieszczaca jeden rekord form film
 bool Ftbl::sort = false;
@@ -78,8 +71,8 @@ MainWindow::MainWindow(QWidget *parent) :
         //MainWindow::Insert_TAB_Item();
         //MainWindow::SetDlgBoxs(10);
         //MainWindow::SetListCtrls(5);
-        MainWindow::SetButtons();
-        MainWindow::SetBTNIcons();
+        //MainWindow::SetButtons();
+        //MainWindow::SetBTNIcons();
 
 
 
@@ -299,7 +292,7 @@ void MainWindow::Bind_IN_Controls(void)
         ui->lineEdit_DOE_DataUtr->setText(QString::fromWCharArray(flm.film_tbl.DOE_data_utraty));
         ui->lineEdit_DOE_DataSkat->setText(QString::fromWCharArray(flm.film_tbl.DOE_data_skatalogowania));
         ui->lineEdit_DOE_NrKat->setText(QString::fromWCharArray(flm.film_tbl.DOE_Nr_kat));
-        ui->fontComboBox_DOE_Nosnik->lineEdit()->setText(QString::fromWCharArray(flm.film_tbl.DOE_rodzaj_nosnika));
+        ui->lineEdit_DOE_Nosnik->setText(QString::fromWCharArray(flm.film_tbl.DOE_rodzaj_nosnika));
         // TAB IOF
         ui->lineEdit_RokProd->setText(QString::fromWCharArray(flm.film_tbl.IOF_rok_produkcji));
         ui->lineEdit_DataPrem->setText(QString::fromWCharArray(flm.film_tbl.IOF_data_premiery));
@@ -357,7 +350,7 @@ void MainWindow::Bind_OUT_Controls(void)
         ui->lineEdit_DOE_DataUtr->text().toWCharArray(flm.film_tbl.DOE_data_utraty);
         ui->lineEdit_DOE_DataSkat->text().toWCharArray(flm.film_tbl.DOE_data_skatalogowania);
         ui->lineEdit_DOE_NrKat->text().toWCharArray(flm.film_tbl.DOE_Nr_kat);
-        ui->fontComboBox_DOE_Nosnik->lineEdit()->text().toWCharArray(flm.film_tbl.DOE_rodzaj_nosnika);
+        ui->lineEdit_DOE_Nosnik->text().toWCharArray(flm.film_tbl.DOE_rodzaj_nosnika);
         // TAB IOF
         ui->lineEdit_RokProd->text().toWCharArray(flm.film_tbl.IOF_rok_produkcji);
         ui->lineEdit_DataPrem->text().toWCharArray(flm.film_tbl.IOF_data_premiery);
@@ -422,7 +415,7 @@ void MainWindow::ClearCtrls(bool all)
     ui->lineEdit_DOE_DataUtr->clear();
     ui->lineEdit_DOE_DataSkat->clear();
     ui->lineEdit_DOE_NrKat->clear();
-    ui->fontComboBox_DOE_Nosnik->lineEdit()->clear();
+    ui->lineEdit_DOE_Nosnik->clear();
     // TAB IOF
     ui->lineEdit_RokProd->clear();
     ui->lineEdit_DataPrem->clear();
@@ -775,7 +768,7 @@ bool MainWindow::Film_DodajRec(bool first) {
                 plik.seek(plik.size());
             }
 
-            //plik.write(reinterpret_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
+            plik.write(reinterpret_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
 
             plik.close();
             if (first)
@@ -805,14 +798,14 @@ void MainWindow::Oblicz_NewID(void) {
     QFile plik(QString::fromWCharArray(flm.pths.BF_MCF));
     plik.open(QFile::ReadOnly);
     plik.seek(0);
-    //plik.read(reinterpret_cast<char *>(&pom),sizeof(struct POMIDOR));
+    plik.read(reinterpret_cast<char *>(&pom),sizeof(struct POMIDOR));
 
     plik.close();
     flm.film_tbl.ID = pom.najw_ID + 1;
     pom.najw_ID = flm.film_tbl.ID;
     plik.open(QFile::WriteOnly);
     plik.seek(0);
-    //plik.write(reinterpret_cast<char *>(&pom),sizeof(struct POMIDOR));
+    plik.write(reinterpret_cast<char *>(&pom),sizeof(struct POMIDOR));
 
     plik.close();
 
@@ -1074,21 +1067,21 @@ void MainWindow::Read_Settings()
 
 void MainWindow::SetDBFNPaths(bool cust, wchar_t* cust_path)
 {
-    wcscpy(flm.pths.BF_PDB,L"BF_PDB.bf");
-    wcscpy(flm.pths.BF_OC,L"BF_OC.bf");
-    wcscpy(flm.pths.BF_OB,L"BF_OB.bf");
-    wcscpy(flm.pths.BF_PRP,L"BF_PRB.bf");
-    wcscpy(flm.pths.BF_PRD,L"BF_PRD.bf");
-    wcscpy(flm.pths.BF_LZ,L"BF_LZ.bf");
-    wcscpy(flm.pths.BF_WI,L"BF_WI.bf");
-    wcscpy(flm.pths.BF_WO,L"BF_WO.bf");
-    wcscpy(flm.pths.BF_COVERS,L"covers/");
-    wcscpy(flm.pths.BF_MCF,L"BF.bf");
-    wcscpy(flm.pths.db_path,L"/default_db/");
+    wcscpy(flm.pths.BF_PDB,(wchar_t *)"BF_PDB.bf");
+    wcscpy(flm.pths.BF_OC,(wchar_t *)"BF_OC.bf");
+    wcscpy(flm.pths.BF_OB,(wchar_t *)"BF_OB.bf");
+    wcscpy(flm.pths.BF_PRP,(wchar_t *)"BF_PRB.bf");
+    wcscpy(flm.pths.BF_PRD,(wchar_t *)"BF_PRD.bf");
+    wcscpy(flm.pths.BF_LZ,(wchar_t *)"BF_LZ.bf");
+    wcscpy(flm.pths.BF_WI,(wchar_t *)"BF_WI.bf");
+    wcscpy(flm.pths.BF_WO,(wchar_t *)"BF_WO.bf");
+    wcscpy(flm.pths.BF_COVERS,(wchar_t *)"covers\\");
+    wcscpy(flm.pths.BF_MCF,(wchar_t *)"BF.bf");
+    wcscpy(flm.pths.db_path,(wchar_t *)"\\default_db\\");
     if (cust)
     {
         wcscpy(flm.pths.cur_db_path,cust_path);
-        wcscat(flm.pths.cur_db_path, L"/");
+        wcscat(flm.pths.cur_db_path, (wchar_t *)"\\");
 
         wchar_t *buff = new wchar_t[1024];
 
@@ -1137,8 +1130,8 @@ void MainWindow::SetDBFNPaths(bool cust, wchar_t* cust_path)
     {
 
         wchar_t buff[1024];
-        wchar_t *cur_dir;
-        cur_dir = getcwd(NULL,0);
+        wchar_t cur_dir[1024];
+        QDir::currentPath().toWCharArray(cur_dir);
 
         /*if (buff[_tcsclen(buff)] == '\\')
         {
@@ -1371,42 +1364,42 @@ void MainWindow::KopiujOLDDB()
     wcscpy(buff_path,flm.pths.cur_db_path);
     wchar_t buff_path_suf[1024];
     wcscpy(buff_path_suf,buff_path);
-    wcscat(buff_path_suf,(LPCWSTR)"BF.bf");
+    wcscat(buff_path_suf,(wchar_t *)"BF.bf");
     //buff_path = flm.pths.cur_db_path;
-    CopyFile((LPCWSTR)"BF.bf",buff_path_suf,FALSE);
+    CopyFile((wchar_t *)"BF.bf",buff_path_suf,FALSE);
     wcscpy(buff_path_suf,buff_path);
-    wcscat(buff_path_suf,(LPCWSTR)"BF_PDB.bf");
-    CopyFile((LPCWSTR)"BF_PDB.bf",buff_path_suf,FALSE);
+    wcscat(buff_path_suf,(wchar_t *)"BF_PDB.bf");
+    CopyFile((wchar_t *)"BF_PDB.bf",buff_path_suf,FALSE);
     wcscpy(buff_path_suf,buff_path);
-    wcscat(buff_path_suf,(LPCWSTR)"BF_OC.bf");
-    CopyFile((LPCWSTR)"BF_OC.bf",buff_path_suf,FALSE);
+    wcscat(buff_path_suf,(wchar_t *)"BF_OC.bf");
+    CopyFile((wchar_t *)"BF_OC.bf",buff_path_suf,FALSE);
     wcscpy(buff_path_suf, buff_path);
-    wcscat(buff_path_suf,(LPCWSTR)"BF_OB.bf");
-    CopyFile((LPCWSTR)"BF_OB.bf",buff_path_suf,FALSE);
+    wcscat(buff_path_suf,(wchar_t *)"BF_OB.bf");
+    CopyFile((wchar_t *)"BF_OB.bf",buff_path_suf,FALSE);
     wcscpy(buff_path_suf,buff_path);
-    wcscat(buff_path_suf,(LPCWSTR)"BF_PRB.bf");
-    CopyFile((LPCWSTR)"BF_PRB.bf",buff_path_suf,FALSE);
+    wcscat(buff_path_suf,(wchar_t *)"BF_PRB.bf");
+    CopyFile((wchar_t *)"BF_PRB.bf",buff_path_suf,FALSE);
     wcscpy(buff_path_suf,buff_path);
-    wcscat(buff_path_suf,(LPCWSTR)"BF_PRD.bf");
-    CopyFile((LPCWSTR)"BF_PRD.bf",buff_path_suf,FALSE);
+    wcscat(buff_path_suf,(wchar_t *)"BF_PRD.bf");
+    CopyFile((wchar_t *)"BF_PRD.bf",buff_path_suf,FALSE);
     wcscpy(buff_path_suf,buff_path);
-    wcscat(buff_path_suf,(LPCWSTR)"BF_WI.bf");
-    CopyFile((LPCWSTR)"BF_WI.bf",buff_path_suf,FALSE);
+    wcscat(buff_path_suf,(wchar_t *)"BF_WI.bf");
+    CopyFile((wchar_t *)"BF_WI.bf",buff_path_suf,FALSE);
     wcscpy(buff_path_suf,buff_path);
-    wcscat(buff_path_suf,(LPCWSTR)"BF_WO.bf");
-    CopyFile((LPCWSTR)"BF_WO.bf",buff_path_suf,FALSE);
+    wcscat(buff_path_suf,(wchar_t *)"BF_WO.bf");
+    CopyFile((wchar_t *)"BF_WO.bf",buff_path_suf,FALSE);
     wcscpy(buff_path_suf,buff_path);
-    wcscat(buff_path_suf,(LPCWSTR)"BF_LZ.bf");
-    CopyFile((LPCWSTR)"BF_LZ.bf",buff_path_suf,FALSE);
-    DeleteFile((LPCWSTR)"BF.bf");
-    DeleteFile((LPCWSTR)"BF_PDB.bf");
-    DeleteFile((LPCWSTR)"BF_OC.bf");
-    DeleteFile((LPCWSTR)"BF_OB.bf");
-    DeleteFile((LPCWSTR)"BF_PRB.bf");
-    DeleteFile((LPCWSTR)"BF_PRD.bf");
-    DeleteFile((LPCWSTR)"BF_WI.bf");
-    DeleteFile((LPCWSTR)"BF_WO.bf");
-    DeleteFile((LPCWSTR)"BF_LZ.bf");
+    wcscat(buff_path_suf,(wchar_t *)"BF_LZ.bf");
+    CopyFile((wchar_t *)"BF_LZ.bf",buff_path_suf,FALSE);
+    DeleteFile((wchar_t *)"BF.bf");
+    DeleteFile((wchar_t *)"BF_PDB.bf");
+    DeleteFile((wchar_t *)"BF_OC.bf");
+    DeleteFile((wchar_t *)"BF_OB.bf");
+    DeleteFile((wchar_t *)"BF_PRB.bf");
+    DeleteFile((wchar_t *)"BF_PRD.bf");
+    DeleteFile((wchar_t *)"BF_WI.bf");
+    DeleteFile((wchar_t *)"BF_WO.bf");
+    DeleteFile((wchar_t *)"BF_LZ.bf");
 }
 
 void MainWindow::ClearBIBLIO(void)
@@ -1573,7 +1566,7 @@ void MainWindow::Save_Wi(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((LPCWSTR)"Biblioteka Filmów"),QString::fromWCharArray((LPCWSTR)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -1634,7 +1627,7 @@ void MainWindow::Save_Wo(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((LPCWSTR)"Biblioteka Filmów"),QString::fromWCharArray((LPCWSTR)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -1831,7 +1824,7 @@ void MainWindow::Usun_Rec_WI(unsigned int pos)
         plik0.close();
         QFile plik(QString::fromWCharArray(flm.pths.BF_WI));
         plik.open(QFile::WriteOnly);
-        QFile src_file(QString::fromWCharArray((LPCTSTR)"BF_WI.bf0"));
+        QFile src_file(QString::fromWCharArray((wchar_t *)"BF_WI.bf0"));
         src_file.open(QFile::ReadOnly);
         unsigned int i;
         for (i = 0; i <(src_file.size()) ; )
@@ -1866,12 +1859,12 @@ void MainWindow::Usun_Rec_WO(unsigned int pos)
         plik0.seek(pos);
         plik0.write(reinterpret_cast<char *>(&wo),sizeof(wo));
 
-        plik0.rename(QString::fromWCharArray(flm.pths.BF_WO),QString::fromWCharArray((LPCTSTR)"BF_WO.bf0"));
+        plik0.rename(QString::fromWCharArray(flm.pths.BF_WO),QString::fromWCharArray((wchar_t *)"BF_WO.bf0"));
         plik0.close();
 
         QFile plik(QString::fromWCharArray(flm.pths.BF_WO));
         plik.open(QFile::WriteOnly);
-        QFile src_file(QString::fromWCharArray((LPCTSTR)"BF_WO.bf0"));
+        QFile src_file(QString::fromWCharArray((wchar_t *)"BF_WO.bf0"));
         src_file.open(QFile::ReadOnly);
         unsigned int i;
         for (i = 0; i <(src_file.size()) ; )
@@ -1957,7 +1950,7 @@ void MainWindow::Save_Lz(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((LPCWSTR)"Biblioteka Filmów"),QString::fromWCharArray((LPCWSTR)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2077,12 +2070,12 @@ void MainWindow::Usun_Rec_LZ(unsigned int pos)
     plik0.seek(pos);
     plik0.write(reinterpret_cast<char *>(&lz),sizeof(lz));
 
-    plik0.rename(QString::fromWCharArray(flm.pths.BF_LZ),QString::fromWCharArray((LPCTSTR)"BF_LZ.bf0"));
+    plik0.rename(QString::fromWCharArray(flm.pths.BF_LZ),QString::fromWCharArray((wchar_t *)"BF_LZ.bf0"));
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_LZ));
     plik.open(QFile::WriteOnly);
-    QFile src_file(QString::fromWCharArray((LPCTSTR)"BF_LZ.bf0"));
+    QFile src_file(QString::fromWCharArray((wchar_t *)"BF_LZ.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
@@ -2167,7 +2160,7 @@ void MainWindow::Save_Ob(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((LPCWSTR)"Biblioteka Filmów"),QString::fromWCharArray((LPCWSTR)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2315,12 +2308,12 @@ void MainWindow::Usun_Rec_OB(unsigned int pos)
     plik0.seek(pos);
     plik0.write(reinterpret_cast<char *>(&ob),sizeof(ob));
 
-    plik0.rename(QString::fromWCharArray(flm.pths.BF_OB),QString::fromWCharArray((LPCTSTR)"BF_OB.bf0"));
+    plik0.rename(QString::fromWCharArray(flm.pths.BF_OB),QString::fromWCharArray((wchar_t *)"BF_OB.bf0"));
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_OB));
     plik.open(QFile::WriteOnly);
-    QFile src_file(QString::fromWCharArray((LPCTSTR)"BF_OB.bf0"));
+    QFile src_file(QString::fromWCharArray((wchar_t *)"BF_OB.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
@@ -2373,7 +2366,7 @@ void MainWindow::Save_Oc(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((LPCWSTR)"Biblioteka Filmów"),QString::fromWCharArray((LPCWSTR)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2540,12 +2533,12 @@ void MainWindow::Usun_Rec_OC(unsigned int pos)
     plik0.seek(pos);
     plik0.write(reinterpret_cast<char *>(&oc),sizeof(oc));
 
-    plik0.rename(QString::fromWCharArray(flm.pths.BF_OC),QString::fromWCharArray((LPCTSTR)"BF_OC.bf0"));
+    plik0.rename(QString::fromWCharArray(flm.pths.BF_OC),QString::fromWCharArray((wchar_t *)"BF_OC.bf0"));
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_OC));
     plik.open(QFile::WriteOnly);
-    QFile src_file(QString::fromWCharArray((LPCTSTR)"BF_OC.bf0"));
+    QFile src_file(QString::fromWCharArray((wchar_t *)"BF_OC.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
@@ -2780,7 +2773,7 @@ void MainWindow::Save_PP(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((LPCWSTR)"Biblioteka Filmów"),QString::fromWCharArray((LPCWSTR)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2842,7 +2835,7 @@ void MainWindow::Save_PD(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((LPCWSTR)"Biblioteka Filmów"),QString::fromWCharArray((LPCWSTR)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -3045,12 +3038,12 @@ void MainWindow::Usun_Rec_PP(unsigned int pos)
     plik0.seek(pos);
     plik0.write(reinterpret_cast<char *>(&pp),sizeof(pp));
 
-    plik0.rename(QString::fromWCharArray(flm.pths.BF_PRP),QString::fromWCharArray((LPCTSTR)"BF_PRP.bf0"));
+    plik0.rename(QString::fromWCharArray(flm.pths.BF_PRP),QString::fromWCharArray((wchar_t *)"BF_PRP.bf0"));
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_PRP));
     plik.open(QFile::WriteOnly);
-    QFile src_file(QString::fromWCharArray((LPCTSTR)"BF_PRP.bf0"));
+    QFile src_file(QString::fromWCharArray((wchar_t *)"BF_PRP.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
@@ -3083,12 +3076,12 @@ void MainWindow::Usun_Rec_PD(unsigned int pos)
     plik0.seek(pos);
     plik0.write(reinterpret_cast<char *>(&pd),sizeof(pd));
 
-    plik0.rename(QString::fromWCharArray(flm.pths.BF_PRD),QString::fromWCharArray((LPCWSTR)"BF_PRD.bf0"));
+    plik0.rename(QString::fromWCharArray(flm.pths.BF_PRD),QString::fromWCharArray((wchar_t *)"BF_PRD.bf0"));
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_PRD));
     plik.open(QFile::WriteOnly);
-    QFile src_file(QString::fromWCharArray((LPCTSTR)"BF_PRD.bf0"));
+    QFile src_file(QString::fromWCharArray((wchar_t *)"BF_PRD.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;
     for (i = 0; i <(src_file.size()) ; )
@@ -3139,9 +3132,9 @@ void MainWindow::on_actionOtw_rz_Utw_rz_baze_danych_triggered()
 
 void MainWindow::on_actionEksportuj_triggered()
 {
-    Eksport_Wizard *eks_wiz = new Eksport_Wizard(this);
-    eks_wiz->Create(Eksport_Wizard::IDD,this);
-    eks_wiz->ShowWindow(SW_SHOW);
+    Eksportuj *eks_wiz = new Eksportuj(this);
+    eks_wiz->show();
+
 }
 
 void MainWindow::on_actionWyszukaj_triggered()
@@ -3203,7 +3196,7 @@ void MainWindow::on_pushButton_DelPic_clicked()
 {
     if (!(Licz_Rec()))
     {
-        wcscpy(flm.film_tbl.skan_przod_path,(LPCWSTR)"");
+        wcscpy(flm.film_tbl.skan_przod_path,(wchar_t *)"");
         on_pushButton_Save_clicked();
 
     }
@@ -3567,5 +3560,12 @@ void MainWindow::on_pushButton_DYSTDel_clicked()
     {
         plik.close();
     }
+
+}
+
+void MainWindow::Clear_TABS()
+{
+
+
 
 }

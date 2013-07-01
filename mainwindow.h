@@ -12,6 +12,8 @@
 #include <QList>
 #include <QFileDialog>
 #include <windows.h>
+#include <iostream>
+#include <direct.h>
 
 #include "film_ftbl_class.h"
 #include "Unmngd.h"

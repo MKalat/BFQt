@@ -23,3 +23,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui \
     eksportuj.ui
+
+RESOURCES += \
+    res.qrc

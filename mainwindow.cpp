@@ -675,7 +675,8 @@ bool MainWindow::Fill_Full_Film(bool start)
 
             // pobierz pierwsza strukture z pliku "BF_PDB.dat" i przepisz ja do zmiennej struktury Film,
                 // celem wyswietlenia
-            QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
+
+                QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                 plik.open(QFile::ReadOnly);
                 if (start)
                 {
@@ -723,7 +724,7 @@ bool MainWindow::Save_Full_Film(void) {
                 //  odszukaj zadana strukture z pliku "BF_PDB.dat" i zapisz do pliku zawartosc zmiennej struktury Film,
                 // , a potem odczytaj z pliku,celem wyswietlenia
             QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
-                plik.open(QFile::WriteOnly);
+                plik.open(QFile::WriteOnly | QFile::ReadOnly);
                 akt_pozycja_pliku = zadana_pozycja_pliku;
                 plik.seek(zadana_pozycja_pliku);
                 plik.write(reinterpret_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));
@@ -803,7 +804,7 @@ void MainWindow::Oblicz_NewID(void) {
     plik.close();
     flm.film_tbl.ID = pom.najw_ID + 1;
     pom.najw_ID = flm.film_tbl.ID;
-    plik.open(QFile::WriteOnly);
+    plik.open(QFile::WriteOnly | QFile::ReadOnly);
     plik.seek(0);
     plik.write(reinterpret_cast<char *>(&pom),sizeof(struct POMIDOR));
 
@@ -885,9 +886,9 @@ void MainWindow::UtworzDB(bool cust)
         struct POMIDOR pom;
         wcscpy(pom.BF_VER,akt_BF_VER);
         pom.najw_ID = 1;
-        bf.open(QFile::WriteOnly);
+        bf.open(QFile::WriteOnly | QFile::ReadOnly);
         bf.close();
-        bf.open(QFile::WriteOnly);
+        bf.open(QFile::WriteOnly | QFile::ReadOnly);
         bf.write(reinterpret_cast<char *>(&pom),sizeof(pom));
         bf.close();
     }
@@ -895,56 +896,56 @@ void MainWindow::UtworzDB(bool cust)
     if (!(fi2.exists() ==  TRUE))
     {
         QFile bf_pdb(QString::fromWCharArray(flm.pths.BF_PDB));
-        bf_pdb.open(QFile::WriteOnly);
+        bf_pdb.open(QFile::WriteOnly | QFile::ReadOnly);
         bf_pdb.close();
     }
     QFile fi3(QString::fromWCharArray(flm.pths.BF_OC));
     if (!(fi3.exists() == TRUE))
     {
         QFile bf_oc(QString::fromWCharArray(flm.pths.BF_OC));
-        bf_oc.open(QFile::WriteOnly);
+        bf_oc.open(QFile::WriteOnly | QFile::ReadOnly);
         bf_oc.close();
     }
     QFile fi4(QString::fromWCharArray(flm.pths.BF_OB));
     if (!(fi4.exists() == TRUE))
     {
         QFile bf_ob(QString::fromWCharArray(flm.pths.BF_OB));
-        bf_ob.open(QFile::WriteOnly);
+        bf_ob.open(QFile::WriteOnly | QFile::ReadOnly);
         bf_ob.close();
     }
     QFile fi5(QString::fromWCharArray(flm.pths.BF_PRP));
     if (!(fi5.exists() == TRUE))
     {
         QFile bf_pr(QString::fromWCharArray(flm.pths.BF_PRP));
-        bf_pr.open(QFile::WriteOnly);
+        bf_pr.open(QFile::WriteOnly | QFile::ReadOnly);
         bf_pr.close();
     }
     QFile fi6(QString::fromWCharArray(flm.pths.BF_PRD));
     if (!(fi6.exists() == TRUE))
     {
         QFile bf_dr(QString::fromWCharArray(flm.pths.BF_PRD));
-        bf_dr.open(QFile::WriteOnly);
+        bf_dr.open(QFile::WriteOnly | QFile::ReadOnly);
         bf_dr.close();
     }
     QFile fi7(QString::fromWCharArray(flm.pths.BF_LZ));
     if (!(fi7.exists() == TRUE))
     {
         QFile bf_lz(QString::fromWCharArray(flm.pths.BF_LZ));
-        bf_lz.open(QFile::WriteOnly);
+        bf_lz.open(QFile::WriteOnly | QFile::ReadOnly);
         bf_lz.close();
     }
     QFile fi8(QString::fromWCharArray(flm.pths.BF_WI));
     if (!(fi8.exists() == TRUE))
     {
         QFile bf_wi(QString::fromWCharArray(flm.pths.BF_WI));
-        bf_wi.open(QFile::WriteOnly);
+        bf_wi.open(QFile::WriteOnly | QFile::ReadOnly);
         bf_wi.close();
     }
     QFile fi9(QString::fromWCharArray(flm.pths.BF_WO));
     if (!(fi9.exists() == TRUE))
     {
         QFile bf_wo(QString::fromWCharArray(flm.pths.BF_WO));
-        bf_wo.open(QFile::WriteOnly);
+        bf_wo.open(QFile::WriteOnly | QFile::ReadOnly);
         bf_wo.close();
     }
 
@@ -959,7 +960,7 @@ bool MainWindow::Del_Film_Rec(void)
                 // kasuj rekord i kompaktuj baze danych
                 flm.film_tbl.ID = 0;
                 QFile plik0(QString::fromWCharArray(flm.pths.BF_PDB));
-                plik0.open(QFile::WriteOnly);
+                plik0.open(QFile::WriteOnly | QFile::ReadOnly);
                 plik0.seek(zadana_pozycja_pliku);
                 plik0.write(reinterpret_cast<char *>(&flm.film_tbl),sizeof(struct Film));
 
@@ -967,7 +968,7 @@ bool MainWindow::Del_Film_Rec(void)
                 plik0.close();
 
                 QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
-                plik.open(QFile::WriteOnly);
+                plik.open(QFile::WriteOnly | QFile::ReadOnly);
                 QFile src_file("BF_PDB.bf0");
                 src_file.open(QFile::ReadOnly);
                 struct Film flm_src;
@@ -1083,7 +1084,7 @@ void MainWindow::SetDBFNPaths(bool cust, wchar_t* cust_path)
         wcscpy(flm.pths.cur_db_path,cust_path);
         wcscat(flm.pths.cur_db_path, L"/");
 
-        wchar_t *buff = new wchar_t[1024];
+        wchar_t buff[1024];
 
         wcscpy(buff,flm.pths.cur_db_path);
         wcscat(buff,flm.pths.BF_PDB);
@@ -1130,8 +1131,8 @@ void MainWindow::SetDBFNPaths(bool cust, wchar_t* cust_path)
     {
 
         wchar_t buff[1024];
-        wchar_t cur_dir[1024];
-        QDir::currentPath().toWCharArray(cur_dir);
+        wchar_t *cur_dir;
+        cur_dir = _wgetcwd(NULL,0);
 
         /*if (buff[_tcsclen(buff)] == '\\')
         {
@@ -1823,7 +1824,7 @@ void MainWindow::Usun_Rec_WI(unsigned int pos)
 
         plik0.close();
         QFile plik(QString::fromWCharArray(flm.pths.BF_WI));
-        plik.open(QFile::WriteOnly);
+        plik.open(QFile::WriteOnly | QFile::ReadOnly);
         QFile src_file(QString::fromWCharArray((wchar_t *)"BF_WI.bf0"));
         src_file.open(QFile::ReadOnly);
         unsigned int i;
@@ -1855,7 +1856,7 @@ void MainWindow::Usun_Rec_WO(unsigned int pos)
         struct Wypozycz_Od_Innych wo_src;
         wo.ID = 0;
         QFile plik0(QString::fromWCharArray(flm.pths.BF_WO));
-        plik0.open(QFile::WriteOnly);
+        plik0.open(QFile::WriteOnly | QFile::ReadOnly);
         plik0.seek(pos);
         plik0.write(reinterpret_cast<char *>(&wo),sizeof(wo));
 
@@ -1863,7 +1864,7 @@ void MainWindow::Usun_Rec_WO(unsigned int pos)
         plik0.close();
 
         QFile plik(QString::fromWCharArray(flm.pths.BF_WO));
-        plik.open(QFile::WriteOnly);
+        plik.open(QFile::WriteOnly | QFile::ReadOnly);
         QFile src_file(QString::fromWCharArray((wchar_t *)"BF_WO.bf0"));
         src_file.open(QFile::ReadOnly);
         unsigned int i;
@@ -2074,7 +2075,7 @@ void MainWindow::Usun_Rec_LZ(unsigned int pos)
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_LZ));
-    plik.open(QFile::WriteOnly);
+    plik.open(QFile::WriteOnly | QFile::ReadOnly);
     QFile src_file(QString::fromWCharArray((wchar_t *)"BF_LZ.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;
@@ -2312,7 +2313,7 @@ void MainWindow::Usun_Rec_OB(unsigned int pos)
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_OB));
-    plik.open(QFile::WriteOnly);
+    plik.open(QFile::WriteOnly | QFile::ReadOnly);
     QFile src_file(QString::fromWCharArray((wchar_t *)"BF_OB.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;
@@ -2537,7 +2538,7 @@ void MainWindow::Usun_Rec_OC(unsigned int pos)
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_OC));
-    plik.open(QFile::WriteOnly);
+    plik.open(QFile::WriteOnly | QFile::ReadOnly);
     QFile src_file(QString::fromWCharArray((wchar_t *)"BF_OC.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;
@@ -3042,7 +3043,7 @@ void MainWindow::Usun_Rec_PP(unsigned int pos)
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_PRP));
-    plik.open(QFile::WriteOnly);
+    plik.open(QFile::WriteOnly | QFile::ReadOnly);
     QFile src_file(QString::fromWCharArray((wchar_t *)"BF_PRP.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;
@@ -3080,7 +3081,7 @@ void MainWindow::Usun_Rec_PD(unsigned int pos)
 
     plik0.close();
     QFile plik(QString::fromWCharArray(flm.pths.BF_PRD));
-    plik.open(QFile::WriteOnly);
+    plik.open(QFile::WriteOnly | QFile::ReadOnly);
     QFile src_file(QString::fromWCharArray((wchar_t *)"BF_PRD.bf0"));
     src_file.open(QFile::ReadOnly);
     unsigned int i;

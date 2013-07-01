@@ -757,7 +757,7 @@ bool MainWindow::Film_DodajRec(bool first) {
         {
             Oblicz_NewID();
             QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
-            plik.open(QFile::WriteOnly);
+            plik.open(QFile::Append);
             //akt_pozycja_pliku = plik.Seek(Search_Last_Pos(),CFile::begin);
             if (first)
             {
@@ -1067,21 +1067,21 @@ void MainWindow::Read_Settings()
 
 void MainWindow::SetDBFNPaths(bool cust, wchar_t* cust_path)
 {
-    wcscpy(flm.pths.BF_PDB,(wchar_t *)"BF_PDB.bf");
-    wcscpy(flm.pths.BF_OC,(wchar_t *)"BF_OC.bf");
-    wcscpy(flm.pths.BF_OB,(wchar_t *)"BF_OB.bf");
-    wcscpy(flm.pths.BF_PRP,(wchar_t *)"BF_PRB.bf");
-    wcscpy(flm.pths.BF_PRD,(wchar_t *)"BF_PRD.bf");
-    wcscpy(flm.pths.BF_LZ,(wchar_t *)"BF_LZ.bf");
-    wcscpy(flm.pths.BF_WI,(wchar_t *)"BF_WI.bf");
-    wcscpy(flm.pths.BF_WO,(wchar_t *)"BF_WO.bf");
-    wcscpy(flm.pths.BF_COVERS,(wchar_t *)"covers\\");
-    wcscpy(flm.pths.BF_MCF,(wchar_t *)"BF.bf");
-    wcscpy(flm.pths.db_path,(wchar_t *)"\\default_db\\");
+    wcscpy(flm.pths.BF_PDB,L"BF_PDB.bf");
+    wcscpy(flm.pths.BF_OC,L"BF_OC.bf");
+    wcscpy(flm.pths.BF_OB,L"BF_OB.bf");
+    wcscpy(flm.pths.BF_PRP,L"BF_PRB.bf");
+    wcscpy(flm.pths.BF_PRD,L"BF_PRD.bf");
+    wcscpy(flm.pths.BF_LZ,L"BF_LZ.bf");
+    wcscpy(flm.pths.BF_WI,L"BF_WI.bf");
+    wcscpy(flm.pths.BF_WO,L"BF_WO.bf");
+    wcscpy(flm.pths.BF_COVERS,L"covers/");
+    wcscpy(flm.pths.BF_MCF,L"BF.bf");
+    wcscpy(flm.pths.db_path,L"/default_db/");
     if (cust)
     {
         wcscpy(flm.pths.cur_db_path,cust_path);
-        wcscat(flm.pths.cur_db_path, (wchar_t *)"\\");
+        wcscat(flm.pths.cur_db_path, L"/");
 
         wchar_t *buff = new wchar_t[1024];
 

@@ -74,7 +74,50 @@ MainWindow::MainWindow(QWidget *parent) :
         //MainWindow::SetButtons();
         //MainWindow::SetBTNIcons();
 
+        ui->pushButton_New->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\"; ");
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/new_ico24x24.png"), QSize(), QIcon::Normal, QIcon::On);
+        icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/new_ico24x24.png"), QSize(), QIcon::Disabled, QIcon::Off);
+        icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/new_ico24x24.png"), QSize(), QIcon::Active, QIcon::Off);
+        icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/new_ico24x24.png"), QSize(), QIcon::Active, QIcon::On);
+        icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/new_ico24x24.png"), QSize(), QIcon::Selected, QIcon::Off);
+        ui->pushButton_New->setIcon(icon);
+        ui->pushButton_New->setCheckable(true);
 
+        ui->pushButton_Del->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/del_ico24x24-2.png"), QSize(), QIcon::Normal, QIcon::On);
+        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/del_ico24x24-2.png"), QSize(), QIcon::Disabled, QIcon::Off);
+        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/del_ico24x24-2.png"), QSize(), QIcon::Active, QIcon::Off);
+        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/del_ico24x24-2.png"), QSize(), QIcon::Active, QIcon::On);
+        icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/del_ico24x24-2.png"), QSize(), QIcon::Selected, QIcon::Off);
+        ui->pushButton_Del->setIcon(icon2);
+        ui->pushButton_Del->setCheckable(true);
+
+        ui->pushButton_Save->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/save_ico24x24.png"), QSize(), QIcon::Normal, QIcon::On);
+        icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/save_ico24x24.png"), QSize(), QIcon::Disabled, QIcon::Off);
+        icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/save_ico24x24.png"), QSize(), QIcon::Active, QIcon::Off);
+        icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/save_ico24x24.png"), QSize(), QIcon::Active, QIcon::On);
+        icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/save_ico24x24.png"), QSize(), QIcon::Selected, QIcon::Off);
+        ui->pushButton_Save->setIcon(icon3);
+        ui->pushButton_Save->setCheckable(true);
+
+        ui->pushButton_Next->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
+        ui->pushButton_First->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
+        ui->pushButton_Last->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
+        ui->pushButton_IntWiz->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
+        QIcon icon4;
+        icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/upload_ico24x24.png"), QSize(), QIcon::Normal, QIcon::On);
+        icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/upload_ico24x24.png"), QSize(), QIcon::Disabled, QIcon::Off);
+        icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/upload_ico24x24.png"), QSize(), QIcon::Active, QIcon::Off);
+        icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/upload_ico24x24.png"), QSize(), QIcon::Active, QIcon::On);
+        icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/upload_ico24x24.png"), QSize(), QIcon::Selected, QIcon::Off);
+        ui->pushButton_IntWiz->setIcon(icon4);
+        ui->pushButton_IntWiz->setCheckable(true);
+
+        ui->pushButton_Prev->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
 
         flm.sort = false;
         //_spawnl(_P_NOWAIT,"MK_AUTOUPDATE.exe","MK_AUTOUPDATE.exe",NULL);

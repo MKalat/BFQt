@@ -1,1 +1,8 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>Resources/del_ico24x24-2.png</file>
+        <file>Resources/new_ico24x24.png</file>
+        <file>Resources/save_ico24x24.png</file>
+        <file>Resources/upload_ico24x24.png</file>
+    </qresource>
+</RCC>

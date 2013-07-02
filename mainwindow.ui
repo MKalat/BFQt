@@ -1881,6 +1881,18 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 8pt &quot;MS Shell Dlg 2&quot;;</string>
+    </property>
     <property name="text">
      <string>|&lt;</string>
     </property>
@@ -1893,6 +1905,18 @@
       <width>43</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 8pt &quot;MS Shell Dlg 2&quot;;</string>
     </property>
     <property name="text">
      <string>&lt;</string>
@@ -1907,6 +1931,18 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 8pt &quot;MS Shell Dlg 2&quot;;</string>
+    </property>
     <property name="text">
      <string>&gt;</string>
     </property>
@@ -1919,6 +1955,18 @@
       <width>46</width>
       <height>28</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 8pt &quot;MS Shell Dlg 2&quot;;</string>
     </property>
     <property name="text">
      <string>&gt;|</string>
@@ -1933,12 +1981,24 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 8pt &quot;MS Shell Dlg 2&quot;;</string>
+    </property>
     <property name="text">
      <string>Nowy</string>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/new_ico24x24.ico</normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/new_ico24x24.ico</iconset>
+     <iconset resource="res.qrc">
+      <normaloff>:/new/prefix1/Resources/new_ico24x24.png</normaloff>:/new/prefix1/Resources/new_ico24x24.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_Save">
@@ -1950,12 +2010,24 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 8pt &quot;MS Shell Dlg 2&quot;;</string>
+    </property>
     <property name="text">
      <string>Zapisz</string>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/save_ico24x24.ico</normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/save_ico24x24.ico</iconset>
+     <iconset resource="res.qrc">
+      <normaloff>:/new/prefix1/Resources/save_ico24x24.png</normaloff>:/new/prefix1/Resources/save_ico24x24.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_Del">
@@ -1967,12 +2039,24 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 8pt &quot;MS Shell Dlg 2&quot;;</string>
+    </property>
     <property name="text">
      <string>Usuń</string>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/del_ico24x24-2.ico</normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/del_ico24x24-2.ico</iconset>
+     <iconset resource="res.qrc">
+      <normaloff>:/new/prefix1/Resources/del_ico24x24-2.png</normaloff>:/new/prefix1/Resources/del_ico24x24-2.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_IntWiz">
@@ -1984,12 +2068,24 @@
       <height>28</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>8</pointsize>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 8pt &quot;MS Shell Dlg 2&quot;;</string>
+    </property>
     <property name="text">
      <string>Pobierz z Internetu</string>
     </property>
     <property name="icon">
-     <iconset>
-      <normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/upload_ico24x24.ico</normaloff>../../../RYSUNKI/programy-db obrazki/MKFDBNET/upload_ico24x24.ico</iconset>
+     <iconset resource="res.qrc">
+      <normaloff>:/new/prefix1/Resources/upload_ico24x24.png</normaloff>:/new/prefix1/Resources/upload_ico24x24.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -2256,6 +2352,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

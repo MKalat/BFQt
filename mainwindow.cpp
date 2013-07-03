@@ -11,7 +11,7 @@ unsigned int sort_idx = 0; // zmienna pomocnicza slużaca do poruszania sie po i
 unsigned int zadana_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
 unsigned int akt_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
 
-wchar_t akt_BF_VER[16] = L"1.0.6.0";
+wchar_t akt_BF_VER[16] = L"1.0.2.0";
 bool first_act = true;
 bool start = true; // oznacza czy aplikacja startuje;
 bool open_folder = false;
@@ -1519,31 +1519,31 @@ void MainWindow::Refresh_Wi(void)
     ui->tableWidget_BIBLIO_WYPIN->clearContents();
 
     int x;
-    QTableWidgetItem *item;
     for (x=0;x<wi_arr.count(); x++)
     {
         ui->tableWidget_BIBLIO_WYPIN->insertRow(x);
 
-        item->setText(QString::fromWCharArray(wi_arr[x].osoba));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].osoba));
         ui->tableWidget_BIBLIO_WYPIN->setItem(x,0,item);
 
-        item->setText(QString::fromWCharArray(wi_arr[x].data_wypozyczenia));
-        ui->tableWidget_BIBLIO_WYPIN->setItem(x,1,item);
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].data_wypozyczenia));
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,1,item2);
 
-        item->setText(QString::fromWCharArray(wi_arr[x].data_oddania));
-        ui->tableWidget_BIBLIO_WYPIN->setItem(x,2,item);
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].data_oddania));
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,2,item3);
 
-        item->setText(QString::fromWCharArray(wi_arr[x].stan_przed_wypozycz));
-        ui->tableWidget_BIBLIO_WYPIN->setItem(x,3,item);
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].stan_przed_wypozycz));
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,3,item4);
 
-        item->setText(QString::fromWCharArray(wi_arr[x].stan_po_oddaniu));
-        ui->tableWidget_BIBLIO_WYPIN->setItem(x,4,item);
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].stan_po_oddaniu));
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,4,item5);
 
-        item->setText(QString::number(wi_arr[x].ID,10));
-        ui->tableWidget_BIBLIO_WYPIN->setItem(x,5,item);
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(wi_arr[x].ID,10));
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,5,item6);
 
-        item->setText(QString::number(wi_arr[x].IDPDB,10));
-        ui->tableWidget_BIBLIO_WYPIN->setItem(x,6,item);
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(wi_arr[x].IDPDB,10));
+        ui->tableWidget_BIBLIO_WYPIN->setItem(x,6,item7);
+
 
     }
 
@@ -1555,31 +1555,31 @@ void MainWindow::Refresh_Wo(void)
     ui->tableWidget_BIBLIO_WYPODIN->clearContents();
 
     int x;
-    QTableWidgetItem *item;
     for (x=0;x<wo_arr.count(); x++)
     {
         ui->tableWidget_BIBLIO_WYPODIN->insertRow(x);
 
-        item->setText(QString::fromWCharArray(wo_arr[x].osoba));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].osoba));
         ui->tableWidget_BIBLIO_WYPODIN->setItem(x,0,item);
 
-        item->setText(QString::fromWCharArray(wo_arr[x].data_wypozyczenia));
-        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,1,item);
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].data_wypozyczenia));
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,1,item2);
 
-        item->setText(QString::fromWCharArray(wo_arr[x].data_oddania));
-        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,2,item);
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].data_oddania));
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,2,item3);
 
-        item->setText(QString::fromWCharArray(wo_arr[x].stan_przed_wypozycz));
-        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,3,item);
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].stan_przed_wypozycz));
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,3,item4);
 
-        item->setText(QString::fromWCharArray(wo_arr[x].stan_po_oddaniu));
-        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,4,item);
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].stan_po_oddaniu));
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,4,item5);
 
-        item->setText(QString::number(wo_arr[x].ID,10));
-        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,5,item);
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(wo_arr[x].ID,10));
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,5,item6);
 
-        item->setText(QString::number(wo_arr[x].IDPDB,10));
-        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,6,item);
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(wo_arr[x].IDPDB,10));
+        ui->tableWidget_BIBLIO_WYPODIN->setItem(x,6,item7);
+
 
     }
 
@@ -1610,7 +1610,7 @@ void MainWindow::Save_Wi(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -1671,7 +1671,7 @@ void MainWindow::Save_Wo(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -1820,12 +1820,12 @@ void MainWindow::Add_New_WI(int id)
     // Metoda callbacku
     wi.ID = id_new;
     wi.IDPDB = flm.film_tbl.ID;
-    wcscpy(wi.data_wypozyczenia,L"Wpisz tutaj coś");
-    wcscpy(wi.stan_przed_wypozycz,L"Wpisz tutaj coś");
-    wcscpy(wi.data_oddania,L"Wpisz tutaj coś");
-    wcscpy(wi.stan_po_oddaniu,L"Wpisz tutaj coś");
-    wcscpy(wi.osoba,L"Wpisz tutaj coś");
-    wcscpy(wi.Nr_kat,L"Wpisz tutaj coś");
+    wcscpy(wi.data_wypozyczenia,L" ");
+    wcscpy(wi.stan_przed_wypozycz,L" ");
+    wcscpy(wi.data_oddania,L" ");
+    wcscpy(wi.stan_po_oddaniu,L" ");
+    wcscpy(wi.osoba,L" ");
+    wcscpy(wi.Nr_kat,L" ");
 
     wi_arr.append(wi);
 
@@ -1841,12 +1841,12 @@ void MainWindow::Add_New_WO(int id)
     // Metoda callbacku
     wo.ID = id_new;
     wo.IDPDB = flm.film_tbl.ID;
-    wcscpy(wo.data_wypozyczenia,L"Wpisz tutaj coś");
-    wcscpy(wo.stan_przed_wypozycz,L"Wpisz tutaj coś");
-    wcscpy(wo.data_oddania,L"Wpisz tutaj coś");
-    wcscpy(wo.stan_po_oddaniu,L"Wpisz tutaj coś");
-    wcscpy(wo.osoba,L"Wpisz tutaj coś");
-    wcscpy(wo.Nr_kat,L"Wpisz tutaj coś");
+    wcscpy(wo.data_wypozyczenia,L" ");
+    wcscpy(wo.stan_przed_wypozycz,L" ");
+    wcscpy(wo.data_oddania,L" ");
+    wcscpy(wo.stan_po_oddaniu,L" ");
+    wcscpy(wo.osoba,L" ");
+    wcscpy(wo.Nr_kat,L" ");
 
     wo_arr.append(wo);
 
@@ -1994,7 +1994,7 @@ void MainWindow::Save_Lz(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2092,12 +2092,12 @@ void MainWindow::Add_New_LZ(int id)
 // Metoda callbacku
     lz.ID = id_new;
     lz.IDPDB = flm.film_tbl.ID;
-    wcscpy(lz.nazwa_obiektu,L"Wpisz tutaj coś");
-    wcscpy(lz.kraj,L"Wpisz tutaj coś");
-    wcscpy(lz.miejscowosc,L"Wpisz tutaj coś");
-    wcscpy(lz.region,L"Wpisz tutaj coś");
-    wcscpy(lz.pora_roku,L"Wpisz tutaj coś");
-    wcscpy(lz.data,L"Wpisz tutaj coś");
+    wcscpy(lz.nazwa_obiektu,L" ");
+    wcscpy(lz.kraj,L" ");
+    wcscpy(lz.miejscowosc,L" ");
+    wcscpy(lz.region,L" ");
+    wcscpy(lz.pora_roku,L" ");
+    wcscpy(lz.data,L" ");
 
     lz_arr.append(lz);
 
@@ -2204,7 +2204,7 @@ void MainWindow::Save_Ob(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2253,8 +2253,8 @@ void MainWindow::Add_New_Ob(int id)
     // Metoda callbacku
     ob.ID = id_new;
     ob.IDPDB = flm.film_tbl.ID;
-    wcscpy(ob.imie_nazw,L"Wpisz tutaj coś");
-    wcscpy(ob.rola,L"Wpisz tutaj coś");
+    wcscpy(ob.imie_nazw,L" ");
+    wcscpy(ob.rola,L" ");
 
     ob_arr.append(ob);
 
@@ -2322,22 +2322,22 @@ void MainWindow::Refresh_Ob(void)
     ui->tableWidget_Obsada->clearContents();
 
     int x;
-    QTableWidgetItem *item;
     for (x=0;x<ob_arr.count(); x++)
     {
         ui->tableWidget_Obsada->insertRow(x);
 
-        item->setText(QString::fromWCharArray(ob_arr[x].imie_nazw));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(ob_arr[x].imie_nazw));
         ui->tableWidget_Obsada->setItem(x,0,item);
 
-        item->setText(QString::fromWCharArray(ob_arr[x].rola));
-        ui->tableWidget_Obsada->setItem(x,1,item);
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(ob_arr[x].rola));
+        ui->tableWidget_Obsada->setItem(x,1,item2);
 
-        item->setText(QString::number(ob_arr[x].ID,10));
-        ui->tableWidget_Obsada->setItem(x,2,item);
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(ob_arr[x].ID,10));
+        ui->tableWidget_Obsada->setItem(x,2,item3);
 
-        item->setText(QString::number(ob_arr[x].IDPDB,10));
-        ui->tableWidget_Obsada->setItem(x,2,item);
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(ob_arr[x].IDPDB,10));
+        ui->tableWidget_Obsada->setItem(x,3,item4);
+
 
     }
 
@@ -2524,11 +2524,11 @@ void MainWindow::Add_New_Oc(int id)
 // Metoda callbacku
     oc.ID = id_new;
     oc.IDPDB = flm.film_tbl.ID;
-    wcscpy(oc.nazwa,L"Wpisz tutaj coś");
-    wcscpy(oc.tytul_tekstu,L"Wpisz tutaj coś");
-    wcscpy(oc.autor_tekstu,L"Wpisz tutaj coś");
-    wcscpy(oc.ocena_krytyka,L"Wpisz tutaj coś");
-    wcscpy(oc.strona_www,L"Wpisz tutaj coś");
+    wcscpy(oc.nazwa,L" ");
+    wcscpy(oc.tytul_tekstu,L" ");
+    wcscpy(oc.autor_tekstu,L" ");
+    wcscpy(oc.ocena_krytyka,L" ");
+    wcscpy(oc.strona_www,L" ");
 
 
     oc_arr.append(oc);
@@ -2720,34 +2720,34 @@ void MainWindow::Refresh_PP(void)
     ui->tableWidget_Prod->clearContents();
 
     int x;
-    QTableWidgetItem *item;
     for (x=0;x<pp_arr.count(); x++)
     {
         ui->tableWidget_Prod->insertRow(x);
 
-        item->setText(QString::fromWCharArray(pp_arr[x].nazwa_firmy));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].nazwa_firmy));
         ui->tableWidget_Prod->setItem(x,0,item);
 
-        item->setText(QString::fromWCharArray(pp_arr[x].adres));
-        ui->tableWidget_Prod->setItem(x,1,item);
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].adres));
+        ui->tableWidget_Prod->setItem(x,1,item2);
 
-        item->setText(QString::fromWCharArray(pp_arr[x].telefon));
-        ui->tableWidget_Prod->setItem(x,2,item);
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].telefon));
+        ui->tableWidget_Prod->setItem(x,2,item3);
 
-        item->setText(QString::fromWCharArray(pp_arr[x].fax));
-        ui->tableWidget_Prod->setItem(x,3,item);
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].fax));
+        ui->tableWidget_Prod->setItem(x,3,item4);
 
-        item->setText(QString::fromWCharArray(pp_arr[x].email));
-        ui->tableWidget_Prod->setItem(x,4,item);
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].email));
+        ui->tableWidget_Prod->setItem(x,4,item5);
 
-        item->setText(QString::fromWCharArray(pp_arr[x].strona_www));
-        ui->tableWidget_Prod->setItem(x,5,item);
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].strona_www));
+        ui->tableWidget_Prod->setItem(x,5,item6);
 
-        item->setText(QString::number(pp_arr[x].ID,10));
-        ui->tableWidget_Prod->setItem(x,6,item);
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(pp_arr[x].ID,10));
+        ui->tableWidget_Prod->setItem(x,6,item7);
 
-        item->setText(QString::number(pp_arr[x].IDPDB,10));
-        ui->tableWidget_Prod->setItem(x,7,item);
+        QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(pp_arr[x].IDPDB,10));
+        ui->tableWidget_Prod->setItem(x,7,item8);
+
 
     }
 
@@ -2758,34 +2758,33 @@ void MainWindow::Refresh_PD(void)
     ui->tableWidget_Dystr->clearContents();
 
     int x;
-    QTableWidgetItem *item;
     for (x=0;x<pd_arr.count(); x++)
     {
         ui->tableWidget_Dystr->insertRow(x);
 
-        item->setText(QString::fromWCharArray(pd_arr[x].nazwa_firmy));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].nazwa_firmy));
         ui->tableWidget_Dystr->setItem(x,0,item);
 
-        item->setText(QString::fromWCharArray(pd_arr[x].adres));
-        ui->tableWidget_Dystr->setItem(x,1,item);
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].adres));
+        ui->tableWidget_Dystr->setItem(x,1,item2);
 
-        item->setText(QString::fromWCharArray(pd_arr[x].telefon));
-        ui->tableWidget_Dystr->setItem(x,2,item);
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].telefon));
+        ui->tableWidget_Dystr->setItem(x,2,item3);
 
-        item->setText(QString::fromWCharArray(pd_arr[x].fax));
-        ui->tableWidget_Dystr->setItem(x,3,item);
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].fax));
+        ui->tableWidget_Dystr->setItem(x,3,item4);
 
-        item->setText(QString::fromWCharArray(pd_arr[x].email));
-        ui->tableWidget_Dystr->setItem(x,4,item);
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].email));
+        ui->tableWidget_Dystr->setItem(x,4,item5);
 
-        item->setText(QString::fromWCharArray(pd_arr[x].strona_www));
-        ui->tableWidget_Dystr->setItem(x,5,item);
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].strona_www));
+        ui->tableWidget_Dystr->setItem(x,5,item6);
 
-        item->setText(QString::number(pd_arr[x].ID,10));
-        ui->tableWidget_Dystr->setItem(x,6,item);
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(pd_arr[x].ID,10));
+        ui->tableWidget_Dystr->setItem(x,6,item7);
 
-        item->setText(QString::number(pd_arr[x].IDPDB,10));
-        ui->tableWidget_Dystr->setItem(x,7,item);
+        QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(pd_arr[x].IDPDB,10));
+        ui->tableWidget_Dystr->setItem(x,7,item8);
 
     }
 
@@ -2816,7 +2815,7 @@ void MainWindow::Save_PP(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2866,7 +2865,7 @@ void MainWindow::Save_PD(void)
     wchar_t buff[34];
     stop = plik.size();
 
-    for (y=0;y<pp_arr.count() ;y++ )
+    for (y=0;y<pd_arr.count() ;y++ )
     {
         if (GetRecC_PD() == 0)
             {
@@ -2878,7 +2877,7 @@ void MainWindow::Save_PD(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2924,13 +2923,13 @@ void MainWindow::Add_New_PP(int id)
     // Metoda callbacku
     pp.ID = id_new;
     pp.IDPDB = flm.film_tbl.ID;
-    wcscpy(pp.nazwa_firmy,L"Wpisz tutaj coś");
-    wcscpy(pp.adres,L"Wpisz tutaj coś");
-    wcscpy(pp.telefon,L"Wpisz tutaj coś");
-    wcscpy(pp.fax,L"Wpisz tutaj coś");
-    wcscpy(pp.email,L"Wpisz tutaj coś");
-    wcscpy(pp.strona_www,L"Wpisz tutaj coś");
-    wcscpy(pp.narodowosc,L"Wpisz tutaj coś");
+    wcscpy(pp.nazwa_firmy,L" ");
+    wcscpy(pp.adres,L" ");
+    wcscpy(pp.telefon,L" ");
+    wcscpy(pp.fax,L" ");
+    wcscpy(pp.email,L" ");
+    wcscpy(pp.strona_www,L" ");
+    wcscpy(pp.narodowosc,L" ");
 
 
     pp_arr.append(pp);
@@ -2949,13 +2948,13 @@ void MainWindow::Add_New_PD(int id)
     // Metoda callbacku
     pd.ID = id_new;
     pd.IDPDB = flm.film_tbl.ID;
-    wcscpy(pd.nazwa_firmy,L"Wpisz tutaj coś");
-    wcscpy(pd.adres,L"Wpisz tutaj coś");
-    wcscpy(pd.telefon,L"Wpisz tutaj coś");
-    wcscpy(pd.fax,L"Wpisz tutaj coś");
-    wcscpy(pd.email,L"Wpisz tutaj coś");
-    wcscpy(pd.strona_www,L"Wpisz tutaj coś");
-    wcscpy(pd.narodowosc,L"Wpisz tutaj coś");
+    wcscpy(pd.nazwa_firmy,L" ");
+    wcscpy(pd.adres,L" ");
+    wcscpy(pd.telefon,L" ");
+    wcscpy(pd.fax,L" ");
+    wcscpy(pd.email,L" ");
+    wcscpy(pd.strona_www,L" ");
+    wcscpy(pd.narodowosc,L" ");
 
 
     pd_arr.append(pd);
@@ -3254,6 +3253,15 @@ void MainWindow::on_pushButton_B_WYPIN_New_clicked()
 
 void MainWindow::on_pushButton_BIBLIOWYPISave_clicked()
 {
+    for (int i = 0; i < ui->tableWidget_BIBLIO_WYPIN->rowCount(); i++)
+    {
+        wcscpy(wi_arr[i].osoba,(wchar_t*)ui->tableWidget_BIBLIO_WYPIN->item(i,0)->text().utf16());
+        wcscpy(wi_arr[i].data_wypozyczenia,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,1)->text().utf16());
+        wcscpy(wi_arr[i].data_oddania ,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,2)->text().utf16());
+        wcscpy(wi_arr[i].stan_przed_wypozycz,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,3)->text().utf16());
+        wcscpy(wi_arr[i].stan_po_oddaniu ,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,4)->text().utf16());
+
+    }
     Save_Wi();
 }
 
@@ -3298,6 +3306,15 @@ void MainWindow::on_pushButton_B_WYPODIN_New_clicked()
 
 void MainWindow::on_pushButton_BIBLIOWYPODINSave_clicked()
 {
+    for (int i = 0; i < ui->tableWidget_BIBLIO_WYPODIN->rowCount(); i++)
+    {
+        wcscpy(wo_arr[i].osoba,(wchar_t*)ui->tableWidget_BIBLIO_WYPODIN->item(i,0)->text().utf16());
+        wcscpy(wo_arr[i].data_wypozyczenia,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,1)->text().utf16());
+        wcscpy(wo_arr[i].data_oddania ,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,2)->text().utf16());
+        wcscpy(wo_arr[i].stan_przed_wypozycz,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,3)->text().utf16());
+        wcscpy(wo_arr[i].stan_po_oddaniu ,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,4)->text().utf16());
+
+    }
     Save_Wo();
 }
 
@@ -3342,6 +3359,16 @@ void MainWindow::on_pushButton_LZ_New_clicked()
 
 void MainWindow::on_pushButton_LZSave_clicked()
 {
+    for (int i = 0; i < ui->tableWidget_IOF_LZ->rowCount(); i++)
+    {
+        wcscpy(lz_arr[i].nazwa_obiektu,(wchar_t*)ui->tableWidget_IOF_LZ->item(i,0)->text().utf16());
+        wcscpy(lz_arr[i].kraj,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,1)->text().utf16());
+        wcscpy(lz_arr[i].miejscowosc ,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,2)->text().utf16());
+        wcscpy(lz_arr[i].region,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,3)->text().utf16());
+        wcscpy(lz_arr[i].pora_roku ,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,4)->text().utf16());
+        wcscpy(lz_arr[i].data ,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,5)->text().utf16());
+
+    }
     Save_Lz();
 }
 
@@ -3386,6 +3413,12 @@ void MainWindow::on_pushButton_OB_new_clicked()
 
 void MainWindow::on_pushButton_OBSave_clicked()
 {
+    for (int i = 0; i < ui->tableWidget_Obsada->rowCount(); i++)
+    {
+        wcscpy(ob_arr[i].imie_nazw,(wchar_t*)ui->tableWidget_Obsada->item(i,0)->text().utf16());
+        wcscpy(ob_arr[i].rola,(wchar_t *)ui->tableWidget_Obsada->item(i,1)->text().utf16());
+
+    }
     Save_Ob();
 }
 
@@ -3427,34 +3460,33 @@ void MainWindow::Refresh_Lz(void)
     ui->tableWidget_IOF_LZ->clearContents();
 
     int x;
-    QTableWidgetItem *item;
     for (x=0;x<lz_arr.count(); x++)
     {
         ui->tableWidget_IOF_LZ->insertRow(x);
 
-        item->setText(QString::fromWCharArray(lz_arr[x].nazwa_obiektu));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].nazwa_obiektu));
         ui->tableWidget_IOF_LZ->setItem(x,0,item);
 
-        item->setText(QString::fromWCharArray(lz_arr[x].kraj));
-        ui->tableWidget_IOF_LZ->setItem(x,1,item);
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].kraj));
+        ui->tableWidget_IOF_LZ->setItem(x,1,item2);
 
-        item->setText(QString::fromWCharArray(lz_arr[x].miejscowosc));
-        ui->tableWidget_IOF_LZ->setItem(x,2,item);
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].miejscowosc));
+        ui->tableWidget_IOF_LZ->setItem(x,2,item3);
 
-        item->setText(QString::fromWCharArray(lz_arr[x].region));
-        ui->tableWidget_IOF_LZ->setItem(x,3,item);
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].region));
+        ui->tableWidget_IOF_LZ->setItem(x,3,item4);
 
-        item->setText(QString::fromWCharArray(lz_arr[x].pora_roku));
-        ui->tableWidget_IOF_LZ->setItem(x,4,item);
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].pora_roku));
+        ui->tableWidget_IOF_LZ->setItem(x,4,item5);
 
-        item->setText(QString::fromWCharArray(lz_arr[x].data));
-        ui->tableWidget_IOF_LZ->setItem(x,5,item);
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].data));
+        ui->tableWidget_IOF_LZ->setItem(x,5,item6);
 
-        item->setText(QString::number(lz_arr[x].ID,10));
-        ui->tableWidget_IOF_LZ->setItem(x,6,item);
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(lz_arr[x].ID,10));
+        ui->tableWidget_IOF_LZ->setItem(x,6,item7);
 
-        item->setText(QString::number(lz_arr[x].IDPDB,10));
-        ui->tableWidget_IOF_LZ->setItem(x,7,item);
+        QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(lz_arr[x].IDPDB,10));
+        ui->tableWidget_IOF_LZ->setItem(x,7,item8);
 
     }
 
@@ -3539,6 +3571,16 @@ void MainWindow::on_pushButto_P_New_clicked()
 
 void MainWindow::on_pushButton_PRODSave_clicked()
 {
+    for (int i = 0; i < ui->tableWidget_Prod->rowCount(); i++)
+    {
+        wcscpy(pp_arr[i].nazwa_firmy,(wchar_t*)ui->tableWidget_Prod->item(i,0)->text().utf16());
+        wcscpy(pp_arr[i].adres,(wchar_t *)ui->tableWidget_Prod->item(i,1)->text().utf16());
+        wcscpy(pp_arr[i].telefon ,(wchar_t *)ui->tableWidget_Prod->item(i,2)->text().utf16());
+        wcscpy(pp_arr[i].fax,(wchar_t *)ui->tableWidget_Prod->item(i,3)->text().utf16());
+        wcscpy(pp_arr[i].email ,(wchar_t *)ui->tableWidget_Prod->item(i,4)->text().utf16());
+        wcscpy(pp_arr[i].strona_www ,(wchar_t *)ui->tableWidget_Prod->item(i,5)->text().utf16());
+
+    }
     Save_PP();
 }
 
@@ -3583,6 +3625,16 @@ void MainWindow::on_pushButton_D_New_clicked()
 
 void MainWindow::on_pushButton_DYSTSave_clicked()
 {
+    for (int i = 0; i < ui->tableWidget_Dystr->rowCount(); i++)
+    {
+        wcscpy(pd_arr[i].nazwa_firmy,(wchar_t*)ui->tableWidget_Dystr->item(i,0)->text().utf16());
+        wcscpy(pd_arr[i].adres,(wchar_t *)ui->tableWidget_Dystr->item(i,1)->text().utf16());
+        wcscpy(pd_arr[i].telefon ,(wchar_t *)ui->tableWidget_Dystr->item(i,2)->text().utf16());
+        wcscpy(pd_arr[i].fax,(wchar_t *)ui->tableWidget_Dystr->item(i,3)->text().utf16());
+        wcscpy(pd_arr[i].email ,(wchar_t *)ui->tableWidget_Dystr->item(i,4)->text().utf16());
+        wcscpy(pd_arr[i].strona_www ,(wchar_t *)ui->tableWidget_Dystr->item(i,5)->text().utf16());
+
+    }
     Save_PD();
 }
 

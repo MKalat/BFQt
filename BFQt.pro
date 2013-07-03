@@ -19,10 +19,14 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     film_ftbl_class.h \
     Unmngd.h \
-    eksportuj.h
+    eksportuj.h \
+    version.h
 
 FORMS    += mainwindow.ui \
     eksportuj.ui
 
 RESOURCES += \
     res.qrc
+
+RC_FILE += \
+    bf.rc

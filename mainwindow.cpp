@@ -364,54 +364,54 @@ void MainWindow::Bind_OUT_Controls(void)
     // ta funkcja pobiera dane z formularza i zapisuje w strukturze flm.film_tbl
 
         // FORM FILM
-        ui->lineEdit_Tytul->text().toWCharArray(flm.film_tbl.tytul);
-        ui->lineEdit_TytulOrig->text().toWCharArray(flm.film_tbl.oryginalny_tytul);
-        ui->lineEdit_Gatunek->text().toWCharArray(flm.film_tbl.gatunek_filmu);
+        wcscpy(flm.film_tbl.tytul ,(wchar_t *)ui->lineEdit_Tytul->text().utf16());
+        wcscpy(flm.film_tbl.oryginalny_tytul ,(wchar_t *)ui->lineEdit_TytulOrig->text().utf16());
+        wcscpy(flm.film_tbl.gatunek_filmu ,(wchar_t *)ui->lineEdit_Gatunek->text().utf16());
         //ui->textEdit_Opis->toPlainText().toWCharArray((flm.film2_ftbl.opis));
         //TAB OCENA
-        ui->lineEdit_OC_OW_SD->text().toWCharArray(flm.film_tbl.WOF_sciezka_dz);
-        ui->lineEdit_OC_OW_Obs->text().toWCharArray(flm.film_tbl.WOF_obsada);
-        ui->lineEdit__OC_OW_Zdj->text().toWCharArray(flm.film_tbl.WOF_zdjecia);
-        ui->lineEdit__OC_OW_WA->text().toWCharArray(flm.film_tbl.WOF_w_art);
-        ui->lineEdit__OC_OW_All->text().toWCharArray(flm.film_tbl.WOF_calosc);
+        wcscpy(flm.film_tbl.WOF_sciezka_dz ,(wchar_t *)ui->lineEdit_OC_OW_SD->text().utf16());
+        wcscpy(flm.film_tbl.WOF_obsada ,(wchar_t *)ui->lineEdit_OC_OW_Obs->text().utf16());
+        wcscpy(flm.film_tbl.WOF_zdjecia ,(wchar_t *)ui->lineEdit__OC_OW_Zdj->text().utf16());
+        wcscpy(flm.film_tbl.WOF_w_art ,(wchar_t *)ui->lineEdit__OC_OW_WA->text().utf16());
+        wcscpy(flm.film_tbl.WOF_calosc ,(wchar_t *)ui->lineEdit__OC_OW_All->text().utf16());
 
         // TAB PRODUKCJA
 
         // TAB DOE
-        ui->lineEdit_DOE_W_Imie->text().toWCharArray(flm.film_tbl.DOE_WKF_imie);
-        ui->lineEdit_DOE_W_Nazw->text().toWCharArray(flm.film_tbl.DOE_WKF_nazwisko);
-        ui->lineEdit_DOE_W_Adres->text().toWCharArray(flm.film_tbl.DOE_WKF_adres);
-        ui->lineEdit_DOE_S_Nazwa->text().toWCharArray(flm.film_tbl.DOE_MN_nazwa);
-        ui->lineEdit_DOE_S_Adres->text().toWCharArray(flm.film_tbl.DOE_MN_adres);
-        ui->lineEdit_DOE_S_WWW->text().toWCharArray(flm.film_tbl.DOE_MN_www);
-        ui->lineEdit_DOE_S_Tel->text().toWCharArray(flm.film_tbl.DOE_MN_telefon);
-        ui->lineEdit_DOE_S_Fax->text().toWCharArray(flm.film_tbl.DOE_MN_fax);
-        ui->lineEdit_DOE_S_Email->text().toWCharArray(flm.film_tbl.DOE_MN_email);
-        ui->lineEdit_DOE_Cena->text().toWCharArray(flm.film_tbl.DOE_cena);
-        ui->lineEdit_DOE_Wakt->text().toWCharArray(flm.film_tbl.DOE_wartosc_akt);
-        ui->lineEdit_DOE_DataZak->text().toWCharArray(flm.film_tbl.DOE_data_zakupu);
-        ui->lineEdit_DOE_DataUtr->text().toWCharArray(flm.film_tbl.DOE_data_utraty);
-        ui->lineEdit_DOE_DataSkat->text().toWCharArray(flm.film_tbl.DOE_data_skatalogowania);
-        ui->lineEdit_DOE_NrKat->text().toWCharArray(flm.film_tbl.DOE_Nr_kat);
-        ui->lineEdit_DOE_Nosnik->text().toWCharArray(flm.film_tbl.DOE_rodzaj_nosnika);
+        wcscpy(flm.film_tbl.DOE_WKF_imie ,(wchar_t *)ui->lineEdit_DOE_W_Imie->text().utf16());
+        wcscpy(flm.film_tbl.DOE_WKF_nazwisko ,(wchar_t *)ui->lineEdit_DOE_W_Nazw->text().utf16());
+        wcscpy(flm.film_tbl.DOE_WKF_adres ,(wchar_t *)ui->lineEdit_DOE_W_Adres->text().utf16());
+        wcscpy(flm.film_tbl.DOE_MN_nazwa ,(wchar_t *)ui->lineEdit_DOE_S_Nazwa->text().utf16());
+        wcscpy(flm.film_tbl.DOE_MN_adres ,(wchar_t *)ui->lineEdit_DOE_S_Adres->text().utf16());
+        wcscpy(flm.film_tbl.DOE_MN_www ,(wchar_t *)ui->lineEdit_DOE_S_WWW->text().utf16());
+        wcscpy(flm.film_tbl.DOE_MN_telefon ,(wchar_t *)ui->lineEdit_DOE_S_Tel->text().utf16());
+        wcscpy(flm.film_tbl.DOE_MN_fax ,(wchar_t *)ui->lineEdit_DOE_S_Fax->text().utf16());
+        wcscpy(flm.film_tbl.DOE_MN_email ,(wchar_t *)ui->lineEdit_DOE_S_Email->text().utf16());
+        wcscpy(flm.film_tbl.DOE_cena ,(wchar_t *)ui->lineEdit_DOE_Cena->text().utf16());
+        wcscpy(flm.film_tbl.DOE_wartosc_akt ,(wchar_t *)ui->lineEdit_DOE_Wakt->text().utf16());
+        wcscpy(flm.film_tbl.DOE_data_zakupu ,(wchar_t *)ui->lineEdit_DOE_DataZak->text().utf16());
+        wcscpy(flm.film_tbl.DOE_data_utraty ,(wchar_t *)ui->lineEdit_DOE_DataUtr->text().utf16());
+        wcscpy(flm.film_tbl.DOE_data_skatalogowania ,(wchar_t *)ui->lineEdit_DOE_DataSkat->text().utf16());
+        wcscpy(flm.film_tbl.DOE_Nr_kat ,(wchar_t *)ui->lineEdit_DOE_NrKat->text().utf16());
+        wcscpy(flm.film_tbl.DOE_rodzaj_nosnika ,(wchar_t *)ui->lineEdit_DOE_Nosnik->text().utf16());
         // TAB IOF
-        ui->lineEdit_RokProd->text().toWCharArray(flm.film_tbl.IOF_rok_produkcji);
-        ui->lineEdit_DataPrem->text().toWCharArray(flm.film_tbl.IOF_data_premiery);
-        ui->lineEdit_CzasProj->text().toWCharArray(flm.film_tbl.IOF_czas_trwania);
-        ui->lineEdit_FormWysw->text().toWCharArray(flm.film_tbl.IOF_format_wysw);
-        ui->lineEdit_SysKodObr->text().toWCharArray(flm.film_tbl.IOF_system_kodowania_obrazu);
-        ui->lineEdit_JezLekt->text().toWCharArray(flm.film_tbl.IOF_jezyk_lektora);
-        ui->lineEdit_JezNap->text().toWCharArray(flm.film_tbl.IOF_jezyk_napisow);
-        ui->lineEdit_KrajProd->text().toWCharArray(flm.film_tbl.IOF_kraj_produkcji_filmu);
-        ui->lineEdit_KodVidNazwa->text().toWCharArray(flm.film_tbl.IOF_KODEK_nazwa);
-        ui->lineEdit_KodVidTyp->text().toWCharArray(flm.film_tbl.IOF_KODEK_typ);
-        ui->lineEdit_KodVidWersja->text().toWCharArray(flm.film_tbl.IOF_KODEK_wersja);
-        ui->lineEdit_KodAudNazwa->text().toWCharArray(flm.film_tbl.IOF_DZWIEK_nazwa);
-        ui->lineEdit_KodAudTyp->text().toWCharArray(flm.film_tbl.IOF_DZWIEK_typ);
-        ui->lineEdit_KodAudWersja->text().toWCharArray(flm.film_tbl.IOF_DZWIEK_wersja);
-        ui->lineEdit_ZabNazwa->text().toWCharArray(flm.film_tbl.IOF_ZABEZP_nazwa);
-        ui->lineEdit_ZabTyp->text().toWCharArray(flm.film_tbl.IOF_ZABEZP_typ);
-        ui->lineEdit_ZabWersja->text().toWCharArray(flm.film_tbl.IOF_ZABEZP_wersja);
+        wcscpy(flm.film_tbl.IOF_rok_produkcji ,(wchar_t *)ui->lineEdit_RokProd->text().utf16());
+        wcscpy(flm.film_tbl.IOF_data_premiery ,(wchar_t *)ui->lineEdit_DataPrem->text().utf16());
+        wcscpy(flm.film_tbl.IOF_czas_trwania ,(wchar_t *)ui->lineEdit_CzasProj->text().utf16());
+        wcscpy(flm.film_tbl.IOF_format_wysw ,(wchar_t *)ui->lineEdit_FormWysw->text().utf16());
+        wcscpy(flm.film_tbl.IOF_system_kodowania_obrazu ,(wchar_t *)ui->lineEdit_SysKodObr->text().utf16());
+        wcscpy(flm.film_tbl.IOF_jezyk_lektora ,(wchar_t *)ui->lineEdit_JezLekt->text().utf16());
+        wcscpy(flm.film_tbl.IOF_jezyk_napisow ,(wchar_t *)ui->lineEdit_JezNap->text().utf16());
+        wcscpy(flm.film_tbl.IOF_kraj_produkcji_filmu ,(wchar_t *)ui->lineEdit_KrajProd->text().utf16());
+        wcscpy(flm.film_tbl.IOF_KODEK_nazwa ,(wchar_t *)ui->lineEdit_KodVidNazwa->text().utf16());
+        wcscpy(flm.film_tbl.IOF_KODEK_typ ,(wchar_t *)ui->lineEdit_KodVidTyp->text().utf16());
+        wcscpy(flm.film_tbl.IOF_KODEK_wersja ,(wchar_t *)ui->lineEdit_KodVidWersja->text().utf16());
+        wcscpy(flm.film_tbl.IOF_DZWIEK_nazwa ,(wchar_t *)ui->lineEdit_KodAudNazwa->text().utf16());
+        wcscpy(flm.film_tbl.IOF_DZWIEK_typ ,(wchar_t *)ui->lineEdit_KodAudTyp->text().utf16());
+        wcscpy(flm.film_tbl.IOF_DZWIEK_wersja ,(wchar_t *)ui->lineEdit_KodAudWersja->text().utf16());
+        wcscpy(flm.film_tbl.IOF_ZABEZP_nazwa ,(wchar_t *)ui->lineEdit_ZabNazwa->text().utf16());
+        wcscpy(flm.film_tbl.IOF_ZABEZP_typ ,(wchar_t *)ui->lineEdit_ZabTyp->text().utf16());
+        wcscpy(flm.film_tbl.IOF_ZABEZP_wersja ,(wchar_t *)ui->lineEdit_ZabWersja->text().utf16());
 }
 void MainWindow::ClearCtrls(bool all)
 {
@@ -3473,11 +3473,11 @@ void MainWindow::on_pushButton_OC_Save_clicked()
 
     for (int i = 0; i < ui->tableWidget_OC->rowCount(); i++)
     {
-        ui->tableWidget_OC->item(i,0)->text().toWCharArray(oc_arr[i].nazwa);
-        ui->tableWidget_OC->item(i,1)->text().toWCharArray(oc_arr[i].tytul_tekstu);
-        ui->tableWidget_OC->item(i,2)->text().toWCharArray(oc_arr[i].autor_tekstu);
-        ui->tableWidget_OC->item(i,3)->text().toWCharArray(oc_arr[i].strona_www);
-        ui->tableWidget_OC->item(i,4)->text().toWCharArray(oc_arr[i].ocena_krytyka);
+        wcscpy(oc_arr[i].nazwa,(wchar_t*)ui->tableWidget_OC->item(i,0)->text().utf16());
+        wcscpy(oc_arr[i].tytul_tekstu,(wchar_t *)ui->tableWidget_OC->item(i,1)->text().utf16());
+        wcscpy(oc_arr[i].autor_tekstu ,(wchar_t *)ui->tableWidget_OC->item(i,2)->text().utf16());
+        wcscpy(oc_arr[i].strona_www,(wchar_t *)ui->tableWidget_OC->item(i,3)->text().utf16());
+        wcscpy(oc_arr[i].ocena_krytyka ,(wchar_t *)ui->tableWidget_OC->item(i,4)->text().utf16());
 
     }
 

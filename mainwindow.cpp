@@ -82,7 +82,7 @@ MainWindow::MainWindow(QWidget *parent) :
         icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/new_ico24x24.png"), QSize(), QIcon::Active, QIcon::On);
         icon.addFile(QString::fromUtf8(":/new/prefix1/Resources/new_ico24x24.png"), QSize(), QIcon::Selected, QIcon::Off);
         ui->pushButton_New->setIcon(icon);
-        ui->pushButton_New->setCheckable(true);
+        //ui->pushButton_New->setCheckable(true);
 
         ui->pushButton_Del->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
         QIcon icon2;
@@ -92,7 +92,7 @@ MainWindow::MainWindow(QWidget *parent) :
         icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/del_ico24x24-2.png"), QSize(), QIcon::Active, QIcon::On);
         icon2.addFile(QString::fromUtf8(":/new/prefix1/Resources/del_ico24x24-2.png"), QSize(), QIcon::Selected, QIcon::Off);
         ui->pushButton_Del->setIcon(icon2);
-        ui->pushButton_Del->setCheckable(true);
+        //ui->pushButton_Del->setCheckable(true);
 
         ui->pushButton_Save->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
         QIcon icon3;
@@ -102,7 +102,7 @@ MainWindow::MainWindow(QWidget *parent) :
         icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/save_ico24x24.png"), QSize(), QIcon::Active, QIcon::On);
         icon3.addFile(QString::fromUtf8(":/new/prefix1/Resources/save_ico24x24.png"), QSize(), QIcon::Selected, QIcon::Off);
         ui->pushButton_Save->setIcon(icon3);
-        ui->pushButton_Save->setCheckable(true);
+        //ui->pushButton_Save->setCheckable(true);
 
         ui->pushButton_Next->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
         ui->pushButton_First->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
@@ -115,7 +115,7 @@ MainWindow::MainWindow(QWidget *parent) :
         icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/upload_ico24x24.png"), QSize(), QIcon::Active, QIcon::On);
         icon4.addFile(QString::fromUtf8(":/new/prefix1/Resources/upload_ico24x24.png"), QSize(), QIcon::Selected, QIcon::Off);
         ui->pushButton_IntWiz->setIcon(icon4);
-        ui->pushButton_IntWiz->setCheckable(true);
+        //ui->pushButton_IntWiz->setCheckable(true);
 
         ui->pushButton_Prev->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
 
@@ -2410,7 +2410,7 @@ void MainWindow::Save_Oc(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray((wchar_t *)"Biblioteka Filmów"),QString::fromWCharArray((wchar_t *)"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie można więcej zapisywać do tego pliku - jest przepełniony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2615,31 +2615,30 @@ void MainWindow::Refresh_Oc(void)
     ui->tableWidget_OC->clearContents();
 
     int x;
-    QTableWidgetItem *item;
     for (x=0;x<oc_arr.count(); x++)
     {
-        ui->tableWidget_IOF_LZ->insertRow(x);
+        ui->tableWidget_OC->insertRow(x);
 
-        item->setText(QString::fromWCharArray(oc_arr[x].nazwa));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].nazwa));
         ui->tableWidget_OC->setItem(x,0,item);
 
-        item->setText(QString::fromWCharArray(oc_arr[x].tytul_tekstu));
-        ui->tableWidget_OC->setItem(x,1,item);
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].tytul_tekstu));
+        ui->tableWidget_OC->setItem(x,1,item2);
 
-        item->setText(QString::fromWCharArray(oc_arr[x].autor_tekstu));
-        ui->tableWidget_OC->setItem(x,2,item);
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].autor_tekstu));
+        ui->tableWidget_OC->setItem(x,2,item3);
 
-        item->setText(QString::fromWCharArray(oc_arr[x].strona_www));
-        ui->tableWidget_OC->setItem(x,3,item);
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].strona_www));
+        ui->tableWidget_OC->setItem(x,3,item4);
 
-        item->setText(QString::fromWCharArray(oc_arr[x].ocena_krytyka));
-        ui->tableWidget_OC->setItem(x,4,item);
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].ocena_krytyka));
+        ui->tableWidget_OC->setItem(x,4,item5);
 
-        item->setText(QString::number(oc_arr[x].ID,10));
-        ui->tableWidget_OC->setItem(x,5,item);
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(oc_arr[x].ID,10));
+        ui->tableWidget_OC->setItem(x,5,item6);
 
-        item->setText(QString::number(oc_arr[x].IDPDB,10));
-        ui->tableWidget_OC->setItem(x,6,item);
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(oc_arr[x].IDPDB,10));
+        ui->tableWidget_OC->setItem(x,6,item7);
 
     }
 }
@@ -3471,6 +3470,19 @@ void MainWindow::on_pushButton_OC_New_clicked()
 
 void MainWindow::on_pushButton_OC_Save_clicked()
 {
+
+    for (int i = 0; i < ui->tableWidget_OC->rowCount(); i++)
+    {
+        ui->tableWidget_OC->item(i,0)->text().toWCharArray(oc_arr[i].nazwa);
+        ui->tableWidget_OC->item(i,1)->text().toWCharArray(oc_arr[i].tytul_tekstu);
+        ui->tableWidget_OC->item(i,2)->text().toWCharArray(oc_arr[i].autor_tekstu);
+        ui->tableWidget_OC->item(i,3)->text().toWCharArray(oc_arr[i].strona_www);
+        ui->tableWidget_OC->item(i,4)->text().toWCharArray(oc_arr[i].ocena_krytyka);
+
+    }
+
+
+
     Save_Oc();
 }
 

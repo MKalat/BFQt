@@ -11,7 +11,7 @@ unsigned int sort_idx = 0; // zmienna pomocnicza slużaca do poruszania sie po i
 unsigned int zadana_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
 unsigned int akt_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
 
-wchar_t akt_BF_VER[16] = L"1.0.2.0";
+wchar_t akt_BF_VER[16] = L"1.0.6.0";
 bool first_act = true;
 bool start = true; // oznacza czy aplikacja startuje;
 bool open_folder = false;
@@ -767,7 +767,7 @@ bool MainWindow::Save_Full_Film(void) {
                 //  odszukaj zadana strukture z pliku "BF_PDB.dat" i zapisz do pliku zawartosc zmiennej struktury Film,
                 // , a potem odczytaj z pliku,celem wyswietlenia
             QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
-                plik.open(QFile::WriteOnly | QFile::ReadOnly);
+                plik.open(QFile::ReadWrite);
                 akt_pozycja_pliku = zadana_pozycja_pliku;
                 plik.seek(zadana_pozycja_pliku);
                 plik.write(reinterpret_cast<char *>(&flm.film_tbl),sizeof(flm.film_tbl));

@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'eksportujHp1700.ui'
+** Form generated from reading UI file 'eksportuj.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.0.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef EKSPORTUJHP1700_H
-#define EKSPORTUJHP1700_H
+#ifndef UI_EKSPORTUJ_H
+#define UI_EKSPORTUJ_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -120,4 +120,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // EKSPORTUJHP1700_H
+#endif // UI_EKSPORTUJ_H

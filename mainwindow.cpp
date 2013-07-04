@@ -5,6 +5,7 @@
 #include "Unmngd.h"
 #include "Eksportuj.h"
 #include "wyszukaj.h"
+#include "oprog.h"
 
 struct Film Ftbl::film_tbl;    // struktura mieszczaca jeden rekord form film
 bool Ftbl::sort = false;
@@ -125,7 +126,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->pushButton_Prev->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
 
         flm.sort = false;
-        //_spawnl(_P_NOWAIT,"MK_AUTOUPDATE.exe","MK_AUTOUPDATE.exe",NULL);
+        _spawnl(_P_NOWAIT,"MK_AUTOUPDATE.exe","MK_AUTOUPDATE.exe",NULL);
 
         UpdateCtrls(false,true);
         Licz_Rec();
@@ -3218,12 +3219,13 @@ void MainWindow::on_actionDrukuj_triggered()
 
 void MainWindow::on_actionSprawd_aktualizacje_triggered()
 {
-
+    _spawnl(_P_NOWAIT,"MK_AUTOUPDATE.exe","MK_AUTOUPDATE.exe",NULL);
 }
 
 void MainWindow::on_actionO_programie_triggered()
 {
-
+    OProg *prog = new OProg();
+    prog->show();
 }
 
 void MainWindow::on_actionPomoc_triggered()
@@ -3708,4 +3710,16 @@ void MainWindow::SetRecAkt(unsigned int id)
         Licz_Rec();
     }
 
+}
+
+void MainWindow::on_comboBox_GatSel_currentTextChanged(const QString &arg1)
+{
+    if (ui->lineEdit_Gatunek->text().length() > 0)
+    {
+        ui->lineEdit_Gatunek->setText(ui->lineEdit_Gatunek->text() + ", " + arg1);
+    }
+    else
+    {
+        ui->lineEdit_Gatunek->setText(arg1);
+    }
 }

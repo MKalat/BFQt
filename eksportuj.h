@@ -15,6 +15,7 @@
 #include <windows.h>
 #include <iostream>
 #include <direct.h>
+#include <QTextStream>
 
 
 namespace Ui {

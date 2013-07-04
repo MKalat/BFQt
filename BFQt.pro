@@ -15,18 +15,21 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     eksportuj.cpp \
-    wyszukaj.cpp
+    wyszukaj.cpp \
+    oprog.cpp
 
 HEADERS  += mainwindow.h \
     film_ftbl_class.h \
     Unmngd.h \
     eksportuj.h \
     version.h \
-    wyszukaj.h
+    wyszukaj.h \
+    oprog.h
 
 FORMS    += mainwindow.ui \
     eksportuj.ui \
-    wyszukaj.ui
+    wyszukaj.ui \
+    oprog.ui
 
 RESOURCES += \
     res.qrc

@@ -14,6 +14,7 @@
 #include <windows.h>
 #include <iostream>
 #include <direct.h>
+#include <process.h>
 
 
 
@@ -195,6 +196,8 @@ private slots:
     void on_pushButton_DYSTSave_clicked();
 
     void on_pushButton_DYSTDel_clicked();
+
+    void on_comboBox_GatSel_currentTextChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

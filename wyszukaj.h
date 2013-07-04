@@ -11,6 +11,9 @@
 #include <QDir>
 #include <QList>
 #include <QFileDialog>
+
+
+
 namespace Ui {
 class Wyszukaj;
 }
@@ -23,7 +26,9 @@ public:
     explicit Wyszukaj(QWidget *parent = 0);
     ~Wyszukaj();
 
-    void Fill_details();
+    void Fill_details(unsigned int pos);
+signals :
+    void ustaw_rec(unsigned int);
     
 private slots:
 

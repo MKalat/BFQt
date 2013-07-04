@@ -1,14 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'eksportuj.ui'
+** Form generated from reading UI file 'eksportujHp1700.ui'
 **
-** Created: Thu 27. Jun 02:33:34 2013
-**      by: Qt User Interface Compiler version 4.8.4
+** Created by: Qt User Interface Compiler version 5.0.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef UI_EKSPORTUJ_H
-#define UI_EKSPORTUJ_H
+#ifndef EKSPORTUJHP1700_H
+#define EKSPORTUJHP1700_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -44,50 +43,51 @@ public:
     void setupUi(QWidget *Eksportuj)
     {
         if (Eksportuj->objectName().isEmpty())
-            Eksportuj->setObjectName(QString::fromUtf8("Eksportuj"));
+            Eksportuj->setObjectName(QStringLiteral("Eksportuj"));
         Eksportuj->resize(376, 327);
         lineEdit_Eks_path = new QLineEdit(Eksportuj);
-        lineEdit_Eks_path->setObjectName(QString::fromUtf8("lineEdit_Eks_path"));
+        lineEdit_Eks_path->setObjectName(QStringLiteral("lineEdit_Eks_path"));
         lineEdit_Eks_path->setGeometry(QRect(12, 18, 310, 20));
         pushButton_GetPath = new QPushButton(Eksportuj);
-        pushButton_GetPath->setObjectName(QString::fromUtf8("pushButton_GetPath"));
+        pushButton_GetPath->setObjectName(QStringLiteral("pushButton_GetPath"));
         pushButton_GetPath->setGeometry(QRect(324, 18, 49, 23));
         label = new QLabel(Eksportuj);
-        label->setObjectName(QString::fromUtf8("label"));
+        label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(9, 3, 307, 16));
         checkBox_AllRec = new QCheckBox(Eksportuj);
-        checkBox_AllRec->setObjectName(QString::fromUtf8("checkBox_AllRec"));
+        checkBox_AllRec->setObjectName(QStringLiteral("checkBox_AllRec"));
         checkBox_AllRec->setGeometry(QRect(15, 51, 265, 17));
         groupBox = new QGroupBox(Eksportuj);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(15, 75, 352, 181));
         checkBox_MainFilm = new QCheckBox(groupBox);
-        checkBox_MainFilm->setObjectName(QString::fromUtf8("checkBox_MainFilm"));
+        checkBox_MainFilm->setObjectName(QStringLiteral("checkBox_MainFilm"));
         checkBox_MainFilm->setGeometry(QRect(12, 21, 151, 17));
+        checkBox_MainFilm->setChecked(true);
         checkBox_TabObsada = new QCheckBox(groupBox);
-        checkBox_TabObsada->setObjectName(QString::fromUtf8("checkBox_TabObsada"));
+        checkBox_TabObsada->setObjectName(QStringLiteral("checkBox_TabObsada"));
         checkBox_TabObsada->setGeometry(QRect(12, 45, 121, 17));
         checkBox_TabOcena = new QCheckBox(groupBox);
-        checkBox_TabOcena->setObjectName(QString::fromUtf8("checkBox_TabOcena"));
+        checkBox_TabOcena->setObjectName(QStringLiteral("checkBox_TabOcena"));
         checkBox_TabOcena->setGeometry(QRect(12, 69, 94, 17));
         checkBox_TabLZ = new QCheckBox(groupBox);
-        checkBox_TabLZ->setObjectName(QString::fromUtf8("checkBox_TabLZ"));
+        checkBox_TabLZ->setObjectName(QStringLiteral("checkBox_TabLZ"));
         checkBox_TabLZ->setGeometry(QRect(12, 93, 163, 17));
         checkBox_TabPD = new QCheckBox(groupBox);
-        checkBox_TabPD->setObjectName(QString::fromUtf8("checkBox_TabPD"));
+        checkBox_TabPD->setObjectName(QStringLiteral("checkBox_TabPD"));
         checkBox_TabPD->setGeometry(QRect(12, 117, 181, 17));
         checkBox_TabW = new QCheckBox(groupBox);
-        checkBox_TabW->setObjectName(QString::fromUtf8("checkBox_TabW"));
+        checkBox_TabW->setObjectName(QStringLiteral("checkBox_TabW"));
         checkBox_TabW->setGeometry(QRect(12, 141, 124, 17));
         pushButton_Eksport = new QPushButton(Eksportuj);
-        pushButton_Eksport->setObjectName(QString::fromUtf8("pushButton_Eksport"));
+        pushButton_Eksport->setObjectName(QStringLiteral("pushButton_Eksport"));
         pushButton_Eksport->setGeometry(QRect(180, 273, 106, 28));
         QFont font;
         font.setBold(true);
         font.setWeight(75);
         pushButton_Eksport->setFont(font);
         pushButton_Anuluj = new QPushButton(Eksportuj);
-        pushButton_Anuluj->setObjectName(QString::fromUtf8("pushButton_Anuluj"));
+        pushButton_Anuluj->setObjectName(QStringLiteral("pushButton_Anuluj"));
         pushButton_Anuluj->setGeometry(QRect(291, 273, 75, 28));
 
         retranslateUi(Eksportuj);
@@ -120,4 +120,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // UI_EKSPORTUJ_H
+#endif // EKSPORTUJHP1700_H

@@ -1,6 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "film_ftbl_class.h"
+#include "Unmngd.h"
+#include "Eksportuj.h"
+#include "wyszukaj.h"
+
 struct Film Ftbl::film_tbl;    // struktura mieszczaca jeden rekord form film
 bool Ftbl::sort = false;
 struct DB_paths Ftbl::pths;
@@ -3172,7 +3177,7 @@ void MainWindow::on_actionOtw_rz_Utw_rz_baze_danych_triggered()
     {
         QString dir_path = fdlg.selectedFiles().at(0);
         wchar_t buff[1024];
-        dir_path.toWCharArray(buff);
+        wcscpy(buff,(wchar_t *)dir_path.utf16());
         SetDBFNPaths(true,buff);
         if (CheckbOpenDB() == 1)
         {
@@ -3189,19 +3194,21 @@ void MainWindow::on_actionOtw_rz_Utw_rz_baze_danych_triggered()
 
 void MainWindow::on_actionEksportuj_triggered()
 {
-    Eksportuj *eks_wiz = new Eksportuj(this);
+    Eksportuj *eks_wiz = new Eksportuj();
     eks_wiz->show();
 
 }
 
 void MainWindow::on_actionWyszukaj_triggered()
 {
-
+    Wyszukaj *wysz = new Wyszukaj();
+    QObject::connect(wysz, SIGNAL(ustaw_rec(uint)), this, SLOT(SetRecAkt(uint)));
+    wysz->show();
 }
 
 void MainWindow::on_actionKoniec_triggered()
 {
-
+    this->close();
 }
 
 void MainWindow::on_actionDrukuj_triggered()
@@ -3687,5 +3694,18 @@ void MainWindow::Clear_TABS()
 {
 
 
+
+}
+
+void MainWindow::SetRecAkt(unsigned int id)
+{
+    if (!(Licz_Rec()))
+    {
+        //OnBnClickedButtonFrmFSave();
+        zadana_pozycja_pliku = id;
+        ClearCtrls(false);
+        UpdateCtrls(false,false);
+        Licz_Rec();
+    }
 
 }

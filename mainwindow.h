@@ -15,9 +15,7 @@
 #include <iostream>
 #include <direct.h>
 
-#include "film_ftbl_class.h"
-#include "Unmngd.h"
-#include "Eksportuj.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -114,6 +112,8 @@ public:
     int Get_Hi_ID_PD(void);
     void Fill_Opis(void);
     void Clear_TABS(void);
+public slots :
+    void SetRecAkt(unsigned int id);
 
 
     

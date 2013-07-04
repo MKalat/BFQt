@@ -1,16 +1,16 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#define VER_FILEVERSION             1,0,6,0
-#define VER_FILEVERSION_STR         "1.0.6.0\0"
+#define VER_FILEVERSION             1,0,5,10
+#define VER_FILEVERSION_STR         "1.0.5.10\0"
 
-#define VER_PRODUCTVERSION          1,0,6,0
-#define VER_PRODUCTVERSION_STR      "1.0.6.0\0"
+#define VER_PRODUCTVERSION          1,0,5,10
+#define VER_PRODUCTVERSION_STR      "1.0.5.10\0"
 
 #define VER_COMPANYNAME_STR         "Marcin Ka³at"
 #define VER_FILEDESCRIPTION_STR     "Biblioteka Filmów"
 #define VER_INTERNALNAME_STR        "BF.exe"
-#define VER_LEGALCOPYRIGHT_STR      "Copyright Â© 2005 - 2013 Marcin Ka³at"
+#define VER_LEGALCOPYRIGHT_STR      "Copyright © 2005 - 2013 Marcin Ka³at"
 #define VER_LEGALTRADEMARKS1_STR    "All Rights Reserved"
 #define VER_LEGALTRADEMARKS2_STR    VER_LEGALTRADEMARKS1_STR
 #define VER_ORIGINALFILENAME_STR    "bf.exe"

@@ -1491,7 +1491,7 @@ void MainWindow::Fill_Wo(void)
     stop = plik.size();
 
 
-    ui->tableWidget_BIBLIO_WYPODIN->clearContents();
+    ui->tableWidget_BIBLIO_WYPODIN->setRowCount(0);
     wo_arr.clear();
 
 
@@ -1516,11 +1516,12 @@ void MainWindow::Fill_Wo(void)
 
 void MainWindow::Refresh_Wi(void)
 {
-    ui->tableWidget_BIBLIO_WYPIN->clearContents();
+    ui->tableWidget_BIBLIO_WYPIN->setRowCount(0);
 
     int x;
     for (x=0;x<wi_arr.count(); x++)
     {
+
         ui->tableWidget_BIBLIO_WYPIN->insertRow(x);
 
         QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].osoba));
@@ -1863,12 +1864,12 @@ void MainWindow::Usun_Rec_WI(unsigned int pos)
         plik0.seek(pos);
         plik0.write(reinterpret_cast<char *>(&wi),sizeof(wi));
 
-        plik0.rename(QString::fromWCharArray(flm.pths.BF_WI),QString::fromWCharArray((LPCTSTR)"BF_WI.bf0"));
+        plik0.rename(QString::fromWCharArray(flm.pths.BF_WI),QString::fromWCharArray(L"BF_WI.bf0"));
 
         plik0.close();
         QFile plik(QString::fromWCharArray(flm.pths.BF_WI));
         plik.open(QFile::WriteOnly | QFile::ReadOnly);
-        QFile src_file(QString::fromWCharArray((wchar_t *)"BF_WI.bf0"));
+        QFile src_file(QString::fromWCharArray(L"BF_WI.bf0"));
         src_file.open(QFile::ReadOnly);
         unsigned int i;
         for (i = 0; i <(src_file.size()) ; )
@@ -2319,7 +2320,7 @@ int MainWindow::GetRecC_OB(void)
 void MainWindow::Refresh_Ob(void)
 {
 
-    ui->tableWidget_Obsada->clearContents();
+    ui->tableWidget_Obsada->setRowCount(0);
 
     int x;
     for (x=0;x<ob_arr.count(); x++)
@@ -2612,7 +2613,7 @@ void MainWindow::Usun_Rec_OC(unsigned int pos)
 void MainWindow::Refresh_Oc(void)
 {
 
-    ui->tableWidget_OC->clearContents();
+    ui->tableWidget_OC->setRowCount(0);
 
     int x;
     for (x=0;x<oc_arr.count(); x++)
@@ -2717,7 +2718,7 @@ void MainWindow::Fill_PD(void)
 
 void MainWindow::Refresh_PP(void)
 {
-    ui->tableWidget_Prod->clearContents();
+    ui->tableWidget_Prod->setRowCount(0);
 
     int x;
     for (x=0;x<pp_arr.count(); x++)
@@ -2755,7 +2756,7 @@ void MainWindow::Refresh_PP(void)
 
 void MainWindow::Refresh_PD(void)
 {
-    ui->tableWidget_Dystr->clearContents();
+    ui->tableWidget_Dystr->setRowCount(0);
 
     int x;
     for (x=0;x<pd_arr.count(); x++)
@@ -3223,13 +3224,10 @@ void MainWindow::on_pushButton_LoadPic_clicked()
 
         buff = QString::fromWCharArray(flm.pths.BF_COVERS);
         buff = buff + QString::number(flm.film_tbl.ID);
-        wchar_t buffchr[1024];
-        buff.toWCharArray(buffchr);
-        wchar_t buffchr2[1024];
-        plk_path.toWCharArray(buffchr2);
-        CopyFile(buffchr2,buffchr,FALSE);
+        QFile plk(plk_path);
+        plk.copy(buff);
 
-        wcscpy(flm.film_tbl.skan_przod_path,buffchr);
+        wcscpy(flm.film_tbl.skan_przod_path,(wchar_t*)buff.utf16());
         on_pushButton_Save_clicked();
     }
 }
@@ -3238,7 +3236,7 @@ void MainWindow::on_pushButton_DelPic_clicked()
 {
     if (!(Licz_Rec()))
     {
-        wcscpy(flm.film_tbl.skan_przod_path,(wchar_t *)"");
+        wcscpy(flm.film_tbl.skan_przod_path,L"");
         on_pushButton_Save_clicked();
 
     }
@@ -3246,7 +3244,7 @@ void MainWindow::on_pushButton_DelPic_clicked()
 
 void MainWindow::on_pushButton_B_WYPIN_New_clicked()
 {
-    Save_Wi();
+    on_pushButton_BIBLIOWYPISave_clicked();
     Add_New_WI(Get_Hi_ID_WI());
     add_new_wi = true;
 }
@@ -3457,7 +3455,7 @@ void MainWindow::on_pushButton_OBDel_clicked()
 
 void MainWindow::Refresh_Lz(void)
 {
-    ui->tableWidget_IOF_LZ->clearContents();
+    ui->tableWidget_IOF_LZ->setRowCount(0);
 
     int x;
     for (x=0;x<lz_arr.count(); x++)

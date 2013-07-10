@@ -1,11 +1,11 @@
 #ifndef VERSION_H
 #define VERSION_H
 
-#define VER_FILEVERSION             1,0,5,10
-#define VER_FILEVERSION_STR         "1.0.5.10\0"
+#define VER_FILEVERSION             1,0,5,15
+#define VER_FILEVERSION_STR         "1.0.5.15\0"
 
-#define VER_PRODUCTVERSION          1,0,5,10
-#define VER_PRODUCTVERSION_STR      "1.0.5.10\0"
+#define VER_PRODUCTVERSION          1,0,5,15
+#define VER_PRODUCTVERSION_STR      "1.0.5.15\0"
 
 #define VER_COMPANYNAME_STR         "Marcin Ka³at"
 #define VER_FILEDESCRIPTION_STR     "Biblioteka Filmów"

@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'oprogmU2508.ui'
+** Form generated from reading UI file 'oprog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.0.2
+** Created by: Qt User Interface Compiler version 5.1.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef OPROGMU2508_H
-#define OPROGMU2508_H
+#ifndef UI_OPROG_H
+#define UI_OPROG_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -68,4 +68,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // OPROGMU2508_H
+#endif // UI_OPROG_H

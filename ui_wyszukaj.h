@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'wyszukajHp5076.ui'
+** Form generated from reading UI file 'wyszukaj.ui'
 **
-** Created by: Qt User Interface Compiler version 5.0.2
+** Created by: Qt User Interface Compiler version 5.1.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef WYSZUKAJHP5076_H
-#define WYSZUKAJHP5076_H
+#ifndef UI_WYSZUKAJ_H
+#define UI_WYSZUKAJ_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -157,4 +157,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // WYSZUKAJHP5076_H
+#endif // UI_WYSZUKAJ_H

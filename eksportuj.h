@@ -16,6 +16,7 @@
 #include <iostream>
 #include <direct.h>
 #include <QTextStream>
+#include <QTextCodec>
 
 
 namespace Ui {

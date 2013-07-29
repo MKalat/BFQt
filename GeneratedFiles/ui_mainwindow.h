@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Thu 27. Jun 02:50:58 2013
+** Created: Mon 29. Jul 07:41:16 2013
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -741,6 +741,11 @@ public:
         tableWidget_BIBLIO_WYPODIN->setHorizontalHeaderItem(6, __qtablewidgetitem48);
         tableWidget_BIBLIO_WYPODIN->setObjectName(QString::fromUtf8("tableWidget_BIBLIO_WYPODIN"));
         tableWidget_BIBLIO_WYPODIN->setGeometry(QRect(0, 174, 580, 118));
+        tableWidget_BIBLIO_WYPODIN->setEditTriggers(QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed);
+        tableWidget_BIBLIO_WYPODIN->setTabKeyNavigation(false);
+        tableWidget_BIBLIO_WYPODIN->setProperty("showDropIndicator", QVariant(false));
+        tableWidget_BIBLIO_WYPODIN->setDragDropOverwriteMode(false);
+        tableWidget_BIBLIO_WYPODIN->setSelectionBehavior(QAbstractItemView::SelectRows);
         tableWidget_BIBLIO_WYPODIN->horizontalHeader()->setDefaultSectionSize(150);
         pushButton_BIBLIOWYPODINSave = new QPushButton(BIBLIO);
         pushButton_BIBLIOWYPODINSave->setObjectName(QString::fromUtf8("pushButton_BIBLIOWYPODINSave"));
@@ -761,39 +766,50 @@ public:
         pushButton_First = new QPushButton(centralWidget);
         pushButton_First->setObjectName(QString::fromUtf8("pushButton_First"));
         pushButton_First->setGeometry(QRect(15, 444, 46, 28));
+        QFont font;
+        font.setFamily(QString::fromUtf8("MS Shell Dlg 2"));
+        font.setPointSize(8);
+        font.setBold(true);
+        font.setItalic(false);
+        font.setWeight(75);
+        pushButton_First->setFont(font);
+        pushButton_First->setStyleSheet(QString::fromUtf8("font: bold 8pt \"MS Shell Dlg 2\";"));
         pushButton_Prev = new QPushButton(centralWidget);
         pushButton_Prev->setObjectName(QString::fromUtf8("pushButton_Prev"));
         pushButton_Prev->setGeometry(QRect(63, 444, 43, 28));
+        pushButton_Prev->setFont(font);
+        pushButton_Prev->setStyleSheet(QString::fromUtf8("font: bold 8pt \"MS Shell Dlg 2\";"));
         pushButton_Next = new QPushButton(centralWidget);
         pushButton_Next->setObjectName(QString::fromUtf8("pushButton_Next"));
         pushButton_Next->setGeometry(QRect(108, 444, 46, 28));
+        pushButton_Next->setFont(font);
+        pushButton_Next->setStyleSheet(QString::fromUtf8("font: bold 8pt \"MS Shell Dlg 2\";"));
         pushButton_Last = new QPushButton(centralWidget);
         pushButton_Last->setObjectName(QString::fromUtf8("pushButton_Last"));
         pushButton_Last->setGeometry(QRect(156, 444, 46, 28));
+        pushButton_Last->setFont(font);
+        pushButton_Last->setStyleSheet(QString::fromUtf8("font: bold 8pt \"MS Shell Dlg 2\";"));
         pushButton_New = new QPushButton(centralWidget);
         pushButton_New->setObjectName(QString::fromUtf8("pushButton_New"));
         pushButton_New->setGeometry(QRect(285, 444, 82, 28));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8("../../../RYSUNKI/programy-db obrazki/MKFDBNET/new_ico24x24.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_New->setIcon(icon);
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("MS Shell Dlg 2"));
+        font1.setPointSize(8);
+        font1.setItalic(false);
+        pushButton_New->setFont(font1);
+        pushButton_New->setCheckable(false);
         pushButton_Save = new QPushButton(centralWidget);
         pushButton_Save->setObjectName(QString::fromUtf8("pushButton_Save"));
         pushButton_Save->setGeometry(QRect(369, 444, 75, 28));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8("../../../RYSUNKI/programy-db obrazki/MKFDBNET/save_ico24x24.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_Save->setIcon(icon1);
+        pushButton_Save->setFont(font1);
         pushButton_Del = new QPushButton(centralWidget);
         pushButton_Del->setObjectName(QString::fromUtf8("pushButton_Del"));
         pushButton_Del->setGeometry(QRect(477, 444, 75, 28));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8("../../../RYSUNKI/programy-db obrazki/MKFDBNET/del_ico24x24-2.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_Del->setIcon(icon2);
+        pushButton_Del->setFont(font1);
         pushButton_IntWiz = new QPushButton(centralWidget);
         pushButton_IntWiz->setObjectName(QString::fromUtf8("pushButton_IntWiz"));
         pushButton_IntWiz->setGeometry(QRect(585, 444, 172, 28));
-        QIcon icon3;
-        icon3.addFile(QString::fromUtf8("../../../RYSUNKI/programy-db obrazki/MKFDBNET/upload_ico24x24.ico"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_IntWiz->setIcon(icon3);
+        pushButton_IntWiz->setFont(font1);
         label_4 = new QLabel(centralWidget);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(12, 423, 37, 16));
@@ -851,8 +867,9 @@ public:
         menuPomoc->addAction(actionO_programie);
 
         retranslateUi(MainWindow);
+        QObject::connect(comboBox_GatSel, SIGNAL(currentIndexChanged(QString)), MainWindow, SLOT(on_comboBox_GatSel_currentTextChanged(QString)));
 
-        tabWidget->setCurrentIndex(3);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -1063,6 +1080,7 @@ public:
         label_PicFront->setText(QString());
         comboBox_GatSel->clear();
         comboBox_GatSel->insertItems(0, QStringList()
+         << QString()
          << QApplication::translate("MainWindow", "Akcja", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("MainWindow", "Krymina\305\202", 0, QApplication::UnicodeUTF8)
          << QApplication::translate("MainWindow", "Sensacyjny", 0, QApplication::UnicodeUTF8)

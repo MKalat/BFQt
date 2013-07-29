@@ -2178,6 +2178,11 @@
     </property>
     <item>
      <property name="text">
+      <string/>
+     </property>
+    </item>
+    <item>
+     <property name="text">
       <string>Akcja</string>
      </property>
     </item>
@@ -2335,5 +2340,25 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>comboBox_GatSel</sender>
+   <signal>currentIndexChanged(QString)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_comboBox_GatSel_currentTextChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>595</x>
+     <y>89</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>598</x>
+     <y>71</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>on_comboBox_GatSel_currentTextChanged(QString)</slot>
+ </slots>
 </ui>

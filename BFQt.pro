@@ -16,7 +16,8 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     eksportuj.cpp \
     wyszukaj.cpp \
-    oprog.cpp
+    oprog.cpp \
+    drukuj.cpp
 
 HEADERS  += mainwindow.h \
     film_ftbl_class.h \
@@ -24,12 +25,14 @@ HEADERS  += mainwindow.h \
     eksportuj.h \
     version.h \
     wyszukaj.h \
-    oprog.h
+    oprog.h \
+    drukuj.h
 
 FORMS    += mainwindow.ui \
     eksportuj.ui \
     wyszukaj.ui \
-    oprog.ui
+    oprog.ui    \
+    drukuj.ui
 
 RESOURCES += \
     res.qrc

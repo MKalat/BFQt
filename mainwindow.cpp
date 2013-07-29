@@ -6,6 +6,7 @@
 #include "Eksportuj.h"
 #include "wyszukaj.h"
 #include "oprog.h"
+#include "drukuj.h"
 
 struct Film Ftbl::film_tbl;    // struktura mieszczaca jeden rekord form film
 bool Ftbl::sort = false;
@@ -3214,7 +3215,8 @@ void MainWindow::on_actionKoniec_triggered()
 
 void MainWindow::on_actionDrukuj_triggered()
 {
-
+	Drukuj *druk = new Drukuj();
+	druk->show();
 }
 
 void MainWindow::on_actionSprawd_aktualizacje_triggered()

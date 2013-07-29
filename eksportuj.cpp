@@ -12,6 +12,7 @@ Eksportuj::Eksportuj(QWidget *parent) :
     ui(new Ui::Eksportuj)
 {
     ui->setupUi(this);
+	
 }
 
 Eksportuj::~Eksportuj()

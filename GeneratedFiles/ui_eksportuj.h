@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'eksportuj.ui'
 **
-** Created: Mon 29. Jul 07:31:49 2013
+** Created: Mon 29. Jul 15:30:44 2013
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -64,6 +64,7 @@ public:
         checkBox_MainFilm = new QCheckBox(groupBox);
         checkBox_MainFilm->setObjectName(QString::fromUtf8("checkBox_MainFilm"));
         checkBox_MainFilm->setGeometry(QRect(12, 21, 151, 17));
+        checkBox_MainFilm->setCheckable(true);
         checkBox_MainFilm->setChecked(true);
         checkBox_TabObsada = new QCheckBox(groupBox);
         checkBox_TabObsada->setObjectName(QString::fromUtf8("checkBox_TabObsada"));

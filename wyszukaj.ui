@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Biblioteka Filmów - Wyszukaj</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/new/prefix1/MK_LOGO.ico</normaloff>:/new/prefix1/MK_LOGO.ico</iconset>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -372,7 +376,9 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
  <designerdata>
   <property name="gridDeltaX">

@@ -39,6 +39,9 @@ public:
         if (Wyszukaj->objectName().isEmpty())
             Wyszukaj->setObjectName(QStringLiteral("Wyszukaj"));
         Wyszukaj->resize(373, 418);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/new/prefix1/MK_LOGO.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        Wyszukaj->setWindowIcon(icon);
         label = new QLabel(Wyszukaj);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(9, 6, 76, 16));
@@ -85,7 +88,7 @@ public:
 
     void retranslateUi(QWidget *Wyszukaj)
     {
-        Wyszukaj->setWindowTitle(QApplication::translate("Wyszukaj", "Form", 0));
+        Wyszukaj->setWindowTitle(QApplication::translate("Wyszukaj", "Biblioteka Film\303\263w - Wyszukaj", 0));
         label->setText(QApplication::translate("Wyszukaj", "Szukana fraza", 0));
         pushButton_Search->setText(QApplication::translate("Wyszukaj", "Szukaj", 0));
         label_2->setText(QApplication::translate("Wyszukaj", "Pole", 0));

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Biblioteka Filmów</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/new/prefix1/MK_LOGO.ico</normaloff>:/new/prefix1/MK_LOGO.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="pushButton_LoadPic">
     <property name="geometry">
@@ -2339,7 +2343,9 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>comboBox_GatSel</sender>

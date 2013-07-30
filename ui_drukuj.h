@@ -45,6 +45,9 @@ public:
         if (Drukuj->objectName().isEmpty())
             Drukuj->setObjectName(QStringLiteral("Drukuj"));
         Drukuj->resize(443, 387);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/new/prefix1/MK_LOGO.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        Drukuj->setWindowIcon(icon);
         groupBox = new QGroupBox(Drukuj);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setGeometry(QRect(6, 9, 424, 52));

@@ -200,6 +200,9 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(769, 529);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/new/prefix1/MK_LOGO.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         actionOtw_rz_Utw_rz_baze_danych = new QAction(MainWindow);
         actionOtw_rz_Utw_rz_baze_danych->setObjectName(QStringLiteral("actionOtw_rz_Utw_rz_baze_danych"));
         actionEksportuj = new QAction(MainWindow);

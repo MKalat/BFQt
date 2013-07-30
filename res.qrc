@@ -5,5 +5,6 @@
         <file>Resources/save_ico24x24.png</file>
         <file>Resources/upload_ico24x24.png</file>
         <file>Resources/no_img.bmp</file>
+        <file>MK_LOGO.ico</file>
     </qresource>
 </RCC>

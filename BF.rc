@@ -1,4 +1,4 @@
-﻿IDI_ICON1   ICON    DISCARDABLE "MK_LOGO.ico"
+﻿IDI_ICON1   ICON  DISCARDABLE  "e:\Moje dokumenty\QtCProjects\BFQt\MK_LOGO.ico"
 
 #include <windows.h>
 
@@ -8,26 +8,26 @@
     PRODUCTVERSION      1,0,6,30
     FILEFLAGSMASK       0x3fL
     FILEFLAGS           0
-    FILEOS              VOS_NT_WINDOWS32
-    FILETYPE            VFT_APP
-    FILESUBTYPE         VFT2_UNKNOWN
+    FILEOS              0x4L
+    FILETYPE            0x1L
+    FILESUBTYPE         0x0L
     BEGIN
         BLOCK   "VarFileInfo"
         BEGIN
-            VALUE   "Translation",  0x415,  1250
+            VALUE   "Translation",  0x800,  1250
         END
         BLOCK   "StringFileInfo"
         BEGIN
-            BLOCK   "041504b0"
+            BLOCK   "080004e4"
             BEGIN
                 VALUE   "CompanyName",      "Marcin Kałat"
                 VALUE   "FileDescription",  "Biblioteka Filmów"
-                VALUE   "FileVersion",      "1.0.6.30\0"
+                VALUE   "FileVersion",      "1.0.6.30"
                 VALUE   "InternalName",     "BF.exe"
                 VALUE   "LegalCopyright",   "Copyright (C) 2005 - 2013 Marcin Kałat"
                 VALUE   "OriginalFilename", "bf.exe"
                 VALUE   "ProductName",      "Biblioteka Filmów"
-                VALUE   "ProductVersion",   "1.0.6.30\0"
+                VALUE   "ProductVersion",   "1.0.6.30"
             END
         END
     END

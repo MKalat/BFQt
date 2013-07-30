@@ -45,6 +45,9 @@ public:
         if (Eksportuj->objectName().isEmpty())
             Eksportuj->setObjectName(QStringLiteral("Eksportuj"));
         Eksportuj->resize(376, 327);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/new/prefix1/MK_LOGO.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        Eksportuj->setWindowIcon(icon);
         lineEdit_Eks_path = new QLineEdit(Eksportuj);
         lineEdit_Eks_path->setObjectName(QStringLiteral("lineEdit_Eks_path"));
         lineEdit_Eks_path->setGeometry(QRect(12, 18, 310, 20));

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Biblioteka Filmów - O Programie</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/new/prefix1/MK_LOGO.ico</normaloff>:/new/prefix1/MK_LOGO.ico</iconset>
+  </property>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
@@ -60,7 +64,9 @@
    </property>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
  <designerdata>
   <property name="gridDeltaX">

@@ -1,4 +1,4 @@
-﻿#include "eksportuj.h"
+#include "eksportuj.h"
 #include "ui_eksportuj.h"
 
 #include "film_ftbl_class.h"

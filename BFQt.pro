@@ -39,3 +39,6 @@ RESOURCES += \
 
 RC_FILE += \
     bf.rc
+
+OTHER_FILES += \
+    bf.rc

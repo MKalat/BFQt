@@ -32,6 +32,9 @@ public:
         if (OProg->objectName().isEmpty())
             OProg->setObjectName(QStringLiteral("OProg"));
         OProg->resize(400, 315);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/new/prefix1/MK_LOGO.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        OProg->setWindowIcon(icon);
         pushButton = new QPushButton(OProg);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setGeometry(QRect(168, 282, 75, 23));

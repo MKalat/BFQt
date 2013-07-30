@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT += printsupport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = BF
@@ -31,7 +31,7 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     eksportuj.ui \
     wyszukaj.ui \
-    oprog.ui    \
+    oprog.ui \
     drukuj.ui
 
 RESOURCES += \

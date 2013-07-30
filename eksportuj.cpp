@@ -1,11 +1,11 @@
-#include "eksportuj.h"
+﻿#include "eksportuj.h"
 #include "ui_eksportuj.h"
 
 #include "film_ftbl_class.h"
 #include "Unmngd.h"
 
 Ftbl flm_eks;
-QTextCodec *codec = QTextCodec::codecForName("Windows-1250");
+QTextCodec *codec = QTextCodec::codecForName("windows-1250");
 
 Eksportuj::Eksportuj(QWidget *parent) :
     QWidget(parent),
@@ -467,15 +467,15 @@ void Eksportuj::Eksportuj_current()
         QFile main(QString::fromWCharArray(flm_eks.pths.BF_PDB));
         main.open(QFile::ReadOnly);
         unsigned int stop = main.size();
-        fnout << QString::fromWCharArray(L"Tabela główna - Film").toLocal8Bit() << "\n\r";
+		fnout << QString::fromWCharArray(L"Tabela główna - Film").toLocal8Bit() << "\n\r";
         fnout << QString::fromWCharArray(L"\"ID\"").toLocal8Bit() << QString::fromWCharArray(L",\"tytuł\"").toLocal8Bit() <<  QString::fromWCharArray(L",\"oryginalny tytuł\"").toLocal8Bit() << QString::fromWCharArray(L",\"gatunek filmu\"").toLocal8Bit();
         fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Cena\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Data skatalogowania\"").toLocal8Bit();
         fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Data utraty\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Data zakupu\"").toLocal8Bit();
         fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Nazwa\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Adres\"").toLocal8Bit();
         fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - E-mail\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Telefon\"").toLocal8Bit();
         fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Fax\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - WWW\"").toLocal8Bit();
-        fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Właściciel Kopii Filmu - Imię\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Właściciel Kopii Filmu - Nazwisko\"").toLocal8Bit();
-        fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Właściciel Kopii Filmu - Adres\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Nr katalogowy\"").toLocal8Bit();
+		fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Właściciel Kopii Filmu - Imię\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Właściciel Kopii Filmu - Nazwisko\"").toLocal8Bit();
+		fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Właściciel Kopii Filmu - Adres\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Nr katalogowy\"").toLocal8Bit();
         fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Nośnik\"").toLocal8Bit() << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Wartość aktualna\"").toLocal8Bit();
         fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Data premiery\"").toLocal8Bit() << QString::fromWCharArray(L",\"Informacje o Filmie - Czas trwania\"").toLocal8Bit();
         fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Format wyświetlania\"").toLocal8Bit() << QString::fromWCharArray(L",\"Informacje o Filmie - język lektora\"").toLocal8Bit();

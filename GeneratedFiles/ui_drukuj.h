@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'drukuj.ui'
 **
-** Created: Mon 29. Jul 15:30:44 2013
+** Created: Tue 30. Jul 08:41:06 2013
 **      by: Qt User Interface Compiler version 4.8.4
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!

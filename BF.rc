@@ -1,111 +1,33 @@
-// Microsoft Visual C++ generated resource script.
-//
-#include "resource1.h"
+﻿IDI_ICON1   ICON    DISCARDABLE "MK_LOGO.ico"
 
-#define APSTUDIO_READONLY_SYMBOLS
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 2 resource.
-//
-#include "afxres.h"
-
-/////////////////////////////////////////////////////////////////////////////
-#undef APSTUDIO_READONLY_SYMBOLS
-
-/////////////////////////////////////////////////////////////////////////////
-// Polish resources
-
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_PLK)
-#ifdef _WIN32
-LANGUAGE LANG_POLISH, SUBLANG_DEFAULT
-#pragma code_page(1250)
-#endif //_WIN32
-
-#ifdef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// TEXTINCLUDE
-//
-
-1 TEXTINCLUDE 
-BEGIN
-    "resource1.h\0"
-END
-
-2 TEXTINCLUDE 
-BEGIN
-    "#include ""afxres.h""\r\n"
-    "\0"
-END
-
-3 TEXTINCLUDE 
-BEGIN
-    "\r\n"
-    "\0"
-END
-
-#endif    // APSTUDIO_INVOKED
+#include <windows.h>
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
-// Version
-//
-
-VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,6,26
- PRODUCTVERSION 1,0,6,26
- FILEFLAGSMASK 0x17L
-#ifdef _DEBUG
- FILEFLAGS 0x1L
-#else
- FILEFLAGS 0x0L
-#endif
- FILEOS 0x4L
- FILETYPE 0x1L
- FILESUBTYPE 0x0L
-BEGIN
-    BLOCK "StringFileInfo"
+    VS_VERSION_INFO     VERSIONINFO
+    FILEVERSION         1,0,6,30
+    PRODUCTVERSION      1,0,6,30
+    FILEFLAGSMASK       0x3fL
+    FILEFLAGS           0
+    FILEOS              VOS_NT_WINDOWS32
+    FILETYPE            VFT_APP
+    FILESUBTYPE         VFT2_UNKNOWN
     BEGIN
-        BLOCK "041504b0"
+        BLOCK   "VarFileInfo"
         BEGIN
-            VALUE "CompanyName", "Marcin Ka�at"
-            VALUE "FileDescription", "Biblioteka Film�w"
-            VALUE "FileVersion", "1,0,6,26"
-            VALUE "InternalName", "BF"
-            VALUE "LegalCopyright", "Copyright (C) Marcin Ka�at 2005 - 2013"
-            VALUE "OriginalFilename", "BF.exe"
-            VALUE "ProductName", "Biblioteka Film�w"
-            VALUE "ProductVersion", "1,0,6,26"
+            VALUE   "Translation",  0x415,  1250
+        END
+        BLOCK   "StringFileInfo"
+        BEGIN
+            BLOCK   "041504b0"
+            BEGIN
+                VALUE   "CompanyName",      "Marcin Kałat"
+                VALUE   "FileDescription",  "Biblioteka Filmów"
+                VALUE   "FileVersion",      "1.0.6.30\0"
+                VALUE   "InternalName",     "BF.exe"
+                VALUE   "LegalCopyright",   "Copyright (C) 2005 - 2013 Marcin Kałat"
+                VALUE   "OriginalFilename", "bf.exe"
+                VALUE   "ProductName",      "Biblioteka Filmów"
+                VALUE   "ProductVersion",   "1.0.6.30\0"
+            END
         END
     END
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0x415, 1200
-    END
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDI_ICON1               ICON                    "MK_LOGO.ico"
-#endif    // Polish resources
-/////////////////////////////////////////////////////////////////////////////
-
-
-
-#ifndef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 3 resource.
-//
-
-
-/////////////////////////////////////////////////////////////////////////////
-#endif    // not APSTUDIO_INVOKED
-

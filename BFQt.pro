@@ -34,11 +34,8 @@ FORMS    += mainwindow.ui \
     oprog.ui \
     drukuj.ui
 
-RESOURCES += \
-    res.qrc
+RESOURCES += res.qrc
 
-RC_FILE += \
-    bf.rc
+RC_FILE += bf.rc
 
-OTHER_FILES += \
-    bf.rc
+OTHER_FILES += bf.rc

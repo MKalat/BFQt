@@ -60,7 +60,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright 2005 - 2013 Marcin Kałat&lt;/p&gt;&lt;p&gt;Strona autora programu : http://mkalat.pl&lt;/p&gt;&lt;p&gt;This program uses Qt 4.8.5 library &lt;/p&gt;&lt;p&gt;licensed under terms of GNU LGPL v. 2.1&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright 2005 - 2014 Marcin Kałat&lt;/p&gt;&lt;p&gt;Strona autora programu : http://mkalat.pl&lt;/p&gt;&lt;p&gt;This program uses Qt 5.2.1 library &lt;/p&gt;&lt;p&gt;licensed under terms of GNU LGPL v. 2.1&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>

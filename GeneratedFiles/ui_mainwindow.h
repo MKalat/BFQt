@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue 30. Jul 08:41:06 2013
-**      by: Qt User Interface Compiler version 4.8.4
+** Created by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -201,6 +200,9 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(769, 529);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/new/prefix1/MK_LOGO.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         actionOtw_rz_Utw_rz_baze_danych = new QAction(MainWindow);
         actionOtw_rz_Utw_rz_baze_danych->setObjectName(QString::fromUtf8("actionOtw_rz_Utw_rz_baze_danych"));
         actionEksportuj = new QAction(MainWindow);

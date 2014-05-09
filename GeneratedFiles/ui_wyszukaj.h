@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'wyszukaj.ui'
 **
-** Created: Tue 30. Jul 08:41:06 2013
-**      by: Qt User Interface Compiler version 4.8.4
+** Created by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -40,6 +39,9 @@ public:
         if (Wyszukaj->objectName().isEmpty())
             Wyszukaj->setObjectName(QString::fromUtf8("Wyszukaj"));
         Wyszukaj->resize(373, 418);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/new/prefix1/MK_LOGO.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        Wyszukaj->setWindowIcon(icon);
         label = new QLabel(Wyszukaj);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(9, 6, 76, 16));
@@ -86,7 +88,7 @@ public:
 
     void retranslateUi(QWidget *Wyszukaj)
     {
-        Wyszukaj->setWindowTitle(QApplication::translate("Wyszukaj", "Form", 0, QApplication::UnicodeUTF8));
+        Wyszukaj->setWindowTitle(QApplication::translate("Wyszukaj", "Biblioteka Film\303\263w - Wyszukaj", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("Wyszukaj", "Szukana fraza", 0, QApplication::UnicodeUTF8));
         pushButton_Search->setText(QApplication::translate("Wyszukaj", "Szukaj", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("Wyszukaj", "Pole", 0, QApplication::UnicodeUTF8));

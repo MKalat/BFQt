@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'eksportuj.ui'
 **
-** Created: Tue 30. Jul 08:41:06 2013
-**      by: Qt User Interface Compiler version 4.8.4
+** Created by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -46,6 +45,9 @@ public:
         if (Eksportuj->objectName().isEmpty())
             Eksportuj->setObjectName(QString::fromUtf8("Eksportuj"));
         Eksportuj->resize(376, 327);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/new/prefix1/MK_LOGO.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        Eksportuj->setWindowIcon(icon);
         lineEdit_Eks_path = new QLineEdit(Eksportuj);
         lineEdit_Eks_path->setObjectName(QString::fromUtf8("lineEdit_Eks_path"));
         lineEdit_Eks_path->setGeometry(QRect(12, 18, 310, 20));

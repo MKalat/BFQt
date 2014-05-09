@@ -245,7 +245,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing drukuj.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -256,7 +256,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing drukuj.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -271,7 +271,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing eksportuj.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -282,7 +282,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing eksportuj.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -301,7 +301,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing mainwindow.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -312,7 +312,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing mainwindow.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -327,7 +327,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing oprog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -338,14 +338,14 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing oprog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\resource1.h"
+				RelativePath=".\resource3.h"
 				>
 			</File>
 			<File
@@ -361,7 +361,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing wyszukaj.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\debug&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -372,7 +372,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing wyszukaj.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;  -D_WINDOWS -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_HAVE_MMX -DQT_HAVE_3DNOW -DQT_HAVE_SSE -DQT_HAVE_MMXEXT -DQT_HAVE_SSE2 -DQT_THREAD_SUPPORT -DNDEBUG  &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I$(QTDIR)\include\ActiveQt&quot; &quot;-I.\release&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\mkspecs\default&quot; &quot;-I.\GeneratedFiles&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -384,26 +384,6 @@
 			Filter="cpp;c;cxx;moc;h;def;odl;idl;res;"
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
-			<File
-				RelativePath=".\GeneratedFiles\qrc_res.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
 			<File
 				RelativePath=".\GeneratedFiles\ui_drukuj.h"
 				>
@@ -761,32 +741,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="res.qrc"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Rcc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\del_ico24x24-2.png;.\Resources\new_ico24x24.png;.\Resources\save_ico24x24.png;.\Resources\upload_ico24x24.png;.\Resources\no_img.bmp"
-						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-						Description="Rcc&apos;ing $(InputFileName)..."
-						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\del_ico24x24-2.png;.\Resources\new_ico24x24.png;.\Resources\save_ico24x24.png;.\Resources\upload_ico24x24.png;.\Resources\no_img.bmp"
-						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="Resources\save_ico24x24.png"
 				>
 				<FileConfiguration
@@ -832,6 +786,10 @@
 			>
 		</File>
 		<File
+			RelativePath="..\..\..\..\RYSUNKI\MK_LOGO.ico"
+			>
+		</File>
+		<File
 			RelativePath=".\MK_LOGO.ico"
 			>
 		</File>
@@ -839,7 +797,7 @@
 	<Globals>
 		<Global
 			Name="QtVersion Win32"
-			Value="4.8.4"
+			Value="4.8.6"
 		/>
 		<Global
 			Name="RccDir"

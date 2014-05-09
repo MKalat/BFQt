@@ -53,8 +53,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,6,31
- PRODUCTVERSION 1,0,6,31
+ FILEVERSION 1,0,6,37
+ PRODUCTVERSION 1,0,6,37
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -70,12 +70,12 @@ BEGIN
         BLOCK "041504b0"
         BEGIN
             VALUE "FileDescription", "Biblioteka Filmów"
-            VALUE "FileVersion", "1,0,6,31"
+            VALUE "FileVersion", "1,0,6,37"
             VALUE "InternalName", "BF"
             VALUE "LegalCopyright", "Copyright (C) Marcin Ka³at  2005 -2014"
             VALUE "OriginalFilename", "BF.exe"
             VALUE "ProductName", "Biblioteka Filmów"
-            VALUE "ProductVersion", "1,0,6,31"
+            VALUE "ProductVersion", "1,0,6,37"
         END
     END
     BLOCK "VarFileInfo"

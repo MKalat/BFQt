@@ -26,11 +26,11 @@ void Drukuj::on_pushButton_Print_clicked()
 		fn_exp.open(QFile::WriteOnly | QFile::Text);
 		QTextStream fnout(&fn_exp);
 
-		fnout << QString::fromWCharArray(L"<!DOCTYPE HTML><html><head><title>Biblioteka Filmów Wydruk danych z bazy - http://mkalat.pl</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1250\"><style type=\"text/css\">p {font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;line-height : 1%;}</style></head><body><h1>") << "\n";
+		fnout << QString::fromWCharArray(L"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"><html><head><title>Biblioteka Filmów Wydruk danych z bazy - http://mkalat.pl</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1250\"><style type=\"text/css\">p {font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;}</style></head><body><h1>") << "\n";
         fnout << QString::fromWCharArray(flm_d.film_tbl.tytul);
         fnout << QString::fromWCharArray(L"</h1><table ><tr><td><img src=\"file://");
         fnout << QString::fromWCharArray(flm_d.film_tbl.skan_przod_path);
-		fnout << QString::fromWCharArray(L"\" alt=\"\"></td></tr><tr><td><p>Oryginalny tytuł: </p></td><td><p>");
+		fnout << QString::fromWCharArray(L"\"></td></tr><tr><td><p>Oryginalny tytuł: </p></td><td><p>");
         fnout << QString::fromWCharArray(flm_d.film_tbl.oryginalny_tytul);
         fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>Gatunek : </p></td><td><p>");
         fnout << QString::fromWCharArray(flm_d.film_tbl.gatunek_filmu);
@@ -243,7 +243,7 @@ void Drukuj::on_pushButton_Print_clicked()
 				i = i + sizeof(d_buff);
 			}
 			fn_d.close();
-            fnout << QString::fromWCharArray(L"</table>").toLocal8Bit() << "\n";
+            fnout << QString::fromWCharArray(L"</table>") << "\n";
 
 		}
 		if (ui->checkBox_LZ->isChecked() == true)
@@ -278,7 +278,7 @@ void Drukuj::on_pushButton_Print_clicked()
 				i = i + sizeof(z_buff);
 			}
 			fn_z.close();
-            fnout << QString::fromWCharArray(L"</table>").toLocal8Bit() << "\n";
+            fnout << QString::fromWCharArray(L"</table>") << "\n";
 		}
 		if (ui->checkBox_WYPIN->isChecked() == true)
 		{
@@ -310,7 +310,7 @@ void Drukuj::on_pushButton_Print_clicked()
 				i = i + sizeof(wi_buff);
 			}
 			fn_wi.close();
-            fnout << QString::fromWCharArray(L"</table>").toLocal8Bit() << "\n";
+            fnout << QString::fromWCharArray(L"</table>") << "\n";
 		}
 		if (ui->checkBox_WYPODIN->isChecked() == true)
 		{
@@ -356,7 +356,7 @@ void Drukuj::on_pushButton_Print_clicked()
 		fn_exp.open(QFile::WriteOnly | QFile::Text);
 		QTextStream fnout(&fn_exp);
 
-        fnout << QString::fromWCharArray(L"<!DOCTYPE HTML><html><head><title>Biblioteka Filmów - Wydruk danych z bazy - http://mkalat.pl</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1250\"><style type=\"text/css\">p {font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;line-height : 1%;}</style></head><body>") << "\n";
+        fnout << QString::fromWCharArray(L"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"><html><head><title>Biblioteka Filmów - Wydruk danych z bazy - http://mkalat.pl</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1250\"><style type=\"text/css\">p {font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;}</style></head><body>") << "\n";
 				
 
 		struct Film m_buff;
@@ -372,7 +372,7 @@ void Drukuj::on_pushButton_Print_clicked()
                 fnout << QString::fromWCharArray(m_buff.tytul);
                 fnout << QString::fromWCharArray(L"</h1><table ><tr><td><img src=\"file://");
                 fnout << QString::fromWCharArray(m_buff.skan_przod_path);
-                fnout << QString::fromWCharArray(L"\" alt=\"\"></td></tr><tr><td><p>Oryginalny tytuł : </p></td><td><p>");
+                fnout << QString::fromWCharArray(L"\" ></td></tr><tr><td><p>Oryginalny tytuł : </p></td><td><p>");
                 fnout << QString::fromWCharArray(m_buff.oryginalny_tytul);
                 fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>Gatunek : </p></td><td><p>");
                 fnout << QString::fromWCharArray(m_buff.gatunek_filmu);
@@ -707,10 +707,10 @@ void Drukuj::print_doc()
 
     QString htmlContent;
     QTextStream in(&file);
-    in >> htmlContent;
+	htmlContent = in.readAll();
 
     QTextDocument *document = new QTextDocument();
-    document->setHtml(htmlContent);
+	document->setHtml(htmlContent);
 
     QPrinter printer;
 

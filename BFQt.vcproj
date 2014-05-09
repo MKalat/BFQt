@@ -385,6 +385,26 @@
 			UniqueIdentifier="{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}"
 			>
 			<File
+				RelativePath=".\GeneratedFiles\qrc_res.cpp"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\GeneratedFiles\ui_drukuj.h"
 				>
 			</File>
@@ -741,6 +761,32 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\res.qrc"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Rcc&apos;ing $(InputFileName)..."
+						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
+						AdditionalDependencies="$(InputPath);.\Resources\del_ico24x24-2.png;.\Resources\new_ico24x24.png;.\Resources\save_ico24x24.png;.\Resources\upload_ico24x24.png;.\Resources\no_img.bmp;.\MK_LOGO.ico"
+						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Rcc&apos;ing $(InputFileName)..."
+						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
+						AdditionalDependencies="$(InputPath);.\Resources\del_ico24x24-2.png;.\Resources\new_ico24x24.png;.\Resources\save_ico24x24.png;.\Resources\upload_ico24x24.png;.\Resources\no_img.bmp;.\MK_LOGO.ico"
+						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="Resources\save_ico24x24.png"
 				>
 				<FileConfiguration
@@ -786,11 +832,11 @@
 			>
 		</File>
 		<File
-			RelativePath="..\..\..\..\RYSUNKI\MK_LOGO.ico"
+			RelativePath=".\MK_LOGO.ico"
 			>
 		</File>
 		<File
-			RelativePath=".\MK_LOGO.ico"
+			RelativePath="..\..\..\..\RYSUNKI\MK_LOGO.ico"
 			>
 		</File>
 	</Files>

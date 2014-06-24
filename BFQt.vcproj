@@ -827,20 +827,35 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
+		<Filter
+			Name="Translation Files"
+			Filter="ts"
+			UniqueIdentifier="{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}"
+			ParseFiles="false"
+			>
+			<File
+				RelativePath=".\bf_en.ts"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\BF.rc"
-			>
-		</File>
-		<File
-			RelativePath=".\MK_LOGO.ico"
 			>
 		</File>
 		<File
 			RelativePath="..\..\..\..\RYSUNKI\MK_LOGO.ico"
 			>
 		</File>
+		<File
+			RelativePath=".\MK_LOGO.ico"
+			>
+		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="lupdateOnBuild"
+			Value="1"
+		/>
 		<Global
 			Name="QtVersion Win32"
 			Value="4.8.6"

@@ -2,8 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QLocale>
-#include <QTranslator>
 #include <direct.h>
 #include <QFileInfo>
 #include <QMessageBox>

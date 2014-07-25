@@ -1,7 +1,7 @@
 #ifndef INTWIZ_H
 #define INTWIZ_H
 
-#include <QWidget>
+#include <QDialog>
 #include <QMainWindow>
 #include <QLocale>
 #include <QTranslator>
@@ -16,7 +16,7 @@ namespace Ui {
 class IntWiz;
 }
 
-class IntWiz : public QWidget
+class IntWiz : public QDialog
 {
     Q_OBJECT
     

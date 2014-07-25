@@ -8,7 +8,7 @@ Ftbl flm_IntWiz;
 
 
 IntWiz::IntWiz(QWidget *parent) :
-    QWidget(parent),
+    QDialog(parent),
     ui(new Ui::IntWiz)
 {
     ui->setupUi(this);
@@ -18,4 +18,14 @@ IntWiz::IntWiz(QWidget *parent) :
 IntWiz::~IntWiz()
 {
     delete ui;
+}
+
+void IntWiz::on_pushButton_GetData_clicked()
+{
+
+
+}
+void IntWiz::on_pushButton_Search_clicked()
+{
+
 }

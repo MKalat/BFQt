@@ -25,7 +25,7 @@ void Eksportuj::on_pushButton_GetPath_clicked()
     QFileDialog fdlg(this);
     fdlg.setFileMode(QFileDialog::AnyFile);
     fdlg.setViewMode(QFileDialog::Detail);
-    fdlg.setNameFilter("Pliki arkuszy (*.csv )");
+    fdlg.setNameFilter(tr("Pliki arkuszy (*.csv )"));
     fdlg.setAcceptMode(QFileDialog::AcceptSave);
     if (fdlg.exec())
     {
@@ -52,7 +52,7 @@ void Eksportuj::Eksportuj_all()
     fn_exp.open(QFile::Append | QFile::Text);
     QTextStream fnout(&fn_exp);
 
-    fnout << QString::fromWCharArray(L"Biblioteka Filmów - wyeksportowane dane") << "\n\r";
+    fnout << tr("Biblioteka Filmów - wyeksportowane dane") << "\n\r";
 
 
         if (ui->checkBox_MainFilm->isChecked() == true)
@@ -61,32 +61,32 @@ void Eksportuj::Eksportuj_all()
             QFile main(QString::fromWCharArray(flm_eks.pths.BF_PDB));
             main.open(QFile::ReadOnly);
             unsigned int stop = main.size();
-            fnout << QString::fromWCharArray(L"Tabela g³ówna - Film") << "\n\r";
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"tytu³\"") <<  QString::fromWCharArray(L",\"oryginalny tytu³\"") << QString::fromWCharArray(L",\"gatunek filmu\"");
-            fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Cena\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Data skatalogowania\"");
-            fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Data utraty\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Data zakupu\"");
-            fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Nazwa\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Adres\"");
-            fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - E-mail\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Telefon\"");
-            fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Fax\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - WWW\"");
-            fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Imiê\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Nazwisko\"");
-            fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Adres\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Nr katalogowy\"");
-            fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Noœnik\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Wartoœæ aktualna\"");
-            fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Data premiery\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Czas trwania\"");
-            fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Format wyœwietlania\"") << QString::fromWCharArray(L",\"Informacje o Filmie - jêzyk lektora\"");
-            fnout << QString::fromWCharArray(L",\"Informacje o Filmie - jêzyk napisów\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek dŸwiêku - nazwa\"");
-            fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek dŸwiêku - typ\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek dŸwiêku - wersja\"");
-            fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek wideo - nazwa\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek wideo - typ\"");
-            fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek wideo - wersja\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Zabezpieczenia - nazwa\"");
-            fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Zabezpieczenia - typ\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Zabezpieczenia - wersja\"");
-            fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Kraj produkcji filmu\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Rok produkcji\"");
-            fnout << QString::fromWCharArray(L",\"Informacje o Filmie - System kodowania obrazu\"") << QString::fromWCharArray(L",\"Obsada - Re¿yser - Imie i Nazwisko\"");
-            fnout << QString::fromWCharArray(L",\"Obsada - Re¿yser - Narodowoœæ\"") << QString::fromWCharArray(L",\"Obsada - Scenarzysta - Imiê i Nazwisko\"");
-            fnout << QString::fromWCharArray(L",\"Obsada - Scenarzysta - Narodowoœæ\"") << QString::fromWCharArray(L",\"Obsada - Muzyka - Imie i Nazwisko\"");
-            fnout << QString::fromWCharArray(L",\"Obsada - Muzyka - Narodowoœæ\"") << QString::fromWCharArray(L",\"Obsada - Zdjêcia - Imiê i Nazwisko\"");
-            fnout << QString::fromWCharArray(L",\"Obsada - Zdjêcia - Narodowoœæ\"") << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Obsada\"");
-            fnout << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Œcie¿ka dŸwiêkowa\"") << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Wartoœc artystyczna\"");
-            fnout << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Zdjêcia\"") << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Ca³oœæ\"");
-            fnout << QString::fromWCharArray(L",\"Scie¿ka - skan ok³adki - przód\"") << QString::fromWCharArray(L",\"Scie¿ka - skan ok³adki - ty³\"") << "\n\r";
+            fnout << tr("Tabela g³ówna - Film") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << tr(",\"tytu³\"") <<  tr(",\"oryginalny tytu³\"") << tr(",\"gatunek filmu\"");
+            fnout << tr(",\"Dane o Egzemplarzu - Cena\"") << tr(",\"Dane o Egzemplarzu - Data skatalogowania\"");
+            fnout << tr(",\"Dane o Egzemplarzu - Data utraty\"") << tr(",\"Dane o Egzemplarzu - Data zakupu\"");
+            fnout << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - Nazwa\"") << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - Adres\"");
+            fnout << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - E-mail\"") << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - Telefon\"");
+            fnout << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - Fax\"") << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - WWW\"");
+            fnout << tr(",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Imiê\"") << tr(",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Nazwisko\"");
+            fnout << tr(",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Adres\"") << tr(",\"Dane o Egzemplarzu - Nr katalogowy\"");
+            fnout << tr(",\"Dane o Egzemplarzu - Noœnik\"") << tr(",\"Dane o Egzemplarzu - Wartoœæ aktualna\"");
+            fnout << tr(",\"Informacje o Filmie - Data premiery\"") << tr(",\"Informacje o Filmie - Czas trwania\"");
+            fnout << tr(",\"Informacje o Filmie - Format wyœwietlania\"") << tr(",\"Informacje o Filmie - jêzyk lektora\"");
+            fnout << tr(",\"Informacje o Filmie - jêzyk napisów\"") << tr(",\"Informacje o Filmie - Kodek dŸwiêku - nazwa\"");
+            fnout << tr(",\"Informacje o Filmie - Kodek dŸwiêku - typ\"") << tr(",\"Informacje o Filmie - Kodek dŸwiêku - wersja\"");
+            fnout << tr(",\"Informacje o Filmie - Kodek wideo - nazwa\"") << tr(",\"Informacje o Filmie - Kodek wideo - typ\"");
+            fnout << tr(",\"Informacje o Filmie - Kodek wideo - wersja\"") << tr(",\"Informacje o Filmie - Zabezpieczenia - nazwa\"");
+            fnout << tr(",\"Informacje o Filmie - Zabezpieczenia - typ\"") << tr(",\"Informacje o Filmie - Zabezpieczenia - wersja\"");
+            fnout << tr(",\"Informacje o Filmie - Kraj produkcji filmu\"") << tr(",\"Informacje o Filmie - Rok produkcji\"");
+            fnout << tr(",\"Informacje o Filmie - System kodowania obrazu\"") << tr(",\"Obsada - Re¿yser - Imie i Nazwisko\"");
+            fnout << tr(",\"Obsada - Re¿yser - Narodowoœæ\"") << tr(",\"Obsada - Scenarzysta - Imiê i Nazwisko\"");
+            fnout << tr(",\"Obsada - Scenarzysta - Narodowoœæ\"") << tr(",\"Obsada - Muzyka - Imie i Nazwisko\"");
+            fnout << tr(",\"Obsada - Muzyka - Narodowoœæ\"") << tr(",\"Obsada - Zdjêcia - Imiê i Nazwisko\"");
+            fnout << tr(",\"Obsada - Zdjêcia - Narodowoœæ\"") << tr(",\"Ocena - W³asna Ocena Filmu - Obsada\"");
+            fnout << tr(",\"Ocena - W³asna Ocena Filmu - Œcie¿ka dŸwiêkowa\"") << tr(",\"Ocena - W³asna Ocena Filmu - Wartoœc artystyczna\"");
+            fnout << tr(",\"Ocena - W³asna Ocena Filmu - Zdjêcia\"") << tr(",\"Ocena - W³asna Ocena Filmu - Ca³oœæ\"");
+            fnout << tr(",\"Scie¿ka - skan ok³adki - przód\"") << tr(",\"Scie¿ka - skan ok³adki - ty³\"") << "\n\r";
 
 
             for (unsigned int i = 0; i < stop; )
@@ -208,12 +208,12 @@ void Eksportuj::Eksportuj_all()
             struct Ocena oc_buff;
             QFile oc_src(QString::fromWCharArray(flm_eks.pths.BF_OC));
             oc_src.open(QFile::ReadOnly);
-            fnout << QString::fromWCharArray(L"Tabela Ocena") << "\n\r";
+            fnout << tr("Tabela Ocena") << "\n\r";
 
             unsigned int stop = oc_src.size();
 
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Nazwa\"") << QString::fromWCharArray(L",\"Tytu³ tekstu\"") << QString::fromWCharArray(L",\"Autor tekstu\"") <<
-            QString::fromWCharArray(L",\"Strona WWW\"") << QString::fromWCharArray(L",\"Ocena krytyka\"") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa\"") << tr(",\"Tytu³ tekstu\"") << tr(",\"Autor tekstu\"") <<
+            tr(",\"Strona WWW\"") << tr(",\"Ocena krytyka\"") << "\n\r";
 
 
             for (unsigned int i = 0; i < stop; )
@@ -242,11 +242,11 @@ void Eksportuj::Eksportuj_all()
             struct Obsada ob_buff;
             QFile ob_src(QString::fromWCharArray(flm_eks.pths.BF_OB));
             ob_src.open(QFile::ReadOnly);
-            fnout << QString::fromWCharArray(L"Tabela Obsada") << "\n\r";
+            fnout << tr("Tabela Obsada") << "\n\r";
 
             unsigned int stop = ob_src.size();
 
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\" Imiê i Nazwisko\"") << QString::fromWCharArray(L",\" Rola\"") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\" Imiê i Nazwisko\"") << tr(",\" Rola\"") << "\n\r";
 
 
             for (unsigned int i = 0; i < stop; )
@@ -269,12 +269,12 @@ void Eksportuj::Eksportuj_all()
             struct Producent pp_buff;
             QFile pp_src(QString::fromWCharArray(flm_eks.pths.BF_PRP));
             pp_src.open(QFile::ReadOnly);
-            fnout << QString::fromWCharArray(L"Tabela Produkcja") << "\n\r";
+            fnout << tr("Tabela Produkcja") << "\n\r";
 
             unsigned int stop = pp_src.size();
 
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Nazwa Firmy\"") << QString::fromWCharArray(L",\"Adres\"") << QString::fromWCharArray(L",\"Telefon\"");
-            fnout << QString::fromWCharArray(L",\"Fax\"") << QString::fromWCharArray(L",\"E-mail\"") << QString::fromWCharArray(L",\"Strona WWW\"") << QString::fromWCharArray(L",\"Narodowoœæ\"") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa Firmy\"") << tr(",\"Adres\"") << tr(",\"Telefon\"");
+            fnout << tr(",\"Fax\"") << tr(",\"E-mail\"") << tr(",\"Strona WWW\"") << tr(",\"Narodowoœæ\"") << "\n\r";
 
             for (unsigned int i = 0; i < stop; )
             {
@@ -304,12 +304,12 @@ void Eksportuj::Eksportuj_all()
             struct Dystrybutor pd_buff;
             QFile pd_src(QString::fromWCharArray(flm_eks.pths.BF_PRD));
             pd_src.open(QFile::ReadOnly);
-            fnout << QString::fromWCharArray(L"Tabela Dystrybucja") <<"\n\r";
+            fnout << tr("Tabela Dystrybucja") <<"\n\r";
 
             stop = pd_src.size();
 
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Nazwa Firmy\"") << QString::fromWCharArray(L",\"Adres\"") << QString::fromWCharArray(L",\"Telefon\"");
-            fnout << QString::fromWCharArray(L",\"Fax\"") << QString::fromWCharArray(L",\"E-mail\"") << QString::fromWCharArray(L",\"Strona WWW\"") << QString::fromWCharArray(L",\"Narodowoœæ\"") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa Firmy\"") << tr(",\"Adres\"") << tr(",\"Telefon\"");
+            fnout << tr(",\"Fax\"") << tr(",\"E-mail\"") << tr(",\"Strona WWW\"") << tr(",\"Narodowoœæ\"") << "\n\r";
 
 
             for (unsigned int i = 0; i < stop; )
@@ -344,12 +344,12 @@ void Eksportuj::Eksportuj_all()
             struct Lok_zdjeciowe lz_buff;
             QFile lz_src(QString::fromWCharArray(flm_eks.pths.BF_LZ));
             lz_src.open(QFile::ReadOnly);
-            fnout << QString::fromWCharArray(L"Tabela Lokalizacje Zdjêciowe") << "\n\r";
+            fnout << tr("Tabela Lokalizacje Zdjêciowe") << "\n\r";
 
             unsigned int stop = lz_src.size();
 
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Nazwa obiektu\"") << QString::fromWCharArray(L",\"Kraj\"") << QString::fromWCharArray(L",\"Miejscowoœæ\"");
-            fnout << QString::fromWCharArray(L",\"Region\"") << QString::fromWCharArray(L",\"Pora roku\"") << QString::fromWCharArray(L",\"Data\"") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa obiektu\"") << tr(",\"Kraj\"") << tr(",\"Miejscowoœæ\"");
+            fnout << tr(",\"Region\"") << tr(",\"Pora roku\"") << tr(",\"Data\"") << "\n\r";
 
 
             for (unsigned int i = 0; i < stop; )
@@ -381,13 +381,13 @@ void Eksportuj::Eksportuj_all()
             struct Wypozycz_Innym wi_buff;
             QFile wi_src(QString::fromWCharArray(flm_eks.pths.BF_WI));
             wi_src.open(QFile::ReadOnly);
-            fnout << QString::fromWCharArray(L"Tabela Wypo¿yczenia Innym Osobom") << "\n\r";
+            fnout << tr("Tabela Wypo¿yczenia Innym Osobom") << "\n\r";
 
             unsigned int stop = wi_src.size();
 
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Data wypo¿yczenia\"") << QString::fromWCharArray(L",\"Data oddania\"");
-            fnout << QString::fromWCharArray(L",\"Stan przed wypo¿yczeniem\"") << QString::fromWCharArray(L",\"Stan po oddaniu\"") << QString::fromWCharArray(L",\"Osoba\"");
-            fnout << QString::fromWCharArray(L",\"Nr katalogowy\"") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Data wypo¿yczenia\"") << tr(",\"Data oddania\"");
+            fnout << tr(",\"Stan przed wypo¿yczeniem\"") << tr(",\"Stan po oddaniu\"") << tr(",\"Osoba\"");
+            fnout << tr(",\"Nr katalogowy\"") << "\n\r";
 
 
             for (unsigned int i = 0; i < stop; )
@@ -417,13 +417,13 @@ void Eksportuj::Eksportuj_all()
             struct Wypozycz_Od_Innych wo_buff;
             QFile wo_src(QString::fromWCharArray(flm_eks.pths.BF_WO));
             wo_src.open(QFile::ReadOnly);
-            fnout << QString::fromWCharArray(L"Tabela Wypo¿yczenia od Innych Osób") << "\n\r";
+            fnout << tr("Tabela Wypo¿yczenia od Innych Osób") << "\n\r";
 
             stop = wo_src.size();
 
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Data wypo¿yczenia\"") << QString::fromWCharArray(L",\"Data oddania\"");
-            fnout << QString::fromWCharArray(L",\"Stan przed wypo¿yczeniem\"") << QString::fromWCharArray(L",\"Stan po oddaniu\"") << QString::fromWCharArray(L",\"Osoba\"");
-            fnout << QString::fromWCharArray(L",\"Nr katalogowy\"") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Data wypo¿yczenia\"") << tr(",\"Data oddania\"");
+            fnout << tr(",\"Stan przed wypo¿yczeniem\"") << tr(",\"Stan po oddaniu\"") << tr(",\"Osoba\"");
+            fnout << tr(",\"Nr katalogowy\"") << "\n\r";
 
 
             for (unsigned int i = 0; i < stop; )
@@ -460,39 +460,39 @@ void Eksportuj::Eksportuj_current()
     fn_exp.open(QFile::Append | QFile::Text);
     QTextStream fnout(&fn_exp);
 
-    fnout << QString::fromWCharArray(L"Biblioteka Filmów - wyeksportowane dane") << "\n\r";
+    fnout << tr("Biblioteka Filmów - wyeksportowane dane") << "\n\r";
     if (ui->checkBox_MainFilm->isChecked() == true)
     {
         struct Film film_buff;
         QFile main(QString::fromWCharArray(flm_eks.pths.BF_PDB));
         main.open(QFile::ReadOnly);
         unsigned int stop = main.size();
-		fnout << QString::fromWCharArray(L"Tabela g³ówna - Film") << "\n\r";
-        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"tytu³\"") <<  QString::fromWCharArray(L",\"oryginalny tytu³\"") << QString::fromWCharArray(L",\"gatunek filmu\"");
-        fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Cena\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Data skatalogowania\"");
-        fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Data utraty\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Data zakupu\"");
-        fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Nazwa\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Adres\"");
-        fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - E-mail\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Telefon\"");
-        fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - Fax\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Miejsce Nabycia - WWW\"");
-		fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Imiê\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Nazwisko\"");
-		fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Adres\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Nr katalogowy\"");
-        fnout << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Noœnik\"") << QString::fromWCharArray(L",\"Dane o Egzemplarzu - Wartoœæ aktualna\"");
-        fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Data premiery\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Czas trwania\"");
-        fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Format wyœwietlania\"") << QString::fromWCharArray(L",\"Informacje o Filmie - jêzyk lektora\"");
-        fnout << QString::fromWCharArray(L",\"Informacje o Filmie - jêzyk napisów\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek dŸwiêku - nazwa\"");
-        fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek dŸwiêku - typ\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek dŸwiêku - wersja\"");
-        fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek wideo - nazwa\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek wideo - typ\"");
-        fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Kodek wideo - wersja\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Zabezpieczenia - nazwa\"");
-        fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Zabezpieczenia - typ\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Zabezpieczenia - wersja\"");
-        fnout << QString::fromWCharArray(L",\"Informacje o Filmie - Kraj produkcji filmu\"") << QString::fromWCharArray(L",\"Informacje o Filmie - Rok produkcji\"");
-        fnout << QString::fromWCharArray(L",\"Informacje o Filmie - System kodowania obrazu\"") << QString::fromWCharArray(L",\"Obsada - Re¿yser - Imie i Nazwisko\"");
-        fnout << QString::fromWCharArray(L",\"Obsada - Re¿yser - Narodowoœæ\"") << QString::fromWCharArray(L",\"Obsada - Scenarzysta - Imiê i Nazwisko\"");
-        fnout << QString::fromWCharArray(L",\"Obsada - Scenarzysta - Narodowoœæ\"") << QString::fromWCharArray(L",\"Obsada - Muzyka - Imie i Nazwisko\"");
-        fnout << QString::fromWCharArray(L",\"Obsada - Muzyka - Narodowoœæ\"") << QString::fromWCharArray(L",\"Obsada - Zdjêcia - Imiê i Nazwisko\"");
-        fnout << QString::fromWCharArray(L",\"Obsada - Zdjêcia - Narodowoœæ\"") << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Obsada\"");
-        fnout << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Œcie¿ka dŸwiêkowa\"") << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Wartoœc artystyczna\"");
-        fnout << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Zdjêcia\"") << QString::fromWCharArray(L",\"Ocena - W³asna Ocena Filmu - Ca³oœæ\"");
-        fnout << QString::fromWCharArray(L",\"Scie¿ka - skan ok³adki - przód\"") << QString::fromWCharArray(L",\"Scie¿ka - skan ok³adki - ty³\"") << "\n\r";
+		fnout << tr("Tabela g³ówna - Film") << "\n\r";
+        fnout << QString::fromWCharArray(L"\"ID\"") << tr(",\"tytu³\"") <<  tr(",\"oryginalny tytu³\"") << tr(",\"gatunek filmu\"");
+        fnout << tr(",\"Dane o Egzemplarzu - Cena\"") << tr(",\"Dane o Egzemplarzu - Data skatalogowania\"");
+        fnout << tr(",\"Dane o Egzemplarzu - Data utraty\"") << tr(",\"Dane o Egzemplarzu - Data zakupu\"");
+        fnout << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - Nazwa\"") << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - Adres\"");
+        fnout << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - E-mail\"") << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - Telefon\"");
+        fnout << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - Fax\"") << tr(",\"Dane o Egzemplarzu - Miejsce Nabycia - WWW\"");
+		fnout << tr(",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Imiê\"") << tr(",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Nazwisko\"");
+		fnout << tr(",\"Dane o Egzemplarzu - W³aœciciel Kopii Filmu - Adres\"") << tr(",\"Dane o Egzemplarzu - Nr katalogowy\"");
+        fnout << tr(",\"Dane o Egzemplarzu - Noœnik\"") << tr(",\"Dane o Egzemplarzu - Wartoœæ aktualna\"");
+        fnout << tr(",\"Informacje o Filmie - Data premiery\"") << tr(",\"Informacje o Filmie - Czas trwania\"");
+        fnout << tr(",\"Informacje o Filmie - Format wyœwietlania\"") << tr(",\"Informacje o Filmie - jêzyk lektora\"");
+        fnout << tr(",\"Informacje o Filmie - jêzyk napisów\"") << tr(",\"Informacje o Filmie - Kodek dŸwiêku - nazwa\"");
+        fnout << tr(",\"Informacje o Filmie - Kodek dŸwiêku - typ\"") << tr(",\"Informacje o Filmie - Kodek dŸwiêku - wersja\"");
+        fnout << tr(",\"Informacje o Filmie - Kodek wideo - nazwa\"") << tr(",\"Informacje o Filmie - Kodek wideo - typ\"");
+        fnout << tr(",\"Informacje o Filmie - Kodek wideo - wersja\"") << tr(",\"Informacje o Filmie - Zabezpieczenia - nazwa\"");
+        fnout << tr(",\"Informacje o Filmie - Zabezpieczenia - typ\"") << tr(",\"Informacje o Filmie - Zabezpieczenia - wersja\"");
+        fnout << tr(",\"Informacje o Filmie - Kraj produkcji filmu\"") << tr(",\"Informacje o Filmie - Rok produkcji\"");
+        fnout << tr(",\"Informacje o Filmie - System kodowania obrazu\"") << tr(",\"Obsada - Re¿yser - Imie i Nazwisko\"");
+        fnout << tr(",\"Obsada - Re¿yser - Narodowoœæ\"") << tr(",\"Obsada - Scenarzysta - Imiê i Nazwisko\"");
+        fnout << tr(",\"Obsada - Scenarzysta - Narodowoœæ\"") << tr(",\"Obsada - Muzyka - Imie i Nazwisko\"");
+        fnout << tr(",\"Obsada - Muzyka - Narodowoœæ\"") << tr(",\"Obsada - Zdjêcia - Imiê i Nazwisko\"");
+        fnout << tr(",\"Obsada - Zdjêcia - Narodowoœæ\"") << tr(",\"Ocena - W³asna Ocena Filmu - Obsada\"");
+        fnout << tr(",\"Ocena - W³asna Ocena Filmu - Œcie¿ka dŸwiêkowa\"") << tr(",\"Ocena - W³asna Ocena Filmu - Wartoœc artystyczna\"");
+        fnout << tr(",\"Ocena - W³asna Ocena Filmu - Zdjêcia\"") << tr(",\"Ocena - W³asna Ocena Filmu - Ca³oœæ\"");
+        fnout << tr(",\"Scie¿ka - skan ok³adki - przód\"") << tr(",\"Scie¿ka - skan ok³adki - ty³\"") << "\n\r";
         for (unsigned int i = 0; i < stop; )
         {
             main.seek(i);
@@ -614,12 +614,12 @@ void Eksportuj::Eksportuj_current()
         struct Ocena oc_buff;
         QFile oc_src(QString::fromWCharArray(flm_eks.pths.BF_OC));
         oc_src.open(QFile::ReadOnly);
-        fnout << QString::fromWCharArray(L"Tabela Ocena") << "\n\r";
+        fnout << tr("Tabela Ocena") << "\n\r";
 
         unsigned int stop = oc_src.size();
 
-        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Nazwa\"") << QString::fromWCharArray(L",\"Tytu³ tekstu\"") << QString::fromWCharArray(L",\"Autor tekstu\"") <<
-        QString::fromWCharArray(L",\"Strona WWW\"") << QString::fromWCharArray(L",\"Ocena krytyka\"") << "\n\r";
+        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa\"") << tr(",\"Tytu³ tekstu\"") << tr(",\"Autor tekstu\"") <<
+        tr(",\"Strona WWW\"") << tr(",\"Ocena krytyka\"") << "\n\r";
 
 
         for (unsigned int i = 0; i < stop; )
@@ -650,11 +650,11 @@ void Eksportuj::Eksportuj_current()
         struct Obsada ob_buff;
         QFile ob_src(QString::fromWCharArray(flm_eks.pths.BF_OB));
         ob_src.open(QFile::ReadOnly);
-        fnout << QString::fromWCharArray(L"Tabela Obsada") << "\n\r";
+        fnout << tr("Tabela Obsada") << "\n\r";
 
         unsigned int stop = ob_src.size();
 
-        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\" Imiê i Nazwisko\"") << QString::fromWCharArray(L",\" Rola\"") << "\n\r";
+        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\" Imiê i Nazwisko\"") << tr(",\" Rola\"") << "\n\r";
 
 
         for (unsigned int i = 0; i < stop; )
@@ -679,12 +679,12 @@ void Eksportuj::Eksportuj_current()
         struct Producent pp_buff;
         QFile pp_src(QString::fromWCharArray(flm_eks.pths.BF_PRP));
         pp_src.open(QFile::ReadOnly);
-        fnout << QString::fromWCharArray(L"Tabela Produkcja") << "\n\r";
+        fnout << tr("Tabela Produkcja") << "\n\r";
 
         unsigned int stop = pp_src.size();
 
-        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Nazwa Firmy\"") << QString::fromWCharArray(L",\"Adres\"") << QString::fromWCharArray(L",\"Telefon\"");
-        fnout << QString::fromWCharArray(L",\"Fax\"") << QString::fromWCharArray(L",\"E-mail\"") << QString::fromWCharArray(L",\"Strona WWW\"") << QString::fromWCharArray(L",\"Narodowoœæ\"") << "\n\r";
+        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa Firmy\"") << tr(",\"Adres\"") << tr(",\"Telefon\"");
+        fnout << tr(",\"Fax\"") << tr(",\"E-mail\"") << tr(",\"Strona WWW\"") << tr(",\"Narodowoœæ\"") << "\n\r";
 
 
         for (unsigned int i = 0; i < stop; )
@@ -717,12 +717,12 @@ void Eksportuj::Eksportuj_current()
             struct Dystrybutor pd_buff;
             QFile pd_src(QString::fromWCharArray(flm_eks.pths.BF_PRD));
             pd_src.open(QFile::ReadOnly);
-            fnout << QString::fromWCharArray(L"Tabela Dystrybucja") <<"\n\r";
+            fnout << tr("Tabela Dystrybucja") <<"\n\r";
 
             stop = pd_src.size();
 
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Nazwa Firmy\"") << QString::fromWCharArray(L",\"Adres\"") << QString::fromWCharArray(L",\"Telefon\"");
-            fnout << QString::fromWCharArray(L",\"Fax\"") << QString::fromWCharArray(L",\"E-mail\"") << QString::fromWCharArray(L",\"Strona WWW\"") << QString::fromWCharArray(L",\"Narodowoœæ\"") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa Firmy\"") << tr(",\"Adres\"") << tr(",\"Telefon\"");
+            fnout << tr(",\"Fax\"") << tr(",\"E-mail\"") << tr(",\"Strona WWW\"") << tr(",\"Narodowoœæ\"") << "\n\r";
 
 
             for (unsigned int i = 0; i < stop; )
@@ -760,12 +760,12 @@ void Eksportuj::Eksportuj_current()
         struct Lok_zdjeciowe lz_buff;
         QFile lz_src(QString::fromWCharArray(flm_eks.pths.BF_LZ));
         lz_src.open(QFile::ReadOnly);
-        fnout << QString::fromWCharArray(L"Tabela Lokalizacje Zdjêciowe") << "\n\r";
+        fnout << tr("Tabela Lokalizacje Zdjêciowe") << "\n\r";
 
         unsigned int stop = lz_src.size();
 
-        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Nazwa obiektu\"") << QString::fromWCharArray(L",\"Kraj\"") << QString::fromWCharArray(L",\"Miejscowoœæ\"");
-        fnout << QString::fromWCharArray(L",\"Region\"") << QString::fromWCharArray(L",\"Pora roku\"") << QString::fromWCharArray(L",\"Data\"") << "\n\r";
+        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa obiektu\"") << tr(",\"Kraj\"") << tr(",\"Miejscowoœæ\"");
+        fnout << tr(",\"Region\"") << tr(",\"Pora roku\"") << tr(",\"Data\"") << "\n\r";
 
 
 
@@ -800,13 +800,13 @@ void Eksportuj::Eksportuj_current()
         struct Wypozycz_Innym wi_buff;
         QFile wi_src(QString::fromWCharArray(flm_eks.pths.BF_WI));
         wi_src.open(QFile::ReadOnly);
-        fnout << QString::fromWCharArray(L"Tabela Wypo¿yczenia Innym Osobom") << "\n\r";
+        fnout << tr("Tabela Wypo¿yczenia Innym Osobom") << "\n\r";
 
         unsigned int stop = wi_src.size();
 
-        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Data wypo¿yczenia\"") << QString::fromWCharArray(L",\"Data oddania\"");
-        fnout << QString::fromWCharArray(L",\"Stan przed wypo¿yczeniem\"") << QString::fromWCharArray(L",\"Stan po oddaniu\"") << QString::fromWCharArray(L",\"Osoba\"");
-        fnout << QString::fromWCharArray(L",\"Nr katalogowy\"") << "\n\r";
+        fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Data wypo¿yczenia\"") << tr(",\"Data oddania\"");
+        fnout << tr(",\"Stan przed wypo¿yczeniem\"") << tr(",\"Stan po oddaniu\"") << tr(",\"Osoba\"");
+        fnout << tr(",\"Nr katalogowy\"") << "\n\r";
 
 
         for (unsigned int i = 0; i < stop; )
@@ -839,13 +839,13 @@ void Eksportuj::Eksportuj_current()
             struct Wypozycz_Od_Innych wo_buff;
             QFile wo_src(QString::fromWCharArray(flm_eks.pths.BF_WO));
             wo_src.open(QFile::ReadOnly);
-            fnout << QString::fromWCharArray(L"Tabela Wypo¿yczenia od Innych Osób") << "\n\r";
+            fnout << tr("Tabela Wypo¿yczenia od Innych Osób") << "\n\r";
 
             stop = wo_src.size();
 
-            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << QString::fromWCharArray(L",\"Data wypo¿yczenia\"") << QString::fromWCharArray(L",\"Data oddania\"");
-            fnout << QString::fromWCharArray(L",\"Stan przed wypo¿yczeniem\"") << QString::fromWCharArray(L",\"Stan po oddaniu\"") << QString::fromWCharArray(L",\"Osoba\"");
-            fnout << QString::fromWCharArray(L",\"Nr katalogowy\"") << "\n\r";
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Data wypo¿yczenia\"") << tr(",\"Data oddania\"");
+            fnout << tr(",\"Stan przed wypo¿yczeniem\"") << tr(",\"Stan po oddaniu\"") << tr(",\"Osoba\"");
+            fnout << tr(",\"Nr katalogowy\"") << "\n\r";
 
 
             for (unsigned int i = 0; i < stop; )

@@ -127,7 +127,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->pushButton_Prev->setStyleSheet("font: bold 8pt \"MS Shell Dlg 2\";");
 
         flm.sort = false;
-        _spawnl(_P_NOWAIT,"MK_AUTOUPDATE.exe","MK_AUTOUPDATE.exe",NULL);
+        //_spawnl(_P_NOWAIT,"MK_AUTOUPDATE.exe","MK_AUTOUPDATE.exe",NULL);
 
         UpdateCtrls(false,true);
         Licz_Rec();

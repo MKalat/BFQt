@@ -753,7 +753,7 @@
     <message utf8="true">
         <location filename="oprog.ui" line="50"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff5500;&quot;&gt;Biblioteka Filmów&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>Mk Film DB</translation>
+        <translation>MK Film DB</translation>
     </message>
     <message utf8="true">
         <location filename="oprog.ui" line="63"/>
@@ -888,7 +888,7 @@
     <message>
         <location filename="wyszukaj.ui" line="186"/>
         <source>Dane o Egzemplarzu - Sklep - Telefon</source>
-        <translation>Data bout Movie - Shop Data - Phone</translation>
+        <translation>Data about Movie - Shop Data - Phone</translation>
     </message>
     <message>
         <location filename="wyszukaj.ui" line="191"/>

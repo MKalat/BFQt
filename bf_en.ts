@@ -35,21 +35,25 @@
     </message>
     <message>
         <location filename="drukuj.ui" line="94"/>
+        <location filename="drukuj.cpp" line="217"/>
         <source>Tabela Ocena</source>
         <translation>Table Score</translation>
     </message>
     <message>
         <location filename="drukuj.ui" line="107"/>
+        <location filename="drukuj.cpp" line="191"/>
         <source>Tabela Obsada</source>
         <translation>Table Cast</translation>
     </message>
     <message>
         <location filename="drukuj.ui" line="120"/>
+        <location filename="drukuj.cpp" line="250"/>
         <source>Tabela Produkcja</source>
         <translation>Table Producers</translation>
     </message>
     <message>
         <location filename="drukuj.ui" line="133"/>
+        <location filename="drukuj.cpp" line="287"/>
         <source>Tabela Dystrybucja</source>
         <translation>table Distributors</translation>
     </message>
@@ -77,6 +81,359 @@
         <location filename="drukuj.ui" line="205"/>
         <source>Anuluj</source>
         <translation>Cancel</translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="100"/>
+        <source>Biblioteka Filmów Wydruk danych z bazy - http://mkalat.pl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="107"/>
+        <source>Oryginalny tytu³: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="109"/>
+        <source>Gatunek : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="111"/>
+        <source>Rok produkcji : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="113"/>
+        <source>Data premiery : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="115"/>
+        <source>Czas projekcji : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="117"/>
+        <source>Jêzyk lektora : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="119"/>
+        <source>Jêzyk napisów </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="121"/>
+        <source>Format wywietlania : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="123"/>
+        <source>System kodowania obrazu : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="125"/>
+        <source>Kraj produkcji filmu : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="127"/>
+        <source>Cena : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="129"/>
+        <source>Wartoæ aktualna : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="131"/>
+        <source>Data zakupu : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="133"/>
+        <source>Data utraty : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="135"/>
+        <source>Data skatalogowania : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="137"/>
+        <source>Nonik : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="139"/>
+        <source>Ocena - Muzyka : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="141"/>
+        <source>Ocena - Obsada : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="143"/>
+        <source>Ocena - Zdjêcia : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="145"/>
+        <source>Ocena - Wartoæ artystyczna : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="147"/>
+        <source>Ocena - Ca³oæ : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="149"/>
+        <source>Nr Kat : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="151"/>
+        <source>W³aciciel - Imiê : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="153"/>
+        <source>W³aciciel - Nazwisko : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="155"/>
+        <source>W³aciciel - Adres : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="157"/>
+        <source>Sklep - Nazwa : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="159"/>
+        <source>Sklep - Adres : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="161"/>
+        <source>Sklep - Telefon : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="163"/>
+        <source>Sklep - email : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="165"/>
+        <source>Sklep - WWW : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="167"/>
+        <source>Sklep - Fax : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="169"/>
+        <source>Kodek wideo - Nazwa : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="171"/>
+        <source>Kodek wideo - typ : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="173"/>
+        <source>Kodek wideo - wersja : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="175"/>
+        <source>Zabezpieczenia - Nazwa : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="177"/>
+        <source>Zabezpieczenia - typ : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="179"/>
+        <source>Zabezpieczenia - wersja : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="181"/>
+        <source>Kodek audio - Nazwa : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="183"/>
+        <source>Kodek audio - typ : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="185"/>
+        <source>Kodek audio - wersja : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="202"/>
+        <source>Imiê i Nazwisko : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="204"/>
+        <source>Rola : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="228"/>
+        <source>Nazwa : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="230"/>
+        <source>Tytu³ tekstu : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="232"/>
+        <source>Autor tekstu : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="234"/>
+        <location filename="drukuj.cpp" line="271"/>
+        <location filename="drukuj.cpp" line="308"/>
+        <source>Strona WWW : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="236"/>
+        <source>Ocena krytyka : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="261"/>
+        <location filename="drukuj.cpp" line="298"/>
+        <source>Nazwa firmy : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="263"/>
+        <location filename="drukuj.cpp" line="300"/>
+        <source>Adres : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="265"/>
+        <location filename="drukuj.cpp" line="302"/>
+        <source>Telefon : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="267"/>
+        <location filename="drukuj.cpp" line="304"/>
+        <source>Fax : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="269"/>
+        <location filename="drukuj.cpp" line="306"/>
+        <source>E - mail : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="273"/>
+        <location filename="drukuj.cpp" line="310"/>
+        <source>Nrodowoæ : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="324"/>
+        <source>Tabela Lokalizacje zdjêciowe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="335"/>
+        <source>Nazwa obiektu : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="337"/>
+        <source>Kraj : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="339"/>
+        <source>Miejscowoæ : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="341"/>
+        <source>Region : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="343"/>
+        <source>Pora roku : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="345"/>
+        <source>Data : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="358"/>
+        <source>Tabela Wypo¿yczenia innym osobom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="369"/>
+        <location filename="drukuj.cpp" line="401"/>
+        <source>Data wypo¿yczenia : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="371"/>
+        <location filename="drukuj.cpp" line="403"/>
+        <source>Data oddania : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="373"/>
+        <location filename="drukuj.cpp" line="405"/>
+        <source>Stan przed wypo¿yczeniem : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="375"/>
+        <location filename="drukuj.cpp" line="407"/>
+        <source>Stan po oddaniu : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="377"/>
+        <location filename="drukuj.cpp" line="409"/>
+        <source>Osoba : </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="drukuj.cpp" line="390"/>
+        <source>Tabela Wypo¿yczenia od innych osób</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

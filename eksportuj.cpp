@@ -203,9 +203,9 @@ void Eksportuj::Eksportuj_all()
 
 
 
-        if (ui->checkBox_TabScore->isChecked() == true)
+        if (ui->checkBox_TabOcena->isChecked() == true)
         {
-            struct Score oc_buff;
+            struct Ocena oc_buff;
             QFile oc_src(QString::fromWCharArray(flm_eks.pths.BF_OC));
             oc_src.open(QFile::ReadOnly);
             fnout << tr("Tabela Score") << "\n\r";
@@ -237,9 +237,9 @@ void Eksportuj::Eksportuj_all()
             oc_src.close();
         }
 
-        if (ui->checkBox_TabCast->isChecked() == true)
+        if (ui->checkBox_TabObsada->isChecked() == true)
         {
-            struct Cast ob_buff;
+            struct Obsada ob_buff;
             QFile ob_src(QString::fromWCharArray(flm_eks.pths.BF_OB));
             ob_src.open(QFile::ReadOnly);
             fnout << tr("Tabela Cast") << "\n\r";
@@ -609,9 +609,9 @@ void Eksportuj::Eksportuj_current()
             main.close();
         }
 
-    if (ui->checkBox_TabScore->isChecked() == true)
+    if (ui->checkBox_TabOcena->isChecked() == true)
     {
-        struct Score oc_buff;
+        struct Ocena oc_buff;
         QFile oc_src(QString::fromWCharArray(flm_eks.pths.BF_OC));
         oc_src.open(QFile::ReadOnly);
         fnout << tr("Tabela Score") << "\n\r";
@@ -645,9 +645,9 @@ void Eksportuj::Eksportuj_current()
             oc_src.close();
      }
 
-    if (ui->checkBox_TabCast->isChecked() == true)
+    if (ui->checkBox_TabObsada->isChecked() == true)
     {
-        struct Cast ob_buff;
+        struct Obsada ob_buff;
         QFile ob_src(QString::fromWCharArray(flm_eks.pths.BF_OB));
         ob_src.open(QFile::ReadOnly);
         fnout << tr("Tabela Cast") << "\n\r";

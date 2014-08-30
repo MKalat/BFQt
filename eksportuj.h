@@ -1,4 +1,4 @@
-#ifndef EKSPORTUJ_H
+﻿#ifndef EKSPORTUJ_H
 #define EKSPORTUJ_H
 
 #include <QWidget>

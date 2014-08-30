@@ -1,4 +1,4 @@
-#ifndef WYSZUKAJ_H
+﻿#ifndef WYSZUKAJ_H
 #define WYSZUKAJ_H
 
 #include <QWidget>

@@ -1,4 +1,4 @@
-#ifndef DRUKUJ_H
+﻿#ifndef DRUKUJ_H
 #define DRUKUJ_H
 
 #include <QWidget>

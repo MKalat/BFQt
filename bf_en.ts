@@ -89,7 +89,8 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="107"/>
-        <source>Oryginalny tytu³: </source>
+        <source>Oryginalny tytu?: </source>
+        <oldsource>Oryginalny tytu³: </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -114,17 +115,20 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="117"/>
-        <source>Jêzyk lektora : </source>
+        <source>J?zyk lektora : </source>
+        <oldsource>Jêzyk lektora : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="119"/>
-        <source>Jêzyk napisów </source>
+        <source>J?zyk napisów </source>
+        <oldsource>Jêzyk napisów </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="121"/>
-        <source>Format wywietlania : </source>
+        <source>Format wy?wietlania : </source>
+        <oldsource>Format wywietlania : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -144,7 +148,8 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="129"/>
-        <source>Wartoæ aktualna : </source>
+        <source>Warto?? aktualna : </source>
+        <oldsource>Wartoæ aktualna : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -164,7 +169,8 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="137"/>
-        <source>Nonik : </source>
+        <source>No?nik : </source>
+        <oldsource>Nonik : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -179,17 +185,20 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="143"/>
-        <source>Ocena - Zdjêcia : </source>
+        <source>Ocena - Zdj?cia : </source>
+        <oldsource>Ocena - Zdjêcia : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="145"/>
-        <source>Ocena - Wartoæ artystyczna : </source>
+        <source>Ocena - Warto?? artystyczna : </source>
+        <oldsource>Ocena - Wartoæ artystyczna : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="147"/>
-        <source>Ocena - Ca³oæ : </source>
+        <source>Ocena - Ca?o?? : </source>
+        <oldsource>Ocena - Ca³oæ : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -199,17 +208,20 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="151"/>
-        <source>W³aciciel - Imiê : </source>
+        <source>W?a?ciciel - Imi? : </source>
+        <oldsource>W³aciciel - Imiê : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="153"/>
-        <source>W³aciciel - Nazwisko : </source>
+        <source>W?a?ciciel - Nazwisko : </source>
+        <oldsource>W³aciciel - Nazwisko : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="155"/>
-        <source>W³aciciel - Adres : </source>
+        <source>W?a?ciciel - Adres : </source>
+        <oldsource>W³aciciel - Adres : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -289,7 +301,8 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="202"/>
-        <source>Imiê i Nazwisko : </source>
+        <source>Imi? i Nazwisko : </source>
+        <oldsource>Imiê i Nazwisko : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -304,7 +317,8 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="230"/>
-        <source>Tytu³ tekstu : </source>
+        <source>Tytu? tekstu : </source>
+        <oldsource>Tytu³ tekstu : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -357,12 +371,14 @@
     <message>
         <location filename="drukuj.cpp" line="273"/>
         <location filename="drukuj.cpp" line="310"/>
-        <source>Nrodowoæ : </source>
+        <source>Nrodowo?? : </source>
+        <oldsource>Nrodowoæ : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="324"/>
-        <source>Tabela Lokalizacje zdjêciowe</source>
+        <source>Tabela Lokalizacje zdj?ciowe</source>
+        <oldsource>Tabela Lokalizacje zdjêciowe</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -377,7 +393,8 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="339"/>
-        <source>Miejscowoæ : </source>
+        <source>Miejscowo?? : </source>
+        <oldsource>Miejscowoæ : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -397,13 +414,15 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="358"/>
-        <source>Tabela Wypo¿yczenia innym osobom</source>
+        <source>Tabela Wypo?yczenia innym osobom</source>
+        <oldsource>Tabela Wypo¿yczenia innym osobom</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="369"/>
         <location filename="drukuj.cpp" line="401"/>
-        <source>Data wypo¿yczenia : </source>
+        <source>Data wypo?yczenia : </source>
+        <oldsource>Data wypo¿yczenia : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -415,7 +434,8 @@
     <message>
         <location filename="drukuj.cpp" line="373"/>
         <location filename="drukuj.cpp" line="405"/>
-        <source>Stan przed wypo¿yczeniem : </source>
+        <source>Stan przed wypo?yczeniem : </source>
+        <oldsource>Stan przed wypo¿yczeniem : </oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -432,7 +452,8 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="390"/>
-        <source>Tabela Wypo¿yczenia od innych osób</source>
+        <source>Tabela Wypo?yczenia od innych osób</source>
+        <oldsource>Tabela Wypo¿yczenia od innych osób</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -521,25 +542,27 @@
     <message>
         <location filename="eksportuj.cpp" line="64"/>
         <location filename="eksportuj.cpp" line="470"/>
-        <source>Tabela g³ówna - Film</source>
+        <source>Tabela g?ówna - Film</source>
+        <oldsource>Tabela g³ówna - Film</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="65"/>
         <location filename="eksportuj.cpp" line="471"/>
-        <source>,&quot;tytu³&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="65"/>
-        <location filename="eksportuj.cpp" line="471"/>
-        <source>,&quot;oryginalny tytu³&quot;</source>
+        <source>,&quot;tytu?&quot;</source>
+        <oldsource>,&quot;tytu³&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="65"/>
         <location filename="eksportuj.cpp" line="471"/>
         <source>,&quot;gatunek filmu&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="eksportuj.cpp" line="65"/>
+        <location filename="eksportuj.cpp" line="471"/>
+        <source>,&quot;oryginalny tytu?&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -605,19 +628,22 @@
     <message>
         <location filename="eksportuj.cpp" line="71"/>
         <location filename="eksportuj.cpp" line="477"/>
-        <source>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Imiê&quot;</source>
+        <source>,&quot;Dane o Egzemplarzu - W?a?ciciel Kopii Filmu - Imi?&quot;</source>
+        <oldsource>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Imiê&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="71"/>
         <location filename="eksportuj.cpp" line="477"/>
-        <source>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Nazwisko&quot;</source>
+        <source>,&quot;Dane o Egzemplarzu - W?a?ciciel Kopii Filmu - Imi?&quot;</source>
+        <oldsource>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Nazwisko&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="72"/>
         <location filename="eksportuj.cpp" line="478"/>
-        <source>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Adres&quot;</source>
+        <source>,&quot;Dane o Egzemplarzu - W?a?ciciel Kopii Filmu - Adres&quot;</source>
+        <oldsource>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Adres&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -629,13 +655,15 @@
     <message>
         <location filename="eksportuj.cpp" line="73"/>
         <location filename="eksportuj.cpp" line="479"/>
-        <source>,&quot;Dane o Egzemplarzu - Nonik&quot;</source>
+        <source>,&quot;Dane o Egzemplarzu - No?nik&quot;</source>
+        <oldsource>,&quot;Dane o Egzemplarzu - Nonik&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="73"/>
         <location filename="eksportuj.cpp" line="479"/>
-        <source>,&quot;Dane o Egzemplarzu - Wartoæ aktualna&quot;</source>
+        <source>,&quot;Dane o Egzemplarzu - No?nik&quot;</source>
+        <oldsource>,&quot;Dane o Egzemplarzu - Wartoæ aktualna&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -653,37 +681,43 @@
     <message>
         <location filename="eksportuj.cpp" line="75"/>
         <location filename="eksportuj.cpp" line="481"/>
-        <source>,&quot;Informacje o Filmie - Format wywietlania&quot;</source>
+        <source>,&quot;Informacje o Filmie - Format wy?wietlania&quot;</source>
+        <oldsource>,&quot;Informacje o Filmie - Format wywietlania&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="75"/>
         <location filename="eksportuj.cpp" line="481"/>
-        <source>,&quot;Informacje o Filmie - jêzyk lektora&quot;</source>
+        <source>,&quot;Informacje o Filmie - Format wy?wietlania&quot;</source>
+        <oldsource>,&quot;Informacje o Filmie - jêzyk lektora&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="76"/>
         <location filename="eksportuj.cpp" line="482"/>
-        <source>,&quot;Informacje o Filmie - jêzyk napisów&quot;</source>
+        <source>,&quot;Informacje o Filmie - j?zyk napisów&quot;</source>
+        <oldsource>,&quot;Informacje o Filmie - jêzyk napisów&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="76"/>
         <location filename="eksportuj.cpp" line="482"/>
-        <source>,&quot;Informacje o Filmie - Kodek dwiêku - nazwa&quot;</source>
+        <source>,&quot;Informacje o Filmie - j?zyk napisów&quot;</source>
+        <oldsource>,&quot;Informacje o Filmie - Kodek dwiêku - nazwa&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="77"/>
         <location filename="eksportuj.cpp" line="483"/>
-        <source>,&quot;Informacje o Filmie - Kodek dwiêku - typ&quot;</source>
+        <source>,&quot;Informacje o Filmie - Kodek d?wi?ku - typ&quot;</source>
+        <oldsource>,&quot;Informacje o Filmie - Kodek dwiêku - typ&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="77"/>
         <location filename="eksportuj.cpp" line="483"/>
-        <source>,&quot;Informacje o Filmie - Kodek dwiêku - wersja&quot;</source>
+        <source>,&quot;Informacje o Filmie - Kodek d?wi?ku - typ&quot;</source>
+        <oldsource>,&quot;Informacje o Filmie - Kodek dwiêku - wersja&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -741,27 +775,30 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="eksportuj.cpp" line="82"/>
-        <location filename="eksportuj.cpp" line="488"/>
-        <source>,&quot;Obsada - Re¿yser - Imie i Nazwisko&quot;</source>
+        <location filename="eksportuj.cpp" line="351"/>
+        <location filename="eksportuj.cpp" line="767"/>
+        <source>,&quot;Miejscowo??&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="83"/>
         <location filename="eksportuj.cpp" line="489"/>
-        <source>,&quot;Obsada - Re¿yser - Narodowoæ&quot;</source>
+        <source>,&quot;Obsada - Re?yser - Narodowo??&quot;</source>
+        <oldsource>,&quot;Obsada - Re¿yser - Narodowoæ&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="83"/>
         <location filename="eksportuj.cpp" line="489"/>
-        <source>,&quot;Obsada - Scenarzysta - Imiê i Nazwisko&quot;</source>
+        <source>,&quot;Obsada - Re?yser - Narodowo??&quot;</source>
+        <oldsource>,&quot;Obsada - Scenarzysta - Imiê i Nazwisko&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="84"/>
         <location filename="eksportuj.cpp" line="490"/>
-        <source>,&quot;Obsada - Scenarzysta - Narodowoæ&quot;</source>
+        <source>,&quot;Obsada - Scenarzysta - Narodowo??&quot;</source>
+        <oldsource>,&quot;Obsada - Scenarzysta - Narodowoæ&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -773,61 +810,71 @@
     <message>
         <location filename="eksportuj.cpp" line="85"/>
         <location filename="eksportuj.cpp" line="491"/>
-        <source>,&quot;Obsada - Muzyka - Narodowoæ&quot;</source>
+        <source>,&quot;Obsada - Muzyka - Narodowo??&quot;</source>
+        <oldsource>,&quot;Obsada - Muzyka - Narodowoæ&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="85"/>
         <location filename="eksportuj.cpp" line="491"/>
-        <source>,&quot;Obsada - Zdjêcia - Imiê i Nazwisko&quot;</source>
+        <source>,&quot;Obsada - Muzyka - Narodowo??&quot;</source>
+        <oldsource>,&quot;Obsada - Zdjêcia - Imiê i Nazwisko&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="86"/>
         <location filename="eksportuj.cpp" line="492"/>
-        <source>,&quot;Obsada - Zdjêcia - Narodowoæ&quot;</source>
+        <source>,&quot;Obsada - Zdj?cia - Narodowo??&quot;</source>
+        <oldsource>,&quot;Obsada - Zdjêcia - Narodowoæ&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="86"/>
         <location filename="eksportuj.cpp" line="492"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - Obsada&quot;</source>
+        <source>,&quot;Obsada - Zdj?cia - Narodowo??&quot;</source>
+        <oldsource>,&quot;Ocena - W³asna Ocena Filmu - Obsada&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="87"/>
         <location filename="eksportuj.cpp" line="493"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - cie¿ka dwiêkowa&quot;</source>
+        <source>,&quot;Ocena - W?asna Ocena Filmu - ?cie?ka d?wi?kowa&quot;</source>
+        <oldsource>,&quot;Ocena - W³asna Ocena Filmu - cie¿ka dwiêkowa&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="87"/>
         <location filename="eksportuj.cpp" line="493"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - Wartoc artystyczna&quot;</source>
+        <source>,&quot;Ocena - W?asna Ocena Filmu - ?cie?ka d?wi?kowa&quot;</source>
+        <oldsource>,&quot;Ocena - W³asna Ocena Filmu - Wartoc artystyczna&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="88"/>
         <location filename="eksportuj.cpp" line="494"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - Zdjêcia&quot;</source>
+        <source>,&quot;Ocena - W?asna Ocena Filmu - Zdj?cia&quot;</source>
+        <oldsource>,&quot;Ocena - W³asna Ocena Filmu - Zdjêcia&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="88"/>
         <location filename="eksportuj.cpp" line="494"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - Ca³oæ&quot;</source>
+        <source>,&quot;Ocena - W?asna Ocena Filmu - Zdj?cia&quot;</source>
+        <oldsource>,&quot;Ocena - W³asna Ocena Filmu - Ca³oæ&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="89"/>
         <location filename="eksportuj.cpp" line="495"/>
-        <source>,&quot;Scie¿ka - skan ok³adki - przód&quot;</source>
+        <source>,&quot;Scie?ka - skan ok?adki - przód&quot;</source>
+        <oldsource>,&quot;Scie¿ka - skan ok³adki - przód&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="89"/>
         <location filename="eksportuj.cpp" line="495"/>
-        <source>,&quot;Scie¿ka - skan ok³adki - ty³&quot;</source>
+        <source>,&quot;Scie?ka - skan ok?adki - przód&quot;</source>
+        <oldsource>,&quot;Scie¿ka - skan ok³adki - ty³&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -839,13 +886,13 @@
     <message>
         <location filename="eksportuj.cpp" line="215"/>
         <location filename="eksportuj.cpp" line="621"/>
-        <source>,&quot;Tytu³ tekstu&quot;</source>
+        <source>,&quot;Autor tekstu&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="215"/>
         <location filename="eksportuj.cpp" line="621"/>
-        <source>,&quot;Autor tekstu&quot;</source>
+        <source>,&quot;Tytu? tekstu&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -867,7 +914,8 @@
     <message>
         <location filename="eksportuj.cpp" line="249"/>
         <location filename="eksportuj.cpp" line="657"/>
-        <source>,&quot; Imiê i Nazwisko&quot;</source>
+        <source>,&quot; Imi? i Nazwisko&quot;</source>
+        <oldsource>,&quot; Imiê i Nazwisko&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -923,11 +971,20 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="eksportuj.cpp" line="216"/>
         <location filename="eksportuj.cpp" line="277"/>
         <location filename="eksportuj.cpp" line="312"/>
+        <location filename="eksportuj.cpp" line="622"/>
         <location filename="eksportuj.cpp" line="687"/>
         <location filename="eksportuj.cpp" line="725"/>
-        <source>,&quot;Narodowoæ&quot;</source>
+        <source>,&quot;Strona WWW&quot;</source>
+        <oldsource>,&quot;Narodowoæ&quot;</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="eksportuj.cpp" line="82"/>
+        <location filename="eksportuj.cpp" line="488"/>
+        <source>,&quot;Obsada - Re?yser - Imie i Nazwisko&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -939,7 +996,8 @@
     <message>
         <location filename="eksportuj.cpp" line="347"/>
         <location filename="eksportuj.cpp" line="763"/>
-        <source>Tabela Lokalizacje Zdjêciowe</source>
+        <source>Tabela Lokalizacje Zdj?ciowe</source>
+        <oldsource>Tabela Lokalizacje Zdjêciowe</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -952,12 +1010,6 @@
         <location filename="eksportuj.cpp" line="351"/>
         <location filename="eksportuj.cpp" line="767"/>
         <source>,&quot;Kraj&quot;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="351"/>
-        <location filename="eksportuj.cpp" line="767"/>
-        <source>,&quot;Miejscowoæ&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -981,7 +1033,8 @@
     <message>
         <location filename="eksportuj.cpp" line="384"/>
         <location filename="eksportuj.cpp" line="803"/>
-        <source>Tabela Wypo¿yczenia Innym Osobom</source>
+        <source>Tabela Wypo?yczenia Innym Osobom</source>
+        <oldsource>Tabela Wypo¿yczenia Innym Osobom</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -989,7 +1042,8 @@
         <location filename="eksportuj.cpp" line="424"/>
         <location filename="eksportuj.cpp" line="807"/>
         <location filename="eksportuj.cpp" line="846"/>
-        <source>,&quot;Data wypo¿yczenia&quot;</source>
+        <source>,&quot;Data wypo?yczenia&quot;</source>
+        <oldsource>,&quot;Data wypo¿yczenia&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1005,7 +1059,8 @@
         <location filename="eksportuj.cpp" line="425"/>
         <location filename="eksportuj.cpp" line="808"/>
         <location filename="eksportuj.cpp" line="847"/>
-        <source>,&quot;Stan przed wypo¿yczeniem&quot;</source>
+        <source>,&quot;Stan przed wypo?yczeniem&quot;</source>
+        <oldsource>,&quot;Stan przed wypo¿yczeniem&quot;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1035,7 +1090,8 @@
     <message>
         <location filename="eksportuj.cpp" line="420"/>
         <location filename="eksportuj.cpp" line="842"/>
-        <source>Tabela Wypo¿yczenia od Innych Osób</source>
+        <source>Tabela Wypo?yczenia od Innych Osób</source>
+        <oldsource>Tabela Wypo¿yczenia od Innych Osób</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>

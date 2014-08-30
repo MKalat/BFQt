@@ -1,4 +1,4 @@
-#include "drukuj.h"
+ď»ż#include "drukuj.h"
 #include "ui_drukuj.h"
 #include "film_ftbl_class.h"
 #include "Unmngd.h"
@@ -97,14 +97,14 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
 		
 		if (!head_wrttn)
 		{
-			fnout << QString::fromWCharArray(L"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"><html><head><title>") << tr("Biblioteka Filmów Wydruk danych z bazy - http://mkalat.pl") << QString::fromAscii("</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1250\"><style type=\"text/css\">p {font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;}</style></head><body>") << "\n";
+			fnout << QString::fromWCharArray(L"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"><html><head><title>") << tr("Biblioteka FilmĂłw Wydruk danych z bazy - http://mkalat.pl") << QString::fromAscii("</title><meta http-equiv=\"Content-Type\" content=\"text/html; charset=windows-1250\"><style type=\"text/css\">p {font-family: Verdana, Arial, Helvetica, sans-serif;font-size: 12px;}</style></head><body>") << "\n";
 			
 		}
 		fnout << QString::fromAscii("<h1>");
         fnout << QString::fromWCharArray(flm_ptr->tytul);
         fnout << QString::fromWCharArray(L"</h1><table ><tr><td><img src=\"file://");
         fnout << QString::fromWCharArray(flm_ptr->skan_przod_path);
-		fnout << QString::fromAscii("\"></td></tr><tr><td><p>") << tr("Oryginalny tytuł: ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("\"></td></tr><tr><td><p>") << tr("Oryginalny tytuĹ‚: ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->oryginalny_tytul);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Gatunek : ")<< QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->gatunek_filmu);
@@ -114,11 +114,11 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
         fnout << QString::fromWCharArray(flm_ptr->IOF_data_premiery);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Czas projekcji : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->IOF_czas_trwania);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Język lektora : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("JÄ™zyk lektora : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->IOF_jezyk_lektora);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Język napisów ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("JÄ™zyk napisĂłw ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->IOF_jezyk_napisow);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Format wyświetlania : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Format wyĹ›wietlania : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->IOF_format_wysw);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("System kodowania obrazu : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->IOF_system_kodowania_obrazu);
@@ -126,7 +126,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
         fnout << QString::fromWCharArray(flm_ptr->IOF_kraj_produkcji_filmu);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Cena : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->DOE_cena);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Wartość aktualna : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("WartoĹ›Ä‡ aktualna : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->DOE_wartosc_akt);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Data zakupu : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->DOE_data_zakupu);
@@ -134,25 +134,25 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
         fnout << QString::fromWCharArray(flm_ptr->DOE_data_utraty);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Data skatalogowania : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->DOE_data_skatalogowania);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Nośnik : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("NoĹ›nik : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->DOE_rodzaj_nosnika);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Ocena - Muzyka : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->WOF_sciezka_dz);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Ocena - Obsada : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->WOF_obsada);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Ocena - Zdjęcia : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Ocena - ZdjÄ™cia : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->WOF_zdjecia);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Ocena - Wartość artystyczna : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Ocena - WartoĹ›Ä‡ artystyczna : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->WOF_w_art);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Ocena - Całość : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Ocena - CaĹ‚oĹ›Ä‡ : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->WOF_calosc);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Nr Kat : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->DOE_Nr_kat);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Właściciel - Imię : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("WĹ‚aĹ›ciciel - ImiÄ™ : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->DOE_WKF_imie);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Właściciel - Nazwisko : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("WĹ‚aĹ›ciciel - Nazwisko : ") << QString::fromAscii("</p></td><td><p>");
 		fnout << QString::fromWCharArray(flm_ptr->DOE_WKF_nazwisko);
-		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Właściciel - Adres : ") << QString::fromAscii("</p></td><td><p>");
+		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("WĹ‚aĹ›ciciel - Adres : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->DOE_WKF_adres);
 		fnout << QString::fromAscii("</p></td></tr><tr><td><p>") << tr("Sklep - Nazwa : ") << QString::fromAscii("</p></td><td><p>");
         fnout << QString::fromWCharArray(flm_ptr->DOE_MN_nazwa);
@@ -199,7 +199,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
 				fn_ob.read(reinterpret_cast<char *>(&ob_buff),sizeof(ob_buff));
 				if (ob_buff.IDPDB == flm_ptr->ID)
 				{
-					fnout << QString::fromWCharArray(L"<tr><td><p>") << tr("Imię i Nazwisko : ") << QString::fromAscii("</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"<tr><td><p>") << tr("ImiÄ™ i Nazwisko : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(ob_buff.imie_nazw);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Rola : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(ob_buff.rola);
@@ -227,7 +227,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
 				{
 					fnout << QString::fromWCharArray(L"<tr><td><p>") << tr("Nazwa : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(oc_buff.nazwa);
-					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Tytuł tekstu : ") << QString::fromAscii("</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("TytuĹ‚ tekstu : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(oc_buff.tytul_tekstu);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Autor tekstu : ") << QString::fromAscii("</p></td/><td><p>");
                     fnout << QString::fromWCharArray(oc_buff.autor_tekstu);
@@ -270,7 +270,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
                     fnout << QString::fromWCharArray(p_buff.email);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Strona WWW : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(p_buff.strona_www);
-					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Nrodowość : ") << QString::fromAscii("</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("NrodowoĹ›Ä‡ : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(p_buff.narodowosc);
                     fnout << QString::fromWCharArray(L"</p></td></tr>");
 
@@ -307,7 +307,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
                     fnout << QString::fromWCharArray(d_buff.email);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Strona WWW : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(d_buff.strona_www);
-					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Nrodowość : ") << QString::fromAscii("</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("NrodowoĹ›Ä‡ : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(d_buff.narodowosc);
                     fnout << QString::fromWCharArray(L"</p></td></tr>");
 
@@ -321,7 +321,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
 		}
 		if (ui->checkBox_LZ->isChecked() == true)
 		{
-			fnout << QString::fromWCharArray(L"<h1>") << tr("Tabela Lokalizacje zdjęciowe") << QString::fromAscii("</h1><table >") << "\n";
+			fnout << QString::fromWCharArray(L"<h1>") << tr("Tabela Lokalizacje zdjÄ™ciowe") << QString::fromAscii("</h1><table >") << "\n";
 			struct Lok_zdjeciowe z_buff;
 			QFile fn_z(QString::fromWCharArray(flm_d.pths.BF_LZ));
 			fn_z.open(QFile::ReadOnly);
@@ -336,7 +336,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
                     fnout << QString::fromWCharArray(z_buff.nazwa_obiektu);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Kraj : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(z_buff.kraj);
-					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Miejscowość : ") << QString::fromAscii("</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("MiejscowoĹ›Ä‡ : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(z_buff.miejscowosc);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Region : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(z_buff.region);
@@ -355,7 +355,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
 		}
 		if (ui->checkBox_WYPIN->isChecked() == true)
 		{
-			fnout << QString::fromWCharArray(L"<h1>") << tr("Tabela Wypożyczenia innym osobom") << QString::fromAscii("</h1><table >") << "\n";
+			fnout << QString::fromWCharArray(L"<h1>") << tr("Tabela WypoĹĽyczenia innym osobom") << QString::fromAscii("</h1><table >") << "\n";
 			struct Wypozycz_Innym wi_buff;
 			QFile fn_wi(QString::fromWCharArray(flm_d.pths.BF_WI));
 			fn_wi.open(QFile::ReadOnly);
@@ -366,11 +366,11 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
 				fn_wi.read(reinterpret_cast<char *>(&wi_buff),sizeof(wi_buff));
 				if (wi_buff.IDPDB == flm_ptr->ID)
 				{
-					fnout << QString::fromWCharArray(L"<tr><td><p>") << tr("Data wypożyczenia : ") << QString::fromAscii("</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"<tr><td><p>") << tr("Data wypoĹĽyczenia : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(wi_buff.data_wypozyczenia);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Data oddania : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(wi_buff.data_oddania);
-					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Stan przed wypożyczeniem : ") << QString::fromAscii("</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Stan przed wypoĹĽyczeniem : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(wi_buff.stan_przed_wypozycz);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Stan po oddaniu : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(wi_buff.stan_po_oddaniu);
@@ -387,7 +387,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
 		}
 		if (ui->checkBox_WYPODIN->isChecked() == true)
 		{
-			fnout << QString::fromWCharArray(L"<h1>") << tr("Tabela Wypożyczenia od innych osób") << QString::fromAscii("</h1><table >") << "\n";
+			fnout << QString::fromWCharArray(L"<h1>") << tr("Tabela WypoĹĽyczenia od innych osĂłb") << QString::fromAscii("</h1><table >") << "\n";
 			struct Wypozycz_Od_Innych wo_buff;
 			QFile fn_wo(QString::fromWCharArray(flm_d.pths.BF_WO));
 			fn_wo.open(QFile::ReadOnly);
@@ -398,11 +398,11 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
 				fn_wo.read(reinterpret_cast<char *>(&wo_buff),sizeof(wo_buff));
 				if (wo_buff.IDPDB == flm_ptr->ID)
 				{
-					fnout << QString::fromWCharArray(L"<tr><td><p>") << tr("Data wypożyczenia : ") << QString::fromAscii("</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"<tr><td><p>") << tr("Data wypoĹĽyczenia : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(wo_buff.data_wypozyczenia);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Data oddania : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(wo_buff.data_oddania);
-					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Stan przed wypożyczeniem : ") << QString::fromAscii("</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Stan przed wypoĹĽyczeniem : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(wo_buff.stan_przed_wypozycz);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Stan po oddaniu : ") << QString::fromAscii("</p></td><td><p>");
                     fnout << QString::fromWCharArray(wo_buff.stan_po_oddaniu);

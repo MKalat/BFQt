@@ -1,4 +1,4 @@
-#include "oprog.h"
+﻿#include "oprog.h"
 #include "ui_oprog.h"
 
 OProg::OProg(QWidget *parent) :

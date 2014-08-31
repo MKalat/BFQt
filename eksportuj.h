@@ -30,8 +30,16 @@ class Eksportuj : public QWidget
 public:
     explicit Eksportuj(QWidget *parent = 0);
     ~Eksportuj();
-    void Eksportuj_all();
-    void Eksportuj_current();
+    void Eksportuj_data_MAIN(struct Film* flm_ptr, bool head_wrttn, bool html_end);
+    void Eksportuj_data_WON(struct Wypozycz_Od_Innych* wo_ptr, bool head_wrttn, bool html_end);
+	void Eksportuj_data_WIN(struct Wypozycz_Innym* wi_ptr, bool head_wrttn, bool html_end);
+	void Eksportuj_data_LZ(struct Lok_zdjeciowe* lz_ptr, bool head_wrttn, bool html_end);
+	void Eksportuj_data_PD(struct Dystrybutor* pd_ptr, bool head_wrttn, bool html_end);
+	void Eksportuj_data_PP(struct Producent* pp_ptr, bool head_wrttn, bool html_end);
+	void Eksportuj_data_OB(struct Obsada* ob_ptr, bool head_wrttn, bool html_end);
+	void Eksportuj_data_OC(struct Ocena* oc_ptr, bool head_wrttn, bool html_end);
+
+
     
 private slots:
     void on_pushButton_GetPath_clicked();

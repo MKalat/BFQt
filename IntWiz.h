@@ -1,4 +1,4 @@
-﻿#ifndef INTWIZ_H
+#ifndef INTWIZ_H
 #define INTWIZ_H
 
 #include <QDialog>

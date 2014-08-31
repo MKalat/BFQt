@@ -14,7 +14,7 @@ struct DB_paths Ftbl::pths;
 
 Ftbl flm;
 
-unsigned int sort_idx = 0; // zmienna pomocnicza sluÅ¼aca do poruszania sie po indeksie film_tbl_wsk
+unsigned int sort_idx = 0; // zmienna pomocnicza slu¿aca do poruszania sie po indeksie film_tbl_wsk
 unsigned int zadana_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
 unsigned int akt_pozycja_pliku = 0; // pozycja rekordu w BF_PDB
 
@@ -205,12 +205,12 @@ void MainWindow::on_pushButton_Last_clicked()
 
 void MainWindow::on_pushButton_New_clicked()
 {
-    ClearCtrls(true); // wyczyÅ›Ä‡ kontrolki
+    ClearCtrls(true); // wyczyœæ kontrolki
 
     bool test;
     if (Licz_Rec() == true)
     {
-        test = MainWindow::Film_DodajRec(true);                   // wywoÅ‚aj procedure dodania nowego rekordu wÅ‚Ä…cznie z zapisem
+        test = MainWindow::Film_DodajRec(true);                   // wywo³aj procedure dodania nowego rekordu w³¹cznie z zapisem
     }
     else
     {
@@ -219,13 +219,13 @@ void MainWindow::on_pushButton_New_clicked()
     if (test)
     {
         ClearCtrls(false);
-        UpdateCtrls(false,false); // odswieÅ¼ kontrolki
+        UpdateCtrls(false,false); // odswie¿ kontrolki
         Licz_Rec();
         MainWindow::Enable_BTNS_NOREC();
     }
     else
     {
-                // wyÅ›wietl komunikat o bÅ‚Ä™dzie
+                // wyœwietl komunikat o b³êdzie
     }
 
 }
@@ -240,7 +240,7 @@ void MainWindow::on_pushButton_Save_clicked()
         }
         else
         {
-            // wyswietl komunikat o bÅ‚Ä™dzie zapisu
+            // wyswietl komunikat o b³êdzie zapisu
         }
 }
 
@@ -549,7 +549,7 @@ if (all)
 }
 }
 int MainWindow::CheckbOpenDB(void) {
-// Sprawdza czy istniejÄ… pliki bazy danych i, jesli tak,  zwraca true.
+// Sprawdza czy istniej¹ pliki bazy danych i, jesli tak,  zwraca true.
     bool test[9];
     QFileInfo fi(QString::fromWCharArray(flm.pths.BF_PDB));
     if (fi.exists())
@@ -644,49 +644,49 @@ int MainWindow::CheckbOpenDB(void) {
     }
     else if ((test[0] == false || test[8] == false) && (test[1] == true || test[2] == true || test[3] == true || test[4] == true || test[5] == true || test[6] == true || test[7]== true))
     {
-        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka FilmÃ³w","Baza danych jest uszkodzona !!!! Biblioteka FilmÃ³w nie moÅ¼e jej otworzyÄ‡. SprÃ³buj ozdyskaÄ‡ uszkodzone dane lub samodzielnie skasuj(na wÅ‚asne ryzyko !!!!) pliki bazy danych - program odtworzy pustÄ… strukture bazy danych.", QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie mo¿e jej otworzyæ. Spróbuj ozdyskaæ uszkodzone dane lub samodzielnie skasuj(na w³asne ryzyko !!!!) pliki bazy danych - program odtworzy pust¹ strukture bazy danych.", QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[1] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka FilmÃ³w","Baza danych jest uszkodzona !!!! Biblioteka FilmÃ³w nie moÅ¼e jej otworzyÄ‡. SprÃ³buj ozdyskaÄ‡ uszkodzone dane lub samodzielnie skasuj(na wÅ‚asne ryzyko !!!!) pliki bazy danych - program odtworzy pustÄ… strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie mo¿e jej otworzyæ. Spróbuj ozdyskaæ uszkodzone dane lub samodzielnie skasuj(na w³asne ryzyko !!!!) pliki bazy danych - program odtworzy pust¹ strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[2] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka FilmÃ³w","Baza danych jest uszkodzona !!!! Biblioteka FilmÃ³w nie moÅ¼e jej otworzyÄ‡. SprÃ³buj ozdyskaÄ‡ uszkodzone dane lub samodzielnie skasuj(na wÅ‚asne ryzyko !!!!) pliki bazy danych - program odtworzy pustÄ… strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie mo¿e jej otworzyæ. Spróbuj ozdyskaæ uszkodzone dane lub samodzielnie skasuj(na w³asne ryzyko !!!!) pliki bazy danych - program odtworzy pust¹ strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[3] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka FilmÃ³w","Baza danych jest uszkodzona !!!! Biblioteka FilmÃ³w nie moÅ¼e jej otworzyÄ‡. SprÃ³buj ozdyskaÄ‡ uszkodzone dane lub samodzielnie skasuj(na wÅ‚asne ryzyko !!!!) pliki bazy danych - program odtworzy pustÄ… strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie mo¿e jej otworzyæ. Spróbuj ozdyskaæ uszkodzone dane lub samodzielnie skasuj(na w³asne ryzyko !!!!) pliki bazy danych - program odtworzy pust¹ strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[4] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka FilmÃ³w","Baza danych jest uszkodzona !!!! Biblioteka FilmÃ³w nie moÅ¼e jej otworzyÄ‡. SprÃ³buj ozdyskaÄ‡ uszkodzone dane lub samodzielnie skasuj(na wÅ‚asne ryzyko !!!!) pliki bazy danych - program odtworzy pustÄ… strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie mo¿e jej otworzyæ. Spróbuj ozdyskaæ uszkodzone dane lub samodzielnie skasuj(na w³asne ryzyko !!!!) pliki bazy danych - program odtworzy pust¹ strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[5] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka FilmÃ³w","Baza danych jest uszkodzona !!!! Biblioteka FilmÃ³w nie moÅ¼e jej otworzyÄ‡. SprÃ³buj ozdyskaÄ‡ uszkodzone dane lub samodzielnie skasuj(na wÅ‚asne ryzyko !!!!) pliki bazy danych - program odtworzy pustÄ… strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie mo¿e jej otworzyæ. Spróbuj ozdyskaæ uszkodzone dane lub samodzielnie skasuj(na w³asne ryzyko !!!!) pliki bazy danych - program odtworzy pust¹ strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[6] == false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka FilmÃ³w","Baza danych jest uszkodzona !!!! Biblioteka FilmÃ³w nie moÅ¼e jej otworzyÄ‡. SprÃ³buj ozdyskaÄ‡ uszkodzone dane lub samodzielnie skasuj(na wÅ‚asne ryzyko !!!!) pliki bazy danych - program odtworzy pustÄ… strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie mo¿e jej otworzyæ. Spróbuj ozdyskaæ uszkodzone dane lub samodzielnie skasuj(na w³asne ryzyko !!!!) pliki bazy danych - program odtworzy pust¹ strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
     else if ((test[0] == true && test[8] == true) && (test[7]== false))
     {
-        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka FilmÃ³w","Baza danych jest uszkodzona !!!! Biblioteka FilmÃ³w nie moÅ¼e jej otworzyÄ‡. SprÃ³buj ozdyskaÄ‡ uszkodzone dane lub samodzielnie skasuj(na wÅ‚asne ryzyko !!!!) pliki bazy danych - program odtworzy pustÄ… strukture bazy danych.",QMessageBox::Ok, this);
+        QMessageBox msgbox(QMessageBox::Critical,"Biblioteka Filmów","Baza danych jest uszkodzona !!!! Biblioteka Filmów nie mo¿e jej otworzyæ. Spróbuj ozdyskaæ uszkodzone dane lub samodzielnie skasuj(na w³asne ryzyko !!!!) pliki bazy danych - program odtworzy pust¹ strukture bazy danych.",QMessageBox::Ok, this);
         msgbox.show();
         return 2;
     }
@@ -695,8 +695,8 @@ int MainWindow::CheckbOpenDB(void) {
 
 bool MainWindow::CheckBFVER(void)
 {
-// pobiera strukturÄ™ "POMIDOR" z poczatku pliku BF.dat celem sprawdzenia wersji bazy danych i co z tym idzie zgodnoÅ›ci z
-// ta wersjÄ… BF
+// pobiera strukturê "POMIDOR" z poczatku pliku BF.dat celem sprawdzenia wersji bazy danych i co z tym idzie zgodnoœci z
+// ta wersj¹ BF
 
     struct POMIDOR pom;
     QFile plik(QString::fromWCharArray(flm.pths.BF_MCF));
@@ -740,10 +740,10 @@ bool MainWindow::Fill_Full_Film(bool start)
 
                 plik.close();
 
-                //Clear_TABS(); // czyszczenie kontrolek pÃ³l list
+                //Clear_TABS(); // czyszczenie kontrolek pól list
 
                 //Fill_Opis();
-                Fill_Oc(); // wypeÅ‚nianie kontrolek pÃ³l list
+                Fill_Oc(); // wype³nianie kontrolek pól list
                 Fill_Ob();
                 Fill_PD();
                 Fill_PP();
@@ -1074,7 +1074,7 @@ bool MainWindow::Licz_Rec(void)
                 }
             else
                 {
-                    // policz rekordy w trybie niesortowanym i wypeÅ‚nij Film_tab_wsk
+                    // policz rekordy w trybie niesortowanym i wype³nij Film_tab_wsk
                     QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
                     struct Film film_test;
                     plik.open(QFile::ReadOnly);
@@ -1112,7 +1112,7 @@ bool MainWindow::Licz_Rec(void)
 }
 void MainWindow::Read_Settings()
 {
-//TODO : NapisaÄ‡ odczytywanie ustawieÅ„, jak nie ma utworzyc plik z domyÅ›lnymi
+//TODO : Napisaæ odczytywanie ustawieñ, jak nie ma utworzyc plik z domyœlnymi
 
 }
 
@@ -1191,7 +1191,7 @@ void MainWindow::SetDBFNPaths(bool cust, wchar_t* cust_path)
         wcscpy(buff,cur_dir);
 
         wcscpy(flm.pths.cur_db_path,buff);
-        wcscat(flm.pths.cur_db_path,flm.pths.db_path); // ustawianie katalogu gÅ‚ bazy danych
+        wcscat(flm.pths.cur_db_path,flm.pths.db_path); // ustawianie katalogu g³ bazy danych
 
         wcscat(buff,flm.pths.db_path); // BF_PDB
         wcscat(buff,flm.pths.BF_PDB);
@@ -1620,7 +1620,7 @@ void MainWindow::Save_Wi(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka FilmÃ³w"),QString::fromWCharArray(L"Nie moÅ¼na wiÄ™cej zapisywaÄ‡ do tego pliku - jest przepeÅ‚niony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie mo¿na wiêcej zapisywaæ do tego pliku - jest przepe³niony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -1683,7 +1683,7 @@ void MainWindow::Save_Wo(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka FilmÃ³w"),QString::fromWCharArray(L"Nie moÅ¼na wiÄ™cej zapisywaÄ‡ do tego pliku - jest przepeÅ‚niony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie mo¿na wiêcej zapisywaæ do tego pliku - jest przepe³niony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2008,7 +2008,7 @@ void MainWindow::Save_Lz(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka FilmÃ³w"),QString::fromWCharArray(L"Nie moÅ¼na wiÄ™cej zapisywaÄ‡ do tego pliku - jest przepeÅ‚niony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie mo¿na wiêcej zapisywaæ do tego pliku - jest przepe³niony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2220,7 +2220,7 @@ void MainWindow::Save_Ob(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka FilmÃ³w"),QString::fromWCharArray(L"Nie moÅ¼na wiÄ™cej zapisywaÄ‡ do tego pliku - jest przepeÅ‚niony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie mo¿na wiêcej zapisywaæ do tego pliku - jest przepe³niony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2399,7 +2399,7 @@ void MainWindow::Usun_Rec_OB(unsigned int pos)
 
 void MainWindow::Save_Oc(void)
 {
-    // ta i podobne procedury zapisuja do danego pliku tabele struktur zawierajacych dane z pÃ³l list w form. film.
+    // ta i podobne procedury zapisuja do danego pliku tabele struktur zawierajacych dane z pól list w form. film.
 // w przypadku nadpisywania danych wyszukuja najpierw czy rekord o danym id istnieje w pliku, potem jesli tak nad-
 // -pisuja go, a jesli nie dodaja na koncu, i tak dla kazdej komorki tabeli struktur.
 
@@ -2428,7 +2428,7 @@ void MainWindow::Save_Oc(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka FilmÃ³w"),QString::fromWCharArray(L"Nie moÅ¼na wiÄ™cej zapisywaÄ‡ do tego pliku - jest przepeÅ‚niony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie mo¿na wiêcej zapisywaæ do tego pliku - jest przepe³niony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2835,7 +2835,7 @@ void MainWindow::Save_PP(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka FilmÃ³w"),QString::fromWCharArray(L"Nie moÅ¼na wiÄ™cej zapisywaÄ‡ do tego pliku - jest przepeÅ‚niony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie mo¿na wiêcej zapisywaæ do tego pliku - jest przepe³niony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)
@@ -2899,7 +2899,7 @@ void MainWindow::Save_PD(void)
             {
                 if ((plik.size()) > 2147483647)
                 {
-                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka FilmÃ³w"),QString::fromWCharArray(L"Nie moÅ¼na wiÄ™cej zapisywaÄ‡ do tego pliku - jest przepeÅ‚niony !!! "),QMessageBox::Ok);
+                    QMessageBox(QMessageBox::Warning,QString::fromWCharArray(L"Biblioteka Filmów"),QString::fromWCharArray(L"Nie mo¿na wiêcej zapisywaæ do tego pliku - jest przepe³niony !!! "),QMessageBox::Ok);
                     break;
                 }
                 else if ((plik.size()) < 2147483647)

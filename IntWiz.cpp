@@ -1,4 +1,4 @@
-﻿#include "IntWiz.h"
+#include "IntWiz.h"
 #include "ui_IntWiz.h"
 
 #include "film_ftbl_class.h"

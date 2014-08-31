@@ -1,4 +1,4 @@
-﻿#include "wyszukaj.h"
+#include "wyszukaj.h"
 #include "ui_wyszukaj.h"
 
 #include "film_ftbl_class.h"

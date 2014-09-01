@@ -12,7 +12,6 @@ Eksportuj::Eksportuj(QWidget *parent) :
     ui(new Ui::Eksportuj)
 {
     ui->setupUi(this);
-	
 }
 
 Eksportuj::~Eksportuj()
@@ -387,19 +386,14 @@ void Eksportuj::on_pushButton_Eksport_clicked()
 }
 void Eksportuj::Eksportuj_data_MAIN(struct Film* flm_ptr, bool head_wrttn, bool html_end)
 {
-
     QFile fn_exp(ui->lineEdit_Eks_path->text());
     fn_exp.open(QFile::Append | QFile::Text);
     QTextStream fnout(&fn_exp);
 
 	if (!head_wrttn)
 	{
-
 		fnout << tr("Biblioteka Filmow - eksported data") << "\n\r";
 	}
-
-
-        
     struct Film film_buff;
     QFile main(QString::fromWCharArray(flm_eks.pths.BF_PDB));
     main.open(QFile::ReadOnly);
@@ -548,8 +542,6 @@ void Eksportuj::Eksportuj_data_OC(struct Ocena* oc_ptr, bool head_wrttn, bool ht
     if (!head_wrttn)
 	{
 		fnout << tr("Tabela Ocena") << "\n\r";
-	      
-
 		fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa\"") << tr(",\"Tytu³ tekstu\"") << tr(",\"Autor tekstu\"") <<
 		tr(",\"Strona WWW\"") << tr(",\"Ocena krytyka\"") << "\n\r";
 	}
@@ -565,7 +557,7 @@ void Eksportuj::Eksportuj_data_OC(struct Ocena* oc_ptr, bool head_wrttn, bool ht
     fnout << "\"" << ",\"";
     fnout << QString::fromWCharArray(oc_ptr->ocena_krytyka);
     fnout << "\"" << "\n\r";
-        fn_exp.close();
+    fn_exp.close();
 }
 void Eksportuj::Eksportuj_data_OB(struct Obsada* ob_ptr, bool head_wrttn, bool html_end)
 {
@@ -582,7 +574,7 @@ void Eksportuj::Eksportuj_data_OB(struct Obsada* ob_ptr, bool head_wrttn, bool h
     fnout << QString::fromWCharArray(ob_ptr->imie_nazw);
     fnout << "\"" << ",\"" << QString::fromWCharArray(ob_ptr->rola) << "\"" << "\n\r";
 
-        fn_exp.close();
+    fn_exp.close();
 
 }
 void Eksportuj::Eksportuj_data_PP(struct Producent* pp_ptr, bool head_wrttn, bool html_end)
@@ -596,7 +588,6 @@ void Eksportuj::Eksportuj_data_PP(struct Producent* pp_ptr, bool head_wrttn, boo
         fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa Firmy\"") << tr(",\"Adres\"") << tr(",\"Telefon\"");
         fnout << tr(",\"Fax\"") << tr(",\"E-mail\"") << tr(",\"Strona WWW\"") << tr(",\"Narodowoœæ\"") << "\n\r";
 	}
-
 
     fnout << "\"" << pp_ptr->ID << "\"" << ",\"" << pp_ptr->IDPDB << "\"" << ",\"";
     fnout << QString::fromWCharArray(pp_ptr->nazwa_firmy);
@@ -613,7 +604,7 @@ void Eksportuj::Eksportuj_data_PP(struct Producent* pp_ptr, bool head_wrttn, boo
     fnout << "\"" << ",\"";
     fnout << QString::fromWCharArray(pp_ptr->narodowosc);
     fnout << "\"" << "\n\r";
-        fn_exp.close();
+    fn_exp.close();
 }
 void Eksportuj::Eksportuj_data_PD(struct Dystrybutor* pd_ptr, bool head_wrttn, bool html_end)
 {
@@ -624,13 +615,9 @@ void Eksportuj::Eksportuj_data_PD(struct Dystrybutor* pd_ptr, bool head_wrttn, b
 if (!head_wrttn)
 	{
             fnout << tr("Tabela Dystrybucja") <<"\n\r";
-
-           
             fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa Firmy\"") << tr(",\"Adres\"") << tr(",\"Telefon\"");
             fnout << tr(",\"Fax\"") << tr(",\"E-mail\"") << tr(",\"Strona WWW\"") << tr(",\"Narodowoœæ\"") << "\n\r";
-
 	}
-
 
     fnout << "\"" << pd_ptr->ID << "\"" << ",\"" << pd_ptr->IDPDB << "\"" << ",\"";
     fnout << QString::fromWCharArray(pd_ptr->nazwa_firmy);
@@ -648,7 +635,7 @@ if (!head_wrttn)
     fnout << QString::fromWCharArray(pd_ptr->narodowosc);
     fnout << "\"" << "\n\r";
 
-        fn_exp.close();
+    fn_exp.close();
 
 }
 void Eksportuj::Eksportuj_data_LZ(struct Lok_zdjeciowe* lz_ptr, bool head_wrttn, bool html_end)
@@ -660,24 +647,22 @@ void Eksportuj::Eksportuj_data_LZ(struct Lok_zdjeciowe* lz_ptr, bool head_wrttn,
 		if (!head_wrttn)
 		{
             fnout << tr("Tabela Lokalizacje Zdjêciowe") << "\n\r";
-
-           fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa obiektu\"") << tr(",\"Kraj\"") << tr(",\"Miejscowoœæ\"");
+            fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Nazwa obiektu\"") << tr(",\"Kraj\"") << tr(",\"Miejscowoœæ\"");
             fnout << tr(",\"Region\"") << tr(",\"Pora roku\"") << tr(",\"Data\"") << "\n\r";
 		}
-
-                fnout << "\"" << lz_ptr->ID << "\"" << ",\"" << lz_ptr->IDPDB << "\"" << ",\"";
-                fnout << QString::fromWCharArray(lz_ptr->nazwa_obiektu);
-                fnout << "\"" << ",\"";
-                fnout << QString::fromWCharArray(lz_ptr->kraj);
-                fnout << "\"" << ",\"";
-                fnout << QString::fromWCharArray(lz_ptr->miejscowosc);
-                fnout << "\"" << ",\"";
-                fnout << QString::fromWCharArray(lz_ptr->region);
-                fnout << "\"" << ",\"";
-                fnout << QString::fromWCharArray(lz_ptr->pora_roku);
-                fnout << "\"" << ",\"";
-                fnout << QString::fromWCharArray(lz_ptr->data);
-                fnout << "\"" << "\n\r";
+        fnout << "\"" << lz_ptr->ID << "\"" << ",\"" << lz_ptr->IDPDB << "\"" << ",\"";
+        fnout << QString::fromWCharArray(lz_ptr->nazwa_obiektu);
+        fnout << "\"" << ",\"";
+        fnout << QString::fromWCharArray(lz_ptr->kraj);
+        fnout << "\"" << ",\"";
+        fnout << QString::fromWCharArray(lz_ptr->miejscowosc);
+        fnout << "\"" << ",\"";
+        fnout << QString::fromWCharArray(lz_ptr->region);
+        fnout << "\"" << ",\"";
+        fnout << QString::fromWCharArray(lz_ptr->pora_roku);
+        fnout << "\"" << ",\"";
+        fnout << QString::fromWCharArray(lz_ptr->data);
+        fnout << "\"" << "\n\r";
         fn_exp.close();
 
 }
@@ -693,9 +678,7 @@ void Eksportuj::Eksportuj_data_WIN(struct Wypozycz_Innym* wi_ptr, bool head_wrtt
             fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Data wypo¿yczenia\"") << tr(",\"Data oddania\"");
             fnout << tr(",\"Stan przed wypo¿yczeniem\"") << tr(",\"Stan po oddaniu\"") << tr(",\"Osoba\"");
             fnout << tr(",\"Nr katalogowy\"") << "\n\r";
-
 		}
-
 
         fnout << "\"" << wi_ptr->ID << "\"" << ",\"" << wi_ptr->IDPDB;
         fnout << "\"" << ",\"";
@@ -722,7 +705,6 @@ void Eksportuj::Eksportuj_data_WON(struct Wypozycz_Od_Innych* wo_ptr, bool head_
 
 		if (!head_wrttn)
 		{
-
             fnout << tr("Tabela Wypo¿yczenia od Innych Osób") << "\n\r";
             fnout << QString::fromWCharArray(L"\"ID\"") << QString::fromWCharArray(L",\"IDPDB\"") << tr(",\"Data wypo¿yczenia\"") << tr(",\"Data oddania\"");
             fnout << tr(",\"Stan przed wypo¿yczeniem\"") << tr(",\"Stan po oddaniu\"") << tr(",\"Osoba\"");
@@ -746,10 +728,6 @@ void Eksportuj::Eksportuj_data_WON(struct Wypozycz_Od_Innych* wo_ptr, bool head_
         fn_exp.close();
 
 }
-
-
-
-
 
 void Eksportuj::on_pushButton_Anuluj_clicked()
 {

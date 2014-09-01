@@ -308,7 +308,7 @@ void Drukuj::GetFLM_HTML(struct Film *flm_ptr, bool head_wrttn, bool html_end)
                     fnout << QString::fromWCharArray(d_buff.email);
 					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Strona WWW : ") << QString::fromWCharArray(L"</p></td><td><p>");
                     fnout << QString::fromWCharArray(d_buff.strona_www);
-					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Nrodowoœæ : ") << QString::fromWCharArray(L"</p></td><td><p>");
+					fnout << QString::fromWCharArray(L"</p></td></tr><tr><td><p>") << tr("Narodowoœæ : ") << QString::fromWCharArray(L"</p></td><td><p>");
                     fnout << QString::fromWCharArray(d_buff.narodowosc);
                     fnout << QString::fromWCharArray(L"</p></td></tr>");
 

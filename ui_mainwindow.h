@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'mainwindowHp5444.ui'
+** Form generated from reading UI file 'mainwindowBG3896.ui'
 **
 ** Created by: Qt User Interface Compiler version 4.8.6
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef MAINWINDOWHP5444_H
-#define MAINWINDOWHP5444_H
+#ifndef MAINWINDOWBG3896_H
+#define MAINWINDOWBG3896_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -41,6 +41,7 @@ public:
     QAction *actionPomoc;
     QAction *actionSprawd_aktualizacje;
     QAction *actionO_programie;
+    QAction *actionCSV_Biblioteka_Film_w_NET;
     QWidget *centralWidget;
     QPushButton *pushButton_LoadPic;
     QPushButton *pushButton_DelPic;
@@ -191,6 +192,7 @@ public:
     QComboBox *comboBox_GatSel;
     QMenuBar *menuBar;
     QMenu *menuOperacje;
+    QMenu *menuImportuj;
     QMenu *menuPomoc;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -219,6 +221,8 @@ public:
         actionSprawd_aktualizacje->setObjectName(QString::fromUtf8("actionSprawd_aktualizacje"));
         actionO_programie = new QAction(MainWindow);
         actionO_programie->setObjectName(QString::fromUtf8("actionO_programie"));
+        actionCSV_Biblioteka_Film_w_NET = new QAction(MainWindow);
+        actionCSV_Biblioteka_Film_w_NET->setObjectName(QString::fromUtf8("actionCSV_Biblioteka_Film_w_NET"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         pushButton_LoadPic = new QPushButton(centralWidget);
@@ -847,6 +851,8 @@ public:
         menuBar->setGeometry(QRect(0, 0, 769, 21));
         menuOperacje = new QMenu(menuBar);
         menuOperacje->setObjectName(QString::fromUtf8("menuOperacje"));
+        menuImportuj = new QMenu(menuOperacje);
+        menuImportuj->setObjectName(QString::fromUtf8("menuImportuj"));
         menuPomoc = new QMenu(menuBar);
         menuPomoc->setObjectName(QString::fromUtf8("menuPomoc"));
         MainWindow->setMenuBar(menuBar);
@@ -860,16 +866,19 @@ public:
         menuBar->addAction(menuOperacje->menuAction());
         menuBar->addAction(menuPomoc->menuAction());
         menuOperacje->addAction(actionOtw_rz_Utw_rz_baze_danych);
+        menuOperacje->addAction(menuImportuj->menuAction());
         menuOperacje->addAction(actionEksportuj);
         menuOperacje->addAction(actionWyszukaj);
         menuOperacje->addAction(actionDrukuj);
         menuOperacje->addAction(actionKoniec);
+        menuImportuj->addAction(actionCSV_Biblioteka_Film_w_NET);
         menuPomoc->addAction(actionPomoc);
         menuPomoc->addAction(actionSprawd_aktualizacje);
         menuPomoc->addAction(actionO_programie);
 
         retranslateUi(MainWindow);
         QObject::connect(comboBox_GatSel, SIGNAL(currentIndexChanged(QString)), MainWindow, SLOT(on_comboBox_GatSel_currentTextChanged(QString)));
+        QObject::connect(actionCSV_Biblioteka_Film_w_NET, SIGNAL(triggered()), MainWindow, SLOT(on_actionCSV_Biblioteka_Film_w_NET_clicked()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -888,6 +897,7 @@ public:
         actionPomoc->setText(QApplication::translate("MainWindow", "Pomoc", 0, QApplication::UnicodeUTF8));
         actionSprawd_aktualizacje->setText(QApplication::translate("MainWindow", "Sprawd\305\272 aktualizacje", 0, QApplication::UnicodeUTF8));
         actionO_programie->setText(QApplication::translate("MainWindow", "O programie", 0, QApplication::UnicodeUTF8));
+        actionCSV_Biblioteka_Film_w_NET->setText(QApplication::translate("MainWindow", "CSV - Biblioteka Film\303\263w NET", 0, QApplication::UnicodeUTF8));
         pushButton_LoadPic->setText(QApplication::translate("MainWindow", "Za\305\202aduj", 0, QApplication::UnicodeUTF8));
         pushButton_DelPic->setText(QApplication::translate("MainWindow", "Usu\305\204", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "Tytu\305\202", 0, QApplication::UnicodeUTF8));
@@ -1100,6 +1110,7 @@ public:
          << QApplication::translate("MainWindow", "Porno", 0, QApplication::UnicodeUTF8)
         );
         menuOperacje->setTitle(QApplication::translate("MainWindow", "Operacje", 0, QApplication::UnicodeUTF8));
+        menuImportuj->setTitle(QApplication::translate("MainWindow", "Importuj", 0, QApplication::UnicodeUTF8));
         menuPomoc->setTitle(QApplication::translate("MainWindow", "Pomoc", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
@@ -1111,4 +1122,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // MAINWINDOWHP5444_H
+#endif // MAINWINDOWBG3896_H

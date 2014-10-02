@@ -2,7 +2,7 @@
 #include "ui_eksportuj.h"
 
 #include "film_ftbl_class.h"
-#include "Unmngd.h"
+
 
 Ftbl flm_eks;
 QTextCodec *codec = QTextCodec::codecForName("windows-1250");

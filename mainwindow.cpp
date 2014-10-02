@@ -2,15 +2,42 @@
 #include "ui_mainwindow.h"
 
 #include "film_ftbl_class.h"
-#include "Unmngd.h"
 #include "Eksportuj.h"
 #include "wyszukaj.h"
 #include "oprog.h"
 #include "drukuj.h"
+#include "ImpBFNETWiz.h"
 
 struct Film Ftbl::film_tbl;    // struktura mieszczaca jeden rekord form film
+
 bool Ftbl::sort = false;
+bool Ftbl::add_new_lz = false;
+bool Ftbl::add_new_ob = false;
+bool Ftbl::add_new_oc = false;
+bool Ftbl::add_new_pd = false;
+bool Ftbl::add_new_pp = false;
+bool Ftbl::add_new_wi = false;
+bool Ftbl::add_new_wo = false;
+
 struct DB_paths Ftbl::pths;
+
+QList <Wypozycz_Innym> Ftbl::wi_arr;
+QList <Wypozycz_Od_Innych> Ftbl::wo_arr;
+QList <Lok_zdjeciowe> Ftbl::lz_arr;
+QList <Producent> Ftbl::pp_arr;
+QList <Dystrybutor> Ftbl::pd_arr;
+QList <Ocena> Ftbl::oc_arr;
+QList <Obsada> Ftbl::ob_arr;
+
+struct Wypozycz_Innym Ftbl::wi;
+struct Wypozycz_Od_Innych Ftbl::wo;
+struct Lok_zdjeciowe Ftbl::lz;
+struct Obsada Ftbl::ob;
+struct Ocena Ftbl::oc;
+struct Producent Ftbl::pp;
+struct Dystrybutor Ftbl::pd;
+
+
 
 Ftbl flm;
 
@@ -23,31 +50,8 @@ bool first_act = true;
 bool start = true; // oznacza czy aplikacja startuje;
 bool open_folder = false;
 
-bool add_new_wi = false;
-bool add_new_wo = false;
-struct Wypozycz_Innym wi;
-struct Wypozycz_Od_Innych wo;
-QList <Wypozycz_Innym> wi_arr;
-QList <Wypozycz_Od_Innych> wo_arr;
 
-struct Lok_zdjeciowe lz;
-bool add_new_lz = false;
-QList <Lok_zdjeciowe> lz_arr;
 
-struct Obsada ob;
-bool add_new_ob = false;
-QList <Obsada> ob_arr;
-
-struct Ocena oc;
-bool add_new_oc = false;
-QList <Ocena> oc_arr;
-
-struct Producent pp;
-struct Dystrybutor pd;
-bool add_new_pp = false;
-bool add_new_pd = false;
-QList <Producent> pp_arr;
-QList <Dystrybutor> pd_arr;
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -1469,18 +1473,18 @@ void MainWindow::Fill_Wi(void)
 
 
     ui->tableWidget_BIBLIO_WYPIN->clearContents();
-    wi_arr.clear();
+    flm.wi_arr.clear();
 
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&wi),sizeof(wi));
-        if (wi.IDPDB == flm.film_tbl.ID)
+        plik.read(reinterpret_cast<char *>(&flm.wi),sizeof(flm.wi));
+        if (flm.wi.IDPDB == flm.film_tbl.ID)
         {
-            wi_arr.append(wi);
+            flm.wi_arr.append(flm.wi);
 
         }
-        i = i + sizeof(wi);
+        i = i + sizeof(flm.wi);
     }
     plik.close();
 
@@ -1499,20 +1503,20 @@ void MainWindow::Fill_Wo(void)
 
 
     ui->tableWidget_BIBLIO_WYPODIN->setRowCount(0);
-    wo_arr.clear();
+    flm.wo_arr.clear();
 
 
 
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&wo),sizeof(wo));
-        if (wo.IDPDB == flm.film_tbl.ID)
+        plik.read(reinterpret_cast<char *>(&flm.wo),sizeof(flm.wo));
+        if (flm.wo.IDPDB == flm.film_tbl.ID)
         {
-            wo_arr.append(wo);
+            flm.wo_arr.append(flm.wo);
 
         }
-        i = i + sizeof(wo);
+        i = i + sizeof(flm.wo);
     }
     plik.close();
 
@@ -1526,30 +1530,30 @@ void MainWindow::Refresh_Wi(void)
     ui->tableWidget_BIBLIO_WYPIN->setRowCount(0);
 
     int x;
-    for (x=0;x<wi_arr.count(); x++)
+    for (x=0;x<flm.wi_arr.count(); x++)
     {
 
         ui->tableWidget_BIBLIO_WYPIN->insertRow(x);
 
-        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].osoba));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(flm.wi_arr[x].osoba));
         ui->tableWidget_BIBLIO_WYPIN->setItem(x,0,item);
 
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].data_wypozyczenia));
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(flm.wi_arr[x].data_wypozyczenia));
         ui->tableWidget_BIBLIO_WYPIN->setItem(x,1,item2);
 
-        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].data_oddania));
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(flm.wi_arr[x].data_oddania));
         ui->tableWidget_BIBLIO_WYPIN->setItem(x,2,item3);
 
-        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].stan_przed_wypozycz));
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(flm.wi_arr[x].stan_przed_wypozycz));
         ui->tableWidget_BIBLIO_WYPIN->setItem(x,3,item4);
 
-        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(wi_arr[x].stan_po_oddaniu));
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(flm.wi_arr[x].stan_po_oddaniu));
         ui->tableWidget_BIBLIO_WYPIN->setItem(x,4,item5);
 
-        QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(wi_arr[x].ID,10));
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(flm.wi_arr[x].ID,10));
         ui->tableWidget_BIBLIO_WYPIN->setItem(x,5,item6);
 
-        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(wi_arr[x].IDPDB,10));
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(flm.wi_arr[x].IDPDB,10));
         ui->tableWidget_BIBLIO_WYPIN->setItem(x,6,item7);
 
 
@@ -1563,29 +1567,29 @@ void MainWindow::Refresh_Wo(void)
     ui->tableWidget_BIBLIO_WYPODIN->setRowCount(0);
 
     int x;
-    for (x=0;x<wo_arr.count(); x++)
+    for (x=0;x<flm.wo_arr.count(); x++)
     {
         ui->tableWidget_BIBLIO_WYPODIN->insertRow(x);
 
-        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].osoba));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(flm.wo_arr[x].osoba));
         ui->tableWidget_BIBLIO_WYPODIN->setItem(x,0,item);
 
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].data_wypozyczenia));
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(flm.wo_arr[x].data_wypozyczenia));
         ui->tableWidget_BIBLIO_WYPODIN->setItem(x,1,item2);
 
-        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].data_oddania));
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(flm.wo_arr[x].data_oddania));
         ui->tableWidget_BIBLIO_WYPODIN->setItem(x,2,item3);
 
-        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].stan_przed_wypozycz));
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(flm.wo_arr[x].stan_przed_wypozycz));
         ui->tableWidget_BIBLIO_WYPODIN->setItem(x,3,item4);
 
-        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(wo_arr[x].stan_po_oddaniu));
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(flm.wo_arr[x].stan_po_oddaniu));
         ui->tableWidget_BIBLIO_WYPODIN->setItem(x,4,item5);
 
-        QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(wo_arr[x].ID,10));
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(flm.wo_arr[x].ID,10));
         ui->tableWidget_BIBLIO_WYPODIN->setItem(x,5,item6);
 
-        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(wo_arr[x].IDPDB,10));
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(flm.wo_arr[x].IDPDB,10));
         ui->tableWidget_BIBLIO_WYPODIN->setItem(x,6,item7);
 
 
@@ -1606,14 +1610,14 @@ void MainWindow::Save_Wi(void)
     wchar_t buff[34];
     stop = plik.size();
 
-    for (y=0;y<wi_arr.count() ;y++ )
+    for (y=0;y<flm.wi_arr.count() ;y++ )
     {
         if (GetRecC_WI() == 0)
             {
                 plik.seek(0);
-                plik.write(reinterpret_cast<char *> (&wi_arr[y]),sizeof(wi));
-                if (add_new_wi == true)
-                    add_new_wi = false;
+                plik.write(reinterpret_cast<char *> (&flm.wi_arr[y]),sizeof(flm.wi));
+                if (Ftbl::add_new_wi == true)
+                    Ftbl::add_new_wi = false;
 
             }
         else if (GetRecC_WI() > 0)
@@ -1629,22 +1633,22 @@ void MainWindow::Save_Wi(void)
                     {
                         plik.seek(i);
                         plik.read(reinterpret_cast<char *>(&wi_buf),sizeof(wi_buf));
-                            if (wi_arr[y].ID == wi_buf.ID)
+                            if (flm.wi_arr[y].ID == wi_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(reinterpret_cast<char *>(&wi_arr[y]),sizeof(wi));
+                                plik.write(reinterpret_cast<char *>(&flm.wi_arr[y]),sizeof(flm.wi));
                             }
 
-                        i = i + sizeof(wi);
+                        i = i + sizeof(flm.wi);
                     }
-                    if (add_new_wi)
+                    if (Ftbl::add_new_wi)
                     {
 
                         int x;
-                        x = (wi_arr.count()-1);
+                        x = (flm.wi_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(reinterpret_cast<char *>(&wi_arr[x]),sizeof(wi));
-                        add_new_wi = false;
+                        plik.write(reinterpret_cast<char *>(&flm.wi_arr[x]),sizeof(flm.wi));
+                        Ftbl::add_new_wi = false;
                     }
                 }
             }
@@ -1669,14 +1673,14 @@ void MainWindow::Save_Wo(void)
     wchar_t buff[34];
     stop = plik.size();
 
-    for (y=0;y<wo_arr.count() ;y++ )
+    for (y=0;y<flm.wo_arr.count() ;y++ )
     {
         if (GetRecC_WO() == 0)
             {
                 plik.seek(0);
-                plik.write(reinterpret_cast<char *>(&wo_arr[y]),sizeof(wo));
-                if (add_new_wo == true)
-                    add_new_wo = false;
+                plik.write(reinterpret_cast<char *>(&flm.wo_arr[y]),sizeof(flm.wo));
+                if (Ftbl::add_new_wo == true)
+                    Ftbl::add_new_wo = false;
 
             }
         else if (GetRecC_WO() > 0)
@@ -1692,22 +1696,22 @@ void MainWindow::Save_Wo(void)
                     {
                         plik.seek(i);
                         plik.read(reinterpret_cast<char *>(&wo_buf),sizeof(wo_buf));
-                            if (wo_arr[y].ID == wo_buf.ID)
+                            if (flm.wo_arr[y].ID == wo_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(reinterpret_cast<char *>(&wo_arr[y]),sizeof(wo));
+                                plik.write(reinterpret_cast<char *>(&flm.wo_arr[y]),sizeof(flm.wo));
                             }
 
-                        i = i + sizeof(wo);
+                        i = i + sizeof(flm.wo);
                     }
-                    if (add_new_wo)
+                    if (Ftbl::add_new_wo)
                     {
 
                         int x;
-                        x = (wo_arr.count()-1);
+                        x = (flm.wo_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(reinterpret_cast<char *>(&wo_arr[x]),sizeof(wo));
-                        add_new_wo = false;
+                        plik.write(reinterpret_cast<char *>(&flm.wo_arr[x]),sizeof(flm.wo));
+                        Ftbl::add_new_wo = false;
                     }
                 }
             }
@@ -1786,13 +1790,13 @@ int MainWindow::Get_Hi_ID_WI(void)
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        if (i == (stop - sizeof(wi)))
+        if (i == (stop - sizeof(flm.wi)))
         {
-            plik.read(reinterpret_cast<char *>(&wi),sizeof(wi));
+            plik.read(reinterpret_cast<char *>(&flm.wi),sizeof(flm.wi));
             plik.close();
-            return wi.ID;
+            return flm.wi.ID;
         }
-        i = i + sizeof(wi);
+        i = i + sizeof(flm.wi);
     }
 
 }
@@ -1813,13 +1817,13 @@ int MainWindow::Get_Hi_ID_WO(void)
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        if (i == (stop - sizeof(wo)))
+        if (i == (stop - sizeof(flm.wo)))
         {
-            plik.read(reinterpret_cast<char *>(&wo),sizeof(wo));
+            plik.read(reinterpret_cast<char *>(&flm.wo),sizeof(flm.wo));
             plik.close();
-            return wo.ID;
+            return flm.wo.ID;
         }
-        i = i + sizeof(wo);
+        i = i + sizeof(flm.wo);
     }
 
 }
@@ -1830,16 +1834,16 @@ void MainWindow::Add_New_WI(int id)
     id_new = id + 1;
 
     // Metoda callbacku
-    wi.ID = id_new;
-    wi.IDPDB = flm.film_tbl.ID;
-    wcscpy(wi.data_wypozyczenia,L" ");
-    wcscpy(wi.stan_przed_wypozycz,L" ");
-    wcscpy(wi.data_oddania,L" ");
-    wcscpy(wi.stan_po_oddaniu,L" ");
-    wcscpy(wi.osoba,L" ");
-    wcscpy(wi.Nr_kat,L" ");
+    flm.wi.ID = id_new;
+    flm.wi.IDPDB = flm.film_tbl.ID;
+    wcscpy(flm.wi.data_wypozyczenia,L" ");
+    wcscpy(flm.wi.stan_przed_wypozycz,L" ");
+    wcscpy(flm.wi.data_oddania,L" ");
+    wcscpy(flm.wi.stan_po_oddaniu,L" ");
+    wcscpy(flm.wi.osoba,L" ");
+    wcscpy(flm.wi.Nr_kat,L" ");
 
-    wi_arr.append(wi);
+    flm.wi_arr.append(flm.wi);
 
     Refresh_Wi();
 
@@ -1851,16 +1855,16 @@ void MainWindow::Add_New_WO(int id)
     id_new = id + 1;
 
     // Metoda callbacku
-    wo.ID = id_new;
-    wo.IDPDB = flm.film_tbl.ID;
-    wcscpy(wo.data_wypozyczenia,L" ");
-    wcscpy(wo.stan_przed_wypozycz,L" ");
-    wcscpy(wo.data_oddania,L" ");
-    wcscpy(wo.stan_po_oddaniu,L" ");
-    wcscpy(wo.osoba,L" ");
-    wcscpy(wo.Nr_kat,L" ");
+    flm.wo.ID = id_new;
+    flm.wo.IDPDB = flm.film_tbl.ID;
+    wcscpy(flm.wo.data_wypozyczenia,L" ");
+    wcscpy(flm.wo.stan_przed_wypozycz,L" ");
+    wcscpy(flm.wo.data_oddania,L" ");
+    wcscpy(flm.wo.stan_po_oddaniu,L" ");
+    wcscpy(flm.wo.osoba,L" ");
+    wcscpy(flm.wo.Nr_kat,L" ");
 
-    wo_arr.append(wo);
+    flm.wo_arr.append(flm.wo);
 
     Refresh_Wo();
 
@@ -1869,11 +1873,11 @@ void MainWindow::Add_New_WO(int id)
 void MainWindow::Usun_Rec_WI(unsigned int pos)
 {
         struct Wypozycz_Innym wi_src;
-        wi.ID = 0;
+        flm.wi.ID = 0;
         QFile plik0(QString::fromWCharArray(flm.pths.BF_WI));
         plik0.open(QFile::ReadOnly | QFile::WriteOnly);
         plik0.seek(pos);
-        plik0.write(reinterpret_cast<char *>(&wi),sizeof(wi));
+        plik0.write(reinterpret_cast<char *>(&flm.wi),sizeof(flm.wi));
 
         plik0.rename(QString::fromWCharArray(L"BF_WI.bf0"));
 
@@ -1909,11 +1913,11 @@ void MainWindow::Usun_Rec_WO(unsigned int pos)
 {
 
         struct Wypozycz_Od_Innych wo_src;
-        wo.ID = 0;
+        flm.wo.ID = 0;
         QFile plik0(QString::fromWCharArray(flm.pths.BF_WO));
         plik0.open(QFile::WriteOnly | QFile::ReadOnly);
         plik0.seek(pos);
-        plik0.write(reinterpret_cast<char *>(&wo),sizeof(wo));
+        plik0.write(reinterpret_cast<char *>(&flm.wo),sizeof(flm.wo));
 
         plik0.rename(QString::fromWCharArray(L"BF_WO.bf0"));
         plik0.close();
@@ -1962,18 +1966,18 @@ void MainWindow::Fill_Lz(void)
 
 
     ui->tableWidget_IOF_LZ->clearContents();
-    lz_arr.clear();
+    flm.lz_arr.clear();
 
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&lz),sizeof(lz));
-        if (lz.IDPDB == flm.film_tbl.ID)
+        plik.read(reinterpret_cast<char *>(&flm.lz),sizeof(flm.lz));
+        if (flm.lz.IDPDB == flm.film_tbl.ID)
         {
-            lz_arr.append(lz);
+            flm.lz_arr.append(flm.lz);
 
         }
-        i = i + sizeof(lz);
+        i = i + sizeof(flm.lz);
     }
     plik.close();
 
@@ -1994,14 +1998,14 @@ void MainWindow::Save_Lz(void)
     wchar_t buff[34];
     stop = plik.size();
 
-    for (y=0;y<lz_arr.count() ;y++ )
+    for (y=0;y<flm.lz_arr.count() ;y++ )
     {
         if (GetRecC_WI() == 0)
             {
                 plik.seek(0);
-                plik.write(reinterpret_cast<char *> (&lz_arr[y]),sizeof(lz));
-                if (add_new_lz == true)
-                    add_new_lz = false;
+                plik.write(reinterpret_cast<char *> (&flm.lz_arr[y]),sizeof(flm.lz));
+                if (Ftbl::add_new_lz == true)
+                    Ftbl::add_new_lz = false;
 
             }
         else if (GetRecC_WI() > 0)
@@ -2017,22 +2021,22 @@ void MainWindow::Save_Lz(void)
                     {
                         plik.seek(i);
                         plik.read(reinterpret_cast<char *>(&lz_buf),sizeof(lz_buf));
-                            if (lz_arr[y].ID == lz_buf.ID)
+                            if (flm.lz_arr[y].ID == lz_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(reinterpret_cast<char *>(&lz_arr[y]),sizeof(lz));
+                                plik.write(reinterpret_cast<char *>(&flm.lz_arr[y]),sizeof(flm.lz));
                             }
 
-                        i = i + sizeof(lz);
+                        i = i + sizeof(flm.lz);
                     }
-                    if (add_new_lz)
+                    if (Ftbl::add_new_lz)
                     {
 
                         int x;
-                        x = (lz_arr.count()-1);
+                        x = (flm.lz_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(reinterpret_cast<char *>(&lz_arr[x]),sizeof(lz));
-                        add_new_lz = false;
+                        plik.write(reinterpret_cast<char *>(&flm.lz_arr[x]),sizeof(flm.lz));
+                        Ftbl::add_new_lz = false;
                     }
                 }
             }
@@ -2086,13 +2090,13 @@ int MainWindow::Get_Hi_ID_LZ(void)
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        if (i == (stop - sizeof(lz)))
+        if (i == (stop - sizeof(flm.lz)))
         {
-            plik.read(reinterpret_cast<char *>(&lz),sizeof(lz));
+            plik.read(reinterpret_cast<char *>(&flm.lz),sizeof(flm.lz));
             plik.close();
-            return lz.ID;
+            return flm.lz.ID;
         }
-        i = i + sizeof(lz);
+        i = i + sizeof(flm.lz);
     }
 
 }
@@ -2104,16 +2108,16 @@ void MainWindow::Add_New_LZ(int id)
     id_new = id + 1;
 
 // Metoda callbacku
-    lz.ID = id_new;
-    lz.IDPDB = flm.film_tbl.ID;
-    wcscpy(lz.nazwa_obiektu,L" ");
-    wcscpy(lz.kraj,L" ");
-    wcscpy(lz.miejscowosc,L" ");
-    wcscpy(lz.region,L" ");
-    wcscpy(lz.pora_roku,L" ");
-    wcscpy(lz.data,L" ");
+    flm.lz.ID = id_new;
+    flm.lz.IDPDB = flm.film_tbl.ID;
+    wcscpy(flm.lz.nazwa_obiektu,L" ");
+    wcscpy(flm.lz.kraj,L" ");
+    wcscpy(flm.lz.miejscowosc,L" ");
+    wcscpy(flm.lz.region,L" ");
+    wcscpy(flm.lz.pora_roku,L" ");
+    wcscpy(flm.lz.data,L" ");
 
-    lz_arr.append(lz);
+    flm.lz_arr.append(flm.lz);
 
     Refresh_Lz();
 
@@ -2122,11 +2126,11 @@ void MainWindow::Add_New_LZ(int id)
 void MainWindow::Usun_Rec_LZ(unsigned int pos)
 {
     struct Lok_zdjeciowe lz_src;
-    lz.ID = 0;
+    flm.lz.ID = 0;
     QFile plik0(QString::fromWCharArray(flm.pths.BF_LZ));
     plik0.open(QFile::ReadOnly | QFile::WriteOnly);
     plik0.seek(pos);
-    plik0.write(reinterpret_cast<char *>(&lz),sizeof(lz));
+    plik0.write(reinterpret_cast<char *>(&flm.lz),sizeof(flm.lz));
 
     plik0.rename(QString::fromWCharArray(L"BF_LZ.bf0"));
 
@@ -2174,18 +2178,18 @@ void MainWindow::Fill_Ob(void)
 
 
     ui->tableWidget_Obsada->clearContents();
-    ob_arr.clear();
+    flm.ob_arr.clear();
 
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&ob),sizeof(ob));
-        if (ob.IDPDB == flm.film_tbl.ID)
+        plik.read(reinterpret_cast<char *>(&flm.ob),sizeof(flm.ob));
+        if (flm.ob.IDPDB == flm.film_tbl.ID)
         {
-            ob_arr.append(ob);
+            flm.ob_arr.append(flm.ob);
 
         }
-        i = i + sizeof(ob);
+        i = i + sizeof(flm.ob);
     }
     plik.close();
 
@@ -2206,14 +2210,14 @@ void MainWindow::Save_Ob(void)
     wchar_t buff[34];
     stop = plik.size();
 
-    for (y=0;y<ob_arr.count() ;y++ )
+    for (y=0;y<flm.ob_arr.count() ;y++ )
     {
         if (GetRecC_OB() == 0)
             {
                 plik.seek(0);
-                plik.write(reinterpret_cast<char *> (&ob_arr[y]),sizeof(ob));
-                if (add_new_ob == true)
-                    add_new_ob = false;
+                plik.write(reinterpret_cast<char *> (&flm.ob_arr[y]),sizeof(flm.ob));
+                if (Ftbl::add_new_ob == true)
+                    Ftbl::add_new_ob = false;
 
             }
         else if (GetRecC_OB() > 0)
@@ -2229,22 +2233,22 @@ void MainWindow::Save_Ob(void)
                     {
                         plik.seek(i);
                         plik.read(reinterpret_cast<char *>(&ob_buf),sizeof(ob_buf));
-                            if (ob_arr[y].ID == ob_buf.ID)
+                            if (flm.ob_arr[y].ID == ob_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(reinterpret_cast<char *>(&ob_arr[y]),sizeof(ob));
+                                plik.write(reinterpret_cast<char *>(&flm.ob_arr[y]),sizeof(flm.ob));
                             }
 
-                        i = i + sizeof(ob);
+                        i = i + sizeof(flm.ob);
                     }
-                    if (add_new_ob)
+                    if (Ftbl::add_new_ob)
                     {
 
                         int x;
-                        x = (ob_arr.count()-1);
+                        x = (flm.ob_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(reinterpret_cast<char *>(&ob_arr[x]),sizeof(ob));
-                        add_new_ob = false;
+                        plik.write(reinterpret_cast<char *>(&flm.ob_arr[x]),sizeof(flm.ob));
+                        Ftbl::add_new_ob = false;
                     }
                 }
             }
@@ -2267,12 +2271,12 @@ void MainWindow::Add_New_Ob(int id)
 
 
     // Metoda callbacku
-    ob.ID = id_new;
-    ob.IDPDB = flm.film_tbl.ID;
-    wcscpy(ob.imie_nazw,L" ");
-    wcscpy(ob.rola,L" ");
+    flm.ob.ID = id_new;
+    flm.ob.IDPDB = flm.film_tbl.ID;
+    wcscpy(flm.ob.imie_nazw,L" ");
+    wcscpy(flm.ob.rola,L" ");
 
-    ob_arr.append(ob);
+    flm.ob_arr.append(flm.ob);
 
     Refresh_Ob();
 
@@ -2295,13 +2299,13 @@ int MainWindow::Get_Hi_ID_OB(void)
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        if (i == (stop - sizeof(ob)))
+        if (i == (stop - sizeof(flm.ob)))
         {
-            plik.read(reinterpret_cast<char *>(&ob),sizeof(ob));
+            plik.read(reinterpret_cast<char *>(&flm.ob),sizeof(flm.ob));
             plik.close();
-            return ob.ID;
+            return flm.ob.ID;
         }
-        i = i + sizeof(ob);
+        i = i + sizeof(flm.ob);
     }
 
 }
@@ -2338,20 +2342,20 @@ void MainWindow::Refresh_Ob(void)
     ui->tableWidget_Obsada->setRowCount(0);
 
     int x;
-    for (x=0;x<ob_arr.count(); x++)
+    for (x=0;x<flm.ob_arr.count(); x++)
     {
         ui->tableWidget_Obsada->insertRow(x);
 
-        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(ob_arr[x].imie_nazw));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(flm.ob_arr[x].imie_nazw));
         ui->tableWidget_Obsada->setItem(x,0,item);
 
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(ob_arr[x].rola));
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(flm.ob_arr[x].rola));
         ui->tableWidget_Obsada->setItem(x,1,item2);
 
-        QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(ob_arr[x].ID,10));
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::number(flm.ob_arr[x].ID,10));
         ui->tableWidget_Obsada->setItem(x,2,item3);
 
-        QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(ob_arr[x].IDPDB,10));
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::number(flm.ob_arr[x].IDPDB,10));
         ui->tableWidget_Obsada->setItem(x,3,item4);
 
 
@@ -2362,11 +2366,11 @@ void MainWindow::Refresh_Ob(void)
 void MainWindow::Usun_Rec_OB(unsigned int pos)
 {
     struct Obsada ob_src;
-    ob.ID = 0;
+    flm.ob.ID = 0;
     QFile plik0(QString::fromWCharArray(flm.pths.BF_OB));
     plik0.open(QFile::ReadOnly | QFile::WriteOnly);
     plik0.seek(pos);
-    plik0.write(reinterpret_cast<char *>(&ob),sizeof(ob));
+    plik0.write(reinterpret_cast<char *>(&flm.ob),sizeof(flm.ob));
 
     plik0.rename(QString::fromWCharArray(L"BF_OB.bf0"));
 
@@ -2414,14 +2418,14 @@ void MainWindow::Save_Oc(void)
     wchar_t buff[34];
     stop = plik.size();
 
-    for (y=0;y<oc_arr.count() ;y++ )
+    for (y=0;y<flm.oc_arr.count() ;y++ )
     {
         if (GetRecC_OC() == 0)
             {
                 plik.seek(0);
-                plik.write(reinterpret_cast<char *> (&oc_arr[y]),sizeof(oc));
-                if (add_new_oc == true)
-                    add_new_oc = false;
+                plik.write(reinterpret_cast<char *> (&flm.oc_arr[y]),sizeof(flm.oc));
+                if (Ftbl::add_new_oc == true)
+                    Ftbl::add_new_oc = false;
 
             }
         else if (GetRecC_OC() > 0)
@@ -2437,22 +2441,22 @@ void MainWindow::Save_Oc(void)
                     {
                         plik.seek(i);
                         plik.read(reinterpret_cast<char *>(&oc_buf),sizeof(oc_buf));
-                            if (oc_arr[y].ID == oc_buf.ID)
+                            if (flm.oc_arr[y].ID == oc_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(reinterpret_cast<char *>(&oc_arr[y]),sizeof(oc));
+                                plik.write(reinterpret_cast<char *>(&flm.oc_arr[y]),sizeof(flm.oc));
                             }
 
-                        i = i + sizeof(ob);
+                        i = i + sizeof(flm.oc);
                     }
-                    if (add_new_oc)
+                    if (Ftbl::add_new_oc)
                     {
 
                         int x;
-                        x = (oc_arr.count()-1);
+                        x = (flm.oc_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(reinterpret_cast<char *>(&oc_arr[x]),sizeof(oc));
-                        add_new_oc = false;
+                        plik.write(reinterpret_cast<char *>(&flm.oc_arr[x]),sizeof(flm.oc));
+                        Ftbl::add_new_oc = false;
                     }
                 }
             }
@@ -2479,18 +2483,18 @@ void MainWindow::Fill_Oc()
 
 
     ui->tableWidget_OC->clearContents();
-    oc_arr.clear();
+    flm.oc_arr.clear();
 
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&oc),sizeof(oc));
-        if (oc.IDPDB == flm.film_tbl.ID)
+        plik.read(reinterpret_cast<char *>(&flm.oc),sizeof(flm.oc));
+        if (flm.oc.IDPDB == flm.film_tbl.ID)
         {
-            oc_arr.append(oc);
+            flm.oc_arr.append(flm.oc);
 
         }
-        i = i + sizeof(oc);
+        i = i + sizeof(flm.oc);
     }
     plik.close();
 
@@ -2519,13 +2523,13 @@ stop = plik.size();
 for (i=0;i<stop; )
 {
     plik.seek(i);
-    if (i == (stop - sizeof(oc)))
+    if (i == (stop - sizeof(flm.oc)))
     {
-        plik.read(reinterpret_cast<char *>(&oc),sizeof(oc));
+        plik.read(reinterpret_cast<char *>(&flm.oc),sizeof(flm.oc));
         plik.close();
-        return oc.ID;
+        return flm.oc.ID;
     }
-    i = i + sizeof(oc);
+    i = i + sizeof(flm.oc);
 }
 
 }
@@ -2540,16 +2544,16 @@ void MainWindow::Add_New_Oc(int id)
 
 
 // Metoda callbacku
-    oc.ID = id_new;
-    oc.IDPDB = flm.film_tbl.ID;
-    wcscpy(oc.nazwa,L" ");
-    wcscpy(oc.tytul_tekstu,L" ");
-    wcscpy(oc.autor_tekstu,L" ");
-    wcscpy(oc.ocena_krytyka,L" ");
-    wcscpy(oc.strona_www,L" ");
+    flm.oc.ID = id_new;
+    flm.oc.IDPDB = flm.film_tbl.ID;
+    wcscpy(flm.oc.nazwa,L" ");
+    wcscpy(flm.oc.tytul_tekstu,L" ");
+    wcscpy(flm.oc.autor_tekstu,L" ");
+    wcscpy(flm.oc.ocena_krytyka,L" ");
+    wcscpy(flm.oc.strona_www,L" ");
 
 
-    oc_arr.append(oc);
+    flm.oc_arr.append(flm.oc);
 
     Refresh_Oc();
 
@@ -2589,11 +2593,11 @@ void MainWindow::Usun_Rec_OC(unsigned int pos)
 
 
     struct Ocena oc_src;
-    oc.ID = 0;
+    flm.oc.ID = 0;
     QFile plik0(QString::fromWCharArray(flm.pths.BF_OC));
     plik0.open(QFile::ReadOnly | QFile::WriteOnly);
     plik0.seek(pos);
-    plik0.write(reinterpret_cast<char *>(&oc),sizeof(oc));
+    plik0.write(reinterpret_cast<char *>(&flm.oc),sizeof(flm.oc));
 
     plik0.rename(QString::fromWCharArray(L"BF_OC.bf0"));
 
@@ -2633,29 +2637,29 @@ void MainWindow::Refresh_Oc(void)
     ui->tableWidget_OC->setRowCount(0);
 
     int x;
-    for (x=0;x<oc_arr.count(); x++)
+    for (x=0;x<flm.oc_arr.count(); x++)
     {
         ui->tableWidget_OC->insertRow(x);
 
-        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].nazwa));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(flm.oc_arr[x].nazwa));
         ui->tableWidget_OC->setItem(x,0,item);
 
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].tytul_tekstu));
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(flm.oc_arr[x].tytul_tekstu));
         ui->tableWidget_OC->setItem(x,1,item2);
 
-        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].autor_tekstu));
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(flm.oc_arr[x].autor_tekstu));
         ui->tableWidget_OC->setItem(x,2,item3);
 
-        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].strona_www));
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(flm.oc_arr[x].strona_www));
         ui->tableWidget_OC->setItem(x,3,item4);
 
-        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(oc_arr[x].ocena_krytyka));
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(flm.oc_arr[x].ocena_krytyka));
         ui->tableWidget_OC->setItem(x,4,item5);
 
-        QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(oc_arr[x].ID,10));
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::number(flm.oc_arr[x].ID,10));
         ui->tableWidget_OC->setItem(x,5,item6);
 
-        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(oc_arr[x].IDPDB,10));
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(flm.oc_arr[x].IDPDB,10));
         ui->tableWidget_OC->setItem(x,6,item7);
 
     }
@@ -2683,18 +2687,18 @@ void MainWindow::Fill_PP(void)
 
 
     ui->tableWidget_Prod->clearContents();
-    pp_arr.clear();
+    flm.pp_arr.clear();
 
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&pp),sizeof(pp));
-        if (pp.IDPDB == flm.film_tbl.ID)
+        plik.read(reinterpret_cast<char *>(&flm.pp),sizeof(flm.pp));
+        if (flm.pp.IDPDB == flm.film_tbl.ID)
         {
-            pp_arr.append(pp);
+            flm.pp_arr.append(flm.pp);
 
         }
-        i = i + sizeof(pp);
+        i = i + sizeof(flm.pp);
     }
     plik.close();
 
@@ -2712,18 +2716,18 @@ void MainWindow::Fill_PD(void)
 
 
     ui->tableWidget_Dystr->clearContents();
-    pd_arr.clear();
+    flm.pd_arr.clear();
 
     for (i = 0;i<stop ; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&pd),sizeof(pd));
-        if (pd.IDPDB == flm.film_tbl.ID)
+        plik.read(reinterpret_cast<char *>(&flm.pd),sizeof(flm.pd));
+        if (flm.pd.IDPDB == flm.film_tbl.ID)
         {
-            pd_arr.append(pd);
+            flm.pd_arr.append(flm.pd);
 
         }
-        i = i + sizeof(pd);
+        i = i + sizeof(flm.pd);
     }
     plik.close();
 
@@ -2738,32 +2742,32 @@ void MainWindow::Refresh_PP(void)
     ui->tableWidget_Prod->setRowCount(0);
 
     int x;
-    for (x=0;x<pp_arr.count(); x++)
+    for (x=0;x<flm.pp_arr.count(); x++)
     {
         ui->tableWidget_Prod->insertRow(x);
 
-        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].nazwa_firmy));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(flm.pp_arr[x].nazwa_firmy));
         ui->tableWidget_Prod->setItem(x,0,item);
 
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].adres));
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(flm.pp_arr[x].adres));
         ui->tableWidget_Prod->setItem(x,1,item2);
 
-        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].telefon));
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(flm.pp_arr[x].telefon));
         ui->tableWidget_Prod->setItem(x,2,item3);
 
-        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].fax));
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(flm.pp_arr[x].fax));
         ui->tableWidget_Prod->setItem(x,3,item4);
 
-        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].email));
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(flm.pp_arr[x].email));
         ui->tableWidget_Prod->setItem(x,4,item5);
 
-        QTableWidgetItem *item6 = new QTableWidgetItem(QString::fromWCharArray(pp_arr[x].strona_www));
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::fromWCharArray(flm.pp_arr[x].strona_www));
         ui->tableWidget_Prod->setItem(x,5,item6);
 
-        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(pp_arr[x].ID,10));
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(flm.pp_arr[x].ID,10));
         ui->tableWidget_Prod->setItem(x,6,item7);
 
-        QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(pp_arr[x].IDPDB,10));
+        QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(flm.pp_arr[x].IDPDB,10));
         ui->tableWidget_Prod->setItem(x,7,item8);
 
 
@@ -2776,32 +2780,32 @@ void MainWindow::Refresh_PD(void)
     ui->tableWidget_Dystr->setRowCount(0);
 
     int x;
-    for (x=0;x<pd_arr.count(); x++)
+    for (x=0;x<flm.pd_arr.count(); x++)
     {
         ui->tableWidget_Dystr->insertRow(x);
 
-        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].nazwa_firmy));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(flm.pd_arr[x].nazwa_firmy));
         ui->tableWidget_Dystr->setItem(x,0,item);
 
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].adres));
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(flm.pd_arr[x].adres));
         ui->tableWidget_Dystr->setItem(x,1,item2);
 
-        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].telefon));
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(flm.pd_arr[x].telefon));
         ui->tableWidget_Dystr->setItem(x,2,item3);
 
-        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].fax));
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(flm.pd_arr[x].fax));
         ui->tableWidget_Dystr->setItem(x,3,item4);
 
-        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].email));
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(flm.pd_arr[x].email));
         ui->tableWidget_Dystr->setItem(x,4,item5);
 
-        QTableWidgetItem *item6 = new QTableWidgetItem(QString::fromWCharArray(pd_arr[x].strona_www));
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::fromWCharArray(flm.pd_arr[x].strona_www));
         ui->tableWidget_Dystr->setItem(x,5,item6);
 
-        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(pd_arr[x].ID,10));
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(flm.pd_arr[x].ID,10));
         ui->tableWidget_Dystr->setItem(x,6,item7);
 
-        QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(pd_arr[x].IDPDB,10));
+        QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(flm.pd_arr[x].IDPDB,10));
         ui->tableWidget_Dystr->setItem(x,7,item8);
 
     }
@@ -2821,14 +2825,14 @@ void MainWindow::Save_PP(void)
     wchar_t buff[34];
     stop = plik.size();
 
-    for (y=0;y<pp_arr.count() ;y++ )
+    for (y=0;y<flm.pp_arr.count() ;y++ )
     {
         if (GetRecC_PP() == 0)
             {
                 plik.seek(0);
-                plik.write(reinterpret_cast<char *> (&pp_arr[y]),sizeof(pp));
-                if (add_new_pp == true)
-                    add_new_pp = false;
+                plik.write(reinterpret_cast<char *> (&flm.pp_arr[y]),sizeof(flm.pp));
+                if (Ftbl::add_new_pp == true)
+                    Ftbl::add_new_pp = false;
 
             }
         else if (GetRecC_PP() > 0)
@@ -2844,22 +2848,22 @@ void MainWindow::Save_PP(void)
                     {
                         plik.seek(i);
                         plik.read(reinterpret_cast<char *>(&pp_buf),sizeof(pp_buf));
-                            if (pp_arr[y].ID == pp_buf.ID)
+                            if (flm.pp_arr[y].ID == pp_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(reinterpret_cast<char *>(&pp_arr[y]),sizeof(pp));
+                                plik.write(reinterpret_cast<char *>(&flm.pp_arr[y]),sizeof(flm.pp));
                             }
 
-                        i = i + sizeof(pp);
+                        i = i + sizeof(flm.pp);
                     }
-                    if (add_new_pp)
+                    if (Ftbl::add_new_pp)
                     {
 
                         int x;
-                        x = (pp_arr.count()-1);
+                        x = (flm.pp_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(reinterpret_cast<char *>(&pp_arr[x]),sizeof(pp));
-                        add_new_pp = false;
+                        plik.write(reinterpret_cast<char *>(&flm.pp_arr[x]),sizeof(flm.pp));
+                        Ftbl::add_new_pp = false;
                     }
                 }
             }
@@ -2885,14 +2889,14 @@ void MainWindow::Save_PD(void)
     wchar_t buff[34];
     stop = plik.size();
 
-    for (y=0;y<pd_arr.count() ;y++ )
+    for (y=0;y<flm.pd_arr.count() ;y++ )
     {
         if (GetRecC_PD() == 0)
             {
                 plik.seek(0);
-                plik.write(reinterpret_cast<char *> (&pd_arr[y]),sizeof(pd));
-                if (add_new_pd == true)
-                    add_new_pd = false;
+                plik.write(reinterpret_cast<char *> (&flm.pd_arr[y]),sizeof(flm.pd));
+                if (Ftbl::add_new_pd == true)
+                    Ftbl::add_new_pd = false;
 
             }
         else if (GetRecC_PD() > 0)
@@ -2908,22 +2912,22 @@ void MainWindow::Save_PD(void)
                     {
                         plik.seek(i);
                         plik.read(reinterpret_cast<char *>(&pd_buf),sizeof(pd_buf));
-                            if (pd_arr[y].ID == pd_buf.ID)
+                            if (flm.pd_arr[y].ID == pd_buf.ID)
                             {
                                 plik.seek(i);
-                                plik.write(reinterpret_cast<char *>(&pd_arr[y]),sizeof(pd));
+                                plik.write(reinterpret_cast<char *>(&flm.pd_arr[y]),sizeof(flm.pd));
                             }
 
-                        i = i + sizeof(pd);
+                        i = i + sizeof(flm.pd);
                     }
-                    if (add_new_pd)
+                    if (Ftbl::add_new_pd)
                     {
 
                         int x;
-                        x = (pd_arr.count()-1);
+                        x = (flm.pd_arr.count()-1);
                         plik.seek(plik.size());
-                        plik.write(reinterpret_cast<char *>(&pd_arr[x]),sizeof(pd));
-                        add_new_pd = false;
+                        plik.write(reinterpret_cast<char *>(&flm.pd_arr[x]),sizeof(flm.pd));
+                        Ftbl::add_new_pd = false;
                     }
                 }
             }
@@ -2943,18 +2947,18 @@ void MainWindow::Add_New_PP(int id)
 
 
     // Metoda callbacku
-    pp.ID = id_new;
-    pp.IDPDB = flm.film_tbl.ID;
-    wcscpy(pp.nazwa_firmy,L" ");
-    wcscpy(pp.adres,L" ");
-    wcscpy(pp.telefon,L" ");
-    wcscpy(pp.fax,L" ");
-    wcscpy(pp.email,L" ");
-    wcscpy(pp.strona_www,L" ");
-    wcscpy(pp.narodowosc,L" ");
+    flm.pp.ID = id_new;
+    flm.pp.IDPDB = flm.film_tbl.ID;
+    wcscpy(flm.pp.nazwa_firmy,L" ");
+    wcscpy(flm.pp.adres,L" ");
+    wcscpy(flm.pp.telefon,L" ");
+    wcscpy(flm.pp.fax,L" ");
+    wcscpy(flm.pp.email,L" ");
+    wcscpy(flm.pp.strona_www,L" ");
+    wcscpy(flm.pp.narodowosc,L" ");
 
 
-    pp_arr.append(pp);
+    flm.pp_arr.append(flm.pp);
 
     Refresh_PP();
 
@@ -2968,18 +2972,18 @@ void MainWindow::Add_New_PD(int id)
 
 
     // Metoda callbacku
-    pd.ID = id_new;
-    pd.IDPDB = flm.film_tbl.ID;
-    wcscpy(pd.nazwa_firmy,L" ");
-    wcscpy(pd.adres,L" ");
-    wcscpy(pd.telefon,L" ");
-    wcscpy(pd.fax,L" ");
-    wcscpy(pd.email,L" ");
-    wcscpy(pd.strona_www,L" ");
-    wcscpy(pd.narodowosc,L" ");
+    flm.pd.ID = id_new;
+    flm.pd.IDPDB = flm.film_tbl.ID;
+    wcscpy(flm.pd.nazwa_firmy,L" ");
+    wcscpy(flm.pd.adres,L" ");
+    wcscpy(flm.pd.telefon,L" ");
+    wcscpy(flm.pd.fax,L" ");
+    wcscpy(flm.pd.email,L" ");
+    wcscpy(flm.pd.strona_www,L" ");
+    wcscpy(flm.pd.narodowosc,L" ");
 
 
-    pd_arr.append(pd);
+    flm.pd_arr.append(flm.pd);
 
     Refresh_PD();
 
@@ -3001,13 +3005,13 @@ int MainWindow::Get_Hi_ID_PP(void)
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        if (i == (stop - sizeof(oc)))
+        if (i == (stop - sizeof(flm.pp)))
         {
-            plik.read(reinterpret_cast<char *>(&pp),sizeof(pp));
+            plik.read(reinterpret_cast<char *>(&flm.pp),sizeof(flm.pp));
             plik.close();
-            return pp.ID;
+            return flm.pp.ID;
         }
-        i = i + sizeof(pp);
+        i = i + sizeof(flm.pp);
     }
 
 }
@@ -3027,13 +3031,13 @@ int MainWindow::Get_Hi_ID_PD(void)
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        if (i == (stop - sizeof(oc)))
+        if (i == (stop - sizeof(flm.pd)))
         {
-            plik.read(reinterpret_cast<char *>(&pd),sizeof(pd));
+            plik.read(reinterpret_cast<char *>(&flm.pd),sizeof(flm.pd));
             plik.close();
-            return pd.ID;
+            return flm.pd.ID;
         }
-        i = i + sizeof(pd);
+        i = i + sizeof(flm.pd);
     }
 
 
@@ -3096,11 +3100,11 @@ int MainWindow::GetRecC_PD(void)
 void MainWindow::Usun_Rec_PP(unsigned int pos)
 {
     struct Producent pp_src;
-    pp.ID = 0;
+    flm.pp.ID = 0;
     QFile plik0(QString::fromWCharArray(flm.pths.BF_PRP));
     plik0.open(QFile::ReadOnly | QFile::WriteOnly);
     plik0.seek(pos);
-    plik0.write(reinterpret_cast<char *>(&pp),sizeof(pp));
+    plik0.write(reinterpret_cast<char *>(&flm.pp),sizeof(flm.pp));
 
     plik0.rename(QString::fromWCharArray(L"BF_PRP.bf0"));
 
@@ -3134,11 +3138,11 @@ void MainWindow::Usun_Rec_PP(unsigned int pos)
 void MainWindow::Usun_Rec_PD(unsigned int pos)
 {
     struct Dystrybutor pd_src;
-    pd.ID = 0;
+    flm.pd.ID = 0;
     QFile plik0(QString::fromWCharArray(flm.pths.BF_PRD));
     plik0.open(QFile::ReadOnly | QFile::WriteOnly);
     plik0.seek(pos);
-    plik0.write(reinterpret_cast<char *>(&pd),sizeof(pd));
+    plik0.write(reinterpret_cast<char *>(&flm.pd),sizeof(flm.pd));
 
     plik0.rename(QString::fromWCharArray(L"BF_PRD.bf0"));
 
@@ -3271,18 +3275,18 @@ void MainWindow::on_pushButton_B_WYPIN_New_clicked()
 {
     on_pushButton_BIBLIOWYPISave_clicked();
     Add_New_WI(Get_Hi_ID_WI());
-    add_new_wi = true;
+    Ftbl::add_new_wi = true;
 }
 
 void MainWindow::on_pushButton_BIBLIOWYPISave_clicked()
 {
     for (int i = 0; i < ui->tableWidget_BIBLIO_WYPIN->rowCount(); i++)
     {
-        wcscpy(wi_arr[i].osoba,(wchar_t*)ui->tableWidget_BIBLIO_WYPIN->item(i,0)->text().utf16());
-        wcscpy(wi_arr[i].data_wypozyczenia,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,1)->text().utf16());
-        wcscpy(wi_arr[i].data_oddania ,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,2)->text().utf16());
-        wcscpy(wi_arr[i].stan_przed_wypozycz,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,3)->text().utf16());
-        wcscpy(wi_arr[i].stan_po_oddaniu ,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,4)->text().utf16());
+        wcscpy(flm.wi_arr[i].osoba,(wchar_t*)ui->tableWidget_BIBLIO_WYPIN->item(i,0)->text().utf16());
+        wcscpy(flm.wi_arr[i].data_wypozyczenia,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,1)->text().utf16());
+        wcscpy(flm.wi_arr[i].data_oddania ,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,2)->text().utf16());
+        wcscpy(flm.wi_arr[i].stan_przed_wypozycz,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,3)->text().utf16());
+        wcscpy(flm.wi_arr[i].stan_po_oddaniu ,(wchar_t *)ui->tableWidget_BIBLIO_WYPIN->item(i,4)->text().utf16());
 
     }
     Save_Wi();
@@ -3305,14 +3309,14 @@ void MainWindow::on_pushButton_BIBLIOWYPINDel_clicked()
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&wi),sizeof(wi));
-        if (delID == wi.ID)
+        plik.read(reinterpret_cast<char *>(&flm.wi),sizeof(flm.wi));
+        if (delID == flm.wi.ID)
         {
             plik.close();
             Usun_Rec_WI(i);
             break;
         }
-        i = i + sizeof(wi);
+        i = i + sizeof(flm.wi);
     }
     if (plik.isOpen() == true)
     {
@@ -3324,18 +3328,18 @@ void MainWindow::on_pushButton_B_WYPODIN_New_clicked()
 {
     Save_Wo();
     Add_New_WO(Get_Hi_ID_WO());
-    add_new_wo = true;
+    Ftbl::add_new_wo = true;
 }
 
 void MainWindow::on_pushButton_BIBLIOWYPODINSave_clicked()
 {
     for (int i = 0; i < ui->tableWidget_BIBLIO_WYPODIN->rowCount(); i++)
     {
-        wcscpy(wo_arr[i].osoba,(wchar_t*)ui->tableWidget_BIBLIO_WYPODIN->item(i,0)->text().utf16());
-        wcscpy(wo_arr[i].data_wypozyczenia,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,1)->text().utf16());
-        wcscpy(wo_arr[i].data_oddania ,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,2)->text().utf16());
-        wcscpy(wo_arr[i].stan_przed_wypozycz,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,3)->text().utf16());
-        wcscpy(wo_arr[i].stan_po_oddaniu ,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,4)->text().utf16());
+        wcscpy(flm.wo_arr[i].osoba,(wchar_t*)ui->tableWidget_BIBLIO_WYPODIN->item(i,0)->text().utf16());
+        wcscpy(flm.wo_arr[i].data_wypozyczenia,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,1)->text().utf16());
+        wcscpy(flm.wo_arr[i].data_oddania ,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,2)->text().utf16());
+        wcscpy(flm.wo_arr[i].stan_przed_wypozycz,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,3)->text().utf16());
+        wcscpy(flm.wo_arr[i].stan_po_oddaniu ,(wchar_t *)ui->tableWidget_BIBLIO_WYPODIN->item(i,4)->text().utf16());
 
     }
     Save_Wo();
@@ -3358,14 +3362,14 @@ void MainWindow::on_pushButton_BIBLIOWYPODINDel_clicked()
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&wo),sizeof(wo));
-        if (delID == wo.ID)
+        plik.read(reinterpret_cast<char *>(&flm.wo),sizeof(flm.wo));
+        if (delID == flm.wo.ID)
         {
             plik.close();
             Usun_Rec_WO(i);
             break;
         }
-        i = i + sizeof(wo);
+        i = i + sizeof(flm.wo);
     }
     if (plik.isOpen() == true)
     {
@@ -3377,19 +3381,19 @@ void MainWindow::on_pushButton_LZ_New_clicked()
 {
     Save_Lz();
     Add_New_LZ(Get_Hi_ID_LZ());
-    add_new_lz = true;
+    Ftbl::add_new_lz = true;
 }
 
 void MainWindow::on_pushButton_LZSave_clicked()
 {
     for (int i = 0; i < ui->tableWidget_IOF_LZ->rowCount(); i++)
     {
-        wcscpy(lz_arr[i].nazwa_obiektu,(wchar_t*)ui->tableWidget_IOF_LZ->item(i,0)->text().utf16());
-        wcscpy(lz_arr[i].kraj,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,1)->text().utf16());
-        wcscpy(lz_arr[i].miejscowosc ,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,2)->text().utf16());
-        wcscpy(lz_arr[i].region,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,3)->text().utf16());
-        wcscpy(lz_arr[i].pora_roku ,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,4)->text().utf16());
-        wcscpy(lz_arr[i].data ,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,5)->text().utf16());
+        wcscpy(flm.lz_arr[i].nazwa_obiektu,(wchar_t*)ui->tableWidget_IOF_LZ->item(i,0)->text().utf16());
+        wcscpy(flm.lz_arr[i].kraj,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,1)->text().utf16());
+        wcscpy(flm.lz_arr[i].miejscowosc ,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,2)->text().utf16());
+        wcscpy(flm.lz_arr[i].region,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,3)->text().utf16());
+        wcscpy(flm.lz_arr[i].pora_roku ,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,4)->text().utf16());
+        wcscpy(flm.lz_arr[i].data ,(wchar_t *)ui->tableWidget_IOF_LZ->item(i,5)->text().utf16());
 
     }
     Save_Lz();
@@ -3412,14 +3416,14 @@ void MainWindow::on_pushButton_LZDel_clicked()
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&lz),sizeof(lz));
-        if (delID == lz.ID)
+        plik.read(reinterpret_cast<char *>(&flm.lz),sizeof(flm.lz));
+        if (delID == flm.lz.ID)
         {
             plik.close();
             Usun_Rec_LZ(i);
             break;
         }
-        i = i + sizeof(lz);
+        i = i + sizeof(flm.lz);
     }
     if (plik.isOpen() == true)
     {
@@ -3431,15 +3435,15 @@ void MainWindow::on_pushButton_OB_new_clicked()
 {
     Save_Ob();
     Add_New_Ob(Get_Hi_ID_OB());
-    add_new_ob = true;
+    Ftbl::add_new_ob = true;
 }
 
 void MainWindow::on_pushButton_OBSave_clicked()
 {
     for (int i = 0; i < ui->tableWidget_Obsada->rowCount(); i++)
     {
-        wcscpy(ob_arr[i].imie_nazw,(wchar_t*)ui->tableWidget_Obsada->item(i,0)->text().utf16());
-        wcscpy(ob_arr[i].rola,(wchar_t *)ui->tableWidget_Obsada->item(i,1)->text().utf16());
+        wcscpy(flm.ob_arr[i].imie_nazw,(wchar_t*)ui->tableWidget_Obsada->item(i,0)->text().utf16());
+        wcscpy(flm.ob_arr[i].rola,(wchar_t *)ui->tableWidget_Obsada->item(i,1)->text().utf16());
 
     }
     Save_Ob();
@@ -3462,14 +3466,14 @@ void MainWindow::on_pushButton_OBDel_clicked()
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&ob),sizeof(ob));
-        if (delID == ob.ID)
+        plik.read(reinterpret_cast<char *>(&flm.ob),sizeof(flm.ob));
+        if (delID == flm.ob.ID)
         {
             plik.close();
             Usun_Rec_OB(i);
             break;
         }
-        i = i + sizeof(ob);
+        i = i + sizeof(flm.ob);
     }
     if (plik.isOpen() == true)
     {
@@ -3483,32 +3487,32 @@ void MainWindow::Refresh_Lz(void)
     ui->tableWidget_IOF_LZ->setRowCount(0);
 
     int x;
-    for (x=0;x<lz_arr.count(); x++)
+    for (x=0;x<flm.lz_arr.count(); x++)
     {
         ui->tableWidget_IOF_LZ->insertRow(x);
 
-        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].nazwa_obiektu));
+        QTableWidgetItem *item = new QTableWidgetItem(QString::fromWCharArray(flm.lz_arr[x].nazwa_obiektu));
         ui->tableWidget_IOF_LZ->setItem(x,0,item);
 
-        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].kraj));
+        QTableWidgetItem *item2 = new QTableWidgetItem(QString::fromWCharArray(flm.lz_arr[x].kraj));
         ui->tableWidget_IOF_LZ->setItem(x,1,item2);
 
-        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].miejscowosc));
+        QTableWidgetItem *item3 = new QTableWidgetItem(QString::fromWCharArray(flm.lz_arr[x].miejscowosc));
         ui->tableWidget_IOF_LZ->setItem(x,2,item3);
 
-        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].region));
+        QTableWidgetItem *item4 = new QTableWidgetItem(QString::fromWCharArray(flm.lz_arr[x].region));
         ui->tableWidget_IOF_LZ->setItem(x,3,item4);
 
-        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].pora_roku));
+        QTableWidgetItem *item5 = new QTableWidgetItem(QString::fromWCharArray(flm.lz_arr[x].pora_roku));
         ui->tableWidget_IOF_LZ->setItem(x,4,item5);
 
-        QTableWidgetItem *item6 = new QTableWidgetItem(QString::fromWCharArray(lz_arr[x].data));
+        QTableWidgetItem *item6 = new QTableWidgetItem(QString::fromWCharArray(flm.lz_arr[x].data));
         ui->tableWidget_IOF_LZ->setItem(x,5,item6);
 
-        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(lz_arr[x].ID,10));
+        QTableWidgetItem *item7 = new QTableWidgetItem(QString::number(flm.lz_arr[x].ID,10));
         ui->tableWidget_IOF_LZ->setItem(x,6,item7);
 
-        QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(lz_arr[x].IDPDB,10));
+        QTableWidgetItem *item8 = new QTableWidgetItem(QString::number(flm.lz_arr[x].IDPDB,10));
         ui->tableWidget_IOF_LZ->setItem(x,7,item8);
 
     }
@@ -3520,7 +3524,7 @@ void MainWindow::on_pushButton_OC_New_clicked()
 {
     Save_Oc();
     Add_New_Oc(Get_Hi_ID_OC());
-    add_new_oc = true;
+    Ftbl::add_new_oc = true;
 }
 
 void MainWindow::on_pushButton_OC_Save_clicked()
@@ -3528,11 +3532,11 @@ void MainWindow::on_pushButton_OC_Save_clicked()
 
     for (int i = 0; i < ui->tableWidget_OC->rowCount(); i++)
     {
-        wcscpy(oc_arr[i].nazwa,(wchar_t*)ui->tableWidget_OC->item(i,0)->text().utf16());
-        wcscpy(oc_arr[i].tytul_tekstu,(wchar_t *)ui->tableWidget_OC->item(i,1)->text().utf16());
-        wcscpy(oc_arr[i].autor_tekstu ,(wchar_t *)ui->tableWidget_OC->item(i,2)->text().utf16());
-        wcscpy(oc_arr[i].strona_www,(wchar_t *)ui->tableWidget_OC->item(i,3)->text().utf16());
-        wcscpy(oc_arr[i].ocena_krytyka ,(wchar_t *)ui->tableWidget_OC->item(i,4)->text().utf16());
+        wcscpy(flm.oc_arr[i].nazwa,(wchar_t*)ui->tableWidget_OC->item(i,0)->text().utf16());
+        wcscpy(flm.oc_arr[i].tytul_tekstu,(wchar_t *)ui->tableWidget_OC->item(i,1)->text().utf16());
+        wcscpy(flm.oc_arr[i].autor_tekstu ,(wchar_t *)ui->tableWidget_OC->item(i,2)->text().utf16());
+        wcscpy(flm.oc_arr[i].strona_www,(wchar_t *)ui->tableWidget_OC->item(i,3)->text().utf16());
+        wcscpy(flm.oc_arr[i].ocena_krytyka ,(wchar_t *)ui->tableWidget_OC->item(i,4)->text().utf16());
 
     }
 
@@ -3558,14 +3562,14 @@ void MainWindow::on_pushButton_OC_Del_clicked()
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&oc),sizeof(oc));
-        if (delID == oc.ID)
+        plik.read(reinterpret_cast<char *>(&flm.oc),sizeof(flm.oc));
+        if (delID == flm.oc.ID)
         {
             plik.close();
             Usun_Rec_OC(i);
             break;
         }
-        i = i + sizeof(oc);
+        i = i + sizeof(flm.oc);
     }
     if (plik.isOpen() == true)
     {
@@ -3588,7 +3592,7 @@ void MainWindow::on_pushButto_P_New_clicked()
 {
     Save_PP();
     Add_New_PP(Get_Hi_ID_PP());
-    add_new_pp = true;
+    Ftbl::add_new_pp = true;
 
 }
 
@@ -3596,12 +3600,12 @@ void MainWindow::on_pushButton_PRODSave_clicked()
 {
     for (int i = 0; i < ui->tableWidget_Prod->rowCount(); i++)
     {
-        wcscpy(pp_arr[i].nazwa_firmy,(wchar_t*)ui->tableWidget_Prod->item(i,0)->text().utf16());
-        wcscpy(pp_arr[i].adres,(wchar_t *)ui->tableWidget_Prod->item(i,1)->text().utf16());
-        wcscpy(pp_arr[i].telefon ,(wchar_t *)ui->tableWidget_Prod->item(i,2)->text().utf16());
-        wcscpy(pp_arr[i].fax,(wchar_t *)ui->tableWidget_Prod->item(i,3)->text().utf16());
-        wcscpy(pp_arr[i].email ,(wchar_t *)ui->tableWidget_Prod->item(i,4)->text().utf16());
-        wcscpy(pp_arr[i].strona_www ,(wchar_t *)ui->tableWidget_Prod->item(i,5)->text().utf16());
+        wcscpy(flm.pp_arr[i].nazwa_firmy,(wchar_t*)ui->tableWidget_Prod->item(i,0)->text().utf16());
+        wcscpy(flm.pp_arr[i].adres,(wchar_t *)ui->tableWidget_Prod->item(i,1)->text().utf16());
+        wcscpy(flm.pp_arr[i].telefon ,(wchar_t *)ui->tableWidget_Prod->item(i,2)->text().utf16());
+        wcscpy(flm.pp_arr[i].fax,(wchar_t *)ui->tableWidget_Prod->item(i,3)->text().utf16());
+        wcscpy(flm.pp_arr[i].email ,(wchar_t *)ui->tableWidget_Prod->item(i,4)->text().utf16());
+        wcscpy(flm.pp_arr[i].strona_www ,(wchar_t *)ui->tableWidget_Prod->item(i,5)->text().utf16());
 
     }
     Save_PP();
@@ -3624,14 +3628,14 @@ void MainWindow::on_pushButton_PRODDel_clicked()
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&pp),sizeof(pp));
-        if (delID == pp.ID)
+        plik.read(reinterpret_cast<char *>(&flm.pp),sizeof(flm.pp));
+        if (delID == flm.pp.ID)
         {
             plik.close();
             Usun_Rec_PP(i);
             break;
         }
-        i = i + sizeof(pp);
+        i = i + sizeof(flm.pp);
     }
     if (plik.isOpen() == true)
     {
@@ -3643,19 +3647,19 @@ void MainWindow::on_pushButton_D_New_clicked()
 {
     Save_PD();
     Add_New_PD(Get_Hi_ID_PD());
-    add_new_pd = true;
+    Ftbl::add_new_pd = true;
 }
 
 void MainWindow::on_pushButton_DYSTSave_clicked()
 {
     for (int i = 0; i < ui->tableWidget_Dystr->rowCount(); i++)
     {
-        wcscpy(pd_arr[i].nazwa_firmy,(wchar_t*)ui->tableWidget_Dystr->item(i,0)->text().utf16());
-        wcscpy(pd_arr[i].adres,(wchar_t *)ui->tableWidget_Dystr->item(i,1)->text().utf16());
-        wcscpy(pd_arr[i].telefon ,(wchar_t *)ui->tableWidget_Dystr->item(i,2)->text().utf16());
-        wcscpy(pd_arr[i].fax,(wchar_t *)ui->tableWidget_Dystr->item(i,3)->text().utf16());
-        wcscpy(pd_arr[i].email ,(wchar_t *)ui->tableWidget_Dystr->item(i,4)->text().utf16());
-        wcscpy(pd_arr[i].strona_www ,(wchar_t *)ui->tableWidget_Dystr->item(i,5)->text().utf16());
+        wcscpy(flm.pd_arr[i].nazwa_firmy,(wchar_t*)ui->tableWidget_Dystr->item(i,0)->text().utf16());
+        wcscpy(flm.pd_arr[i].adres,(wchar_t *)ui->tableWidget_Dystr->item(i,1)->text().utf16());
+        wcscpy(flm.pd_arr[i].telefon ,(wchar_t *)ui->tableWidget_Dystr->item(i,2)->text().utf16());
+        wcscpy(flm.pd_arr[i].fax,(wchar_t *)ui->tableWidget_Dystr->item(i,3)->text().utf16());
+        wcscpy(flm.pd_arr[i].email ,(wchar_t *)ui->tableWidget_Dystr->item(i,4)->text().utf16());
+        wcscpy(flm.pd_arr[i].strona_www ,(wchar_t *)ui->tableWidget_Dystr->item(i,5)->text().utf16());
 
     }
     Save_PD();
@@ -3678,14 +3682,14 @@ void MainWindow::on_pushButton_DYSTDel_clicked()
     for (i=0;i<stop; )
     {
         plik.seek(i);
-        plik.read(reinterpret_cast<char *>(&pd),sizeof(pd));
-        if (delID == pd.ID)
+        plik.read(reinterpret_cast<char *>(&flm.pd),sizeof(flm.pd));
+        if (delID == flm.pd.ID)
         {
             plik.close();
             Usun_Rec_PD(i);
             break;
         }
-        i = i + sizeof(pd);
+        i = i + sizeof(flm.pd);
     }
     if (plik.isOpen() == true)
     {
@@ -3724,4 +3728,10 @@ void MainWindow::on_comboBox_GatSel_currentTextChanged(const QString &arg1)
     {
         ui->lineEdit_Gatunek->setText(arg1);
     }
+}
+void MainWindow::on_actionCSV_Biblioteka_Film_w_NET_clicked()
+{
+	ImpBFNETWiz *imp_wiz = new ImpBFNETWiz();
+	imp_wiz->show();
+
 }

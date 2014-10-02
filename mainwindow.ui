@@ -2275,7 +2275,14 @@
     <property name="title">
      <string>Operacje</string>
     </property>
+    <widget class="QMenu" name="menuImportuj">
+     <property name="title">
+      <string>Importuj</string>
+     </property>
+     <addaction name="actionCSV_Biblioteka_Film_w_NET"/>
+    </widget>
     <addaction name="actionOtw_rz_Utw_rz_baze_danych"/>
+    <addaction name="menuImportuj"/>
     <addaction name="actionEksportuj"/>
     <addaction name="actionWyszukaj"/>
     <addaction name="actionDrukuj"/>
@@ -2341,6 +2348,11 @@
     <string>O programie</string>
    </property>
   </action>
+  <action name="actionCSV_Biblioteka_Film_w_NET">
+   <property name="text">
+    <string>CSV - Biblioteka Filmów NET</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -2363,8 +2375,25 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCSV_Biblioteka_Film_w_NET</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>on_actionCSV_Biblioteka_Film_w_NET_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>384</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_comboBox_GatSel_currentTextChanged(QString)</slot>
+  <slot>on_actionCSV_Biblioteka_Film_w_NET_clicked()</slot>
  </slots>
 </ui>

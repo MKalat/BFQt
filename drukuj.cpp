@@ -1,7 +1,7 @@
 #include "drukuj.h"
 #include "ui_drukuj.h"
 #include "film_ftbl_class.h"
-#include "Unmngd.h"
+
 
 Ftbl flm_d;
 

@@ -2,7 +2,7 @@
 #include "ui_IntWiz.h"
 
 #include "film_ftbl_class.h"
-#include "Unmngd.h"
+
 
 Ftbl flm_IntWiz;
 

@@ -2,7 +2,7 @@
 #include "ui_wyszukaj.h"
 
 #include "film_ftbl_class.h"
-#include "Unmngd.h"
+
 
 Ftbl flm_wysz;
 QList<unsigned int> ids_wynik;

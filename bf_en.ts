@@ -362,13 +362,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="drukuj.cpp" line="274"/>
-        <location filename="drukuj.cpp" line="311"/>
-        <source>Narodowoæ : </source>
-        <oldsource>Nrodowoæ : </oldsource>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="drukuj.cpp" line="325"/>
         <source>Tabela Lokalizacje zdjêciowe</source>
         <translation type="unfinished"></translation>
@@ -978,6 +971,69 @@
         <location filename="eksportuj.cpp" line="405"/>
         <source>,&quot;Dane o Egzemplarzu - Cena&quot;</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ImpBFNETWiz</name>
+    <message utf8="true">
+        <location filename="ImpBFNETWiz.ui" line="14"/>
+        <source>Biblioteka Filmów - Kreator importu z BF NET</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="ImpBFNETWiz.ui" line="26"/>
+        <source>Podaj ścieżkę do pliku csv pochodzacego z Biblioteki Filmów NET</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImpBFNETWiz.ui" line="55"/>
+        <source>...</source>
+        <translation type="unfinished">...</translation>
+    </message>
+    <message utf8="true">
+        <location filename="ImpBFNETWiz.ui" line="68"/>
+        <source>Wybierz co zaimportować</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImpBFNETWiz.ui" line="80"/>
+        <source>Tabela Obsada</source>
+        <translation type="unfinished">Table Cast</translation>
+    </message>
+    <message utf8="true">
+        <location filename="ImpBFNETWiz.ui" line="93"/>
+        <source>Tabele Wypozyczeń</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message utf8="true">
+        <location filename="ImpBFNETWiz.ui" line="106"/>
+        <source>Tabela Lokalizacje zdjęciowe</source>
+        <translation type="unfinished">Table Filmed Locations</translation>
+    </message>
+    <message>
+        <location filename="ImpBFNETWiz.ui" line="119"/>
+        <source>Tabela Ocena</source>
+        <translation type="unfinished">Table Score</translation>
+    </message>
+    <message>
+        <location filename="ImpBFNETWiz.ui" line="132"/>
+        <source>Tabela Producent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImpBFNETWiz.ui" line="145"/>
+        <source>Tabela Dystrybutor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImpBFNETWiz.ui" line="165"/>
+        <source>Zaimportuj</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="ImpBFNETWiz.ui" line="178"/>
+        <source>Anuluj</source>
+        <translation type="unfinished">Cancel</translation>
     </message>
 </context>
 <context>
@@ -1624,45 +1680,55 @@
         <translation>File</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="2286"/>
-        <location filename="mainwindow.ui" line="2331"/>
+        <location filename="mainwindow.ui" line="2280"/>
+        <source>Importuj</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="mainwindow.ui" line="2293"/>
+        <location filename="mainwindow.ui" line="2338"/>
         <source>Pomoc</source>
         <translation>Help</translation>
     </message>
     <message utf8="true">
-        <location filename="mainwindow.ui" line="2306"/>
+        <location filename="mainwindow.ui" line="2313"/>
         <source>Otwórz / Utwórz baze danych</source>
         <translation>Open / Create database</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="2311"/>
+        <location filename="mainwindow.ui" line="2318"/>
         <source>Eksportuj</source>
         <translation>Export</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="2316"/>
+        <location filename="mainwindow.ui" line="2323"/>
         <source>Wyszukaj</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="2321"/>
+        <location filename="mainwindow.ui" line="2328"/>
         <source>Koniec</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="2326"/>
+        <location filename="mainwindow.ui" line="2333"/>
         <source>Drukuj</source>
         <translation>Print</translation>
     </message>
     <message utf8="true">
-        <location filename="mainwindow.ui" line="2336"/>
+        <location filename="mainwindow.ui" line="2343"/>
         <source>Sprawdź aktualizacje</source>
         <translation>Check for updates</translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="2341"/>
+        <location filename="mainwindow.ui" line="2348"/>
         <source>O programie</source>
         <translation>About</translation>
+    </message>
+    <message utf8="true">
+        <location filename="mainwindow.ui" line="2353"/>
+        <source>CSV - Biblioteka Filmów NET</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

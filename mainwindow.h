@@ -196,6 +196,7 @@ private slots:
     void on_pushButton_DYSTDel_clicked();
 
     void on_comboBox_GatSel_currentTextChanged(const QString &arg1);
+	void on_actionCSV_Biblioteka_Film_w_NET_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -30,7 +30,28 @@ class ImpBFNETWiz : public QDialog
 public:
     explicit ImpBFNETWiz(QDialog *parent = 0);
     ~ImpBFNETWiz();
-
+    void processSubTable(QString sb_tbl, int new_id);
+signals :
+    void save_full_F();
+    void add_new_film_rec(int *new_id);
+    void get_hi_LZ_id(int *new_id);
+    void get_hi_OC_id(int *new_id);
+    void get_hi_OB_id(int *new_id);
+    void get_hi_PP_id(int *new_id);
+    void get_hi_PD_id(int *new_id);
+    void get_hi_WI_id(int *new_id);
+    void get_hi_WO_id(int *new_id);
+    void new_rec_F();
+    void new_rec_LZ();
+    void new_rec_OC();
+    void new_rec_OB();
+    void new_rec_PP();
+    void new_rec_PD();
+    void new_rec_WI();
+    void new_rec_WO();
+    void clearCTRLS(bool all);
+    void SetZadanaPozPliku(unsigned int pos);
+    void SearchLastFilmPos(unsigned int *pos);
 
 public slots:
 	void BTN_IMP_CLICKED();

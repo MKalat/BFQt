@@ -27,6 +27,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+
+public slots :
     void SetButtons(void);
     void UpdateCtrls(bool BINDOUT, bool start);
     void Bind_IN_Controls(void);
@@ -36,9 +39,9 @@ public:
     bool Fill_Full_Film(bool start);
     bool CheckBFVER(void);
     bool Save_Full_Film(void);
-    bool Film_DodajRec(bool first);
-    unsigned int Search_Last_Pos(void);
-    void Oblicz_NewID(void);
+    bool Film_DodajRec(bool first, int *new_id);
+    unsigned int Search_Last_Pos(unsigned int *pos);
+    void Oblicz_NewID(int *new_id);
     // void SetDlgBoxs(int sel);
     //void SetListCtrls(int sel);
     void UtworzDB(bool cust);
@@ -61,9 +64,9 @@ public:
     void Set_BIBLIO(void);
     int GetRecC_WI(void);
     int GetRecC_WO(void);
-    int Get_Hi_ID_WI(void);
+    int Get_Hi_ID_WI(int *new_id);
     void Add_New_WI(int id);
-    int Get_Hi_ID_WO(void);
+    int Get_Hi_ID_WO(int *new_id);
     void Add_New_WO(int id);
     void Usun_Rec_WI(unsigned int pos);
     void Usun_Rec_WO(unsigned int pos);
@@ -73,7 +76,7 @@ public:
     void Refresh_Lz(void);
     void Set_IOF(void);
     int GetRecC_LZ(void);
-    int Get_Hi_ID_LZ(void);
+    int Get_Hi_ID_LZ(int *new_id);
     void Add_New_LZ(int id);
     void Usun_Rec_LZ(unsigned int pos);
     void ClearObsada(void);
@@ -81,14 +84,14 @@ public:
     void Save_Ob(void);
     void Set_Obsada(void);
     void Add_New_Ob(int id);
-    int Get_Hi_ID_OB(void);
+    int Get_Hi_ID_OB(int *new_id);
     int GetRecC_OB(void);
     void Refresh_Ob(void);
     void Usun_Rec_OB(unsigned int pos);
     void Fill_Oc();
     void Save_Oc(void);
     void ClearOcena(void);
-    int Get_Hi_ID_OC(void);
+    int Get_Hi_ID_OC(int *new_id);
     void Add_New_Oc(int id);
     int GetRecC_OC(void);
     void Usun_Rec_OC(unsigned int pos);
@@ -107,12 +110,14 @@ public:
     void Add_New_PD(int id);
     void Usun_Rec_PP(unsigned int);
     void Usun_Rec_PD(unsigned int);
-    int Get_Hi_ID_PP(void);
-    int Get_Hi_ID_PD(void);
+    int Get_Hi_ID_PP(int *new_id);
+    int Get_Hi_ID_PD(int *new_id);
     void Fill_Opis(void);
     void Clear_TABS(void);
-public slots :
+
     void SetRecAkt(unsigned int id);
+    void SetZadanaPozPliku(unsigned int pos);
+
 
 
     

@@ -214,11 +214,11 @@ void MainWindow::on_pushButton_New_clicked()
     bool test;
     if (Licz_Rec() == true)
     {
-        test = MainWindow::Film_DodajRec(true);                   // wywo³aj procedure dodania nowego rekordu w³¹cznie z zapisem
+        test = MainWindow::Film_DodajRec(true, new_id);                   // wywo³aj procedure dodania nowego rekordu w³¹cznie z zapisem
     }
     else
     {
-        test = MainWindow::Film_DodajRec(false);
+        test = MainWindow::Film_DodajRec(false, new_id);
     }
     if (test)
     {
@@ -805,12 +805,12 @@ bool MainWindow::Save_Full_Film(void) {
 
 }
 
-bool MainWindow::Film_DodajRec(bool first) {
+bool MainWindow::Film_DodajRec(bool first, int *new_id) {
     if (CheckbOpenDB()== 0)
     {
         if (CheckBFVER())
         {
-            Oblicz_NewID();
+            Oblicz_NewID(new_id);
             QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
             plik.open(QFile::Append);
             //akt_pozycja_pliku = plik.Seek(Search_Last_Pos(),CFile::begin);
@@ -848,7 +848,7 @@ bool MainWindow::Film_DodajRec(bool first) {
 
 }
 
-void MainWindow::Oblicz_NewID(void) {
+void MainWindow::Oblicz_NewID(int *new_id) {
     struct POMIDOR pom;
     QFile plik(QString::fromWCharArray(flm.pths.BF_MCF));
     plik.open(QFile::ReadOnly);
@@ -858,6 +858,7 @@ void MainWindow::Oblicz_NewID(void) {
     plik.close();
     flm.film_tbl.ID = pom.najw_ID + 1;
     pom.najw_ID = flm.film_tbl.ID;
+    *new_id = flm.film_tbl.ID;
     plik.open(QFile::WriteOnly | QFile::ReadOnly);
     plik.seek(0);
     plik.write(reinterpret_cast<char *>(&pom),sizeof(struct POMIDOR));
@@ -865,7 +866,7 @@ void MainWindow::Oblicz_NewID(void) {
     plik.close();
 
 }
-unsigned int MainWindow::Search_Last_Pos(void) {
+unsigned int MainWindow::Search_Last_Pos(unsigned int *pos) {
     if (!(Licz_Rec()))
     {
 /*
@@ -906,6 +907,7 @@ unsigned int MainWindow::Search_Last_Pos(void) {
 
         plik.close();
 
+        *pos = off;
         return off;
 
 
@@ -1774,7 +1776,7 @@ int MainWindow::GetRecC_WO(void)
 
 }
 
-int MainWindow::Get_Hi_ID_WI(void)
+int MainWindow::Get_Hi_ID_WI(int *new_id)
 {
     if (GetRecC_WI() == 0)
     {
@@ -1794,6 +1796,7 @@ int MainWindow::Get_Hi_ID_WI(void)
         {
             plik.read(reinterpret_cast<char *>(&flm.wi),sizeof(flm.wi));
             plik.close();
+            *new_id = flm.wi.ID;
             return flm.wi.ID;
         }
         i = i + sizeof(flm.wi);
@@ -1801,7 +1804,7 @@ int MainWindow::Get_Hi_ID_WI(void)
 
 }
 
-int MainWindow::Get_Hi_ID_WO(void)
+int MainWindow::Get_Hi_ID_WO(int *new_id)
 {
     if (GetRecC_WO() == 0)
     {
@@ -1821,6 +1824,7 @@ int MainWindow::Get_Hi_ID_WO(void)
         {
             plik.read(reinterpret_cast<char *>(&flm.wo),sizeof(flm.wo));
             plik.close();
+            *new_id = flm.wo.ID;
             return flm.wo.ID;
         }
         i = i + sizeof(flm.wo);
@@ -2074,7 +2078,7 @@ int MainWindow::GetRecC_LZ(void)
 
 }
 
-int MainWindow::Get_Hi_ID_LZ(void)
+int MainWindow::Get_Hi_ID_LZ(int *new_id)
 {
     if (GetRecC_LZ() == 0)
     {
@@ -2094,6 +2098,7 @@ int MainWindow::Get_Hi_ID_LZ(void)
         {
             plik.read(reinterpret_cast<char *>(&flm.lz),sizeof(flm.lz));
             plik.close();
+            *new_id = flm.lz.ID;
             return flm.lz.ID;
         }
         i = i + sizeof(flm.lz);
@@ -2283,7 +2288,7 @@ void MainWindow::Add_New_Ob(int id)
 
 }
 
-int MainWindow::Get_Hi_ID_OB(void)
+int MainWindow::Get_Hi_ID_OB(int *new_id)
 {
     if (GetRecC_OB() == 0)
     {
@@ -2303,6 +2308,7 @@ int MainWindow::Get_Hi_ID_OB(void)
         {
             plik.read(reinterpret_cast<char *>(&flm.ob),sizeof(flm.ob));
             plik.close();
+            *new_id = flm.ob.ID;
             return flm.ob.ID;
         }
         i = i + sizeof(flm.ob);
@@ -2507,7 +2513,7 @@ void MainWindow::ClearOcena(void)
 
 }
 
-int MainWindow::Get_Hi_ID_OC(void)
+int MainWindow::Get_Hi_ID_OC(int *new_id)
 {
 
 if (GetRecC_OC() == 0)
@@ -2527,6 +2533,7 @@ for (i=0;i<stop; )
     {
         plik.read(reinterpret_cast<char *>(&flm.oc),sizeof(flm.oc));
         plik.close();
+        *new_id = flm.oc.ID;
         return flm.oc.ID;
     }
     i = i + sizeof(flm.oc);
@@ -2990,7 +2997,7 @@ void MainWindow::Add_New_PD(int id)
 
 }
 
-int MainWindow::Get_Hi_ID_PP(void)
+int MainWindow::Get_Hi_ID_PP(int *new_id)
 {
     if (GetRecC_PP() == 0)
     {
@@ -3009,6 +3016,7 @@ int MainWindow::Get_Hi_ID_PP(void)
         {
             plik.read(reinterpret_cast<char *>(&flm.pp),sizeof(flm.pp));
             plik.close();
+            *new_id = flm.pp.ID;
             return flm.pp.ID;
         }
         i = i + sizeof(flm.pp);
@@ -3016,7 +3024,7 @@ int MainWindow::Get_Hi_ID_PP(void)
 
 }
 
-int MainWindow::Get_Hi_ID_PD(void)
+int MainWindow::Get_Hi_ID_PD(int *new_id)
 {
     if (GetRecC_PD() == 0)
     {
@@ -3035,6 +3043,7 @@ int MainWindow::Get_Hi_ID_PD(void)
         {
             plik.read(reinterpret_cast<char *>(&flm.pd),sizeof(flm.pd));
             plik.close();
+            *new_id - flm.pd.ID;
             return flm.pd.ID;
         }
         i = i + sizeof(flm.pd);
@@ -3733,5 +3742,10 @@ void MainWindow::on_actionCSV_Biblioteka_Film_w_NET_clicked()
 {
 	ImpBFNETWiz *imp_wiz = new ImpBFNETWiz();
 	imp_wiz->show();
+
+}
+void MainWindow::SetZadanaPozPliku(unsigned int pos)
+{
+    zadana_pozycja_pliku = pos;
 
 }

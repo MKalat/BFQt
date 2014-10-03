@@ -38,12 +38,12 @@ void ImpBFNETWiz::BTN_IMP_CLICKED()
             {
                 line = file.readLine();
                 QStringList strings = line.split(",");
-                wchar_t *buff;
+                wchar_t buff;
                 QString cur_s_id; // set the Id from csv
-                strings.value(0).toWCharArray(buff); // skopiuj zawartość rekordu film z csv fo film_table
-                wcscpy(flm_impbf.film_tbl.tytul,buff);
-                strings.value(2).toWCharArray(buff);
-                wcscpy(flm_impbf.film_tbl.gatunek_filmu,buff);
+                strings.value(0).toWCharArray(&buff); // skopiuj zawartość rekordu film z csv fo film_table
+                wcscpy(flm_impbf.film_tbl.tytul,&buff);
+                strings.value(2).toWCharArray(&buff);
+                wcscpy(flm_impbf.film_tbl.gatunek_filmu,&buff);
 
                 int new_db_id;
                 emit add_new_film_rec(&new_db_id); // dodaj rekord fil i pobierz nowe id przydzielone do tego filmu
@@ -69,7 +69,7 @@ void ImpBFNETWiz::BTN_IMP_CLICKED()
                 }
                 if (ui->checkBox_LZ->isChecked())
                 {
-                    processSubTable("LZ", new_db_id);
+                    processSubTable("LZ", new_db_id, cur_s_id);
 
                 }
                 if (ui->checkBox_Wyp->isChecked())
@@ -115,7 +115,7 @@ void ImpBFNETWiz::BTN_SEL_PATH_CLICKED()
     }
 
 }
-void ImpBFNETWiz::processSubTable(QString sb_tbl, int new_id)
+void ImpBFNETWiz::processSubTable(QString sb_tbl, int new_id, QString csv_id)
 {
     QFile file_sb(ui->lineEdit_csv_BFNET->text());
     if (file_sb.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -134,7 +134,7 @@ void ImpBFNETWiz::processSubTable(QString sb_tbl, int new_id)
                 }
                 if (set_pos)
                 {
-                    if (line_sb.contains(cur_s_id))
+                    if (line_sb.contains(csv_id))
                     {
                         QStringList strings_sb = line_sb.split(",");
                         int lz_new_id;

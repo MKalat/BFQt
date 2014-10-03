@@ -30,7 +30,7 @@ class ImpBFNETWiz : public QDialog
 public:
     explicit ImpBFNETWiz(QDialog *parent = 0);
     ~ImpBFNETWiz();
-    void processSubTable(QString sb_tbl, int new_id);
+    void processSubTable(QString sb_tbl, int new_id, QString csv_id);
 signals :
     void save_full_F();
     void add_new_film_rec(int *new_id);

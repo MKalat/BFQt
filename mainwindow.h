@@ -30,7 +30,7 @@ public:
 
 
 public slots :
-    void SetButtons(void);
+    //void SetButtons(void);
     void UpdateCtrls(bool BINDOUT, bool start);
     void Bind_IN_Controls(void);
     void Bind_OUT_Controls(void);
@@ -53,7 +53,7 @@ public slots :
     void Enable_BTNS_NOREC();
     bool CheckOLDDB();
     void KopiujOLDDB();
-    void SetBTNIcons();
+    //void SetBTNIcons();
     void ClearBIBLIO(void);
     void Fill_Wi(void);
     void Fill_Wo(void);
@@ -61,7 +61,7 @@ public slots :
     void Save_Wo(void);
     void Refresh_Wi(void);
     void Refresh_Wo(void);
-    void Set_BIBLIO(void);
+    //void Set_BIBLIO(void);
     int GetRecC_WI(void);
     int GetRecC_WO(void);
     int Get_Hi_ID_WI(int *new_id);
@@ -74,7 +74,7 @@ public slots :
     void Fill_Lz(void);
     void Save_Lz(void);
     void Refresh_Lz(void);
-    void Set_IOF(void);
+    //void Set_IOF(void);
     int GetRecC_LZ(void);
     int Get_Hi_ID_LZ(int *new_id);
     void Add_New_LZ(int id);
@@ -82,7 +82,7 @@ public slots :
     void ClearObsada(void);
     void Fill_Ob(void);
     void Save_Ob(void);
-    void Set_Obsada(void);
+    //void Set_Obsada(void);
     void Add_New_Ob(int id);
     int Get_Hi_ID_OB(int *new_id);
     int GetRecC_OB(void);

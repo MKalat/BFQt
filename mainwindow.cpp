@@ -181,9 +181,10 @@ void MainWindow::on_pushButton_Next_clicked()
 {
     if (!(Licz_Rec()))
     {
+        unsigned int pos;
         //OnBnClickedButtonFrmFSave();
         zadana_pozycja_pliku = zadana_pozycja_pliku + (sizeof(struct Film));
-        if (zadana_pozycja_pliku >= Search_Last_Pos())
+        if (zadana_pozycja_pliku >= Search_Last_Pos(&pos))
         {
             zadana_pozycja_pliku = 0;
         }
@@ -199,7 +200,8 @@ void MainWindow::on_pushButton_Last_clicked()
     if (!(Licz_Rec()))
     {
         //OnBnClickedButtonFrmFSave();
-        zadana_pozycja_pliku = MainWindow::Search_Last_Pos() - (sizeof(flm.film_tbl));
+        unsigned int pos;
+        zadana_pozycja_pliku = MainWindow::Search_Last_Pos(&pos) - (sizeof(flm.film_tbl));
         ClearCtrls(true);
         UpdateCtrls(false,false);
         Licz_Rec();
@@ -212,13 +214,14 @@ void MainWindow::on_pushButton_New_clicked()
     ClearCtrls(true); // wyczyœæ kontrolki
 
     bool test;
+    int new_id;
     if (Licz_Rec() == true)
     {
-        test = MainWindow::Film_DodajRec(true, new_id);                   // wywo³aj procedure dodania nowego rekordu w³¹cznie z zapisem
+        test = MainWindow::Film_DodajRec(true, &new_id);                   // wywo³aj procedure dodania nowego rekordu w³¹cznie z zapisem
     }
     else
     {
-        test = MainWindow::Film_DodajRec(false, new_id);
+        test = MainWindow::Film_DodajRec(false, &new_id);
     }
     if (test)
     {
@@ -811,6 +814,7 @@ bool MainWindow::Film_DodajRec(bool first, int *new_id) {
         if (CheckBFVER())
         {
             Oblicz_NewID(new_id);
+            unsigned int pos;
             QFile plik(QString::fromWCharArray(flm.pths.BF_PDB));
             plik.open(QFile::Append);
             //akt_pozycja_pliku = plik.Seek(Search_Last_Pos(),CFile::begin);
@@ -832,7 +836,7 @@ bool MainWindow::Film_DodajRec(bool first, int *new_id) {
             }
             else
             {
-                zadana_pozycja_pliku = MainWindow::Search_Last_Pos() - (sizeof(flm.film_tbl));
+                zadana_pozycja_pliku = MainWindow::Search_Last_Pos(&pos) - (sizeof(flm.film_tbl));
             }
             return true;
         }
@@ -3283,7 +3287,8 @@ void MainWindow::on_pushButton_DelPic_clicked()
 void MainWindow::on_pushButton_B_WYPIN_New_clicked()
 {
     on_pushButton_BIBLIOWYPISave_clicked();
-    Add_New_WI(Get_Hi_ID_WI());
+    int new_id;
+    Add_New_WI(Get_Hi_ID_WI(&new_id));
     Ftbl::add_new_wi = true;
 }
 
@@ -3336,7 +3341,8 @@ void MainWindow::on_pushButton_BIBLIOWYPINDel_clicked()
 void MainWindow::on_pushButton_B_WYPODIN_New_clicked()
 {
     Save_Wo();
-    Add_New_WO(Get_Hi_ID_WO());
+    int new_id;
+    Add_New_WO(Get_Hi_ID_WO(&new_id));
     Ftbl::add_new_wo = true;
 }
 
@@ -3389,7 +3395,8 @@ void MainWindow::on_pushButton_BIBLIOWYPODINDel_clicked()
 void MainWindow::on_pushButton_LZ_New_clicked()
 {
     Save_Lz();
-    Add_New_LZ(Get_Hi_ID_LZ());
+    int new_id;
+    Add_New_LZ(Get_Hi_ID_LZ(&new_id));
     Ftbl::add_new_lz = true;
 }
 
@@ -3443,7 +3450,8 @@ void MainWindow::on_pushButton_LZDel_clicked()
 void MainWindow::on_pushButton_OB_new_clicked()
 {
     Save_Ob();
-    Add_New_Ob(Get_Hi_ID_OB());
+    int new_id;
+    Add_New_Ob(Get_Hi_ID_OB(&new_id));
     Ftbl::add_new_ob = true;
 }
 
@@ -3532,7 +3540,8 @@ void MainWindow::Refresh_Lz(void)
 void MainWindow::on_pushButton_OC_New_clicked()
 {
     Save_Oc();
-    Add_New_Oc(Get_Hi_ID_OC());
+    int new_id;
+    Add_New_Oc(Get_Hi_ID_OC(&new_id));
     Ftbl::add_new_oc = true;
 }
 
@@ -3600,7 +3609,8 @@ void MainWindow::Fill_Opis()
 void MainWindow::on_pushButto_P_New_clicked()
 {
     Save_PP();
-    Add_New_PP(Get_Hi_ID_PP());
+    int new_id;
+    Add_New_PP(Get_Hi_ID_PP(&new_id));
     Ftbl::add_new_pp = true;
 
 }
@@ -3655,7 +3665,8 @@ void MainWindow::on_pushButton_PRODDel_clicked()
 void MainWindow::on_pushButton_D_New_clicked()
 {
     Save_PD();
-    Add_New_PD(Get_Hi_ID_PD());
+    int new_id;
+    Add_New_PD(Get_Hi_ID_PD(&new_id));
     Ftbl::add_new_pd = true;
 }
 

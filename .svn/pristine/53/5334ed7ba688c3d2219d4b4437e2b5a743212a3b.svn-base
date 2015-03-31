@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>IntWiz</class>
+ <widget class="QDialog" name="IntWiz">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>641</width>
+    <height>555</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Biblioteka Filmów - Kreator Pobierania Informacji o filmach z Internetu</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>MK_LOGO.ico</normaloff>MK_LOGO.ico</iconset>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>4</y>
+     <width>77</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Źródło danych</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>92</x>
+     <y>4</y>
+     <width>169</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>imdb.com</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>filmweb.pl</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>264</x>
+     <y>4</y>
+     <width>33</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Tytuł</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>4</y>
+     <width>329</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>4</x>
+     <y>28</y>
+     <width>625</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Opcje pobierania</string>
+   </property>
+   <widget class="QCheckBox" name="checkBox_main">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>20</y>
+      <width>117</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Podst. dane o filmie</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_obsada">
+    <property name="geometry">
+     <rect>
+      <x>152</x>
+      <y>20</y>
+      <width>70</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Obsada</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_okladka">
+    <property name="geometry">
+     <rect>
+      <x>236</x>
+      <y>20</y>
+      <width>70</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Okładka</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_askOverwrite">
+    <property name="geometry">
+     <rect>
+      <x>12</x>
+      <y>48</y>
+      <width>201</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pytać przed nadpisaniem danych ?</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_reviews">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>20</y>
+      <width>70</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Recenzje</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>136</y>
+     <width>89</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Znalezione filmy</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_search">
+   <property name="geometry">
+    <rect>
+     <x>428</x>
+     <y>112</y>
+     <width>165</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Wyszukaj</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_Results">
+   <property name="geometry">
+    <rect>
+     <x>8</x>
+     <y>156</y>
+     <width>617</width>
+     <height>353</height>
+    </rect>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::SingleSelection</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>150</number>
+   </attribute>
+   <column>
+    <property name="text">
+     <string>Tytuł</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Premiera</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Kraj produkcji</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Reżyser</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Rodzaj</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="pushButton_GetData">
+   <property name="geometry">
+    <rect>
+     <x>406</x>
+     <y>514</y>
+     <width>217</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Pobierz dane zanaczonej pozycji</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

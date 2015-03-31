@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Wyszukaj</class>
+ <widget class="QWidget" name="Wyszukaj">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>373</width>
+    <height>418</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Biblioteka Filmów - Wyszukaj</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/new/prefix1/MK_LOGO.ico</normaloff>:/new/prefix1/MK_LOGO.ico</iconset>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>6</y>
+     <width>76</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Szukana fraza</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_Fraza">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>6</y>
+     <width>265</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_Search">
+   <property name="geometry">
+    <rect>
+     <x>204</x>
+     <y>57</y>
+     <width>85</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Szukaj</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>33</y>
+     <width>46</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pole</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox_Pole">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>30</y>
+     <width>208</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>Tytuł</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Oryginalny tytuł</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Gatunek</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Własna ocena filmu - ścieżka dźwiękowa</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Własna ocena filmu - zdjęcia</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Własna ocena filmu - obsada</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Własna ocena filmu - wartość artystyczna</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Własna ocena filmu - całość</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Obsada - imię i nazwisko reżysera</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Obsada - narodowość reżysera</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Obsada - operator imię i nazwisko</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Obsada - opreator narodowość</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Obsada - muzyka imię i nazwisko</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Obsada - muzyka narodowość</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Obsada - scenariusz imie i nazwisko</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Obsada - scenariusz narodowość</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Właściciel - Imie i nazwisko</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Właściciel - Adres</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Sklep - Nazwa</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Sklep - Adres</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Sklep - Telefon</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Sklep - Fax</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Sklep - Email</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Sklep - WWW</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Cena</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Data zakupu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Data skatalogowania</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Wartość aktualna</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Data Utraty</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Nr katalogowy</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Dane o Egzemplarzu - Rodzaj nośnika</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Rok produkcji</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Data Premiery</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Czas projekcji</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Format wyświetlania</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - System kodowania obrazu</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Język lektora</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Język napisów</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Kodek wideo - nazwa</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Kodek Wideo - typ</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Kodek wideo - wersja</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Kodek audio - nazwa</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Kodek audio - typ</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Kodek audio - wersja</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Zabezpieczenia - nazwa</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Zabezpieczenia - typ</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Zabezpieczenia - wersja</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Info o Filmie - Kraj produkcji</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QTableWidget" name="tableWidget_Wyniki">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>90</y>
+     <width>355</width>
+     <height>319</height>
+    </rect>
+   </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::DoubleClicked</set>
+   </property>
+   <property name="tabKeyNavigation">
+    <bool>false</bool>
+   </property>
+   <property name="dragDropOverwriteMode">
+    <bool>false</bool>
+   </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::SingleSelection</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectRows</enum>
+   </property>
+   <column>
+    <property name="text">
+     <string>Tytuł</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Gatunek</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Premiera</string>
+    </property>
+   </column>
+  </widget>
+  <widget class="QPushButton" name="pushButton_Cancel">
+   <property name="geometry">
+    <rect>
+     <x>294</x>
+     <y>57</y>
+     <width>75</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Anuluj</string>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+ <designerdata>
+  <property name="gridDeltaX">
+   <number>3</number>
+  </property>
+  <property name="gridDeltaY">
+   <number>3</number>
+  </property>
+  <property name="gridSnapX">
+   <bool>false</bool>
+  </property>
+  <property name="gridSnapY">
+   <bool>false</bool>
+  </property>
+  <property name="gridVisible">
+   <bool>true</bool>
+  </property>
+ </designerdata>
+</ui>

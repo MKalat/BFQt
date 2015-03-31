@@ -1,0 +1,25 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+	hideDotFiles = dotGitOnly
+[remote "origin"]
+	url = git@github.com/MKalat/BFQt.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+	puttykeyfile = D:/Moje dokumenty/github-git-ext_key.ppk
+	pushurl = git@github.com:MKalat/BFQt.git
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[gui]
+	wmstate = zoomed
+	geometry = 887x427+-8+0 386 192
+[remote "bfqt"]
+	url = ssh://mk@mkalat.pl/home/mk/git-repos/bfqt
+	fetch = +refs/heads/*:refs/remotes/bfqt/*
+[remote "bfqt2"]
+	url = 
+	fetch = +refs/heads/*:refs/remotes/bfqt2/*

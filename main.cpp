@@ -1,12 +1,12 @@
 #include "mainwindow.h"
-#include <QtGui>
-#include <QtGui/QApplication>
+#include <QtWidgets>
+#include <QtWidgets/QApplication>
 #include <QTranslator>
 #include <QTextCodec>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-	QTextCodec::setCodecForTr(QTextCodec::codecForName("Windows-1250"));
+	QTextCodec::setCodecForLocale(QTextCodec::codecForName("Windows-1250"));
     QTranslator qtTranslator;
     qtTranslator.load("qt_" + QLocale::system().name(),
     QLibraryInfo::location(QLibraryInfo::TranslationsPath));

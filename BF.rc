@@ -92,7 +92,7 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "D:\\RYSUNKI\\MK_LOGO.ico"
+IDI_ICON1               ICON                    "H:\\RYSUNKI\\MK_LOGO.ico"
 #endif    // Polish resources
 /////////////////////////////////////////////////////////////////////////////
 

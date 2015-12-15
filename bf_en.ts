@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US" sourcelanguage="pl_PL">
+<TS version="2.1" language="en_US" sourcelanguage="pl_PL">
 <context>
     <name>Drukuj</name>
-    <message utf8="true">
+    <message>
         <location filename="drukuj.ui" line="14"/>
         <source>Biblioteka Filmów - Kreator wydruku</source>
         <translation>Mk Film DB - Print Wizard</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="drukuj.ui" line="30"/>
         <source>Wybierz ile filmów wydrukować</source>
         <translation>Select how many movies&apos; data to print</translation>
@@ -23,7 +23,7 @@
         <source>Wszystkie</source>
         <translation>All Records</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="drukuj.ui" line="69"/>
         <source>Wybierz co wydrukować</source>
         <translation>Select whcich data to print</translation>
@@ -57,17 +57,17 @@
         <source>Tabela Dystrybucja</source>
         <translation>table Distributors</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="drukuj.ui" line="146"/>
         <source>Tabela Lokalizacje zdjęciowe</source>
         <translation>Table Filmed Locations</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="drukuj.ui" line="159"/>
         <source>Tabela Wypożyczenia innym osobom</source>
         <translation>Table Borrows to other persons</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="drukuj.ui" line="172"/>
         <source>Tabela wypożyczenia od innych osób</source>
         <translation>Table borrows from other persons</translation>
@@ -89,8 +89,9 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="108"/>
-        <source>Oryginalny tytu³: </source>
-        <translation>Original title :</translation>
+        <source>Oryginalny tytu�: </source>
+        <oldsource>Oryginalny tytu³: </oldsource>
+        <translation type="unfinished">Original title :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="110"/>
@@ -114,18 +115,21 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="118"/>
-        <source>Jêzyk lektora : </source>
-        <translation>Lector lang.:</translation>
+        <source>J�zyk lektora : </source>
+        <oldsource>Jêzyk lektora : </oldsource>
+        <translation type="unfinished">Lector lang.:</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="120"/>
-        <source>Jêzyk napisów </source>
-        <translation>Subtitles lang.</translation>
+        <source>J�zyk napis�w </source>
+        <oldsource>Jêzyk napisów </oldsource>
+        <translation type="unfinished">Subtitles lang.</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="122"/>
-        <source>Format wywietlania : </source>
-        <translation>Aspect ratio :</translation>
+        <source>Format wy�wietlania : </source>
+        <oldsource>Format wywietlania : </oldsource>
+        <translation type="unfinished">Aspect ratio :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="124"/>
@@ -144,8 +148,9 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="130"/>
-        <source>Wartoæ aktualna : </source>
-        <translation>Actual value :</translation>
+        <source>Warto�� aktualna : </source>
+        <oldsource>Wartoæ aktualna : </oldsource>
+        <translation type="unfinished">Actual value :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="132"/>
@@ -164,8 +169,9 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="138"/>
-        <source>Nonik : </source>
-        <translation>Media</translation>
+        <source>No�nik : </source>
+        <oldsource>Nonik : </oldsource>
+        <translation type="unfinished">Media</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="140"/>
@@ -179,18 +185,21 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="144"/>
-        <source>Ocena - Zdjêcia : </source>
-        <translation>Score - photography:</translation>
+        <source>Ocena - Zdj�cia : </source>
+        <oldsource>Ocena - Zdjêcia : </oldsource>
+        <translation type="unfinished">Score - photography:</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="146"/>
-        <source>Ocena - Wartoæ artystyczna : </source>
-        <translation>Score - Artistical value :</translation>
+        <source>Ocena - Warto�� artystyczna : </source>
+        <oldsource>Ocena - Wartoæ artystyczna : </oldsource>
+        <translation type="unfinished">Score - Artistical value :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="148"/>
-        <source>Ocena - Ca³oæ : </source>
-        <translation>Score - Sumarised :</translation>
+        <source>Ocena - Ca�o�� : </source>
+        <oldsource>Ocena - Ca³oæ : </oldsource>
+        <translation type="unfinished">Score - Sumarised :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="150"/>
@@ -199,18 +208,21 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="152"/>
-        <source>W³aciciel - Imiê : </source>
-        <translation>Owner - Name :</translation>
+        <source>W�a�ciciel - Imi� : </source>
+        <oldsource>W³aciciel - Imiê : </oldsource>
+        <translation type="unfinished">Owner - Name :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="154"/>
-        <source>W³aciciel - Nazwisko : </source>
-        <translation>Owner - Lastname :</translation>
+        <source>W�a�ciciel - Nazwisko : </source>
+        <oldsource>W³aciciel - Nazwisko : </oldsource>
+        <translation type="unfinished">Owner - Lastname :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="156"/>
-        <source>W³aciciel - Adres : </source>
-        <translation>Owner - Address:</translation>
+        <source>W�a�ciciel - Adres : </source>
+        <oldsource>W³aciciel - Adres : </oldsource>
+        <translation type="unfinished">Owner - Address:</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="158"/>
@@ -289,8 +301,9 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="203"/>
-        <source>Imiê i Nazwisko : </source>
-        <translation>Name and Lastname :</translation>
+        <source>Imi� i Nazwisko : </source>
+        <oldsource>Imiê i Nazwisko : </oldsource>
+        <translation type="unfinished">Name and Lastname :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="205"/>
@@ -304,8 +317,9 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="231"/>
-        <source>Tytu³ tekstu : </source>
-        <translation>Text title :</translation>
+        <source>Tytu� tekstu : </source>
+        <oldsource>Tytu³ tekstu : </oldsource>
+        <translation type="unfinished">Text title :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="233"/>
@@ -357,14 +371,15 @@
     <message>
         <location filename="drukuj.cpp" line="274"/>
         <location filename="drukuj.cpp" line="311"/>
-        <source>Narodowoæ : </source>
-        <oldsource>Nrodowoç³ : </oldsource>
-        <translation>Nationality :</translation>
+        <source>Narodowo�� : </source>
+        <oldsource>Narodowoæ : </oldsource>
+        <translation type="unfinished">Nationality :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="325"/>
-        <source>Tabela Lokalizacje zdjêciowe</source>
-        <translation>Table of photographed locations :</translation>
+        <source>Tabela Lokalizacje zdj�ciowe</source>
+        <oldsource>Tabela Lokalizacje zdjêciowe</oldsource>
+        <translation type="unfinished">Table of photographed locations :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="336"/>
@@ -378,8 +393,9 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="340"/>
-        <source>Miejscowoæ : </source>
-        <translation>Location :</translation>
+        <source>Miejscowo�� : </source>
+        <oldsource>Miejscowoæ : </oldsource>
+        <translation type="unfinished">Location :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="342"/>
@@ -398,15 +414,16 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="359"/>
-        <source>Tabela Wypo¿yczenia innym osobom</source>
-        <oldsource>Tabela Wypo<byte value="x3"/>80Cyczenia innym osobom</oldsource>
-        <translation>Table of borrows to other persons :</translation>
+        <source>Tabela Wypo�yczenia innym osobom</source>
+        <oldsource>Tabela Wypo¿yczenia innym osobom</oldsource>
+        <translation type="unfinished">Table of borrows to other persons :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="370"/>
         <location filename="drukuj.cpp" line="402"/>
-        <source>Data wypo¿yczenia : </source>
-        <translation>Borrowing date :</translation>
+        <source>Data wypo�yczenia : </source>
+        <oldsource>Data wypo¿yczenia : </oldsource>
+        <translation type="unfinished">Borrowing date :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="372"/>
@@ -417,8 +434,9 @@
     <message>
         <location filename="drukuj.cpp" line="374"/>
         <location filename="drukuj.cpp" line="406"/>
-        <source>Stan przed wypo¿yczeniem : </source>
-        <translation>Condition before borrowing :</translation>
+        <source>Stan przed wypo�yczeniem : </source>
+        <oldsource>Stan przed wypo¿yczeniem : </oldsource>
+        <translation type="unfinished">Condition before borrowing :</translation>
     </message>
     <message>
         <location filename="drukuj.cpp" line="376"/>
@@ -434,14 +452,14 @@
     </message>
     <message>
         <location filename="drukuj.cpp" line="391"/>
-        <source>Tabela Wypo¿yczenia od innych osób</source>
-        <oldsource>Tabela Wypo¿Cyczenia od innych osób</oldsource>
-        <translation>Table borows from other persons :</translation>
+        <source>Tabela Wypo�yczenia od innych os�b</source>
+        <oldsource>Tabela Wypo¿yczenia od innych osób</oldsource>
+        <translation type="unfinished">Table borows from other persons :</translation>
     </message>
 </context>
 <context>
     <name>Eksportuj</name>
-    <message utf8="true">
+    <message>
         <location filename="eksportuj.ui" line="14"/>
         <source>Biblioteka Filmów - Kreator Eksportu</source>
         <translation>MK Film DB - Export Wizard</translation>
@@ -451,7 +469,7 @@
         <source>...</source>
         <translation>...</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="eksportuj.ui" line="53"/>
         <source>Podaj ścieżkę do pliku, do którego chesz wyekportować dane</source>
         <translation>Select path to file to which data will be exported </translation>
@@ -461,7 +479,7 @@
         <source>Eksportuj wszystkie rekordy filmow z bazy danych</source>
         <translation>Export all movies&apos; records from database</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="eksportuj.ui" line="79"/>
         <source>Wybierz jakie dane mają być eksportowane</source>
         <translation>Select which data to export</translation>
@@ -483,7 +501,7 @@
         <source>Tabela Ocena</source>
         <translation>Table Score</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="eksportuj.ui" line="136"/>
         <source>Tabela Lokalizacje zdjęciowe</source>
         <translation>Table Filmed Locations</translation>
@@ -493,7 +511,7 @@
         <source>Tabele Produkcja i Dystrybucja</source>
         <translation>Tables Producers and Distributors</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="eksportuj.ui" line="162"/>
         <source>Tabele Wypożyczeń</source>
         <translation>Tables of Borrows</translation>
@@ -510,31 +528,25 @@
     </message>
     <message>
         <location filename="eksportuj.cpp" line="403"/>
-        <source>Tabela g³ówna - Film</source>
-        <oldsource>Tabela g��wna - Film</oldsource>
-        <translation>Main Table - Film</translation>
+        <source>Tabela g��wna - Film</source>
+        <oldsource>Tabela g³ówna - Film</oldsource>
+        <translation type="unfinished">Main Table - Film</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="412"/>
-        <source>,&quot;Dane o Egzemplarzu - Nonik&quot;</source>
-        <oldsource>,&quot;Dane o Egzemplarzu - No�nik&quot;</oldsource>
-        <translation>,&quot;Data about Copy - Media&quot;</translation>
+        <source>,&quot;Dane o Egzemplarzu - No�nik&quot;</source>
+        <oldsource>,&quot;Dane o Egzemplarzu - Nonik&quot;</oldsource>
+        <translation type="unfinished">,&quot;Data about Copy - Media&quot;</translation>
     </message>
     <message>
-        <location filename="eksportuj.cpp" line="421"/>
         <source>,&quot;Obsada - Re¿yser - Imie i Nazwisko&quot;</source>
-        <translation>,&quot;Cast - Director - Name and Lastname&quot;</translation>
+        <translation type="vanished">,&quot;Cast - Director - Name and Lastname&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="422"/>
-        <source>,&quot;Obsada - Re¿yser - Narodowoæ&quot;</source>
-        <oldsource>,&quot;Obsada - Re�yser - Narodowo��&quot;</oldsource>
-        <translation>,&quot;Cast - Director - Nationality&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="422"/>
-        <source>,&quot;Obsada - Scenarzysta - Imiê i Nazwisko&quot;</source>
-        <translation>,&quot;Cast - Story Writer - Name and Lastname&quot;</translation>
+        <source>,&quot;Obsada - Re�yser - Narodowo��&quot;</source>
+        <oldsource>,&quot;Obsada - Re¿yser - Narodowoæ&quot;</oldsource>
+        <translation type="unfinished">,&quot;Cast - Director - Nationality&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="423"/>
@@ -543,15 +555,15 @@
     </message>
     <message>
         <location filename="eksportuj.cpp" line="424"/>
-        <source>,&quot;Obsada - Muzyka - Narodowoæ&quot;</source>
-        <oldsource>,&quot;Obsada - Muzyka - Narodowo��&quot;</oldsource>
-        <translation>,&quot;Cast - Music - Nationality&quot;</translation>
+        <source>,&quot;Obsada - Muzyka - Narodowo��&quot;</source>
+        <oldsource>,&quot;Obsada - Muzyka - Narodowoæ&quot;</oldsource>
+        <translation type="unfinished">,&quot;Cast - Music - Nationality&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="425"/>
-        <source>,&quot;Obsada - Zdjêcia - Narodowoæ&quot;</source>
-        <oldsource>,&quot;Obsada - Zdj�cia - Narodowo��&quot;</oldsource>
-        <translation>,&quot;Cast - Photography - Nationality&quot;</translation>
+        <source>,&quot;Obsada - Zdj�cia - Narodowo��&quot;</source>
+        <oldsource>,&quot;Obsada - Zdjêcia - Narodowoæ&quot;</oldsource>
+        <translation type="unfinished">,&quot;Cast - Photography - Nationality&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="406"/>
@@ -609,30 +621,20 @@
     </message>
     <message>
         <location filename="eksportuj.cpp" line="410"/>
-        <source>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Imiê&quot;</source>
-        <oldsource>,&quot;Dane o Egzemplarzu - W�a�ciciel Kopii Filmu - Imi�&quot;</oldsource>
-        <translation>,&quot;Data about Copy - Owner - Name&quot; </translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="410"/>
-        <source>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Nazwisko&quot;</source>
-        <translation>,&quot;Data about Copy - Owner - Lastname&quot;</translation>
+        <source>,&quot;Dane o Egzemplarzu - W�a�ciciel Kopii Filmu - Imi�&quot;</source>
+        <oldsource>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Imiê&quot;</oldsource>
+        <translation type="unfinished">,&quot;Data about Copy - Owner - Name&quot; </translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="411"/>
-        <source>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Adres&quot;</source>
-        <oldsource>,&quot;Dane o Egzemplarzu - W�a�ciciel Kopii Filmu - Adres&quot;</oldsource>
-        <translation>,&quot;Data about Copy - Owner - Adress&quot;</translation>
+        <source>,&quot;Dane o Egzemplarzu - W�a�ciciel Kopii Filmu - Adres&quot;</source>
+        <oldsource>,&quot;Dane o Egzemplarzu - W³aciciel Kopii Filmu - Adres&quot;</oldsource>
+        <translation type="unfinished">,&quot;Data about Copy - Owner - Adress&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="411"/>
         <source>,&quot;Dane o Egzemplarzu - Nr katalogowy&quot;</source>
         <translation>,&quot;Data about Copy - Cat No&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="412"/>
-        <source>,&quot;Dane o Egzemplarzu - Wartoæ aktualna&quot;</source>
-        <translation>,&quot;Data about Copy - Actual value&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="413"/>
@@ -647,36 +649,21 @@
     </message>
     <message>
         <location filename="eksportuj.cpp" line="414"/>
-        <source>,&quot;Informacje o Filmie - Format wywietlania&quot;</source>
-        <oldsource>,&quot;Informacje o Filmie - Format wy�wietlania&quot;</oldsource>
-        <translation>,&quot;Info about movie - Aspect ratio&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="414"/>
-        <source>,&quot;Informacje o Filmie - jêzyk lektora&quot;</source>
-        <translation>,&quot;Info about movie - Lector language&quot;</translation>
+        <source>,&quot;Informacje o Filmie - Format wy�wietlania&quot;</source>
+        <oldsource>,&quot;Informacje o Filmie - Format wywietlania&quot;</oldsource>
+        <translation type="unfinished">,&quot;Info about movie - Aspect ratio&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="415"/>
-        <source>,&quot;Informacje o Filmie - jêzyk napisów&quot;</source>
-        <oldsource>,&quot;Informacje o Filmie - j�zyk napis�w&quot;</oldsource>
-        <translation>,&quot;Info about movie - subtitles language&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="415"/>
-        <source>,&quot;Informacje o Filmie - Kodek dwiêku - nazwa&quot;</source>
-        <translation>,&quot;Info about movie - Audio codec - Name&quot;</translation>
+        <source>,&quot;Informacje o Filmie - j�zyk napis�w&quot;</source>
+        <oldsource>,&quot;Informacje o Filmie - jêzyk napisów&quot;</oldsource>
+        <translation type="unfinished">,&quot;Info about movie - subtitles language&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="416"/>
-        <source>,&quot;Informacje o Filmie - Kodek dwiêku - typ&quot;</source>
-        <oldsource>,&quot;Informacje o Filmie - Kodek d�wi�ku - typ&quot;</oldsource>
-        <translation>,&quot;info about movie - Audio codec - Type&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="416"/>
-        <source>,&quot;Informacje o Filmie - Kodek dwiêku - wersja&quot;</source>
-        <translation>,&quot;Info about movie - Audio codec - version&quot;</translation>
+        <source>,&quot;Informacje o Filmie - Kodek d�wi�ku - typ&quot;</source>
+        <oldsource>,&quot;Informacje o Filmie - Kodek dwiêku - typ&quot;</oldsource>
+        <translation type="unfinished">,&quot;info about movie - Audio codec - Type&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="417"/>
@@ -729,6 +716,16 @@
         <translation>,&apos;Info about movie - TV systen&quot; </translation>
     </message>
     <message>
+        <location filename="eksportuj.cpp" line="421"/>
+        <source>,&quot;Obsada - Re�yser - Imie i Nazwisko&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="eksportuj.cpp" line="650"/>
+        <source>,&quot;Miejscowo��&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="eksportuj.cpp" line="395"/>
         <source>Biblioteka Filmow - eksported data</source>
         <translation></translation>
@@ -750,52 +747,27 @@
     </message>
     <message>
         <location filename="eksportuj.cpp" line="423"/>
-        <source>,&quot;Obsada - Scenarzysta - Narodowoæ&quot;</source>
-        <oldsource>,&quot;Obsada - Scenarzysta - Narodowo��&quot;</oldsource>
-        <translation>,&quot;Cast - Story Writer - Nationality&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="424"/>
-        <source>,&quot;Obsada - Zdjêcia - Imiê i Nazwisko&quot;</source>
-        <translation>,&quot;Cast - Photography - Name and Lastname&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="425"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - Obsada&quot;</source>
-        <translation>,&quot;Score - My Score - Cast&quot;</translation>
+        <source>,&quot;Obsada - Scenarzysta - Narodowo��&quot;</source>
+        <oldsource>,&quot;Obsada - Scenarzysta - Narodowoæ&quot;</oldsource>
+        <translation type="unfinished">,&quot;Cast - Story Writer - Nationality&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="426"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - cie¿ka dwiêkowa&quot;</source>
-        <oldsource>,&quot;Ocena - W�asna Ocena Filmu - �cie�ka d�wi�kowa&quot;</oldsource>
-        <translation>,&quot;Score - My Score - Music&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="426"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - Wartoc artystyczna&quot;</source>
-        <translation>,&quot;Score - My Score - Artistic value&quot;</translation>
+        <source>,&quot;Ocena - W�asna Ocena Filmu - �cie�ka d�wi�kowa&quot;</source>
+        <oldsource>,&quot;Ocena - W³asna Ocena Filmu - cie¿ka dwiêkowa&quot;</oldsource>
+        <translation type="unfinished">,&quot;Score - My Score - Music&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="427"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - Zdjêcia&quot;</source>
-        <oldsource>,&quot;Ocena - W�asna Ocena Filmu - Zdj�cia&quot;</oldsource>
-        <translation>, &quot;Score - My Score - Photography&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="427"/>
-        <source>,&quot;Ocena - W³asna Ocena Filmu - Ca³oæ&quot;</source>
-        <translation>,&quot;Score - My Score - Summarised score&quot;</translation>
+        <source>,&quot;Ocena - W�asna Ocena Filmu - Zdj�cia&quot;</source>
+        <oldsource>,&quot;Ocena - W³asna Ocena Filmu - Zdjêcia&quot;</oldsource>
+        <translation type="unfinished">, &quot;Score - My Score - Photography&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="428"/>
-        <source>,&quot;cie¿ka - skan ok³adki - przód&quot;</source>
-        <oldsource>,&quot;�cie�ka - skan ok�adki - prz�d&quot;</oldsource>
-        <translation>,&quot; path - fron cover&quot;</translation>
-    </message>
-    <message>
-        <location filename="eksportuj.cpp" line="428"/>
-        <source>,&quot;cie¿ka - skan ok³adki - ty³&quot;</source>
-        <translation>,&quot;path - back cover&quot;</translation>
+        <source>,&quot;�cie�ka - skan ok�adki - prz�d&quot;</source>
+        <oldsource>,&quot;cie¿ka - skan ok³adki - przód&quot;</oldsource>
+        <translation type="unfinished">,&quot; path - fron cover&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="545"/>
@@ -808,9 +780,8 @@
         <translation>,&quot;Text Author&quot;</translation>
     </message>
     <message>
-        <location filename="eksportuj.cpp" line="545"/>
         <source>,&quot;Tytu³ tekstu&quot;</source>
-        <translation>,&quot;Text tile&quot;</translation>
+        <translation type="vanished">,&quot;Text tile&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="546"/>
@@ -826,9 +797,9 @@
     </message>
     <message>
         <location filename="eksportuj.cpp" line="570"/>
-        <source>,&quot; Imiê i Nazwisko&quot;</source>
-        <oldsource>,&quot; Imi� i Nazwisko&quot;</oldsource>
-        <translation>,&quot;Name and Lastname&quot;</translation>
+        <source>,&quot; Imi� i Nazwisko&quot;</source>
+        <oldsource>,&quot; Imiê i Nazwisko&quot;</oldsource>
+        <translation type="unfinished">,&quot;Name and Lastname&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="570"/>
@@ -871,10 +842,9 @@
         <translation>,&quot;E-mail&quot;</translation>
     </message>
     <message>
-        <location filename="eksportuj.cpp" line="589"/>
-        <location filename="eksportuj.cpp" line="619"/>
-        <source>,&quot;Narodowoæ&quot;</source>
-        <translation>,&quot;Nationality&quot;</translation>
+        <location filename="eksportuj.cpp" line="545"/>
+        <source>,&quot;Tytu� tekstu&quot;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="617"/>
@@ -883,9 +853,9 @@
     </message>
     <message>
         <location filename="eksportuj.cpp" line="649"/>
-        <source>Tabela Lokalizacje Zdjêciowe</source>
-        <oldsource>Tabela Lokalizacje Zdj�ciowe</oldsource>
-        <translation>&quot;Table Locations photographed&quot; </translation>
+        <source>Tabela Lokalizacje Zdj�ciowe</source>
+        <oldsource>Tabela Lokalizacje Zdjêciowe</oldsource>
+        <translation type="unfinished">&quot;Table Locations photographed&quot; </translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="650"/>
@@ -898,9 +868,8 @@
         <translation>,&quot;Country&quot;</translation>
     </message>
     <message>
-        <location filename="eksportuj.cpp" line="650"/>
         <source>,&quot;Miejscowoæ&quot;</source>
-        <translation>,&quot;Location&quot;</translation>
+        <translation type="vanished">,&quot;Location&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="651"/>
@@ -919,16 +888,16 @@
     </message>
     <message>
         <location filename="eksportuj.cpp" line="677"/>
-        <source>Tabela Wypo¿yczenia Innym Osobom</source>
-        <oldsource>Tabela Wypo�yczenia Innym Osobom</oldsource>
-        <translation>Table of borrows to other persons</translation>
+        <source>Tabela Wypo�yczenia Innym Osobom</source>
+        <oldsource>Tabela Wypo¿yczenia Innym Osobom</oldsource>
+        <translation type="unfinished">Table of borrows to other persons</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="678"/>
         <location filename="eksportuj.cpp" line="709"/>
-        <source>,&quot;Data wypo¿yczenia&quot;</source>
-        <oldsource>,&quot;Data wypo�yczenia&quot;</oldsource>
-        <translation>,&quot;Date of borrowing&quot; </translation>
+        <source>,&quot;Data wypo�yczenia&quot;</source>
+        <oldsource>,&quot;Data wypo¿yczenia&quot;</oldsource>
+        <translation type="unfinished">,&quot;Date of borrowing&quot; </translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="678"/>
@@ -939,9 +908,9 @@
     <message>
         <location filename="eksportuj.cpp" line="679"/>
         <location filename="eksportuj.cpp" line="710"/>
-        <source>,&quot;Stan przed wypo¿yczeniem&quot;</source>
-        <oldsource>,&quot;Stan przed wypo�yczeniem&quot;</oldsource>
-        <translation>,&quot;Condition before borrowing&quot;</translation>
+        <source>,&quot;Stan przed wypo�yczeniem&quot;</source>
+        <oldsource>,&quot;Stan przed wypo¿yczeniem&quot;</oldsource>
+        <translation type="unfinished">,&quot;Condition before borrowing&quot;</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="679"/>
@@ -963,9 +932,9 @@
     </message>
     <message>
         <location filename="eksportuj.cpp" line="708"/>
-        <source>Tabela Wypo¿yczenia od Innych Osób</source>
-        <oldsource>Tabela Wypo�yczenia od Innych Os�b</oldsource>
-        <translation>Table of other persons borrowings</translation>
+        <source>Tabela Wypo�yczenia od Innych Os�b</source>
+        <oldsource>Tabela Wypo¿yczenia od Innych Osób</oldsource>
+        <translation type="unfinished">Table of other persons borrowings</translation>
     </message>
     <message>
         <location filename="eksportuj.cpp" line="405"/>
@@ -975,12 +944,12 @@
 </context>
 <context>
     <name>ImpBFNETWiz</name>
-    <message utf8="true">
+    <message>
         <location filename="ImpBFNETWiz.ui" line="14"/>
         <source>Biblioteka Filmów - Kreator importu z BF NET</source>
         <translation>Mk Film DB - Import from MK Film DB NET Wizard</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="ImpBFNETWiz.ui" line="26"/>
         <source>Podaj ścieżkę do pliku csv pochodzacego z Biblioteki Filmów NET</source>
         <translation>Path to csv file from Mk Film DB NET</translation>
@@ -990,7 +959,7 @@
         <source>...</source>
         <translation>...</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="ImpBFNETWiz.ui" line="68"/>
         <source>Wybierz co zaimportować</source>
         <translation>Select which data to import</translation>
@@ -1000,12 +969,12 @@
         <source>Tabela Obsada</source>
         <translation>Table Cast</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="ImpBFNETWiz.ui" line="93"/>
         <source>Tabele Wypozyczeń</source>
         <translation>Table of borrowings</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="ImpBFNETWiz.ui" line="106"/>
         <source>Tabela Lokalizacje zdjęciowe</source>
         <translation>Table Filmed Locations</translation>
@@ -1043,12 +1012,12 @@
 </context>
 <context>
     <name>IntWiz</name>
-    <message utf8="true">
+    <message>
         <location filename="IntWiz.ui" line="14"/>
         <source>Biblioteka Filmów - Kreator Pobierania Informacji o filmach z Internetu</source>
         <translation>MK Film DB - Download data about movies download Wizard</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="IntWiz.ui" line="30"/>
         <source>Źródło danych</source>
         <translation>Data source</translation>
@@ -1063,7 +1032,7 @@
         <source>filmweb.pl</source>
         <translation></translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="IntWiz.ui" line="63"/>
         <location filename="IntWiz.ui" line="209"/>
         <source>Tytuł</source>
@@ -1084,12 +1053,12 @@
         <source>Obsada</source>
         <translation>Cast</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="IntWiz.ui" line="127"/>
         <source>Okładka</source>
         <translation>Cover</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="IntWiz.ui" line="140"/>
         <source>Pytać przed nadpisaniem danych ?</source>
         <translation>Ask before overwrite ?</translation>
@@ -1119,7 +1088,7 @@
         <source>Kraj produkcji</source>
         <translation>Country of origin</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="IntWiz.ui" line="224"/>
         <source>Reżyser</source>
         <translation>Director</translation>
@@ -1137,17 +1106,17 @@
 </context>
 <context>
     <name>MainWindow</name>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="14"/>
         <source>Biblioteka Filmów</source>
         <translation>MK Film DB</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="31"/>
         <source>Załaduj</source>
         <translation>Load</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="44"/>
         <location filename="mainwindow.ui" line="244"/>
         <location filename="mainwindow.ui" line="454"/>
@@ -1160,12 +1129,12 @@
         <source>Usuń</source>
         <translation>Delete</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="57"/>
         <source>Tytuł</source>
         <translation>Title</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="70"/>
         <source>Tytuł oryginału</source>
         <translation>Orig. title</translation>
@@ -1180,7 +1149,7 @@
         <source>Ocena</source>
         <translation>Score</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="142"/>
         <source>Zasoby poświęcone tytułowi</source>
         <translation>Reviews</translation>
@@ -1194,7 +1163,7 @@
         <source>Nazwa</source>
         <translation>Name</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="179"/>
         <source>Tytuł tekstu</source>
         <translation>Text Title</translation>
@@ -1264,12 +1233,12 @@
         <source>Zapisz</source>
         <translation>Save</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="257"/>
         <source>Ocena własna</source>
         <translation>My Score</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="269"/>
         <source>Ściezka dźwiękowa</source>
         <translation>Music</translation>
@@ -1280,22 +1249,22 @@
         <source>Obsada</source>
         <translation>Cast</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="295"/>
         <source>Całość</source>
         <translation>Summarised Score</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="338"/>
         <source>Zdjęcia</source>
         <translation>Photography</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="351"/>
         <source>Wartość artystyczna</source>
         <translation>Artistic Value</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="412"/>
         <source>Imię i Nazwisko</source>
         <translation>Name &amp; Lastname</translation>
@@ -1355,12 +1324,12 @@
         <source>Dane o egzemplarzu</source>
         <translation>Data about copy</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="724"/>
         <source>Właściciel</source>
         <translation>Owner</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="736"/>
         <source>Imię</source>
         <translation>Name</translation>
@@ -1385,7 +1354,7 @@
         <source>Cena</source>
         <translation>Price</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="980"/>
         <source>Wartośc aktualna</source>
         <translation>Actual Value</translation>
@@ -1410,7 +1379,7 @@
         <source>Nr katalogowy</source>
         <translation>Cat. No</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1095"/>
         <source>Rodzaj nośnika</source>
         <translation>Media</translation>
@@ -1440,17 +1409,17 @@
         <source>Data premiery</source>
         <translation>Premiere</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1215"/>
         <source>Format wyświetlania</source>
         <translation>Aspect Ratio</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1238"/>
         <source>Język lektora</source>
         <translation>Lector Lang.</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1261"/>
         <source>Język napisów</source>
         <translation>Subtitles Lang.</translation>
@@ -1499,7 +1468,7 @@
         <source>Kraj</source>
         <translation>Country</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1579"/>
         <source>Miejscowość</source>
         <translation>City</translation>
@@ -1519,7 +1488,7 @@
         <source>Data</source>
         <translation>Date</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1618"/>
         <source>Lokalizacje zdjęciowe</source>
         <translation>Places Filmed</translation>
@@ -1535,7 +1504,7 @@
         <source>Osoba</source>
         <translation>Person</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1696"/>
         <location filename="mainwindow.ui" line="1798"/>
         <source>Data wypożyczenia</source>
@@ -1547,7 +1516,7 @@
         <source>Data oddania</source>
         <translation>Date returned</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1706"/>
         <location filename="mainwindow.ui" line="1808"/>
         <source>Stan przed wypożyczeniem</source>
@@ -1559,12 +1528,12 @@
         <source>Stan po oddaniu</source>
         <translation>Date after return</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1735"/>
         <source>Wypożyczenia innym osobom</source>
         <translation>Borrows to other persons</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="1863"/>
         <source>Wypożyczenia od innych osób</source>
         <translation>Borrows from other persons</translation>
@@ -1609,7 +1578,7 @@
         <source>Akcja</source>
         <translation>Action</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="2195"/>
         <source>Kryminał</source>
         <translation>Criminal</translation>
@@ -1644,7 +1613,7 @@
         <source>Paradokument</source>
         <translation>Paradocumental</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="2230"/>
         <source>Reportaż</source>
         <translation>Reportage</translation>
@@ -1664,7 +1633,7 @@
         <source>Bajka</source>
         <translation>Fairy Tale</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="2250"/>
         <source>Kreskówka</source>
         <translation>Animated</translation>
@@ -1695,7 +1664,7 @@
         <source>Pomoc</source>
         <translation>Help</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="2313"/>
         <source>Otwórz / Utwórz baze danych</source>
         <translation>Open / Create database</translation>
@@ -1720,7 +1689,7 @@
         <source>Drukuj</source>
         <translation>Print</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="2343"/>
         <source>Sprawdź aktualizacje</source>
         <translation>Check for updates</translation>
@@ -1730,7 +1699,7 @@
         <source>O programie</source>
         <translation>About</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="mainwindow.ui" line="2353"/>
         <source>CSV - Biblioteka Filmów NET</source>
         <translation>CSV - MK Film DB NET</translation>
@@ -1738,7 +1707,7 @@
 </context>
 <context>
     <name>OProg</name>
-    <message utf8="true">
+    <message>
         <location filename="oprog.ui" line="14"/>
         <source>Biblioteka Filmów - O Programie</source>
         <translation>MK Film DB - About</translation>
@@ -1748,12 +1717,12 @@
         <source>OK</source>
         <translation>OK</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="oprog.ui" line="50"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; color:#ff5500;&quot;&gt;Biblioteka Filmów&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>MK Film DB</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="oprog.ui" line="63"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright 2005 - 2014 Marcin Kałat&lt;/p&gt;&lt;p&gt;Strona autora programu : http://mkalat.pl&lt;/p&gt;&lt;p&gt;This program uses Qt 4.8.6 library &lt;/p&gt;&lt;p&gt;licensed under terms of GNU LGPL v. 2.1&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>Copyright 2005 - 2014 Marcin Kalat Author website http://mkalat.pl/free-en/ This program uses Qt 4.8.6 Library licensed under terms of GNU LGPL 2.1 License</translation>
@@ -1761,7 +1730,7 @@
 </context>
 <context>
     <name>Wyszukaj</name>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="14"/>
         <source>Biblioteka Filmów - Wyszukaj</source>
         <translation>MK Film DB - Search</translation>
@@ -1781,13 +1750,13 @@
         <source>Pole</source>
         <translation>Field</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="86"/>
         <location filename="wyszukaj.ui" line="351"/>
         <source>Tytuł</source>
         <translation>Title</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="91"/>
         <source>Oryginalny tytuł</source>
         <translation>Orig Tilte</translation>
@@ -1798,57 +1767,57 @@
         <source>Gatunek</source>
         <translation>Genre</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="101"/>
         <source>Własna ocena filmu - ścieżka dźwiękowa</source>
         <translation>My Score - Music</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="106"/>
         <source>Własna ocena filmu - zdjęcia</source>
         <translation>My Score - Photography</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="111"/>
         <source>Własna ocena filmu - obsada</source>
         <translation>My Score - Cast</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="116"/>
         <source>Własna ocena filmu - wartość artystyczna</source>
         <translation>My Score - Artistic Value</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="121"/>
         <source>Własna ocena filmu - całość</source>
         <translation>My Score - Summarised score</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="126"/>
         <source>Obsada - imię i nazwisko reżysera</source>
         <translation>Cast - Name and lastname of director</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="131"/>
         <source>Obsada - narodowość reżysera</source>
         <translation>Cast - directors nationality</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="136"/>
         <source>Obsada - operator imię i nazwisko</source>
         <translation>Cast - photographer nama and lastname</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="141"/>
         <source>Obsada - opreator narodowość</source>
         <translation>Cast - photographer nationality</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="146"/>
         <source>Obsada - muzyka imię i nazwisko</source>
         <translation>Cast - Music name and lastname</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="151"/>
         <source>Obsada - muzyka narodowość</source>
         <translation>Cast - Music Nationality</translation>
@@ -1858,17 +1827,17 @@
         <source>Obsada - scenariusz imie i nazwisko</source>
         <translation>Cast - Screenplay - name and lastname</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="161"/>
         <source>Obsada - scenariusz narodowość</source>
         <translation>Cast - Screenplay - nationality</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="166"/>
         <source>Dane o Egzemplarzu - Właściciel - Imie i nazwisko</source>
         <translation>Data about Movie - Owner - Name &amp; Lastname</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="171"/>
         <source>Dane o Egzemplarzu - Właściciel - Adres</source>
         <translation>Data about Movie - Owner Adress</translation>
@@ -1918,7 +1887,7 @@
         <source>Dane o Egzemplarzu - Data skatalogowania</source>
         <translation>Data about Movie - Date Catalogued</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="221"/>
         <source>Dane o Egzemplarzu - Wartość aktualna</source>
         <translation>Data About Movie - Actual Value</translation>
@@ -1933,7 +1902,7 @@
         <source>Dane o Egzemplarzu - Nr katalogowy</source>
         <translation>Data about Movie - Cat. No</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="236"/>
         <source>Dane o Egzemplarzu - Rodzaj nośnika</source>
         <translation>Data about Movie - Media</translation>
@@ -1953,7 +1922,7 @@
         <source>Info o Filmie - Czas projekcji</source>
         <translation>Info about Movie - Time</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="256"/>
         <source>Info o Filmie - Format wyświetlania</source>
         <translation>Info About Movie - Aspect Ratio</translation>
@@ -1963,12 +1932,12 @@
         <source>Info o Filmie - System kodowania obrazu</source>
         <translation>Info about Movie - Video codec system</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="266"/>
         <source>Info o Filmie - Język lektora</source>
         <translation>Info about Movie - Lector Lang.</translation>
     </message>
-    <message utf8="true">
+    <message>
         <location filename="wyszukaj.ui" line="271"/>
         <source>Info o Filmie - Język napisów</source>
         <translation>Info about Movie - Subtitles lang.</translation>

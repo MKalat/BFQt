@@ -460,6 +460,9 @@ endlocal
   <ItemGroup>
     <ResourceCompile Include="BF.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\RYSUNKI\MK_LOGO.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
   <ProjectExtensions>

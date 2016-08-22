@@ -1,13 +1,13 @@
 /********************************************************************************
-** Form generated from reading UI file 'IntWizHp4980.ui'
+** Form generated from reading UI file 'IntWizHp6580.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef INTWIZHP4980_H
-#define INTWIZHP4980_H
+#ifndef INTWIZHP6580_H
+#define INTWIZHP6580_H
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -148,7 +148,7 @@ public:
         ___qtablewidgetitem3->setText(QApplication::translate("IntWiz", "Re\305\274yser", 0));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget_Results->horizontalHeaderItem(4);
         ___qtablewidgetitem4->setText(QApplication::translate("IntWiz", "Rodzaj", 0));
-        pushButton_GetData->setText(QApplication::translate("IntWiz", "Pobierz dane zanaczonej pozycji", 0));
+        pushButton_GetData->setText(QApplication::translate("IntWiz", "Pobierz dane zaznaczonej pozycji", 0));
     } // retranslateUi
 
 };
@@ -159,4 +159,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // INTWIZHP4980_H
+#endif // INTWIZHP6580_H

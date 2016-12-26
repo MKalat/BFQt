@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'IntWiz.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -148,7 +148,7 @@ public:
         ___qtablewidgetitem3->setText(QApplication::translate("IntWiz", "Re\305\274yser", 0));
         QTableWidgetItem *___qtablewidgetitem4 = tableWidget_Results->horizontalHeaderItem(4);
         ___qtablewidgetitem4->setText(QApplication::translate("IntWiz", "Rodzaj", 0));
-        pushButton_GetData->setText(QApplication::translate("IntWiz", "Pobierz dane zanaczonej pozycji", 0));
+        pushButton_GetData->setText(QApplication::translate("IntWiz", "Pobierz dane zaznaczonej pozycji", 0));
     } // retranslateUi
 
 };

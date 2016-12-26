@@ -1100,8 +1100,9 @@
     </message>
     <message>
         <location filename="IntWiz.ui" line="249"/>
-        <source>Pobierz dane zanaczonej pozycji</source>
-        <translation>Download data about selected movie </translation>
+        <source>Pobierz dane zaznaczonej pozycji</source>
+        <oldsource>Pobierz dane zanaczonej pozycji</oldsource>
+        <translation type="unfinished">Download data about selected movie </translation>
     </message>
 </context>
 <context>
@@ -1724,8 +1725,9 @@
     </message>
     <message>
         <location filename="oprog.ui" line="63"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright 2005 - 2014 Marcin Kałat&lt;/p&gt;&lt;p&gt;Strona autora programu : http://mkalat.pl&lt;/p&gt;&lt;p&gt;This program uses Qt 4.8.6 library &lt;/p&gt;&lt;p&gt;licensed under terms of GNU LGPL v. 2.1&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>Copyright 2005 - 2014 Marcin Kalat Author website http://mkalat.pl/free-en/ This program uses Qt 4.8.6 Library licensed under terms of GNU LGPL 2.1 License</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright 2005 - 2017 Marcin Kałat&lt;/p&gt;&lt;p&gt;Strona autora programu : http://mkalat.pl&lt;/p&gt;&lt;p&gt;This program uses Qt 5 library &lt;/p&gt;&lt;p&gt;licensed under terms of GNU LGPL v. 2.1&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <oldsource>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copyright 2005 - 2014 Marcin Kałat&lt;/p&gt;&lt;p&gt;Strona autora programu : http://mkalat.pl&lt;/p&gt;&lt;p&gt;This program uses Qt 4.8.6 library &lt;/p&gt;&lt;p&gt;licensed under terms of GNU LGPL v. 2.1&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
+        <translation type="unfinished">Copyright 2005 - 2014 Marcin Kalat Author website http://mkalat.pl/free-en/ This program uses Qt 4.8.6 Library licensed under terms of GNU LGPL 2.1 License</translation>
     </message>
 </context>
 <context>

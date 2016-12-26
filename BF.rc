@@ -70,7 +70,7 @@ BEGIN
             VALUE "FileDescription", "Biblioteka Filmów"
             VALUE "FileVersion", "1,0,7,50"
             VALUE "InternalName", "BF"
-            VALUE "LegalCopyright", "Copyright (C) Marcin Ka³at  2005 - 2016"
+            VALUE "LegalCopyright", "Copyright (C) Marcin Ka³at  2005 - 2017"
             VALUE "OriginalFilename", "BF.exe"
             VALUE "ProductName", "Biblioteka Filmów"
             VALUE "ProductVersion", "1,0,7,50"
@@ -91,6 +91,7 @@ END
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
 IDI_ICON1               ICON                    "H:\\RYSUNKI\\MK_LOGO.ico"
+
 #endif    // Polish (Poland) resources
 /////////////////////////////////////////////////////////////////////////////
 

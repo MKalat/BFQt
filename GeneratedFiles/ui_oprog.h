@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'oprog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -60,7 +60,7 @@ public:
         OProg->setWindowTitle(QApplication::translate("OProg", "Biblioteka Film\303\263w - O Programie", 0));
         pushButton->setText(QApplication::translate("OProg", "OK", 0));
         label->setText(QApplication::translate("OProg", "<html><head/><body><p><span style=\" color:#ff5500;\">Biblioteka Film\303\263w</span></p></body></html>", 0));
-        label_2->setText(QApplication::translate("OProg", "<html><head/><body><p>Copyright 2005 - 2014 Marcin Ka\305\202at</p><p>Strona autora programu : http://mkalat.pl</p><p>This program uses Qt 4.8.6 library </p><p>licensed under terms of GNU LGPL v. 2.1</p><p><br/></p></body></html>", 0));
+        label_2->setText(QApplication::translate("OProg", "<html><head/><body><p>Copyright 2005 - 2017 Marcin Ka\305\202at</p><p>Strona autora programu : http://mkalat.pl</p><p>This program uses Qt 5 library </p><p>licensed under terms of GNU LGPL v. 2.1</p><p><br/></p></body></html>", 0));
     } // retranslateUi
 
 };
